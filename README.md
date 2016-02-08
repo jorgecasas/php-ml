@@ -6,7 +6,9 @@ Fresh approach to machine learning in PHP. Note that at the moment PHP is not th
 
 ### Classification
 
-*  **Naive Bayes** - a set of supervised learning algorithms based on applying Bayes’ theorem with the “naive” assumption of independence between every pair of features
+Identifying to which category an object belongs to.
+
+*  **Naive Bayes** - algorithm based on applying Bayes’ theorem with the “naive” assumption of independence between every pair of features
 
 ## Installation
 
