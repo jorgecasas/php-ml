@@ -1,0 +1,15 @@
+{
+    "name": "php-ai/php-ml",
+    "description": "PHP Machine learning library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Arkadiusz Kondas",
+            "email": "arkadiusz.kondas@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^5.2"
+    }
+}
