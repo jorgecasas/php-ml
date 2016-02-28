@@ -2,7 +2,7 @@
 
 namespace Phpml\Classifier;
 
-class NaiveBayes implements Classifier
+abstract class NaiveBayes implements Classifier
 {
 
     /**
