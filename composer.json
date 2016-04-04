@@ -11,6 +11,11 @@
             "email": "arkadiusz.kondas@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
     "config": {
         "bin-dir": "bin"
     },

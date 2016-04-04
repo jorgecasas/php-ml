@@ -16,11 +16,11 @@ class Distance
      *
      * @throws InvalidArgumentException
      */
-    public static function euclidean(array $a, array $b): float 
+    public static function euclidean(array $a, array $b): float
     {
         if(count($a) != count($b))
         {
-            throw InvalidArgumentException::parametersSizeNotMatch();
+            throw InvalidArgumentException::sizeNotMatch();
         }
 
         $distance = 0;
