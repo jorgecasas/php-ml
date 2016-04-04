@@ -1,12 +1,12 @@
 <?php
-declare(strict_types=1);
+
+declare (strict_types = 1);
 
 namespace Phpml\Classifier;
 
 class KNearestNeighbors implements Classifier
 {
     /**
-     *
      * @var int
      */
     private $k;
@@ -31,7 +31,6 @@ class KNearestNeighbors implements Classifier
         $this->labels = [];
     }
 
-
     /**
      * @param array $features
      * @param array $labels
@@ -44,11 +43,10 @@ class KNearestNeighbors implements Classifier
 
     /**
      * @param mixed $feature
+     *
      * @return mixed
      */
     public function predict($feature)
     {
-
     }
-
 }

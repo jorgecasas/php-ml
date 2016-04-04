@@ -1,11 +1,11 @@
 <?php
-declare(strict_types=1);
+
+declare (strict_types = 1);
 
 namespace Phpml\Classifier;
 
 interface Classifier
 {
-
     /**
      * @param array $features
      * @param array $labels
@@ -14,8 +14,8 @@ interface Classifier
 
     /**
      * @param mixed $feature
+     *
      * @return mixed
      */
     public function predict($feature);
-
 }

@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare (strict_types = 1);
 
 namespace tests\Phpml\Metric;
 
@@ -47,5 +48,4 @@ class DistanceTest extends \PHPUnit_Framework_TestCase
 
         \PHPUnit_Framework_Assert::assertEquals($expectedDistance, $actualDistance);
     }
-
 }

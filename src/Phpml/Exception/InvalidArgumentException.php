@@ -1,11 +1,11 @@
 <?php
-declare(strict_types = 1);
+
+declare (strict_types = 1);
 
 namespace Phpml\Exception;
 
 class InvalidArgumentException extends \Exception
 {
-
     /**
      * @return InvalidArgumentException
      */
@@ -13,5 +13,4 @@ class InvalidArgumentException extends \Exception
     {
         return new self('Size of given arguments not match');
     }
-
 }
