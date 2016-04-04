@@ -1,0 +1,36 @@
+<?php
+declare(strict_types = 1);
+
+namespace Phpml\Metric;
+
+use Phpml\Exception\InvalidArgumentException;
+
+class Distance
+{
+
+    /**
+     * @param array $a
+     * @param array $b
+     *
+     * @return float
+     *
+     * @throws InvalidArgumentException
+     */
+    public static function euclidean(array $a, array $b): float 
+    {
+        if(count($a) != count($b))
+        {
+            throw InvalidArgumentException::parametersSizeNotMatch();
+        }
+
+        $distance = 0;
+
+        for($i=0; $i<count($a); $i++)
+        {
+            $distance += pow($a[$i] - $b[$i], 2);
+        }
+
+        return sqrt($distance);
+    }
+
+}
