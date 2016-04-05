@@ -7,19 +7,19 @@ namespace Phpml\Classifier;
 class NaiveBayes implements Classifier
 {
     /**
-     * @param array $features
+     * @param array $samples
      * @param array $labels
      */
-    public function train(array $features, array $labels)
+    public function train(array $samples, array $labels)
     {
     }
 
     /**
-     * @param mixed $feature
+     * @param array $sample
      *
      * @return mixed
      */
-    public function predict($feature)
+    public function predict(array $sample)
     {
     }
 }
