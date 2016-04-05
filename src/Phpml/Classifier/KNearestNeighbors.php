@@ -52,14 +52,16 @@ class KNearestNeighbors implements Classifier
     {
         $distances = $this->kNeighborsDistances($sample);
 
-        $predictions = [];
+        $predictions = array_combine(array_values($this->labels), array_fill(0, count($this->labels), 0));
+
         foreach ($distances as $index => $distance) {
-            $predictions[$this->labels[$index]]++;
+            ++$predictions[$this->labels[$index]];
         }
 
         arsort($predictions);
+        reset($predictions);
 
-        return array_shift(array_keys($predictions));
+        return key($predictions);
     }
 
     /**
@@ -72,14 +74,13 @@ class KNearestNeighbors implements Classifier
     private function kNeighborsDistances(array $sample): array
     {
         $distances = [];
-        foreach($this->samples as $index => $neighbor) {
+
+        foreach ($this->samples as $index => $neighbor) {
             $distances[$index] = Distance::euclidean($sample, $neighbor);
-            if(count($distances)==$this->k) {
-                break;
-            }
         }
+
         asort($distances);
 
-        return $distances;
+        return array_slice($distances, 0, $this->k, true);
     }
 }

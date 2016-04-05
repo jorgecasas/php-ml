@@ -27,7 +27,7 @@ class DistanceTest extends \PHPUnit_Framework_TestCase
         $expectedDistance = 2;
         $actualDistance = Distance::euclidean($a, $b);
 
-        \PHPUnit_Framework_Assert::assertEquals($expectedDistance, $actualDistance);
+        $this->assertEquals($expectedDistance, $actualDistance);
     }
 
     public function testCalculateEuclideanDistanceForTwoAndMoreDimension()
@@ -38,7 +38,7 @@ class DistanceTest extends \PHPUnit_Framework_TestCase
         $expectedDistance = 2.2360679774998;
         $actualDistance = Distance::euclidean($a, $b);
 
-        \PHPUnit_Framework_Assert::assertEquals($expectedDistance, $actualDistance);
+        $this->assertEquals($expectedDistance, $actualDistance);
 
         $a = [6, 10, 3];
         $b = [2, 5, 5];
@@ -46,6 +46,6 @@ class DistanceTest extends \PHPUnit_Framework_TestCase
         $expectedDistance = 6.7082039324993694;
         $actualDistance = Distance::euclidean($a, $b);
 
-        \PHPUnit_Framework_Assert::assertEquals($expectedDistance, $actualDistance);
+        $this->assertEquals($expectedDistance, $actualDistance);
     }
 }
