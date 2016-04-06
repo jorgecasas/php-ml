@@ -18,5 +18,4 @@ class DatasetException extends \Exception
     {
         return new self(sprintf('Dataset file %s can\'t be open.', $filepath));
     }
-
 }

@@ -13,4 +13,14 @@ class InvalidArgumentException extends \Exception
     {
         return new self('Size of given arguments not match');
     }
+
+    /**
+     * @param $name
+     *
+     * @return InvalidArgumentException
+     */
+    public static function percentNotInRange($name)
+    {
+        return new self(sprintf('%s must be between 0.0 and 1.0', $name));
+    }
 }

@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare (strict_types = 1);
 
 namespace tests\Phpml\Dataset;
 
@@ -7,7 +8,6 @@ use Phpml\Dataset\Iris;
 
 class IrisTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testLoadingIrisDataset()
     {
         $iris = new Iris();
@@ -19,5 +19,4 @@ class IrisTest extends \PHPUnit_Framework_TestCase
         // one sample features count
         $this->assertEquals(4, count($iris->getSamples()[0]));
     }
-    
 }
