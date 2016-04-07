@@ -1,7 +1,7 @@
 {
     "name": "php-ai/php-ml",
     "type": "library",
-    "description": "PHP Machine learning library",
+    "description": "PHP Machine Learning library",
     "license": "MIT",
     "keywords": ["machine learning","pattern recognition","computational learning theory","artificial intelligence"],
     "homepage": "https://github.com/php-ai/php-ml",
