@@ -3,6 +3,8 @@ declare(strict_types = 1);
 
 namespace Phpml\Dataset;
 
+use Phpml\Exception\InvalidArgumentException;
+
 class ArrayDataset implements Dataset
 {
 
@@ -19,9 +21,15 @@ class ArrayDataset implements Dataset
     /**
      * @param array $samples
      * @param array $labels
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct(array $samples, array $labels)
     {
+        if (count($samples) != count($labels)) {
+            throw InvalidArgumentException::sizeNotMatch();
+        }
+
         $this->samples = $samples;
         $this->labels = $labels;
     }
