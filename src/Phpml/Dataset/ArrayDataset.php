@@ -11,12 +11,12 @@ class ArrayDataset implements Dataset
     /**
      * @var array
      */
-    private $samples = [];
+    protected $samples = [];
 
     /**
      * @var array
      */
-    private $labels = [];
+    protected $labels = [];
 
     /**
      * @param array $samples

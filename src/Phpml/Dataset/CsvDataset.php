@@ -6,7 +6,7 @@ namespace Phpml\Dataset;
 
 use Phpml\Exception\DatasetException;
 
-abstract class CsvDataset implements Dataset
+class CsvDataset extends ArrayDataset
 {
     /**
      * @var string
@@ -14,19 +14,12 @@ abstract class CsvDataset implements Dataset
     protected $filepath;
 
     /**
-     * @var array
+     * @param string|null $filepath
+     *
+     * @throws DatasetException
      */
-    private $samples = [];
-
-    /**
-     * @var array
-     */
-    private $labels = [];
-
-    public function __construct()
+    public function __construct(string $filepath = null)
     {
-        $filepath = dirname(__FILE__).'/../../../data/'.$this->filepath;
-
         if (!file_exists($filepath)) {
             throw DatasetException::missingFile(basename($filepath));
         }
@@ -45,21 +38,5 @@ abstract class CsvDataset implements Dataset
         } else {
             throw DatasetException::cantOpenFile(basename($filepath));
         }
-    }
-
-    /**
-     * @return array
-     */
-    public function getSamples(): array
-    {
-        return $this->samples;
-    }
-
-    /**
-     * @return array
-     */
-    public function getLabels(): array
-    {
-        return $this->labels;
     }
 }
