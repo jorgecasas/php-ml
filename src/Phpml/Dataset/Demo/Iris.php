@@ -2,7 +2,9 @@
 
 declare (strict_types = 1);
 
-namespace Phpml\Dataset;
+namespace Phpml\Dataset\Demo;
+
+use Phpml\Dataset\CsvDataset;
 
 /**
  * Classes: 3

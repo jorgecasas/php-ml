@@ -21,7 +21,7 @@ abstract class CsvDataset implements Dataset
     /**
      * @var array
      */
-    private $lables = [];
+    private $labels = [];
 
     public function __construct()
     {
@@ -39,7 +39,7 @@ abstract class CsvDataset implements Dataset
                     continue;
                 }
                 $this->samples[] = array_slice($data, 0, 4);
-                $this->lables[] = $data[4];
+                $this->labels[] = $data[4];
             }
             fclose($handle);
         } else {
@@ -60,6 +60,6 @@ abstract class CsvDataset implements Dataset
      */
     public function getLabels(): array
     {
-        return $this->lables;
+        return $this->labels;
     }
 }

@@ -29,13 +29,34 @@ class RandomSplit
      */
     private $testLabels = [];
 
-    public function __construct(Dataset $dataset, float $testSize = 0.3)
+    /**
+     * @param Dataset $dataset
+     * @param float $testSize
+     * @param int $seed
+     *
+     * @throws InvalidArgumentException
+     */
+    public function __construct(Dataset $dataset, float $testSize = 0.3, int $seed = null)
     {
-        if (0 > $testSize || 1 < $testSize) {
+        if (0 >= $testSize || 1 <= $testSize) {
             throw InvalidArgumentException::percentNotInRange('testSize');
         }
+        $this->seedGenerator($seed);
 
-        // TODO: implement this !
+        $samples = $dataset->getSamples();
+        $labels = $dataset->getLabels();
+        $datasetSize = count($samples);
+
+        for($i=$datasetSize; $i>0; $i--) {
+            $key = mt_rand(0, $datasetSize-1);
+            $setName = count($this->testSamples) / $datasetSize >= $testSize ? 'train' : 'test';
+
+            $this->{$setName.'Samples'}[] = $samples[$key];
+            $this->{$setName.'Labels'}[] = $labels[$key];
+
+            $samples = array_values($samples);
+            $labels = array_values($labels);
+        }
     }
 
     /**
@@ -68,5 +89,17 @@ class RandomSplit
     public function getTestLabels()
     {
         return $this->testLabels;
+    }
+
+    /**
+     * @param int|null $seed
+     */
+    private function seedGenerator(int $seed = null)
+    {
+        if (null === $seed) {
+            mt_srand();
+        } else {
+            mt_srand($seed);
+        }
     }
 }

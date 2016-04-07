@@ -2,9 +2,9 @@
 
 declare (strict_types = 1);
 
-namespace tests\Phpml\Dataset;
+namespace tests\Phpml\Dataset\Demo;
 
-use Phpml\Dataset\Iris;
+use Phpml\Dataset\Demo\Iris;
 
 class IrisTest extends \PHPUnit_Framework_TestCase
 {
