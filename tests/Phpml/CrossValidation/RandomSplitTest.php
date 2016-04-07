@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare (strict_types = 1);
 
 namespace tests\Phpml\CrossValidation;
 
@@ -8,7 +9,6 @@ use Phpml\Dataset\ArrayDataset;
 
 class RandomSplitTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
@@ -91,5 +91,4 @@ class RandomSplitTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($randomSplit->getTrainSamples()[0][0], $randomSplit->getTrainLabels()[0]);
         $this->assertEquals($randomSplit->getTrainSamples()[1][0], $randomSplit->getTrainLabels()[1]);
     }
-    
 }

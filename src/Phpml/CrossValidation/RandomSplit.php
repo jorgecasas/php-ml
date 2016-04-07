@@ -31,8 +31,8 @@ class RandomSplit
 
     /**
      * @param Dataset $dataset
-     * @param float $testSize
-     * @param int $seed
+     * @param float   $testSize
+     * @param int     $seed
      *
      * @throws InvalidArgumentException
      */
@@ -47,8 +47,8 @@ class RandomSplit
         $labels = $dataset->getLabels();
         $datasetSize = count($samples);
 
-        for($i=$datasetSize; $i>0; $i--) {
-            $key = mt_rand(0, $datasetSize-1);
+        for ($i = $datasetSize; $i > 0; --$i) {
+            $key = mt_rand(0, $datasetSize - 1);
             $setName = count($this->testSamples) / $datasetSize >= $testSize ? 'train' : 'test';
 
             $this->{$setName.'Samples'}[] = $samples[$key];

@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare (strict_types = 1);
 
 namespace Phpml\Dataset;
 
@@ -7,7 +8,6 @@ use Phpml\Exception\InvalidArgumentException;
 
 class ArrayDataset implements Dataset
 {
-
     /**
      * @var array
      */
@@ -34,7 +34,6 @@ class ArrayDataset implements Dataset
         $this->labels = $labels;
     }
 
-
     /**
      * @return array
      */
@@ -50,5 +49,4 @@ class ArrayDataset implements Dataset
     {
         return $this->labels;
     }
-    
 }

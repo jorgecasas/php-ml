@@ -14,12 +14,9 @@ use Phpml\Dataset\CsvDataset;
  */
 class Iris extends CsvDataset
 {
-    /**
-     * @param string|null $filepath
-     */
-    public function __construct(string $filepath = null)
+    public function __construct()
     {
         $filepath = dirname(__FILE__).'/../../../../data/iris.csv';
-        parent::__construct($filepath);
+        parent::__construct($filepath, 4, true);
     }
 }
