@@ -12,8 +12,8 @@
         }
     ],
     "autoload": {
-        "psr-4": {
-            "": "src/"
+        "psr-0": {
+            "Phpml": "src/"
         }
     },
     "config": {
