@@ -1,18 +1,23 @@
 # PHP Machine learning library
 
+[![Build Status](https://scrutinizer-ci.com/g/php-ai/php-ml/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/php-ai/php-ml/build-status/develop)
+[![Total Downloads](https://poser.pugx.org/php-ai/php-ml/downloads.svg)](https://packagist.org/packages/php-ai/php-ml)
+[![License](https://poser.pugx.org/php-ai/php-ml/license.svg)](https://packagist.org/packages/php-ai/php-ml)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/php-ai/php-ml/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/php-ai/php-ml/?branch=develop)
+
 Fresh approach to machine learning in PHP. Note that at the moment PHP is not the best choice for machine learning but maybe this will change ...
 
-## Available Algorithms
+## Documentation
 
-### Classification
-
-Identifying to which category an object belongs to.
-
-*  **Naive Bayes** - algorithm based on applying Bayes’ theorem with the “naive” assumption of independence between every pair of features
+The documentation will be available on `Read the Docs` soon ...
 
 ## Installation
 
-This repo will be published do packagist.org soon...
+Currently this library is in the process of developing, but You can install it with Composer:
+
+```
+composer require php-ai/php-ml
+```
 
 ## To-Do
 
@@ -21,7 +26,7 @@ This repo will be published do packagist.org soon...
 
 ## Testing
 
-After installation, you can launch the test suite in project root directory (you will need to install dev requiremnts with composer)
+After installation, you can launch the test suite in project root directory (you will need to install dev requirements with composer)
 
 ```
 bin/phpunit
@@ -33,3 +38,4 @@ PHP-ML is released under the MIT Licence. See the bundled LICENSE file for detai
 
 ## Author
 
+Arkadiusz Kondas (@ArkadiuszKondas)
