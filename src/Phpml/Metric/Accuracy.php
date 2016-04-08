@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare (strict_types = 1);
 
 namespace Phpml\Metric;
 
@@ -7,11 +8,10 @@ use Phpml\Exception\InvalidArgumentException;
 
 class Accuracy
 {
-
     /**
      * @param array $actualLabels
      * @param array $predictedLabels
-     * @param bool $normalize
+     * @param bool  $normalize
      *
      * @return float|int
      *
@@ -25,12 +25,12 @@ class Accuracy
 
         $score = 0;
         foreach ($actualLabels as $index => $label) {
-            if($label===$predictedLabels[$index]) {
-                $score++;
+            if ($label === $predictedLabels[$index]) {
+                ++$score;
             }
         }
 
-        if($normalize) {
+        if ($normalize) {
             $score = $score / count($actualLabels);
         }
 

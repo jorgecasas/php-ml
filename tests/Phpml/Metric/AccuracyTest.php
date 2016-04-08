@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare (strict_types = 1);
 
 namespace tests\Phpml\Metric;
 
@@ -7,7 +8,6 @@ use Phpml\Metric\Accuracy;
 
 class AccuracyTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
@@ -34,5 +34,4 @@ class AccuracyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(3, Accuracy::score($actualLabels, $predictedLabels, false));
     }
-
 }

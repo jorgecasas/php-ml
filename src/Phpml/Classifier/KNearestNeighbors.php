@@ -50,7 +50,7 @@ class KNearestNeighbors implements Classifier
      */
     public function predict(array $samples)
     {
-        if(!is_array($samples[0])) {
+        if (!is_array($samples[0])) {
             $predicted = $this->predictSample($samples);
         } else {
             $predicted = [];
