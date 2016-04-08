@@ -10,7 +10,7 @@ Fresh approach to machine learning in PHP. Note that at the moment PHP is not th
 
 ## Documentation
 
-To find out how to use PHP-ML follow [Documentation](php-ml.readthedocs.org).
+To find out how to use PHP-ML follow [Documentation](http://php-ml.readthedocs.org/).
 
 ## Installation
 
