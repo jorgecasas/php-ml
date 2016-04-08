@@ -32,10 +32,10 @@ class RandomSplitTest extends \PHPUnit_Framework_TestCase
             $labels = ['a', 'a', 'b', 'b']
         );
 
-        $randomSplit1 = new RandomSplit($dataset, 0.5);
+        $randomSplit = new RandomSplit($dataset, 0.5);
 
-        $this->assertEquals(2, count($randomSplit1->getTestSamples()));
-        $this->assertEquals(2, count($randomSplit1->getTrainSamples()));
+        $this->assertEquals(2, count($randomSplit->getTestSamples()));
+        $this->assertEquals(2, count($randomSplit->getTrainSamples()));
 
         $randomSplit2 = new RandomSplit($dataset, 0.25);
 
