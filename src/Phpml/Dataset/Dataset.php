@@ -1,10 +1,18 @@
 <?php
 
-abstract class Dataset
+declare (strict_types = 1);
+
+namespace Phpml\Dataset;
+
+interface Dataset
 {
     /**
-     * @var string
+     * @return array
      */
-    protected $filepath;
+    public function getSamples(): array;
 
+    /**
+     * @return array
+     */
+    public function getLabels(): array;
 }

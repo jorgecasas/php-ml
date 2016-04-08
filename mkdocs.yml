@@ -1,0 +1,17 @@
+site_name: PHP Machine Learning (PHP-ML)
+pages:
+  - Home: index.md
+  - Machine Learning:
+    - Classification:
+      - KNearestNeighbors: machine-learning/classification/knearestneighbors.md
+    - Cross Validation:
+      - RandomSplit: machine-learning/cross-validation/randomsplit.md
+    - Datasets:
+      - Array Dataset: machine-learning/datasets/array-dataset.md
+      - CSV Dataset: machine-learning/datasets/csv-dataset.md
+      - Demo:
+        - Iris: machine-learning/datasets/demo/iris.md
+    - Metric:
+      - Accuracy: machine-learning/metric/accuracy.md
+      - Distance: machine-learning/metric/distance.md
+theme: readthedocs
