@@ -13,9 +13,9 @@ interface Classifier
     public function train(array $samples, array $labels);
 
     /**
-     * @param array $sample
+     * @param array $samples
      *
      * @return mixed
      */
-    public function predict(array $sample);
+    public function predict(array $samples);
 }

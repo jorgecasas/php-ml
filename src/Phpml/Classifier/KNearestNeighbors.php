@@ -44,11 +44,30 @@ class KNearestNeighbors implements Classifier
     }
 
     /**
+     * @param array $samples
+     *
+     * @return mixed
+     */
+    public function predict(array $samples)
+    {
+        if(!is_array($samples[0])) {
+            $predicted = $this->predictSample($samples);
+        } else {
+            $predicted = [];
+            foreach ($samples as $index => $sample) {
+                $predicted[$index] = $this->predictSample($sample);
+            }
+        }
+
+        return $predicted;
+    }
+
+    /**
      * @param array $sample
      *
      * @return mixed
      */
-    public function predict(array $sample)
+    private function predictSample(array $sample)
     {
         $distances = $this->kNeighborsDistances($sample);
 
