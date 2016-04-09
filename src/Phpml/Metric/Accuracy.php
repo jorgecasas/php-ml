@@ -25,7 +25,7 @@ class Accuracy
 
         $score = 0;
         foreach ($actualLabels as $index => $label) {
-            if ($label === $predictedLabels[$index]) {
+            if ($label == $predictedLabels[$index]) {
                 ++$score;
             }
         }
