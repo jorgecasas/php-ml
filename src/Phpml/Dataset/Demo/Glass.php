@@ -16,7 +16,7 @@ use Phpml\Dataset\CsvDataset;
  *      9 tableware
  *      29 headlamps
  * Samples total: 214
- * Features per sample: 9
+ * Features per sample: 9.
  */
 class Glass extends CsvDataset
 {
