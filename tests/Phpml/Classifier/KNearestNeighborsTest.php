@@ -6,6 +6,7 @@ namespace tests\Classifier;
 
 use Phpml\Classifier\KNearestNeighbors;
 use Phpml\CrossValidation\RandomSplit;
+use Phpml\Dataset\Demo\Glass;
 use Phpml\Dataset\Demo\Iris;
 use Phpml\Dataset\Demo\Wine;
 use Phpml\Metric\Accuracy;
@@ -66,6 +67,17 @@ class KNearestNeighborsTest extends \PHPUnit_Framework_TestCase
         $score = Accuracy::score($dataset->getTestLabels(), $predicted);
 
         $this->assertEquals(0.85185185185185186, $score);
+    }
+
+    public function testAccuracyOnGlassDataset()
+    {
+        $dataset = new RandomSplit(new Glass(), $testSize = 0.3, $seed = 456);
+        $classifier = new KNearestNeighbors(7);
+        $classifier->train($dataset->getTrainSamples(), $dataset->getTrainLabels());
+        $predicted = $classifier->predict($dataset->getTestSamples());
+        $score = Accuracy::score($dataset->getTestLabels(), $predicted);
+
+        $this->assertEquals(0.69230769230769229, $score);
     }
 
 }
