@@ -47,37 +47,4 @@ class KNearestNeighborsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($testLabels, $predicted);
     }
 
-    public function testAccuracyOnIrisDataset()
-    {
-        $dataset = new RandomSplit(new Iris(), $testSize = 0.5, $seed = 123);
-        $classifier = new KNearestNeighbors($k = 4);
-        $classifier->train($dataset->getTrainSamples(), $dataset->getTrainLabels());
-        $predicted = $classifier->predict($dataset->getTestSamples());
-        $score = Accuracy::score($dataset->getTestLabels(), $predicted);
-
-        $this->assertEquals(0.96, $score);
-    }
-
-    public function testAccuracyOnWineDataset()
-    {
-        $dataset = new RandomSplit(new Wine(), $testSize = 0.3, $seed = 321);
-        $classifier = new KNearestNeighbors(1);
-        $classifier->train($dataset->getTrainSamples(), $dataset->getTrainLabels());
-        $predicted = $classifier->predict($dataset->getTestSamples());
-        $score = Accuracy::score($dataset->getTestLabels(), $predicted);
-
-        $this->assertEquals(0.85185185185185186, $score);
-    }
-
-    public function testAccuracyOnGlassDataset()
-    {
-        $dataset = new RandomSplit(new Glass(), $testSize = 0.3, $seed = 456);
-        $classifier = new KNearestNeighbors(7);
-        $classifier->train($dataset->getTrainSamples(), $dataset->getTrainLabels());
-        $predicted = $classifier->predict($dataset->getTestSamples());
-        $score = Accuracy::score($dataset->getTestLabels(), $predicted);
-
-        $this->assertEquals(0.69230769230769229, $score);
-    }
-
 }
