@@ -1,6 +1,5 @@
 language: php
 php:
   - '7.0'
-  - hhvm
 before_script: composer install
-script: phpunit
+script: bin/phpunit
