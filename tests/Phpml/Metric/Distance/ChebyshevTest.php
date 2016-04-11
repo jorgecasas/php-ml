@@ -4,18 +4,18 @@ declare (strict_types = 1);
 
 namespace tests\Phpml\Metric;
 
-use Phpml\Metric\Distance\Euclidean;
+use Phpml\Metric\Distance\Chebyshev;
 
-class EuclideanTest extends \PHPUnit_Framework_TestCase
+class ChebyshevTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Euclidean
+     * @var Chebyshev
      */
     private $distanceMetric;
 
     public function setUp()
     {
-        $this->distanceMetric = new Euclidean();
+        $this->distanceMetric = new Chebyshev();
     }
 
     /**
@@ -45,7 +45,7 @@ class EuclideanTest extends \PHPUnit_Framework_TestCase
         $a = [4, 6];
         $b = [2, 5];
 
-        $expectedDistance = 2.2360679774998;
+        $expectedDistance = 2;
         $actualDistance = $this->distanceMetric->distance($a, $b);
 
         $this->assertEquals($expectedDistance, $actualDistance);
@@ -56,7 +56,7 @@ class EuclideanTest extends \PHPUnit_Framework_TestCase
         $a = [6, 10, 3];
         $b = [2, 5, 5];
 
-        $expectedDistance = 6.7082039324993694;
+        $expectedDistance = 5;
         $actualDistance = $this->distanceMetric->distance($a, $b);
 
         $this->assertEquals($expectedDistance, $actualDistance);
