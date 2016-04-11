@@ -4,6 +4,7 @@ declare (strict_types = 1);
 
 namespace Phpml\Classifier;
 
+use Phpml\Metric\Distance;
 use Phpml\Metric\Distance\Euclidean;
 
 class KNearestNeighbors implements Classifier
