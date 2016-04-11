@@ -6,6 +6,7 @@ namespace Phpml\Dataset;
 
 interface Dataset
 {
+    const SOME = 'z';
     /**
      * @return array
      */

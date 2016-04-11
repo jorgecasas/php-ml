@@ -4,19 +4,29 @@ declare (strict_types = 1);
 
 namespace tests\Phpml\Metric;
 
-use Phpml\Metric\Distance;
+use Phpml\Metric\Distance\Euclidean;
 
-class DistanceTest extends \PHPUnit_Framework_TestCase
+class EuclideanTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Euclidean
+     */
+    private $distanceMetric;
+
+    public function setUp()
+    {
+        $this->distanceMetric = new Euclidean();
+    }
+
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
-    public function testThrowExceptionOnInvalidArgumentsInEuclidean()
+    public function testThrowExceptionOnInvalidArguments()
     {
         $a = [0, 1, 2];
         $b = [0, 2];
 
-        Distance::euclidean($a, $b);
+        $this->distanceMetric->distance($a, $b);
     }
 
     public function testCalculateEuclideanDistanceForOneDimension()
@@ -25,7 +35,7 @@ class DistanceTest extends \PHPUnit_Framework_TestCase
         $b = [2];
 
         $expectedDistance = 2;
-        $actualDistance = Distance::euclidean($a, $b);
+        $actualDistance = $this->distanceMetric->distance($a, $b);
 
         $this->assertEquals($expectedDistance, $actualDistance);
     }
@@ -36,7 +46,7 @@ class DistanceTest extends \PHPUnit_Framework_TestCase
         $b = [2, 5];
 
         $expectedDistance = 2.2360679774998;
-        $actualDistance = Distance::euclidean($a, $b);
+        $actualDistance = $this->distanceMetric->distance($a, $b);
 
         $this->assertEquals($expectedDistance, $actualDistance);
 
@@ -44,7 +54,7 @@ class DistanceTest extends \PHPUnit_Framework_TestCase
         $b = [2, 5, 5];
 
         $expectedDistance = 6.7082039324993694;
-        $actualDistance = Distance::euclidean($a, $b);
+        $actualDistance = $this->distanceMetric->distance($a, $b);
 
         $this->assertEquals($expectedDistance, $actualDistance);
     }

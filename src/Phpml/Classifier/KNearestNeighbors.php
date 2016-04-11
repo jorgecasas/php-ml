@@ -4,7 +4,7 @@ declare (strict_types = 1);
 
 namespace Phpml\Classifier;
 
-use Phpml\Metric\Distance;
+use Phpml\Metric\Distance\Euclidean;
 
 class KNearestNeighbors implements Classifier
 {
@@ -12,6 +12,8 @@ class KNearestNeighbors implements Classifier
      * @var int
      */
     private $k;
+
+    private $distanceMetric;
 
     /**
      * @var array
@@ -24,13 +26,19 @@ class KNearestNeighbors implements Classifier
     private $labels;
 
     /**
-     * @param int $k
+     * @param int           $k
+     * @param Distance|null $distanceMetric (if null then Euclidean distance as default)
      */
-    public function __construct(int $k = 3)
+    public function __construct(int $k = 3, Distance $distanceMetric = null)
     {
+        if (null === $distanceMetric) {
+            $distanceMetric = new Euclidean();
+        }
+
         $this->k = $k;
         $this->samples = [];
         $this->labels = [];
+        $this->distanceMetric = $distanceMetric;
     }
 
     /**
@@ -95,7 +103,7 @@ class KNearestNeighbors implements Classifier
         $distances = [];
 
         foreach ($this->samples as $index => $neighbor) {
-            $distances[$index] = Distance::euclidean($sample, $neighbor);
+            $distances[$index] = $this->distanceMetric->distance($sample, $neighbor);
         }
 
         asort($distances);
