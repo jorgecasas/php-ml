@@ -5,6 +5,7 @@ declare (strict_types = 1);
 namespace tests\Classifier;
 
 use Phpml\Classifier\KNearestNeighbors;
+use Phpml\Metric\Distance\Chebyshev;
 
 class KNearestNeighborsTest extends \PHPUnit_Framework_TestCase
 {
@@ -41,4 +42,6 @@ class KNearestNeighborsTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($testLabels, $predicted);
     }
+
+    
 }
