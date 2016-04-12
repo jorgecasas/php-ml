@@ -22,7 +22,6 @@ class Minkowski implements Distance
         $this->lambda = $lambda;
     }
 
-
     /**
      * @param array $a
      * @param array $b
