@@ -13,5 +13,9 @@ pages:
         - Iris: machine-learning/datasets/demo/iris.md
     - Metric:
       - Accuracy: machine-learning/metric/accuracy.md
-      - Distance: machine-learning/metric/distance.md
+      - Distance:
+        - Euclidean: machine-learning/metric/distance/euclidean.md
+        - Chebyshev: machine-learning/metric/distance/chebyshev.md
+        - Manhattan: machine-learning/metric/distance/manhattan.md
+        - Minkowski: machine-learning/metric/distance/minkowski.md
 theme: readthedocs
