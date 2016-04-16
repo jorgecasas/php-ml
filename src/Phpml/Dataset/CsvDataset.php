@@ -29,16 +29,15 @@ class CsvDataset extends ArrayDataset
         if(false === $handle = fopen($filepath, 'r')) {
             throw DatasetException::cantOpenFile(basename($filepath));
         }
-        $row = 0;
+
+        if ($headingRow) {
+            fgets($handle);
+        }
+
         while (($data = fgetcsv($handle, 1000, ',')) !== false) {
-            ++$row;
-            if ($headingRow && $row == 1) {
-                continue;
-            }
             $this->samples[] = array_slice($data, 0, $features);
             $this->labels[] = $data[$features];
         }
         fclose($handle);
-
     }
 }
