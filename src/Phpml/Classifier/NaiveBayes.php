@@ -4,46 +4,12 @@ declare (strict_types = 1);
 
 namespace Phpml\Classifier;
 
+use Phpml\Classifier\Traits\Predictable;
+use Phpml\Classifier\Traits\Trainable;
+
 class NaiveBayes implements Classifier
 {
-    /**
-     * @var array
-     */
-    private $samples;
-
-    /**
-     * @var array
-     */
-    private $labels;
-
-    /**
-     * @param array $samples
-     * @param array $labels
-     */
-    public function train(array $samples, array $labels)
-    {
-        $this->samples = $samples;
-        $this->labels = $labels;
-    }
-
-    /**
-     * @param array $samples
-     *
-     * @return mixed
-     */
-    public function predict(array $samples)
-    {
-        if (!is_array($samples[0])) {
-            $predicted = $this->predictSample($samples);
-        } else {
-            $predicted = [];
-            foreach ($samples as $index => $sample) {
-                $predicted[$index] = $this->predictSample($sample);
-            }
-        }
-
-        return $predicted;
-    }
+    use Trainable, Predictable;
 
     /**
      * @param array $sample
@@ -67,4 +33,5 @@ class NaiveBayes implements Classifier
 
         return key($predictions);
     }
+    
 }
