@@ -4,6 +4,7 @@ pages:
   - Machine Learning:
     - Classification:
       - KNearestNeighbors: machine-learning/classification/knearestneighbors.md
+      - NaiveBayes: machine-learning/classification/naivebayes.md
     - Cross Validation:
       - RandomSplit: machine-learning/cross-validation/randomsplit.md
     - Datasets:

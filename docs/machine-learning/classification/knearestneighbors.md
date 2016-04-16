@@ -5,9 +5,11 @@ Classifier implementing the k-nearest neighbors algorithm.
 ### Constructor Parameters
 
 * $k - number of nearest neighbors to scan (default: 3)
+* $distanceMetric - Distance class, default Euclidean (see Distance Metric  documentation)
 
 ```
 $classifier = new KNearestNeighbors($k=4);
+$classifier = new KNearestNeighbors($k=3, new Minkowski($lambda=4));
 ```
 
 ### Train

@@ -26,7 +26,7 @@ class CsvDataset extends ArrayDataset
             throw DatasetException::missingFile(basename($filepath));
         }
 
-        if(false === $handle = fopen($filepath, 'r')) {
+        if (false === $handle = fopen($filepath, 'r')) {
             throw DatasetException::cantOpenFile(basename($filepath));
         }
 

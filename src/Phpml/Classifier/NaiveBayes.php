@@ -33,5 +33,4 @@ class NaiveBayes implements Classifier
 
         return key($predictions);
     }
-    
 }

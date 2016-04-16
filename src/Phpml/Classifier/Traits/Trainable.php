@@ -1,11 +1,11 @@
 <?php
-declare(strict_types = 1);
+
+declare (strict_types = 1);
 
 namespace Phpml\Classifier\Traits;
 
 trait Trainable
 {
-
     /**
      * @var array
      */
@@ -25,5 +25,4 @@ trait Trainable
         $this->samples = $samples;
         $this->labels = $labels;
     }
-
 }
