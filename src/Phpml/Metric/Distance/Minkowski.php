@@ -36,7 +36,7 @@ class Minkowski implements Distance
             throw InvalidArgumentException::sizeNotMatch();
         }
 
-        $distance = 1;
+        $distance = 0;
         $count = count($a);
 
         for ($i = 0; $i < $count; ++$i) {
