@@ -20,7 +20,7 @@ class Euclidean implements Distance
     public function distance(array $a, array $b): float
     {
         if (count($a) !== count($b)) {
-            throw InvalidArgumentException::sizeNotMatch();
+            throw InvalidArgumentException::arraySizeNotMatch();
         }
 
         $distance = 0;

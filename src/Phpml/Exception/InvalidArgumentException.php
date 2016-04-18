@@ -9,9 +9,9 @@ class InvalidArgumentException extends \Exception
     /**
      * @return InvalidArgumentException
      */
-    public static function sizeNotMatch()
+    public static function arraySizeNotMatch()
     {
-        return new self('Size of given arguments not match');
+        return new self('Size of given arrays not match');
     }
 
     /**
