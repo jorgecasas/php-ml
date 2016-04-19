@@ -24,4 +24,11 @@ trait Predictable
 
         return $predicted;
     }
+
+    /**
+     * @param array $sample
+     *
+     * @return mixed
+     */
+    abstract protected function predictSample(array $sample);
 }

@@ -44,7 +44,7 @@ class KNearestNeighbors implements Classifier
      *
      * @return mixed
      */
-    private function predictSample(array $sample)
+    protected function predictSample(array $sample)
     {
         $distances = $this->kNeighborsDistances($sample);
 

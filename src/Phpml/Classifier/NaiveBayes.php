@@ -16,7 +16,7 @@ class NaiveBayes implements Classifier
      *
      * @return mixed
      */
-    private function predictSample(array $sample)
+    protected function predictSample(array $sample)
     {
         $predictions = [];
         foreach ($this->labels as $index => $label) {
