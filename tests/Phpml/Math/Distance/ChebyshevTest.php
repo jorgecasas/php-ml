@@ -4,7 +4,7 @@ declare (strict_types = 1);
 
 namespace tests\Phpml\Metric;
 
-use Phpml\Metric\Distance\Chebyshev;
+use Phpml\Math\Distance\Chebyshev;
 
 class ChebyshevTest extends \PHPUnit_Framework_TestCase
 {

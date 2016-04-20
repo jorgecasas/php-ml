@@ -5,7 +5,7 @@ declare (strict_types = 1);
 namespace tests\Classifier;
 
 use Phpml\Classifier\KNearestNeighbors;
-use Phpml\Metric\Distance\Chebyshev;
+use Phpml\Math\Distance\Chebyshev;
 
 class KNearestNeighborsTest extends \PHPUnit_Framework_TestCase
 {

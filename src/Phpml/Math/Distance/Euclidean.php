@@ -2,12 +2,12 @@
 
 declare (strict_types = 1);
 
-namespace Phpml\Metric\Distance;
+namespace Phpml\Math\Distance;
 
 use Phpml\Exception\InvalidArgumentException;
-use Phpml\Metric\Distance;
+use Phpml\Math\Distance;
 
-class Manhattan implements Distance
+class Euclidean implements Distance
 {
     /**
      * @param array $a
@@ -27,9 +27,9 @@ class Manhattan implements Distance
         $count = count($a);
 
         for ($i = 0; $i < $count; ++$i) {
-            $distance += abs($a[$i] - $b[$i]);
+            $distance += pow($a[$i] - $b[$i], 2);
         }
 
-        return $distance;
+        return sqrt($distance);
     }
 }

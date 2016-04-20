@@ -6,8 +6,8 @@ namespace Phpml\Classifier;
 
 use Phpml\Classifier\Traits\Predictable;
 use Phpml\Classifier\Traits\Trainable;
-use Phpml\Metric\Distance;
-use Phpml\Metric\Distance\Euclidean;
+use Phpml\Math\Distance;
+use Phpml\Math\Distance\Euclidean;
 
 class KNearestNeighbors implements Classifier
 {

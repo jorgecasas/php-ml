@@ -4,18 +4,18 @@ declare (strict_types = 1);
 
 namespace tests\Phpml\Metric;
 
-use Phpml\Metric\Distance\Euclidean;
+use Phpml\Math\Distance\Minkowski;
 
-class EuclideanTest extends \PHPUnit_Framework_TestCase
+class MinkowskiTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Euclidean
+     * @var Minkowski
      */
     private $distanceMetric;
 
     public function setUp()
     {
-        $this->distanceMetric = new Euclidean();
+        $this->distanceMetric = new Minkowski();
     }
 
     /**
@@ -45,10 +45,10 @@ class EuclideanTest extends \PHPUnit_Framework_TestCase
         $a = [4, 6];
         $b = [2, 5];
 
-        $expectedDistance = 2.2360679774998;
+        $expectedDistance = 2.080;
         $actualDistance = $this->distanceMetric->distance($a, $b);
 
-        $this->assertEquals($expectedDistance, $actualDistance);
+        $this->assertEquals($expectedDistance, $actualDistance, '', $delta = 0.001);
     }
 
     public function testCalculateDistanceForThreeDimensions()
@@ -56,9 +56,22 @@ class EuclideanTest extends \PHPUnit_Framework_TestCase
         $a = [6, 10, 3];
         $b = [2, 5, 5];
 
-        $expectedDistance = 6.7082039324993694;
+        $expectedDistance = 5.819;
         $actualDistance = $this->distanceMetric->distance($a, $b);
 
-        $this->assertEquals($expectedDistance, $actualDistance);
+        $this->assertEquals($expectedDistance, $actualDistance, '', $delta = 0.001);
+    }
+
+    public function testCalculateDistanceForThreeDimensionsWithDifferentLambda()
+    {
+        $distanceMetric = new Minkowski($lambda = 5);
+
+        $a = [6, 10, 3];
+        $b = [2, 5, 5];
+
+        $expectedDistance = 5.300;
+        $actualDistance = $distanceMetric->distance($a, $b);
+
+        $this->assertEquals($expectedDistance, $actualDistance, '', $delta = 0.001);
     }
 }

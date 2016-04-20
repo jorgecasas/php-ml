@@ -4,18 +4,18 @@ declare (strict_types = 1);
 
 namespace tests\Phpml\Metric;
 
-use Phpml\Metric\Distance\Manhattan;
+use Phpml\Math\Distance\Euclidean;
 
-class ManhattanTest extends \PHPUnit_Framework_TestCase
+class EuclideanTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Manhattan
+     * @var Euclidean
      */
     private $distanceMetric;
 
     public function setUp()
     {
-        $this->distanceMetric = new Manhattan();
+        $this->distanceMetric = new Euclidean();
     }
 
     /**
@@ -45,7 +45,7 @@ class ManhattanTest extends \PHPUnit_Framework_TestCase
         $a = [4, 6];
         $b = [2, 5];
 
-        $expectedDistance = 3;
+        $expectedDistance = 2.2360679774998;
         $actualDistance = $this->distanceMetric->distance($a, $b);
 
         $this->assertEquals($expectedDistance, $actualDistance);
@@ -56,7 +56,7 @@ class ManhattanTest extends \PHPUnit_Framework_TestCase
         $a = [6, 10, 3];
         $b = [2, 5, 5];
 
-        $expectedDistance = 11;
+        $expectedDistance = 6.7082039324993694;
         $actualDistance = $this->distanceMetric->distance($a, $b);
 
         $this->assertEquals($expectedDistance, $actualDistance);

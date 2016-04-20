@@ -2,7 +2,7 @@
 
 declare (strict_types = 1);
 
-namespace Phpml\Metric;
+namespace Phpml\Math;
 
 interface Distance
 {

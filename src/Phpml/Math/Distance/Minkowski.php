@@ -2,10 +2,10 @@
 
 declare (strict_types = 1);
 
-namespace Phpml\Metric\Distance;
+namespace Phpml\Math\Distance;
 
 use Phpml\Exception\InvalidArgumentException;
-use Phpml\Metric\Distance;
+use Phpml\Math\Distance;
 
 class Minkowski implements Distance
 {
