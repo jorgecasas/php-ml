@@ -12,7 +12,7 @@ class Product
      *
      * @return mixed
      */
-    public function scalar(array $a, array $b)
+    public static function scalar(array $a, array $b)
     {
         $product = 0;
         foreach ($a as $index => $value) {
