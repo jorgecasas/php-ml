@@ -6,20 +6,21 @@ namespace Phpml\Classifier;
 
 use Phpml\Classifier\Traits\Predictable;
 use Phpml\Classifier\Traits\Trainable;
+use Phpml\Math\Kernel;
 
 class SupportVectorMachine implements Classifier
 {
     use Trainable, Predictable;
 
     /**
-     * @var float
+     * @var Kernel
      */
-    private $gamma;
+    private $kernel;
 
     /**
      * @var float
      */
-    private $epsilon;
+    private $C;
 
     /**
      * @var float
@@ -32,19 +33,22 @@ class SupportVectorMachine implements Classifier
     private $upperBound;
 
     /**
-     * @param float $gamma
-     * @param float $epsilon
+     * @param Kernel $kernel
+     * @param float $C
      * @param float $tolerance
      * @param int $upperBound
      */
-    public function __construct(float $gamma = .5, float $epsilon = .001, float $tolerance = .001, int $upperBound = 100)
+    public function __construct(Kernel $kernel = null, float $C = 1.0, float $tolerance = .001, int $upperBound = 100)
     {
-        $this->gamma = $gamma;
-        $this->epsilon = $epsilon;
+        if (null === $kernel) {
+            $kernel = new Kernel\RBF($gamma = .001);
+        }
+
+        $this->kernel = $kernel;
+        $this->C = $C;
         $this->tolerance = $tolerance;
         $this->upperBound = $upperBound;
     }
-
 
     /**
      * @param array $sample
