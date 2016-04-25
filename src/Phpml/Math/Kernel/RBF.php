@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare (strict_types = 1);
 
 namespace Phpml\Math\Kernel;
 
@@ -35,5 +36,4 @@ class RBF implements Kernel
 
         return $result;
     }
-
 }

@@ -1,11 +1,11 @@
 <?php
-declare(strict_types = 1);
+
+declare (strict_types = 1);
 
 namespace Phpml\Math;
 
 class Product
 {
-
     /**
      * @param array $a
      * @param array $b
@@ -21,5 +21,4 @@ class Product
 
         return $product;
     }
-
 }

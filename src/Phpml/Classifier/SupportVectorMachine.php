@@ -34,9 +34,9 @@ class SupportVectorMachine implements Classifier
 
     /**
      * @param Kernel $kernel
-     * @param float $C
-     * @param float $tolerance
-     * @param int $upperBound
+     * @param float  $C
+     * @param float  $tolerance
+     * @param int    $upperBound
      */
     public function __construct(Kernel $kernel = null, float $C = 1.0, float $tolerance = .001, int $upperBound = 100)
     {
