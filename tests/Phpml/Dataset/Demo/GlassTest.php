@@ -10,13 +10,13 @@ class GlassTest extends \PHPUnit_Framework_TestCase
 {
     public function testLoadingWineDataset()
     {
-        $iris = new Glass();
+        $glass = new Glass();
 
         // whole dataset
-        $this->assertEquals(214, count($iris->getSamples()));
-        $this->assertEquals(214, count($iris->getLabels()));
+        $this->assertEquals(214, count($glass->getSamples()));
+        $this->assertEquals(214, count($glass->getLabels()));
 
         // one sample features count
-        $this->assertEquals(9, count($iris->getSamples()[0]));
+        $this->assertEquals(9, count($glass->getSamples()[0]));
     }
 }

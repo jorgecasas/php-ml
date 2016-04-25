@@ -10,13 +10,13 @@ class WineTest extends \PHPUnit_Framework_TestCase
 {
     public function testLoadingWineDataset()
     {
-        $iris = new Wine();
+        $wine = new Wine();
 
         // whole dataset
-        $this->assertEquals(178, count($iris->getSamples()));
-        $this->assertEquals(178, count($iris->getLabels()));
+        $this->assertEquals(178, count($wine->getSamples()));
+        $this->assertEquals(178, count($wine->getLabels()));
 
         // one sample features count
-        $this->assertEquals(13, count($iris->getSamples()[0]));
+        $this->assertEquals(13, count($wine->getSamples()[0]));
     }
 }
