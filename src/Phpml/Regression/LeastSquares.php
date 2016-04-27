@@ -17,6 +17,16 @@ class LeastSquares implements Regression
     private $targets;
 
     /**
+     * @var float
+     */
+    private $slope;
+
+    /**
+     * @var
+     */
+    private $intercept;
+
+    /**
      * @param array $features
      * @param array $targets
      */

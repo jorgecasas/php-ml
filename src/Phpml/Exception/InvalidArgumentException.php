@@ -23,4 +23,22 @@ class InvalidArgumentException extends \Exception
     {
         return new self(sprintf('%s must be between 0.0 and 1.0', $name));
     }
+
+    /**
+     * @return InvalidArgumentException
+     */
+    public static function arrayCantBeEmpty()
+    {
+        return new self('The array has zero elements');
+    }
+
+    /**
+     * @param int $minimumSize
+     *
+     * @return InvalidArgumentException
+     */
+    public static function arraySizeToSmall($minimumSize = 2)
+    {
+        return new self(sprintf('The array must have at least %s elements', $minimumSize));
+    }
 }
