@@ -13,9 +13,9 @@ interface Regression
     public function train(array $features, array $targets);
 
     /**
-     * @param array $features
+     * @param float $feature
      *
      * @return mixed
      */
-    public function predict(array $features);
+    public function predict($feature);
 }
