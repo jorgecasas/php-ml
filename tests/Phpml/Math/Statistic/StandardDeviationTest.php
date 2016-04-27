@@ -39,5 +39,4 @@ class StandardDeviationTest extends \PHPUnit_Framework_TestCase
     {
         StandardDeviation::population([1]);
     }
-
 }
