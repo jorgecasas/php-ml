@@ -23,8 +23,8 @@ class Correlation
         }
 
         $count = count($x);
-        $meanX = array_sum($x) / $count;
-        $meanY = array_sum($y) / $count;
+        $meanX = Mean::arithmetic($x);
+        $meanY = Mean::arithmetic($y);
 
         $axb = 0;
         $a2 = 0;

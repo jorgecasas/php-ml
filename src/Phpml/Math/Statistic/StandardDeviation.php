@@ -28,7 +28,7 @@ class StandardDeviation
             throw InvalidArgumentException::arraySizeToSmall(2);
         }
 
-        $mean = array_sum($a) / $n;
+        $mean = Mean::arithmetic($a);
         $carry = 0.0;
         foreach ($a as $val) {
             $d = $val - $mean;
