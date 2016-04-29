@@ -4,9 +4,7 @@ declare (strict_types = 1);
 
 namespace Phpml\Regression;
 
-use Phpml\Math\Statistic\Correlation;
-use Phpml\Math\Statistic\StandardDeviation;
-use Phpml\Math\Statistic\Mean;
+use Phpml\Math\Matrix;
 
 class LeastSquares implements Regression
 {
@@ -18,22 +16,17 @@ class LeastSquares implements Regression
     /**
      * @var array
      */
-    private $features;
-
-    /**
-     * @var array
-     */
     private $targets;
-
-    /**
-     * @var array
-     */
-    private $slopes;
 
     /**
      * @var float
      */
     private $intercept;
+
+    /**
+     * @var array
+     */
+    private $coefficients;
 
     /**
      * @param array $samples
@@ -43,22 +36,20 @@ class LeastSquares implements Regression
     {
         $this->samples = $samples;
         $this->targets = $targets;
-        $this->features = [];
 
-        $this->computeSlopes();
-        $this->computeIntercept();
+        $this->computeCoefficients();
     }
 
     /**
-     * @param float $sample
+     * @param array $sample
      *
      * @return mixed
      */
     public function predict($sample)
     {
         $result = $this->intercept;
-        foreach ($this->slopes as $index => $slope) {
-            $result += ($slope * $sample[$index]);
+        foreach ($this->coefficients as $index => $coefficient) {
+            $result += $coefficient * $sample[$index];
         }
 
         return $result;
@@ -67,45 +58,23 @@ class LeastSquares implements Regression
     /**
      * @return array
      */
-    public function getSlopes()
+    public function getCoefficients()
     {
-        return $this->slopes;
-    }
-
-    private function computeSlopes()
-    {
-        $features = count($this->samples[0]);
-        $sdY = StandardDeviation::population($this->targets);
-
-        for($i=0; $i<$features; $i++) {
-            $correlation = Correlation::pearson($this->getFeatures($i), $this->targets);
-            $sdXi = StandardDeviation::population($this->getFeatures($i));
-            $this->slopes[] = $correlation * ($sdY / $sdXi);
-        }
-    }
-
-    private function computeIntercept()
-    {
-        $this->intercept = Mean::arithmetic($this->targets);
-        foreach ($this->slopes as $index => $slope) {
-            $this->intercept -= $slope * Mean::arithmetic($this->getFeatures($index));
-        }
+        return $this->coefficients;
     }
 
     /**
-     * @param $index
-     *
-     * @return array
+     * coefficient(b) = (X'X)-1X'Y
      */
-    private function getFeatures($index)
+    private function computeCoefficients()
     {
-        if(!isset($this->features[$index])) {
-            $this->features[$index] = [];
-            foreach ($this->samples as $sample) {
-                $this->features[$index][] = $sample[$index];
-            }
-        }
+        $samplesMatrix = new Matrix($this->samples);
+        $targetsMatrix = new Matrix($this->targets);
 
-        return $this->features[$index];
+        $ts = $samplesMatrix->transpose()->multiply($samplesMatrix)->inverse();
+        $tf = $samplesMatrix->transpose()->multiply($targetsMatrix);
+
+        $this->coefficients = $ts->multiply($tf)->getColumnValues(0);
+        $this->intercept = array_shift($this->coefficients);
     }
 }

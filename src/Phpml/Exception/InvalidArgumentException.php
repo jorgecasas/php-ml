@@ -41,4 +41,21 @@ class InvalidArgumentException extends \Exception
     {
         return new self(sprintf('The array must have at least %s elements', $minimumSize));
     }
+
+    /**
+     * @return InvalidArgumentException
+     */
+    public static function matrixDimensionsDidNotMatch()
+    {
+        return new self('Matrix dimensions did not match');
+    }
+
+    /**
+     * @return InvalidArgumentException
+     */
+    public static function inconsistentMatrixSupplied()
+    {
+        return new self('Inconsistent matrix aupplied');
+    }
+
 }
