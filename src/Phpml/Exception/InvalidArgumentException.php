@@ -57,5 +57,4 @@ class InvalidArgumentException extends \Exception
     {
         return new self('Inconsistent matrix aupplied');
     }
-
 }

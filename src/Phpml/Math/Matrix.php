@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare (strict_types = 1);
 
 namespace Phpml\Math;
 
@@ -30,7 +31,7 @@ class Matrix
 
     /**
      * @param array $matrix
-     * @param bool $validate
+     * @param bool  $validate
      *
      * @throws InvalidArgumentException
      */
@@ -39,8 +40,8 @@ class Matrix
         $this->rows = count($matrix);
         $this->columns = count($matrix[0]);
 
-        if($validate) {
-            for ($i = 0; $i < $this->rows; $i++) {
+        if ($validate) {
+            for ($i = 0; $i < $this->rows; ++$i) {
                 if (count($matrix[$i]) !== $this->columns) {
                     throw InvalidArgumentException::matrixDimensionsDidNotMatch();
                 }
@@ -83,12 +84,12 @@ class Matrix
      */
     public function getColumnValues($column)
     {
-        if($column >= $this->columns) {
+        if ($column >= $this->columns) {
             throw MatrixException::columnOutOfRange();
         }
 
         $values = [];
-        for ($i = 0; $i < $this->rows; $i++) {
+        for ($i = 0; $i < $this->rows; ++$i) {
             $values[] = $this->matrix[$i][$column];
         }
 
@@ -102,7 +103,7 @@ class Matrix
      */
     public function getDeterminant()
     {
-        if($this->determinant) {
+        if ($this->determinant) {
             return $this->determinant;
         }
 
@@ -113,11 +114,11 @@ class Matrix
         $determinant = 0;
         if ($this->rows == 1 && $this->columns == 1) {
             $determinant = $this->matrix[0][0];
-        } else if ($this->rows == 2 && $this->columns == 2) {
+        } elseif ($this->rows == 2 && $this->columns == 2) {
             $determinant = $this->matrix[0][0] * $this->matrix[1][1] -
                 $this->matrix[0][1] * $this->matrix[1][0];
         } else {
-            for ($j = 0; $j < $this->columns; $j++) {
+            for ($j = 0; $j < $this->columns; ++$j) {
                 $subMatrix = $this->crossOut(0, $j);
                 if (fmod($j, 2) == 0) {
                     $determinant += $this->matrix[0][$j] * $subMatrix->getDeterminant();
@@ -130,7 +131,7 @@ class Matrix
         return $this->determinant = $determinant;
     }
 
-        /**
+    /**
      * @return bool
      */
     public function isSquare()
@@ -144,8 +145,8 @@ class Matrix
     public function transpose()
     {
         $newMatrix = [];
-        for ($i = 0; $i < $this->rows; $i++) {
-            for ($j = 0; $j < $this->columns; $j++) {
+        for ($i = 0; $i < $this->rows; ++$i) {
+            for ($j = 0; $j < $this->columns; ++$j) {
                 $newMatrix[$j][$i] = $this->matrix[$i][$j];
             }
         }
@@ -168,14 +169,15 @@ class Matrix
 
         $product = [];
         $multiplier = $matrix->toArray();
-        for ($i = 0; $i < $this->rows; $i++) {
-            for ($j = 0; $j < $matrix->getColumns(); $j++) {
+        for ($i = 0; $i < $this->rows; ++$i) {
+            for ($j = 0; $j < $matrix->getColumns(); ++$j) {
                 $product[$i][$j] = 0;
-                for ($k = 0; $k < $this->columns; $k++) {
+                for ($k = 0; $k < $this->columns; ++$k) {
                     $product[$i][$j] += $this->matrix[$i][$k] * $multiplier[$k][$j];
                 }
             }
         }
+
         return new self($product, false);
     }
 
@@ -187,8 +189,8 @@ class Matrix
     public function divideByScalar($value)
     {
         $newMatrix = array();
-        for ($i = 0; $i < $this->rows; $i++) {
-            for ($j = 0; $j < $this->columns; $j++) {
+        for ($i = 0; $i < $this->rows; ++$i) {
+            for ($j = 0; $j < $this->columns; ++$j) {
                 $newMatrix[$i][$j] = $this->matrix[$i][$j] / $value;
             }
         }
@@ -208,8 +210,8 @@ class Matrix
         }
 
         $newMatrix = array();
-        for ($i = 0; $i < $this->rows; $i++) {
-            for ($j = 0; $j < $this->columns; $j++) {
+        for ($i = 0; $i < $this->rows; ++$i) {
+            for ($j = 0; $j < $this->columns; ++$j) {
                 $subMatrix = $this->crossOut($i, $j);
                 if (fmod($i + $j, 2) == 0) {
                     $newMatrix[$i][$j] = ($subMatrix->getDeterminant());
@@ -234,20 +236,19 @@ class Matrix
     {
         $newMatrix = [];
         $r = 0;
-        for ($i = 0; $i < $this->rows; $i++) {
+        for ($i = 0; $i < $this->rows; ++$i) {
             $c = 0;
             if ($row != $i) {
-                for ($j = 0; $j < $this->columns; $j++) {
+                for ($j = 0; $j < $this->columns; ++$j) {
                     if ($column != $j) {
                         $newMatrix[$r][$c] = $this->matrix[$i][$j];
-                        $c++;
+                        ++$c;
                     }
                 }
-                $r++;
+                ++$r;
             }
         }
 
         return new self($newMatrix, false);
     }
-
 }

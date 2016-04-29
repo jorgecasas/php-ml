@@ -64,7 +64,7 @@ class LeastSquares implements Regression
     }
 
     /**
-     * coefficient(b) = (X'X)-1X'Y
+     * coefficient(b) = (X'X)-1X'Y.
      */
     private function computeCoefficients()
     {

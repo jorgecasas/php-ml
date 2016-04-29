@@ -21,5 +21,4 @@ class MatrixException extends \Exception
     {
         return new self('Column out of range');
     }
-
 }
