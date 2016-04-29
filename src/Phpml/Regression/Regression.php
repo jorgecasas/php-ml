@@ -7,15 +7,15 @@ namespace Phpml\Regression;
 interface Regression
 {
     /**
-     * @param array $features
+     * @param array $samples
      * @param array $targets
      */
-    public function train(array $features, array $targets);
+    public function train(array $samples, array $targets);
 
     /**
-     * @param float $feature
+     * @param float $sample
      *
      * @return mixed
      */
-    public function predict($feature);
+    public function predict($sample);
 }

@@ -21,6 +21,11 @@ class CorrelationTest extends \PHPUnit_Framework_TestCase
         $x = [43, 21, 25, 42, 57, 59];
         $y = [99, 65, 79, 75, 87, 82];
         $this->assertEquals(0.549, Correlation::pearson($x, $y), '', $delta);
+
+        $delta = 0.001;
+        $x = [60, 61, 62, 63, 65];
+        $y = [3.1, 3.6, 3.8, 4, 4.1];
+        $this->assertEquals(0.911, Correlation::pearson($x, $y), '', $delta);
     }
 
     /**
