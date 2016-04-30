@@ -126,6 +126,16 @@ class Matrix
             throw MatrixException::notSquareMatrix();
         }
 
+        return $this->determinant = $this->calculateDeterminant();
+    }
+
+    /**
+     * @return float|int
+     *
+     * @throws MatrixException
+     */
+    private function calculateDeterminant()
+    {
         $determinant = 0;
         if ($this->rows == 1 && $this->columns == 1) {
             $determinant = $this->matrix[0][0];
@@ -141,7 +151,7 @@ class Matrix
             }
         }
 
-        return $this->determinant = $determinant;
+        return $determinant;
     }
 
     /**
