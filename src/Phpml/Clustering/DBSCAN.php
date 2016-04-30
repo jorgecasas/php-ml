@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace Phpml\Clustering;
 
 use Phpml\Math\Distance;
+use Phpml\Math\Distance\Euclidean;
 
 class DBSCAN implements Clusterer
 {
@@ -25,12 +26,17 @@ class DBSCAN implements Clusterer
     /**
      * @param float $epsilon
      * @param int $minSamples
+     * @param Distance $distanceMetric
      */
-    public function __construct($epsilon = 0.5, $minSamples = 3)
+    public function __construct($epsilon = 0.5, $minSamples = 3, Distance $distanceMetric = null)
     {
+        if (null === $distanceMetric) {
+            $distanceMetric = new Euclidean();
+        }
+
         $this->epsilon = $epsilon;
         $this->minSamples = $minSamples;
-        $this->distanceMetric = new Distance\Euclidean();
+        $this->distanceMetric = $distanceMetric;
     }
 
     /**
