@@ -53,7 +53,7 @@ class Matrix
 
     /**
      * @param array $array
-     * 
+     *
      * @return Matrix
      */
     public static function fromFlatArray(array $array)
@@ -225,12 +225,8 @@ class Matrix
         $newMatrix = array();
         for ($i = 0; $i < $this->rows; ++$i) {
             for ($j = 0; $j < $this->columns; ++$j) {
-                $subMatrix = $this->crossOut($i, $j);
-                if (fmod($i + $j, 2) == 0) {
-                    $newMatrix[$i][$j] = ($subMatrix->getDeterminant());
-                } else {
-                    $newMatrix[$i][$j] = -($subMatrix->getDeterminant());
-                }
+                $minor = $this->crossOut($i, $j)->getDeterminant();
+                $newMatrix[$i][$j] = fmod($i + $j, 2) == 0 ? $minor : -$minor;
             }
         }
 
