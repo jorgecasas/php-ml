@@ -37,7 +37,7 @@ class LeastSquaresTest extends \PHPUnit_Framework_TestCase
 
     public function testPredictMultiFeaturesSamples()
     {
-        $delta = 1;
+        $delta = 0.01;
 
         //http://www.stat.wmich.edu/s216/book/node129.html
         $samples = [[1,  73676, 1996], [1,  77006, 1998], [1,  10565, 2000], [1, 146088, 1995], [1,  15000, 2001], [1,  65940, 2000], [1,   9300, 2000], [1,  93739, 1996], [1, 153260, 1994], [1,  17764, 2002], [1,  57000, 1998], [1,  15000, 2000]];
@@ -46,6 +46,9 @@ class LeastSquaresTest extends \PHPUnit_Framework_TestCase
         $regression = new LeastSquares();
         $regression->train($samples, $targets);
 
-        $this->assertEquals(4094, $regression->predict([60000, 1996]), '', $delta);
+        $this->assertEquals(-800614.957, $regression->getIntercept(), '', $delta);
+        $this->assertEquals([-0.0327, 404.14], $regression->getCoefficients(), '', $delta);
+        $this->assertEquals(4094.82, $regression->predict([60000, 1996]), '', $delta);
+        $this->assertEquals(5711.40, $regression->predict([60000, 2000]), '', $delta);
     }
 }

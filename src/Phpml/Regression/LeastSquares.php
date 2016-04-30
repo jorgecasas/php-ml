@@ -64,6 +64,14 @@ class LeastSquares implements Regression
     }
 
     /**
+     * @return float
+     */
+    public function getIntercept()
+    {
+        return $this->intercept;
+    }
+
+    /**
      * coefficient(b) = (X'X)-1X'Y.
      */
     private function computeCoefficients()
