@@ -35,6 +35,20 @@ class LeastSquaresTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(278.66, $regression->predict([153260]), '', $delta);
     }
 
+    public function testPredictSingleFeatureSamplesWithMatrixTargets()
+    {
+        $delta = 0.01;
+
+        //https://www.easycalculation.com/analytical/learn-least-square-regression.php
+        $samples = [[60], [61], [62], [63], [65]];
+        $targets = [[3.1], [3.6], [3.8], [4], [4.1]];
+
+        $regression = new LeastSquares();
+        $regression->train($samples, $targets);
+
+        $this->assertEquals(4.06, $regression->predict([64]), '', $delta);
+    }
+
     public function testPredictMultiFeaturesSamples()
     {
         $delta = 0.01;
