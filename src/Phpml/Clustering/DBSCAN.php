@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare (strict_types = 1);
 
 namespace Phpml\Clustering;
 
@@ -24,8 +25,8 @@ class DBSCAN implements Clusterer
     private $distanceMetric;
 
     /**
-     * @param float $epsilon
-     * @param int $minSamples
+     * @param float    $epsilon
+     * @param int      $minSamples
      * @param Distance $distanceMetric
      */
     public function __construct($epsilon = 0.5, $minSamples = 3, Distance $distanceMetric = null)
@@ -49,14 +50,14 @@ class DBSCAN implements Clusterer
         $clusters = [];
         $visited = [];
 
-        foreach($samples as $index => $sample) {
-            if(isset($visited[$index])) {
+        foreach ($samples as $index => $sample) {
+            if (isset($visited[$index])) {
                 continue;
             }
             $visited[$index] = true;
 
             $regionSamples = $this->getSamplesInRegion($sample, $samples);
-            if(count($regionSamples) >= $this->minSamples) {
+            if (count($regionSamples) >= $this->minSamples) {
                 $clusters[] = $this->expandCluster($regionSamples, $visited);
             }
         }
@@ -70,11 +71,12 @@ class DBSCAN implements Clusterer
      *
      * @return array
      */
-    private function getSamplesInRegion($localSample, $samples) {
+    private function getSamplesInRegion($localSample, $samples)
+    {
         $region = [];
 
-        foreach($samples as $index => $sample) {
-            if($this->distanceMetric->distance($localSample, $sample) < $this->epsilon) {
+        foreach ($samples as $index => $sample) {
+            if ($this->distanceMetric->distance($localSample, $sample) < $this->epsilon) {
                 $region[$index] = $sample;
             }
         }
@@ -88,14 +90,15 @@ class DBSCAN implements Clusterer
      *
      * @return array
      */
-    private function expandCluster($samples, &$visited) {
+    private function expandCluster($samples, &$visited)
+    {
         $cluster = [];
 
-        foreach($samples as $index => $sample) {
-            if(!isset($visited[$index])) {
+        foreach ($samples as $index => $sample) {
+            if (!isset($visited[$index])) {
                 $visited[$index] = true;
                 $regionSamples = $this->getSamplesInRegion($sample, $samples);
-                if(count($regionSamples) > $this->minSamples) {
+                if (count($regionSamples) > $this->minSamples) {
                     $cluster = array_merge($regionSamples, $cluster);
                 }
             }
@@ -105,5 +108,4 @@ class DBSCAN implements Clusterer
 
         return $cluster;
     }
-
 }
