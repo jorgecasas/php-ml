@@ -76,13 +76,41 @@ class LeastSquares implements Regression
      */
     private function computeCoefficients()
     {
-        $samplesMatrix = new Matrix($this->samples);
-        $targetsMatrix = new Matrix($this->targets);
+        $samplesMatrix = $this->getSamplesMatrix();
+        $targetsMatrix = $this->getTargetsMatrix();
 
         $ts = $samplesMatrix->transpose()->multiply($samplesMatrix)->inverse();
         $tf = $samplesMatrix->transpose()->multiply($targetsMatrix);
 
         $this->coefficients = $ts->multiply($tf)->getColumnValues(0);
         $this->intercept = array_shift($this->coefficients);
+    }
+
+    /**
+     * Add one dimension for intercept calculation.
+     *
+     * @return Matrix
+     */
+    private function getSamplesMatrix()
+    {
+        $samples = [];
+        foreach ($this->samples as $sample) {
+            array_unshift($sample, 1);
+            $samples[] = $sample;
+        }
+
+        return new Matrix($samples);
+    }
+
+    /**
+     * @return Matrix
+     */
+    private function getTargetsMatrix()
+    {
+        if (is_array($this->targets[0])) {
+            return new Matrix($this->targets);
+        }
+
+        return Matrix::fromFlatArray($this->targets);
     }
 }

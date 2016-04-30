@@ -13,8 +13,8 @@ class LeastSquaresTest extends \PHPUnit_Framework_TestCase
         $delta = 0.01;
 
         //https://www.easycalculation.com/analytical/learn-least-square-regression.php
-        $samples = [[1, 60], [1, 61], [1, 62], [1, 63], [1, 65]];
-        $targets = [[3.1], [3.6], [3.8], [4], [4.1]];
+        $samples = [[60], [61], [62], [63], [65]];
+        $targets = [3.1, 3.6, 3.8, 4, 4.1];
 
         $regression = new LeastSquares();
         $regression->train($samples, $targets);
@@ -22,8 +22,8 @@ class LeastSquaresTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(4.06, $regression->predict([64]), '', $delta);
 
         //http://www.stat.wmich.edu/s216/book/node127.html
-        $samples = [[1, 9300], [1, 10565], [1, 15000], [1, 15000], [1, 17764], [1, 57000], [1, 65940], [1, 73676], [1, 77006], [1, 93739], [1, 146088], [1, 153260]];
-        $targets = [[7100], [15500], [4400], [4400], [5900], [4600], [8800], [2000], [2750], [2550],  [960], [1025]];
+        $samples = [[9300], [10565], [15000], [15000], [17764], [57000], [65940], [73676], [77006], [93739], [146088], [153260]];
+        $targets = [7100, 15500, 4400, 4400, 5900, 4600, 8800, 2000, 2750, 2550,  960, 1025];
 
         $regression = new LeastSquares();
         $regression->train($samples, $targets);
@@ -40,8 +40,8 @@ class LeastSquaresTest extends \PHPUnit_Framework_TestCase
         $delta = 0.01;
 
         //http://www.stat.wmich.edu/s216/book/node129.html
-        $samples = [[1,  73676, 1996], [1,  77006, 1998], [1,  10565, 2000], [1, 146088, 1995], [1,  15000, 2001], [1,  65940, 2000], [1,   9300, 2000], [1,  93739, 1996], [1, 153260, 1994], [1,  17764, 2002], [1,  57000, 1998], [1,  15000, 2000]];
-        $targets = [[2000], [2750], [15500], [960], [4400], [8800], [7100], [2550], [1025], [5900], [4600], [4400]];
+        $samples = [[73676, 1996], [77006, 1998], [10565, 2000], [146088, 1995], [15000, 2001], [65940, 2000], [9300, 2000], [93739, 1996], [153260, 1994], [17764, 2002], [57000, 1998], [15000, 2000]];
+        $targets = [2000, 2750, 15500, 960, 4400, 8800, 7100, 2550, 1025, 5900, 4600, 4400];
 
         $regression = new LeastSquares();
         $regression->train($samples, $targets);

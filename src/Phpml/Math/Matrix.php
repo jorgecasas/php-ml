@@ -52,6 +52,21 @@ class Matrix
     }
 
     /**
+     * @param array $array
+     * 
+     * @return Matrix
+     */
+    public static function fromFlatArray(array $array)
+    {
+        $matrix = [];
+        foreach ($array as $value) {
+            $matrix[] = [$value];
+        }
+
+        return new self($matrix);
+    }
+
+    /**
      * @return array
      */
     public function toArray()
@@ -115,16 +130,14 @@ class Matrix
         if ($this->rows == 1 && $this->columns == 1) {
             $determinant = $this->matrix[0][0];
         } elseif ($this->rows == 2 && $this->columns == 2) {
-            $determinant = $this->matrix[0][0] * $this->matrix[1][1] -
+            $determinant =
+                $this->matrix[0][0] * $this->matrix[1][1] -
                 $this->matrix[0][1] * $this->matrix[1][0];
         } else {
             for ($j = 0; $j < $this->columns; ++$j) {
                 $subMatrix = $this->crossOut(0, $j);
-                if (fmod($j, 2) == 0) {
-                    $determinant += $this->matrix[0][$j] * $subMatrix->getDeterminant();
-                } else {
-                    $determinant -= $this->matrix[0][$j] * $subMatrix->getDeterminant();
-                }
+                $minor = $this->matrix[0][$j] * $subMatrix->getDeterminant();
+                $determinant += fmod($j, 2) == 0 ? $minor : -$minor;
             }
         }
 
