@@ -2,7 +2,7 @@
 
 declare (strict_types = 1);
 
-namespace Phpml\Classifier;
+namespace Phpml\Classification;
 
 interface Classifier
 {

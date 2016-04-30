@@ -2,9 +2,9 @@
 
 declare (strict_types = 1);
 
-namespace tests\Classifier;
+namespace tests\Classification;
 
-use Phpml\Classifier\NaiveBayes;
+use Phpml\Classification\NaiveBayes;
 
 class NaiveBayesTest extends \PHPUnit_Framework_TestCase
 {

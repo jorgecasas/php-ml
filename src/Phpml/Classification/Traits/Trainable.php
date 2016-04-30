@@ -2,7 +2,7 @@
 
 declare (strict_types = 1);
 
-namespace Phpml\Classifier\Traits;
+namespace Phpml\Classification\Traits;
 
 trait Trainable
 {

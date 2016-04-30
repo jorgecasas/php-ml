@@ -2,9 +2,9 @@
 
 declare (strict_types = 1);
 
-namespace tests\Classifier;
+namespace tests\Classification;
 
-use Phpml\Classifier\KNearestNeighbors;
+use Phpml\Classification\KNearestNeighbors;
 use Phpml\Math\Distance\Chebyshev;
 
 class KNearestNeighborsTest extends \PHPUnit_Framework_TestCase

@@ -2,10 +2,10 @@
 
 declare (strict_types = 1);
 
-namespace Phpml\Classifier;
+namespace Phpml\Classification;
 
-use Phpml\Classifier\Traits\Predictable;
-use Phpml\Classifier\Traits\Trainable;
+use Phpml\Classification\Traits\Predictable;
+use Phpml\Classification\Traits\Trainable;
 use Phpml\Math\Kernel;
 
 class SupportVectorMachine implements Classifier
