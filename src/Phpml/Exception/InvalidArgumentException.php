@@ -57,4 +57,13 @@ class InvalidArgumentException extends \Exception
     {
         return new self('Inconsistent matrix aupplied');
     }
+
+    /**
+     * @return InvalidArgumentException
+     */
+    public static function invalidClustersNumber()
+    {
+        return new self('Invalid clusters number');
+    }
+
 }
