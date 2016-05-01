@@ -20,7 +20,6 @@ class DBSCANTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($clustered, $dbscan->cluster($samples));
 
-
         $samples = [[1, 1], [6, 6], [1, -1], [5, 6], [-1, -1], [7, 8], [-1, 1], [7, 7]];
         $clustered = [
             [[1, 1], [1, -1], [-1, -1], [-1, 1]],
@@ -31,5 +30,4 @@ class DBSCANTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($clustered, $dbscan->cluster($samples));
     }
-
 }

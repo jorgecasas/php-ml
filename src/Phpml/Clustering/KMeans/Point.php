@@ -1,95 +1,124 @@
 <?php
-declare(strict_types = 1);
+
+declare (strict_types = 1);
 
 namespace Phpml\Clustering\KMeans;
 
-use \ArrayAccess;
-use \LogicException;
+use ArrayAccess;
 
 class Point implements ArrayAccess
 {
-	protected $space;
-	protected $dimention;
-	protected $coordinates;
+    /**
+     * @var int
+     */
+    protected $dimension;
 
-	public function __construct(Space $space, array $coordinates)
-	{
-		$this->space       = $space;
-		$this->dimention   = $space->getDimention();
-		$this->coordinates = $coordinates;
-	}
+    /**
+     * @var array
+     */
+    protected $coordinates;
 
-	public function toArray()
-	{
-		return $this->coordinates;
-	}
+    /**
+     * @param array $coordinates
+     */
+    public function __construct(array $coordinates)
+    {
+        $this->dimension = count($coordinates);
+        $this->coordinates = $coordinates;
+    }
 
-	public function getDistanceWith(self $point, $precise = true)
-	{
-		if ($point->space !== $this->space)
-			throw new LogicException("can only calculate distances from points in the same space");
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->coordinates;
+    }
 
-		$distance = 0;
-		for ($n=0; $n<$this->dimention; $n++) {
-			$difference = $this->coordinates[$n] - $point->coordinates[$n];
-			$distance  += $difference * $difference;
-		}
+    /**
+     * @param Point $point
+     * @param bool  $precise
+     *
+     * @return int|mixed
+     */
+    public function getDistanceWith(self $point, $precise = true)
+    {
+        $distance = 0;
+        for ($n = 0; $n < $this->dimension; ++$n) {
+            $difference = $this->coordinates[$n] - $point->coordinates[$n];
+            $distance  += $difference * $difference;
+        }
 
-		return $precise ? sqrt($distance) : $distance;
-	}
+        return $precise ? sqrt($distance) : $distance;
+    }
 
-	public function getClosest($points)
-	{
-		foreach($points as $point) {
-			$distance = $this->getDistanceWith($point, false);
+    /**
+     * @param $points
+     *
+     * @return mixed
+     */
+    public function getClosest($points)
+    {
+        foreach ($points as $point) {
+            $distance = $this->getDistanceWith($point, false);
 
-			if (!isset($minDistance)) {
-				$minDistance = $distance;
-				$minPoint    = $point;
-				continue;
-			}
+            if (!isset($minDistance)) {
+                $minDistance = $distance;
+                $minPoint = $point;
+                continue;
+            }
 
-			if ($distance < $minDistance) {
-				$minDistance = $distance;
-				$minPoint    = $point;
-			}
-		}
+            if ($distance < $minDistance) {
+                $minDistance = $distance;
+                $minPoint = $point;
+            }
+        }
 
-		return $minPoint;
-	}
+        return $minPoint;
+    }
 
-	public function belongsTo(Space $space)
-	{
-		return $this->space === $space;
-	}
+    /**
+     * @return array
+     */
+    public function getCoordinates()
+    {
+        return $this->coordinates;
+    }
 
-	public function getSpace()
-	{
-		return $this->space;
-	}
+    /**
+     * @param mixed $offset
+     *
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->coordinates[$offset]);
+    }
 
-	public function getCoordinates()
-	{
-		return $this->coordinates;
-	}
+    /**
+     * @param mixed $offset
+     *
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        return $this->coordinates[$offset];
+    }
 
-	public function offsetExists($offset)
-	{
-		return isset($this->coordinates[$offset]);
-	}
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->coordinates[$offset] = $value;
+    }
 
-	public function offsetGet($offset)
-	{
-		return $this->coordinates[$offset];
-	}
-
-	public function offsetSet($offset, $value)
-	{
-		$this->coordinates[$offset] = $value;
-	}
-
-	public function offsetUnset($offset)
-	{
-		unset($this->coordinates[$offset]);
-	}
+    /**
+     * @param mixed $offset
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->coordinates[$offset]);
+    }
 }

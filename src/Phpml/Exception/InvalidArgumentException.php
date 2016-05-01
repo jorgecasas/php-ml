@@ -65,5 +65,4 @@ class InvalidArgumentException extends \Exception
     {
         return new self('Invalid clusters number');
     }
-
 }

@@ -1,216 +1,271 @@
 <?php
-declare(strict_types = 1);
+
+declare (strict_types = 1);
 
 namespace Phpml\Clustering\KMeans;
 
-use \SplObjectStorage;
-use \LogicException;
-use \InvalidArgumentException;
+use Phpml\Clustering\KMeans;
+use SplObjectStorage;
+use LogicException;
+use InvalidArgumentException;
 
 class Space extends SplObjectStorage
 {
-	// Default seeding method, initial cluster centroid are randomly choosen
-	const SEED_DEFAULT  = 1;
+    /**
+     * @var int
+     */
+    protected $dimension;
 
-	// Alternative seeding method by David Arthur and Sergei Vassilvitskii
-	// (see http://en.wikipedia.org/wiki/K-means++)
-	const SEED_DASV = 2;
+    /**
+     * @param $dimension
+     */
+    public function __construct($dimension)
+    {
+        if ($dimension < 1) {
+            throw new LogicException('a space dimension cannot be null or negative');
+        }
 
-	protected $dimention;
+        $this->dimension = $dimension;
+    }
 
-	public function __construct($dimention)
-	{
-		if ($dimention < 1)
-			throw new LogicException("a space dimention cannot be null or negative");
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        $points = [];
+        foreach ($this as $point) {
+            $points[] = $point->toArray();
+        }
 
-		$this->dimention = $dimention;
-	}
+        return ['points' => $points];
+    }
 
-	public function toArray()
-	{
-		$points = array();
-		foreach ($this as $point)
-			$points[] = $point->toArray();
+    /**
+     * @param array $coordinates
+     *
+     * @return Point
+     */
+    public function newPoint(array $coordinates)
+    {
+        if (count($coordinates) != $this->dimension) {
+            throw new LogicException('('.implode(',', $coordinates).') is not a point of this space');
+        }
 
-		return array('points' => $points);
-	}
+        return new Point($coordinates);
+    }
 
-	public function newPoint(array $coordinates)
-	{
-		if (count($coordinates) != $this->dimention)
-			throw new LogicException("(" . implode(',', $coordinates) . ") is not a point of this space");
+    /**
+     * @param array $coordinates
+     * @param null  $data
+     */
+    public function addPoint(array $coordinates, $data = null)
+    {
+        return $this->attach($this->newPoint($coordinates), $data);
+    }
 
-		return new Point($this, $coordinates);
-	}
+    /**
+     * @param object $point
+     * @param null   $data
+     */
+    public function attach($point, $data = null)
+    {
+        if (!$point instanceof Point) {
+            throw new InvalidArgumentException('can only attach points to spaces');
+        }
 
-	public function addPoint(array $coordinates, $data = null)
-	{
-		return $this->attach($this->newPoint($coordinates), $data);
-	}
+        return parent::attach($point, $data);
+    }
 
-	public function attach($point, $data = null)
-	{
-		if (!$point instanceof Point)
-			throw new InvalidArgumentException("can only attach points to spaces");
+    /**
+     * @return int
+     */
+    public function getDimension()
+    {
+        return $this->dimension;
+    }
 
-		return parent::attach($point, $data);
-	}
+    /**
+     * @return array|bool
+     */
+    public function getBoundaries()
+    {
+        if (!count($this)) {
+            return false;
+        }
 
-	public function getDimention()
-	{
-		return $this->dimention;
-	}
+        $min = $this->newPoint(array_fill(0, $this->dimension, null));
+        $max = $this->newPoint(array_fill(0, $this->dimension, null));
 
-	public function getBoundaries()
-	{
-		if (!count($this))
-			return false;
+        foreach ($this as $point) {
+            for ($n = 0; $n < $this->dimension; ++$n) {
+                ($min[$n] > $point[$n] || $min[$n] === null) && $min[$n] = $point[$n];
+                ($max[$n] < $point[$n] || $max[$n] === null) && $max[$n] = $point[$n];
+            }
+        }
 
-		$min = $this->newPoint(array_fill(0, $this->dimention, null));
-		$max = $this->newPoint(array_fill(0, $this->dimention, null));
+        return array($min, $max);
+    }
 
-		foreach ($this as $point) {
-			for ($n=0; $n < $this->dimention; $n++) {
-				($min[$n] > $point[$n] || $min[$n] === null) && $min[$n] = $point[$n];
-				($max[$n] < $point[$n] || $max[$n] === null) && $max[$n] = $point[$n];
-			}
-		}
+    /**
+     * @param Point $min
+     * @param Point $max
+     *
+     * @return Point
+     */
+    public function getRandomPoint(Point $min, Point $max)
+    {
+        $point = $this->newPoint(array_fill(0, $this->dimension, null));
 
-		return array($min, $max);
-	}
+        for ($n = 0; $n < $this->dimension; ++$n) {
+            $point[$n] = rand($min[$n], $max[$n]);
+        }
 
-	public function getRandomPoint(Point $min, Point $max)
-	{
-		$point = $this->newPoint(array_fill(0, $this->dimention, null));
+        return $point;
+    }
 
-		for ($n=0; $n < $this->dimention; $n++)
-			$point[$n] = rand($min[$n], $max[$n]);
+    /**
+     * @param $nbClusters
+     * @param int  $seed
+     * @param null $iterationCallback
+     *
+     * @return array|Cluster[]
+     */
+    public function solve($nbClusters, $seed = KMeans::INIT_RANDOM, $iterationCallback = null)
+    {
+        if ($iterationCallback && !is_callable($iterationCallback)) {
+            throw new InvalidArgumentException('invalid iteration callback');
+        }
 
-		return $point;
-	}
+        // initialize K clusters
+        $clusters = $this->initializeClusters($nbClusters, $seed);
 
-	/**
-	 * @param $nbClusters
-	 * @param int $seed
-	 * @param null $iterationCallback
-	 * @return array|Cluster[]
-	 */
-	public function solve($nbClusters, $seed = self::SEED_DEFAULT, $iterationCallback = null)
-	{
-		if ($iterationCallback && !is_callable($iterationCallback))
-			throw new InvalidArgumentException("invalid iteration callback");
+        // there's only one cluster, clusterization has no meaning
+        if (count($clusters) == 1) {
+            return $clusters[0];
+        }
 
-		// initialize K clusters
-		$clusters = $this->initializeClusters($nbClusters, $seed);
+        // until convergence is reached
+        do {
+            $iterationCallback && $iterationCallback($this, $clusters);
+        } while ($this->iterate($clusters));
 
-		// there's only one cluster, clusterization has no meaning
-		if (count($clusters) == 1)
-			return $clusters[0];
+        // clustering is done.
+        return $clusters;
+    }
 
-		// until convergence is reached
-		do {
-			$iterationCallback && $iterationCallback($this, $clusters);
-		} while ($this->iterate($clusters));
+    /**
+     * @param $nbClusters
+     * @param $seed
+     *
+     * @return array
+     */
+    protected function initializeClusters($nbClusters, $seed)
+    {
+        if ($nbClusters <= 0) {
+            throw new InvalidArgumentException('invalid clusters number');
+        }
 
-		// clustering is done.
-		return $clusters;
-	}
+        switch ($seed) {
+            // the default seeding method chooses completely random centroid
+            case KMeans::INIT_RANDOM:
+                // get the space boundaries to avoid placing clusters centroid too far from points
+                list($min, $max) = $this->getBoundaries();
 
-	protected function initializeClusters($nbClusters, $seed)
-	{
-		if ($nbClusters <= 0)
-			throw new InvalidArgumentException("invalid clusters number");
+                // initialize N clusters with a random point within space boundaries
+                for ($n = 0; $n < $nbClusters; ++$n) {
+                    $clusters[] = new Cluster($this, $this->getRandomPoint($min, $max)->getCoordinates());
+                }
 
-		switch ($seed) {
-			// the default seeding method chooses completely random centroid
-			case self::SEED_DEFAULT:
-				// get the space boundaries to avoid placing clusters centroid too far from points
-				list($min, $max) = $this->getBoundaries();
+                break;
 
-				// initialize N clusters with a random point within space boundaries
-				for ($n=0; $n<$nbClusters; $n++)
-					$clusters[] = new Cluster($this, $this->getRandomPoint($min, $max)->getCoordinates());
+            // the DASV seeding method consists of finding good initial centroids for the clusters
+            case KMeans::INIT_KMEANS_PLUS_PLUS:
+                // find a random point
+                $position = rand(1, count($this));
+                for ($i = 1, $this->rewind(); $i < $position && $this->valid(); $i++, $this->next());
+                $clusters[] = new Cluster($this, $this->current()->getCoordinates());
 
-				break;
+                // retains the distances between points and their closest clusters
+                $distances = new SplObjectStorage();
 
-			// the DASV seeding method consists of finding good initial centroids for the clusters
-			case self::SEED_DASV:
-				// find a random point
-				$position = rand(1, count($this));
-				for ($i=1, $this->rewind(); $i<$position && $this->valid(); $i++, $this->next());
-				$clusters[] = new Cluster($this, $this->current()->getCoordinates());
+                // create k clusters
+                for ($i = 1; $i < $nbClusters; ++$i) {
+                    $sum = 0;
 
-				// retains the distances between points and their closest clusters
-				$distances = new SplObjectStorage;
+                    // for each points, get the distance with the closest centroid already choosen
+                    foreach ($this as $point) {
+                        $distance = $point->getDistanceWith($point->getClosest($clusters));
+                        $sum += $distances[$point] = $distance;
+                    }
 
-				// create k clusters
-				for ($i=1; $i<$nbClusters; $i++) {
-					$sum = 0;
+                    // choose a new random point using a weighted probability distribution
+                    $sum = rand(0, (int) $sum);
+                    foreach ($this as $point) {
+                        if (($sum -= $distances[$point]) > 0) {
+                            continue;
+                        }
 
-					// for each points, get the distance with the closest centroid already choosen
-					foreach ($this as $point) {
-						$distance = $point->getDistanceWith($point->getClosest($clusters));
-						$sum += $distances[$point] = $distance;
-					}
+                        $clusters[] = new Cluster($this, $point->getCoordinates());
+                        break;
+                    }
+                }
 
-					// choose a new random point using a weighted probability distribution
-					$sum = rand(0, $sum);
-					foreach ($this as $point) {
-						if (($sum -= $distances[$point]) > 0)
-							continue;
+                break;
+        }
 
-						$clusters[] = new Cluster($this, $point->getCoordinates());
-						break;
-					}
-				}
+        // assing all points to the first cluster
+        $clusters[0]->attachAll($this);
 
-				break;
-		}
+        return $clusters;
+    }
 
-		// assing all points to the first cluster
-		$clusters[0]->attachAll($this);
+    /**
+     * @param $clusters
+     *
+     * @return bool
+     */
+    protected function iterate($clusters)
+    {
+        $continue = false;
 
-		return $clusters;
-	}
+        // migration storages
+        $attach = new SplObjectStorage();
+        $detach = new SplObjectStorage();
 
-	protected function iterate($clusters)
-	{
-		$continue = false;
+        // calculate proximity amongst points and clusters
+        foreach ($clusters as $cluster) {
+            foreach ($cluster as $point) {
+                // find the closest cluster
+                $closest = $point->getClosest($clusters);
 
-		// migration storages
-		$attach = new SplObjectStorage;
-		$detach = new SplObjectStorage;
+                // move the point from its old cluster to its closest
+                if ($closest !== $cluster) {
+                    isset($attach[$closest]) || $attach[$closest] = new SplObjectStorage();
+                    isset($detach[$cluster]) || $detach[$cluster] = new SplObjectStorage();
 
-		// calculate proximity amongst points and clusters
-		foreach ($clusters as $cluster) {
-			foreach ($cluster as $point) {
-				// find the closest cluster
-				$closest = $point->getClosest($clusters);
+                    $attach[$closest]->attach($point);
+                    $detach[$cluster]->attach($point);
 
-				// move the point from its old cluster to its closest
-				if ($closest !== $cluster) {
-					isset($attach[$closest]) || $attach[$closest] = new SplObjectStorage;
-					isset($detach[$cluster]) || $detach[$cluster] = new SplObjectStorage;
+                    $continue = true;
+                }
+            }
+        }
 
-					$attach[$closest]->attach($point);
-					$detach[$cluster]->attach($point);
+        // perform points migrations
+        foreach ($attach as $cluster) {
+            $cluster->attachAll($attach[$cluster]);
+        }
 
-					$continue = true;
-				}
-			}
-		}
+        foreach ($detach as $cluster) {
+            $cluster->detachAll($detach[$cluster]);
+        }
 
-		// perform points migrations
-		foreach ($attach as $cluster)
-			$cluster->attachAll($attach[$cluster]);
+        // update all cluster's centroids
+        foreach ($clusters as $cluster) {
+            $cluster->updateCentroid();
+        }
 
-		foreach ($detach as $cluster)
-			$cluster->detachAll($detach[$cluster]);
-
-		// update all cluster's centroids
-		foreach ($clusters as $cluster)
-			$cluster->updateCentroid();
-
-		return $continue;
-	}
+        return $continue;
+    }
 }
