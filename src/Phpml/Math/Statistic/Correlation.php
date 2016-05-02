@@ -38,7 +38,7 @@ class Correlation
             $b2 = $b2 + pow($b, 2);
         }
 
-        $corr = $axb / sqrt((float)($a2 * $b2));
+        $corr = $axb / sqrt((float) ($a2 * $b2));
 
         return $corr;
     }
