@@ -6,7 +6,21 @@
 [![License](https://poser.pugx.org/php-ai/php-ml/license.svg)](https://packagist.org/packages/php-ai/php-ml)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/php-ai/php-ml/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/php-ai/php-ml/?branch=develop)
 
-Fresh approach to machine learning in PHP. Note that at the moment PHP is not the best choice for machine learning but maybe this will change ...
+Fresh approach to Machine Learning in PHP. Note that at the moment PHP is not the best choice for machine learning but maybe this will change ...
+
+Simple example of classification:
+```php
+use Phpml\Classifier\KNearestNeighbors;
+
+$samples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
+$labels = ['a', 'a', 'a', 'b', 'b', 'b'];
+
+$classifier = new KNearestNeighbors();
+$classifier->train($samples, $labels);
+
+$classifier->predict([3, 2]); 
+// return 'b'
+```
 
 ## Documentation
 
@@ -20,14 +34,19 @@ Currently this library is in the process of developing, but You can install it w
 composer require php-ai/php-ml
 ```
 
-## To-Do
+## Features
 
-* implements more algorithms
-* integration with Lavacharts for data visualization
+* Classification
+* Regression
+* Clustering
+* Cross Validation
 
-## Testing
+## Contribute
 
-After installation, you can launch the test suite in project root directory (you will need to install dev requirements with composer)
+- Issue Tracker: github.com/php-ai/php-ml/issues
+- Source Code: github.com/php-ai/php-ml
+
+After installation, you can launch the test suite in project root directory (you will need to install dev requirements with Composer)
 
 ```
 bin/phpunit
