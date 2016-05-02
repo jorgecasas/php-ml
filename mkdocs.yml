@@ -3,20 +3,23 @@ pages:
   - Home: index.md
   - Machine Learning:
     - Classification:
-      - KNearestNeighbors: machine-learning/classification/knearestneighbors.md
-      - NaiveBayes: machine-learning/classification/naivebayes.md
+      - KNearestNeighbors: machine-learning/classification/k-nearest-neighbors.md
+      - NaiveBayes: machine-learning/classification/naive-bayes.md
+    - Regression:
+      - LeastSquares: machine-learning/regression/least-squares.md
+    - Clustering:
+      - KMeans: machine-learning/clustering/k-means.md
+      - DBSCAN: machine-learning/clustering/dbscan.md
     - Cross Validation:
-      - RandomSplit: machine-learning/cross-validation/randomsplit.md
+      - RandomSplit: machine-learning/cross-validation/random-split.md
     - Datasets:
       - Array Dataset: machine-learning/datasets/array-dataset.md
       - CSV Dataset: machine-learning/datasets/csv-dataset.md
-      - Demo:
+      - Ready to use datasets:
         - Iris: machine-learning/datasets/demo/iris.md
     - Metric:
       - Accuracy: machine-learning/metric/accuracy.md
-      - Distance:
-        - Euclidean: machine-learning/metric/distance/euclidean.md
-        - Chebyshev: machine-learning/metric/distance/chebyshev.md
-        - Manhattan: machine-learning/metric/distance/manhattan.md
-        - Minkowski: machine-learning/metric/distance/minkowski.md
+  - Math:
+    - Distance: math/distance.md
+    - Matrix: math/matrix.md
 theme: readthedocs
