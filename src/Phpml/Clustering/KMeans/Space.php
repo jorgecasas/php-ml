@@ -125,81 +125,51 @@ class Space extends SplObjectStorage
     }
 
     /**
-     * @param $nbClusters
-     * @param int  $seed
-     * @param null $iterationCallback
+     * @param int $clustersNumber
+     * @param int $initMethod
      *
      * @return array|Cluster[]
      */
-    public function solve($nbClusters, $seed = KMeans::INIT_RANDOM, $iterationCallback = null)
+    public function cluster(int $clustersNumber, int $initMethod = KMeans::INIT_RANDOM)
     {
-        if ($iterationCallback && !is_callable($iterationCallback)) {
-            throw new InvalidArgumentException('invalid iteration callback');
-        }
+        $clusters = $this->initializeClusters($clustersNumber, $initMethod);
 
-        // initialize K clusters
-        $clusters = $this->initializeClusters($nbClusters, $seed);
-
-        // there's only one cluster, clusterization has no meaning
-        if (count($clusters) == 1) {
-            return $clusters[0];
-        }
-
-        // until convergence is reached
         do {
-            $iterationCallback && $iterationCallback($this, $clusters);
-        } while ($this->iterate($clusters));
+        } while (!$this->iterate($clusters));
 
-        // clustering is done.
         return $clusters;
     }
 
     /**
-     * @param $nbClusters
-     * @param $seed
+     * @param $clustersNumber
+     * @param $initMethod
      *
-     * @return array
+     * @return array|Cluster[]
      */
-    protected function initializeClusters($nbClusters, $seed)
+    protected function initializeClusters(int $clustersNumber, int $initMethod)
     {
-        if ($nbClusters <= 0) {
-            throw new InvalidArgumentException('invalid clusters number');
-        }
-
-        switch ($seed) {
-            // the default seeding method chooses completely random centroid
+        switch ($initMethod) {
             case KMeans::INIT_RANDOM:
-                // get the space boundaries to avoid placing clusters centroid too far from points
                 list($min, $max) = $this->getBoundaries();
-
-                // initialize N clusters with a random point within space boundaries
-                for ($n = 0; $n < $nbClusters; ++$n) {
+                for ($n = 0; $n < $clustersNumber; ++$n) {
                     $clusters[] = new Cluster($this, $this->getRandomPoint($min, $max)->getCoordinates());
                 }
-
                 break;
 
-            // the DASV seeding method consists of finding good initial centroids for the clusters
             case KMeans::INIT_KMEANS_PLUS_PLUS:
-                // find a random point
                 $position = rand(1, count($this));
                 for ($i = 1, $this->rewind(); $i < $position && $this->valid(); $i++, $this->next());
                 $clusters[] = new Cluster($this, $this->current()->getCoordinates());
 
-                // retains the distances between points and their closest clusters
                 $distances = new SplObjectStorage();
 
-                // create k clusters
-                for ($i = 1; $i < $nbClusters; ++$i) {
+                for ($i = 1; $i < $clustersNumber; ++$i) {
                     $sum = 0;
-
-                    // for each points, get the distance with the closest centroid already choosen
                     foreach ($this as $point) {
                         $distance = $point->getDistanceWith($point->getClosest($clusters));
                         $sum += $distances[$point] = $distance;
                     }
 
-                    // choose a new random point using a weighted probability distribution
                     $sum = rand(0, (int) $sum);
                     foreach ($this as $point) {
                         if (($sum -= $distances[$point]) > 0) {
@@ -213,8 +183,6 @@ class Space extends SplObjectStorage
 
                 break;
         }
-
-        // assing all points to the first cluster
         $clusters[0]->attachAll($this);
 
         return $clusters;
@@ -227,19 +195,15 @@ class Space extends SplObjectStorage
      */
     protected function iterate($clusters)
     {
-        $continue = false;
+        $convergence = true;
 
-        // migration storages
         $attach = new SplObjectStorage();
         $detach = new SplObjectStorage();
 
-        // calculate proximity amongst points and clusters
         foreach ($clusters as $cluster) {
             foreach ($cluster as $point) {
-                // find the closest cluster
                 $closest = $point->getClosest($clusters);
 
-                // move the point from its old cluster to its closest
                 if ($closest !== $cluster) {
                     isset($attach[$closest]) || $attach[$closest] = new SplObjectStorage();
                     isset($detach[$cluster]) || $detach[$cluster] = new SplObjectStorage();
@@ -247,12 +211,11 @@ class Space extends SplObjectStorage
                     $attach[$closest]->attach($point);
                     $detach[$cluster]->attach($point);
 
-                    $continue = true;
+                    $convergence = false;
                 }
             }
         }
 
-        // perform points migrations
         foreach ($attach as $cluster) {
             $cluster->attachAll($attach[$cluster]);
         }
@@ -261,11 +224,10 @@ class Space extends SplObjectStorage
             $cluster->detachAll($detach[$cluster]);
         }
 
-        // update all cluster's centroids
         foreach ($clusters as $cluster) {
             $cluster->updateCentroid();
         }
 
-        return $continue;
+        return $convergence;
     }
 }
