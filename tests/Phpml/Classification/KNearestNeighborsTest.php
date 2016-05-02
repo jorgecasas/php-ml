@@ -2,12 +2,10 @@
 
 declare (strict_types = 1);
 
-namespace tests\Classifier;
+namespace tests\Classification;
 
-use Phpml\Classifier\KNearestNeighbors;
-use Phpml\CrossValidation\RandomSplit;
-use Phpml\Dataset\Demo\Iris;
-use Phpml\Metric\Accuracy;
+use Phpml\Classification\KNearestNeighbors;
+use Phpml\Math\Distance\Chebyshev;
 
 class KNearestNeighborsTest extends \PHPUnit_Framework_TestCase
 {
@@ -45,14 +43,18 @@ class KNearestNeighborsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($testLabels, $predicted);
     }
 
-    public function testAccuracyOnIrisDataset()
+    public function testPredictArrayOfSamplesUsingChebyshevDistanceMetric()
     {
-        $dataset = new RandomSplit(new Iris(), $testSize = 0.5, $seed = 123);
-        $classifier = new KNearestNeighbors($k = 4);
-        $classifier->train($dataset->getTrainSamples(), $dataset->getTrainLabels());
-        $predicted = $classifier->predict($dataset->getTestSamples());
-        $score = Accuracy::score($dataset->getTestLabels(), $predicted);
+        $trainSamples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
+        $trainLabels = ['a', 'a', 'a', 'b', 'b', 'b'];
 
-        $this->assertEquals(0.96, $score);
+        $testSamples = [[3, 2], [5, 1], [4, 3], [4, -5], [2, 3], [1, 2], [1, 5], [3, 10]];
+        $testLabels = ['b', 'b', 'b', 'b', 'a', 'a', 'a', 'a'];
+
+        $classifier = new KNearestNeighbors(3, new Chebyshev());
+        $classifier->train($trainSamples, $trainLabels);
+        $predicted = $classifier->predict($testSamples);
+
+        $this->assertEquals($testLabels, $predicted);
     }
 }

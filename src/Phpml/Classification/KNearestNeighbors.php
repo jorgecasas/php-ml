@@ -2,64 +2,41 @@
 
 declare (strict_types = 1);
 
-namespace Phpml\Classifier;
+namespace Phpml\Classification;
 
-use Phpml\Metric\Distance;
+use Phpml\Classification\Traits\Predictable;
+use Phpml\Classification\Traits\Trainable;
+use Phpml\Math\Distance;
+use Phpml\Math\Distance\Euclidean;
 
 class KNearestNeighbors implements Classifier
 {
+    use Trainable, Predictable;
+
     /**
      * @var int
      */
     private $k;
 
     /**
-     * @var array
+     * @var Distance
      */
-    private $samples;
+    private $distanceMetric;
 
     /**
-     * @var array
+     * @param int           $k
+     * @param Distance|null $distanceMetric (if null then Euclidean distance as default)
      */
-    private $labels;
-
-    /**
-     * @param int $k
-     */
-    public function __construct(int $k = 3)
+    public function __construct(int $k = 3, Distance $distanceMetric = null)
     {
+        if (null === $distanceMetric) {
+            $distanceMetric = new Euclidean();
+        }
+
         $this->k = $k;
         $this->samples = [];
         $this->labels = [];
-    }
-
-    /**
-     * @param array $samples
-     * @param array $labels
-     */
-    public function train(array $samples, array $labels)
-    {
-        $this->samples = $samples;
-        $this->labels = $labels;
-    }
-
-    /**
-     * @param array $samples
-     *
-     * @return mixed
-     */
-    public function predict(array $samples)
-    {
-        if (!is_array($samples[0])) {
-            $predicted = $this->predictSample($samples);
-        } else {
-            $predicted = [];
-            foreach ($samples as $index => $sample) {
-                $predicted[$index] = $this->predictSample($sample);
-            }
-        }
-
-        return $predicted;
+        $this->distanceMetric = $distanceMetric;
     }
 
     /**
@@ -67,7 +44,7 @@ class KNearestNeighbors implements Classifier
      *
      * @return mixed
      */
-    private function predictSample(array $sample)
+    protected function predictSample(array $sample)
     {
         $distances = $this->kNeighborsDistances($sample);
 
@@ -95,7 +72,7 @@ class KNearestNeighbors implements Classifier
         $distances = [];
 
         foreach ($this->samples as $index => $neighbor) {
-            $distances[$index] = Distance::euclidean($sample, $neighbor);
+            $distances[$index] = $this->distanceMetric->distance($sample, $neighbor);
         }
 
         asort($distances);

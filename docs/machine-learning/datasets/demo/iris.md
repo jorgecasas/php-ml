@@ -17,7 +17,7 @@ To load Iris dataset simple use:
 $dataset = new Iris();
 ```
 
-### Several samples
+### Several samples example
 
 ```
 sepal length,sepal width,petal length,petal width,class

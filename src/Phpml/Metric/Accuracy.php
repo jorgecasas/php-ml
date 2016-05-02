@@ -20,12 +20,12 @@ class Accuracy
     public static function score(array $actualLabels, array $predictedLabels, bool $normalize = true)
     {
         if (count($actualLabels) != count($predictedLabels)) {
-            throw InvalidArgumentException::sizeNotMatch();
+            throw InvalidArgumentException::arraySizeNotMatch();
         }
 
         $score = 0;
         foreach ($actualLabels as $index => $label) {
-            if ($label === $predictedLabels[$index]) {
+            if ($label == $predictedLabels[$index]) {
                 ++$score;
             }
         }
