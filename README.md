@@ -10,7 +10,7 @@ Fresh approach to Machine Learning in PHP. Note that at the moment PHP is not th
 
 Simple example of classification:
 ```php
-use Phpml\Classifier\KNearestNeighbors;
+use Phpml\Classification\KNearestNeighbors;
 
 $samples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
 $labels = ['a', 'a', 'a', 'b', 'b', 'b'];
