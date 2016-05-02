@@ -39,6 +39,6 @@ class StandardDeviation
             --$n;
         }
 
-        return sqrt($carry / $n);
+        return sqrt((float)($carry / $n));
     }
 }

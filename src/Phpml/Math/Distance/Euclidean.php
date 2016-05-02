@@ -30,6 +30,6 @@ class Euclidean implements Distance
             $distance += pow($a[$i] - $b[$i], 2);
         }
 
-        return sqrt($distance);
+        return sqrt((float)$distance);
     }
 }

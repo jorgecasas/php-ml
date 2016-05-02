@@ -49,7 +49,7 @@ class Point implements ArrayAccess
             $distance  += $difference * $difference;
         }
 
-        return $precise ? sqrt($distance) : $distance;
+        return $precise ? sqrt((float)$distance) : $distance;
     }
 
     /**

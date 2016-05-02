@@ -147,7 +147,7 @@ class Matrix
             for ($j = 0; $j < $this->columns; ++$j) {
                 $subMatrix = $this->crossOut(0, $j);
                 $minor = $this->matrix[0][$j] * $subMatrix->getDeterminant();
-                $determinant += fmod($j, 2) == 0 ? $minor : -$minor;
+                $determinant += fmod((float)$j, 2.0) == 0 ? $minor : -$minor;
             }
         }
 
@@ -236,7 +236,7 @@ class Matrix
         for ($i = 0; $i < $this->rows; ++$i) {
             for ($j = 0; $j < $this->columns; ++$j) {
                 $minor = $this->crossOut($i, $j)->getDeterminant();
-                $newMatrix[$i][$j] = fmod($i + $j, 2) == 0 ? $minor : -$minor;
+                $newMatrix[$i][$j] = fmod((float)($i + $j), 2.0) == 0 ? $minor : -$minor;
             }
         }
 
