@@ -1,4 +1,4 @@
-site_name: PHP Machine Learning (PHP-ML)
+site_name: PHP-ML - Machine Learning library for PHP
 pages:
   - Home: index.md
   - Machine Learning:
