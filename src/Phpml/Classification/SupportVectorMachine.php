@@ -33,6 +33,11 @@ class SupportVectorMachine implements Classifier
     private $upperBound;
 
     /**
+     * @var string
+     */
+    private $binPath;
+
+    /**
      * @param Kernel $kernel
      * @param float  $C
      * @param float  $tolerance
@@ -51,11 +56,23 @@ class SupportVectorMachine implements Classifier
     }
 
     /**
+     * @param array $samples
+     * @param array $labels
+     */
+    public function train(array $samples, array $labels)
+    {
+        $this->samples = $samples;
+        $this->labels = $labels;
+    }
+
+    /**
      * @param array $sample
      *
      * @return mixed
      */
     protected function predictSample(array $sample)
     {
+
     }
+
 }
