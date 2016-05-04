@@ -72,7 +72,5 @@ class SupportVectorMachine implements Classifier
      */
     protected function predictSample(array $sample)
     {
-
     }
-
 }
