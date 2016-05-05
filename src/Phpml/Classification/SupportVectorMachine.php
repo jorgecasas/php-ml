@@ -53,6 +53,8 @@ class SupportVectorMachine implements Classifier
         $this->C = $C;
         $this->tolerance = $tolerance;
         $this->upperBound = $upperBound;
+
+        $this->binPath = realpath(implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), '..', '..', '..', 'bin'))) . DIRECTORY_SEPARATOR;
     }
 
     /**
