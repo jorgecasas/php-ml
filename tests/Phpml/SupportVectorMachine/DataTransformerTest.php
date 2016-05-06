@@ -22,4 +22,19 @@ class DataTransformerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($trainingSet, DataTransformer::trainingSet($samples, $labels));
     }
+
+    public function testTransformSamplesToTestSet()
+    {
+        $samples = [[1, 1], [2, 1], [3, 2], [4, 5]];
+
+        $testSet =
+            '0 1:1 2:1 '.PHP_EOL.
+            '0 1:2 2:1 '.PHP_EOL.
+            '0 1:3 2:2 '.PHP_EOL.
+            '0 1:4 2:5 '.PHP_EOL
+        ;
+
+        $this->assertEquals($testSet, DataTransformer::testSet($samples));
+    }
+
 }

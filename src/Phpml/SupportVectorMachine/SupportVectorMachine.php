@@ -83,5 +83,6 @@ class SupportVectorMachine
 
     public function predict(array $samples)
     {
+        $testSet = DataTransformer::testSet();
     }
 }

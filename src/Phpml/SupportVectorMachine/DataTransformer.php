@@ -24,6 +24,21 @@ class DataTransformer
     }
 
     /**
+     * @param array $samples
+     *
+     * @return string
+     */
+    public static function testSet(array $samples): string
+    {
+        $set = '';
+        foreach ($samples as $sample) {
+            $set .= sprintf('0 %s %s', self::sampleRow($sample), PHP_EOL);
+        }
+
+        return $set;
+    }
+
+    /**
      * @param array $labels
      *
      * @return array
