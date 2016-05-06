@@ -51,7 +51,7 @@ class DataTransformer
     {
         $row = [];
         foreach ($sample as $index => $feature) {
-            $row[] = sprintf('%s:%s', $index, $feature);
+            $row[] = sprintf('%s:%s', $index + 1, $feature);
         }
 
         return implode(' ', $row);

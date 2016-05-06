@@ -27,7 +27,7 @@ class SupportVectorMachine
     private $binPath;
 
     /**
-     * @var
+     * @var string
      */
     private $varPath;
 
@@ -79,5 +79,9 @@ class SupportVectorMachine
     public function getModel()
     {
         return $this->model;
+    }
+
+    public function predict(array $samples)
+    {
     }
 }

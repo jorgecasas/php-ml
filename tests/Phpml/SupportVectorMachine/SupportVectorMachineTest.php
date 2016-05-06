@@ -24,8 +24,8 @@ rho 0
 label 0 1
 nr_sv 1 1
 SV
-0.25 0:2 1:4 
--0.25 0:4 1:2 
+0.25 1:2 2:4 
+-0.25 1:4 2:2 
 ';
 
         $svm = new SupportVectorMachine(Type::C_SVC, Kernel::LINEAR, 100.0);
