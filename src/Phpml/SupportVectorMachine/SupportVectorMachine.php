@@ -37,6 +37,11 @@ class SupportVectorMachine
     private $model;
 
     /**
+     * @var array
+     */
+    private $labels;
+
+    /**
      * @param int   $type
      * @param int   $kernel
      * @param float $cost
@@ -59,6 +64,7 @@ class SupportVectorMachine
      */
     public function train(array $samples, array $labels)
     {
+        $this->labels = $labels;
         $trainingSet = DataTransformer::trainingSet($samples, $labels);
         file_put_contents($trainingSetFileName = $this->varPath.uniqid(), $trainingSet);
         $modelFileName = $trainingSetFileName.'-model';
@@ -81,8 +87,29 @@ class SupportVectorMachine
         return $this->model;
     }
 
+    /**
+     * @param array $samples
+     *
+     * @return array
+     */
     public function predict(array $samples)
     {
-        $testSet = DataTransformer::testSet();
+        $testSet = DataTransformer::testSet($samples);
+        file_put_contents($testSetFileName = $this->varPath.uniqid(), $testSet);
+        $modelFileName = $testSetFileName.'-model';
+        file_put_contents($modelFileName, $this->model);
+        $outputFileName = $testSetFileName.'-output';
+
+        $command = sprintf('%ssvm-predict %s %s %s', $this->binPath, $testSetFileName, $modelFileName, $outputFileName);
+        $output = '';
+        exec(escapeshellcmd($command), $output);
+
+        $predictions = file_get_contents($outputFileName);
+
+        unlink($testSetFileName);
+        unlink($modelFileName);
+        unlink($outputFileName);
+
+        return DataTransformer::results($predictions, $this->labels);
     }
 }

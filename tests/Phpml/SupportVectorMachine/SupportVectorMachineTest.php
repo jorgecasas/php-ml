@@ -33,4 +33,23 @@ SV
 
         $this->assertEquals($model, $svm->getModel());
     }
+
+    public function testPredictCSVCModelWithLinearKernel()
+    {
+        $samples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
+        $labels = ['a', 'a', 'a', 'b', 'b', 'b'];
+
+        $svm = new SupportVectorMachine(Type::C_SVC, Kernel::LINEAR, 100.0);
+        $svm->train($samples, $labels);
+
+        $predictions = $svm->predict([
+            [3, 2],
+            [2, 3],
+            [4, -5],
+        ]);
+
+        $this->assertEquals('b', $predictions[0]);
+        $this->assertEquals('a', $predictions[1]);
+        $this->assertEquals('b', $predictions[2]);
+    }
 }

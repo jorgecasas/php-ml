@@ -39,6 +39,23 @@ class DataTransformer
     }
 
     /**
+     * @param string $resultString
+     * @param array  $labels
+     *
+     * @return array
+     */
+    public static function results(string $resultString, array $labels): array
+    {
+        $numericLabels = self::numericLabels($labels);
+        $results = [];
+        foreach (explode(PHP_EOL, $resultString) as $result) {
+            $results[] = array_search($result, $numericLabels);
+        }
+
+        return $results;
+    }
+
+    /**
      * @param array $labels
      *
      * @return array

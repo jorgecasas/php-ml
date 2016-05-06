@@ -36,5 +36,4 @@ class DataTransformerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($testSet, DataTransformer::testSet($samples));
     }
-
 }
