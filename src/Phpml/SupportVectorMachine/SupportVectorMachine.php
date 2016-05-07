@@ -69,7 +69,7 @@ class SupportVectorMachine
         file_put_contents($trainingSetFileName = $this->varPath.uniqid(), $trainingSet);
         $modelFileName = $trainingSetFileName.'-model';
 
-        $command = sprintf('%ssvm-train -s %s -t %s -c %s %s %s', $this->binPath, $this->type, $this->kernel, $this->cost, $trainingSetFileName, $modelFileName);
+        $command = sprintf('%ssvm-train%s -s %s -t %s -c %s %s %s', $this->binPath, $this->getOSExtension(), $this->type, $this->kernel, $this->cost, $trainingSetFileName, $modelFileName);
         $output = '';
         exec(escapeshellcmd($command), $output);
 
@@ -100,7 +100,7 @@ class SupportVectorMachine
         file_put_contents($modelFileName, $this->model);
         $outputFileName = $testSetFileName.'-output';
 
-        $command = sprintf('%ssvm-predict %s %s %s', $this->binPath, $testSetFileName, $modelFileName, $outputFileName);
+        $command = sprintf('%ssvm-predict%s %s %s %s', $this->binPath, $this->getOSExtension(), $testSetFileName, $modelFileName, $outputFileName);
         $output = '';
         exec(escapeshellcmd($command), $output);
 
@@ -112,4 +112,17 @@ class SupportVectorMachine
 
         return DataTransformer::results($predictions, $this->labels);
     }
+
+    /**
+     * @return string
+     */
+    private function getOSExtension()
+    {
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            return '.exe';
+        }
+
+        return '';
+    }
+
 }
