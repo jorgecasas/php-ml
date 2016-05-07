@@ -37,15 +37,19 @@ composer require php-ai/php-ml
 ## Features
 
 * Classification
+    * [SVC](http://php-ml.readthedocs.io/en/latest/machine-learning/classification/svc/)
     * [k-Nearest Neighbors](http://php-ml.readthedocs.io/en/latest/machine-learning/classification/k-nearest-neighbors/)
     * [Naive Bayes](http://php-ml.readthedocs.io/en/latest/machine-learning/classification/naive-bayes/)
 * Regression
     * [Least Squares](http://php-ml.readthedocs.io/en/latest/machine-learning/regression/least-squares/)
+    * [SVR](http://php-ml.readthedocs.io/en/latest/machine-learning/regression/svr/)
 * Clustering
     * [k-Means](http://php-ml.readthedocs.io/en/latest/machine-learning/clustering/k-means)
     * [DBSCAN](http://php-ml.readthedocs.io/en/latest/machine-learning/clustering/dbscan)
 * Cross Validation
     * [Random Split](http://php-ml.readthedocs.io/en/latest/machine-learning/cross-validation/random-split)
+* Feature Extraction
+    * [Token Count Vectorizer](http://php-ml.readthedocs.io/en/latest/machine-learning/feature-extraction/token-count-vectorizer)
 * Datasets
     * [CSV](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/csv-dataset)
     * Ready to use:
