@@ -30,6 +30,10 @@ class DataTransformer
      */
     public static function testSet(array $samples): string
     {
+        if (!is_array($samples[0])) {
+            $samples = [$samples];
+        }
+
         $set = '';
         foreach ($samples as $sample) {
             $set .= sprintf('0 %s %s', self::sampleRow($sample), PHP_EOL);
@@ -39,17 +43,19 @@ class DataTransformer
     }
 
     /**
-     * @param string $resultString
+     * @param string $rawPredictions
      * @param array  $labels
      *
      * @return array
      */
-    public static function results(string $resultString, array $labels): array
+    public static function predictions(string $rawPredictions, array $labels): array
     {
         $numericLabels = self::numericLabels($labels);
         $results = [];
-        foreach (explode(PHP_EOL, $resultString) as $result) {
-            $results[] = array_search($result, $numericLabels);
+        foreach (explode(PHP_EOL, $rawPredictions) as $result) {
+            if (strlen($result) > 0) {
+                $results[] = array_search($result, $numericLabels);
+            }
         }
 
         return $results;

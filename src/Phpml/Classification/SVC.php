@@ -4,50 +4,27 @@ declare (strict_types = 1);
 
 namespace Phpml\Classification;
 
-use Phpml\Classification\Traits\Predictable;
-use Phpml\Classification\Traits\Trainable;
-use Phpml\Math\Kernel;
+use Phpml\SupportVectorMachine\SupportVectorMachine;
+use Phpml\SupportVectorMachine\Type;
 
-class SVC implements Classifier
+class SVC extends SupportVectorMachine implements Classifier
 {
-    use Trainable, Predictable;
-
     /**
-     * @var int
+     * @param int        $kernel
+     * @param float      $cost
+     * @param int        $degree
+     * @param float|null $gamma
+     * @param float      $coef0
+     * @param float      $tolerance
+     * @param int        $cacheSize
+     * @param bool       $shrinking
+     * @param bool       $probabilityEstimates
      */
-    private $kernel;
-
-    /**
-     * @var float
-     */
-    private $cost;
-
-    /**
-     * @param int   $kernel
-     * @param float $cost
-     */
-    public function __construct(int $kernel, float $cost)
-    {
-        $this->kernel = $kernel;
-        $this->cost = $cost;
-    }
-
-    /**
-     * @param array $samples
-     * @param array $labels
-     */
-    public function train(array $samples, array $labels)
-    {
-        $this->samples = $samples;
-        $this->labels = $labels;
-    }
-
-    /**
-     * @param array $sample
-     *
-     * @return mixed
-     */
-    protected function predictSample(array $sample)
-    {
+    public function __construct(
+        int $kernel, float $cost = 1.0, int $degree = 3, float $gamma = null, float $coef0 = 0.0,
+        float $tolerance = 0.001, int $cacheSize = 100, bool $shrinking = true,
+        bool $probabilityEstimates = false
+    ) {
+        parent::__construct(Type::C_SVC, $kernel, $cost, 0.5, $degree, $gamma, $coef0, 0.1, $tolerance, $cacheSize, $shrinking, $probabilityEstimates);
     }
 }
