@@ -4,10 +4,12 @@ declare (strict_types = 1);
 
 namespace Phpml\Regression;
 
+use Phpml\Helper\Predictable;
 use Phpml\Math\Matrix;
 
 class LeastSquares implements Regression
 {
+    use Predictable;
     /**
      * @var array
      */
@@ -45,7 +47,7 @@ class LeastSquares implements Regression
      *
      * @return mixed
      */
-    public function predict($sample)
+    public function predictSample(array $sample)
     {
         $result = $this->intercept;
         foreach ($this->coefficients as $index => $coefficient) {

@@ -131,7 +131,7 @@ class SupportVectorMachine
     public function train(array $samples, array $labels)
     {
         $this->labels = $labels;
-        $trainingSet = DataTransformer::trainingSet($samples, $labels);
+        $trainingSet = DataTransformer::trainingSet($samples, $labels, in_array($this->type, [Type::EPSILON_SVR, Type::NU_SVR]));
         file_put_contents($trainingSetFileName = $this->varPath.uniqid(), $trainingSet);
         $modelFileName = $trainingSetFileName.'-model';
 
@@ -169,13 +169,17 @@ class SupportVectorMachine
         $output = '';
         exec(escapeshellcmd($command), $output);
 
-        $rawPredictions = file_get_contents($outputFileName);
+        $predictions = file_get_contents($outputFileName);
 
         unlink($testSetFileName);
         unlink($modelFileName);
         unlink($outputFileName);
 
-        $predictions = DataTransformer::predictions($rawPredictions, $this->labels);
+        if (in_array($this->type, [Type::C_SVC, Type::NU_SVC])) {
+            $predictions = DataTransformer::predictions($predictions, $this->labels);
+        } else {
+            $predictions = explode(PHP_EOL, trim($predictions));
+        }
 
         if (!is_array($samples[0])) {
             return $predictions[0];

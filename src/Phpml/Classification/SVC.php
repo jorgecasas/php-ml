@@ -4,6 +4,7 @@ declare (strict_types = 1);
 
 namespace Phpml\Classification;
 
+use Phpml\SupportVectorMachine\Kernel;
 use Phpml\SupportVectorMachine\SupportVectorMachine;
 use Phpml\SupportVectorMachine\Type;
 
@@ -21,7 +22,7 @@ class SVC extends SupportVectorMachine implements Classifier
      * @param bool       $probabilityEstimates
      */
     public function __construct(
-        int $kernel, float $cost = 1.0, int $degree = 3, float $gamma = null, float $coef0 = 0.0,
+        int $kernel = Kernel::LINEAR, float $cost = 1.0, int $degree = 3, float $gamma = null, float $coef0 = 0.0,
         float $tolerance = 0.001, int $cacheSize = 100, bool $shrinking = true,
         bool $probabilityEstimates = false
     ) {

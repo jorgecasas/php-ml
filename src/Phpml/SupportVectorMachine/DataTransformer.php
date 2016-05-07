@@ -9,15 +9,19 @@ class DataTransformer
     /**
      * @param array $samples
      * @param array $labels
+     * @param bool  $targets
      *
      * @return string
      */
-    public static function trainingSet(array $samples, array $labels): string
+    public static function trainingSet(array $samples, array $labels, bool $targets = false): string
     {
         $set = '';
-        $numericLabels = self::numericLabels($labels);
+        if (!$targets) {
+            $numericLabels = self::numericLabels($labels);
+        }
+
         foreach ($labels as $index => $label) {
-            $set .= sprintf('%s %s %s', $numericLabels[$label], self::sampleRow($samples[$index]), PHP_EOL);
+            $set .= sprintf('%s %s %s', ($targets ? $label : $numericLabels[$label]), self::sampleRow($samples[$index]), PHP_EOL);
         }
 
         return $set;
