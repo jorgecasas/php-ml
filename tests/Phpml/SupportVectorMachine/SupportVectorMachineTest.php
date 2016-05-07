@@ -34,7 +34,7 @@ SV
         $this->assertEquals($model, $svm->getModel());
     }
 
-    public function testPredictCSVCModelWithLinearKernel()
+    public function testPredictSampleWithLinearKernel()
     {
         $samples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
         $labels = ['a', 'a', 'a', 'b', 'b', 'b'];
@@ -51,5 +51,32 @@ SV
         $this->assertEquals('b', $predictions[0]);
         $this->assertEquals('a', $predictions[1]);
         $this->assertEquals('b', $predictions[2]);
+    }
+
+    public function testPredictSampleFromMultipleClassWithRbfKernel()
+    {
+        $samples = [
+            [1, 3], [1, 4], [1, 4],
+            [3, 1], [4, 1], [4, 2],
+            [-3, -1], [-4, -1], [-4, -2],
+        ];
+        $labels = [
+            'a', 'a', 'a',
+            'b', 'b', 'b',
+            'c', 'c', 'c',
+        ];
+
+        $svm = new SupportVectorMachine(Type::C_SVC, Kernel::RBF, 100.0);
+        $svm->train($samples, $labels);
+
+        $predictions = $svm->predict([
+            [1, 5],
+            [4, 3],
+            [-4, -3],
+        ]);
+
+        $this->assertEquals('a', $predictions[0]);
+        $this->assertEquals('b', $predictions[1]);
+        $this->assertEquals('c', $predictions[2]);
     }
 }

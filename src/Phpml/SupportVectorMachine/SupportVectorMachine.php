@@ -124,5 +124,4 @@ class SupportVectorMachine
 
         return '';
     }
-
 }
