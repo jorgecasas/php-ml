@@ -12,9 +12,13 @@ class Mean
      * @param array $numbers
      *
      * @return float
+     *
+     * @throws InvalidArgumentException
      */
     public static function arithmetic(array $numbers)
     {
+        self::checkArrayLength($numbers);
+
         return array_sum($numbers) / count($numbers);
     }
 
@@ -26,11 +30,10 @@ class Mean
      * @throws InvalidArgumentException
      */
     public static function median(array $numbers) {
-        $count = count($numbers);
-        if (0 == $count) {
-            throw InvalidArgumentException::arrayCantBeEmpty();
-        }
 
+        self::checkArrayLength($numbers);
+
+        $count = count($numbers);
         $middleIndex = floor($count / 2);
         sort($numbers, SORT_NUMERIC);
         $median = $numbers[$middleIndex];
@@ -40,6 +43,34 @@ class Mean
         }
 
         return $median;
+    }
+
+    /**
+     * @param array $numbers
+     *
+     * @return mixed
+     *
+     * @throws InvalidArgumentException
+     */
+    public static function mode(array $numbers)
+    {
+        self::checkArrayLength($numbers);
+
+        $values = array_count_values($numbers);
+
+        return array_search(max($values), $values);
+    }
+
+    /**
+     * @param array $array
+     *
+     * @throws InvalidArgumentException
+     */
+    private static function checkArrayLength(array $array)
+    {
+        if (0 == count($array)) {
+            throw InvalidArgumentException::arrayCantBeEmpty();
+        }
     }
 
 }

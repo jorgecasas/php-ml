@@ -8,6 +8,15 @@ use Phpml\Math\Statistic\Mean;
 
 class MeanTest extends \PHPUnit_Framework_TestCase
 {
+
+    /**
+     * @expectedException \Phpml\Exception\InvalidArgumentException
+     */
+    public function testArithmeticThrowExceptionOnEmptyArray()
+    {
+        Mean::arithmetic([]);
+    }
+
     public function testArithmeticMean()
     {
         $delta = 0.01;
@@ -19,7 +28,7 @@ class MeanTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
-    public function testThrowExceptionOnEmptyArrayMedian()
+    public function testMedianThrowExceptionOnEmptyArray()
     {
         Mean::median([]);
     }
@@ -36,6 +45,21 @@ class MeanTest extends \PHPUnit_Framework_TestCase
         $numbers = [5, 2, 6, 1, 3, 4];
 
         $this->assertEquals(3.5, Mean::median($numbers));
+    }
+
+    /**
+     * @expectedException \Phpml\Exception\InvalidArgumentException
+     */
+    public function testModeThrowExceptionOnEmptyArray()
+    {
+        Mean::mode([]);
+    }
+
+    public function testModeOnArray()
+    {
+        $numbers = [5, 2, 6, 1, 3, 4, 6, 6, 5];
+
+        $this->assertEquals(6, Mean::mode($numbers));
     }
 
 }
