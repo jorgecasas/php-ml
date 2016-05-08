@@ -29,8 +29,8 @@ class Mean
      *
      * @throws InvalidArgumentException
      */
-    public static function median(array $numbers) {
-
+    public static function median(array $numbers)
+    {
         self::checkArrayLength($numbers);
 
         $count = count($numbers);
@@ -72,5 +72,4 @@ class Mean
             throw InvalidArgumentException::arrayCantBeEmpty();
         }
     }
-
 }

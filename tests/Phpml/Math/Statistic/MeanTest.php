@@ -8,7 +8,6 @@ use Phpml\Math\Statistic\Mean;
 
 class MeanTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
@@ -61,5 +60,4 @@ class MeanTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(6, Mean::mode($numbers));
     }
-
 }
