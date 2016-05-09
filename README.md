@@ -48,6 +48,9 @@ composer require php-ai/php-ml
     * [DBSCAN](http://php-ml.readthedocs.io/en/latest/machine-learning/clustering/dbscan)
 * Cross Validation
     * [Random Split](http://php-ml.readthedocs.io/en/latest/machine-learning/cross-validation/random-split)
+* Preprocessing
+    * [Normalization](http://php-ml.readthedocs.io/en/latest/machine-learning/preprocessing/normalization)
+    * [Imputation missing values](http://php-ml.readthedocs.io/en/latest/machine-learning/preprocessing/imputation-missing-values)
 * Feature Extraction
     * [Token Count Vectorizer](http://php-ml.readthedocs.io/en/latest/machine-learning/feature-extraction/token-count-vectorizer)
 * Datasets
@@ -57,6 +60,7 @@ composer require php-ai/php-ml
 * Math
     * [Distance](http://php-ml.readthedocs.io/en/latest/math/distance/)
     * [Matrix](http://php-ml.readthedocs.io/en/latest/math/matrix/)
+    * [Statistic](http://php-ml.readthedocs.io/en/latest/math/statistic/)
     
 
 ## Contribute
