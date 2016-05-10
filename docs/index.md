@@ -57,6 +57,8 @@ composer require php-ai/php-ml
     * [CSV](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/csv-dataset)
     * Ready to use:
         * [Iris](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/demo/iris/)
+        * [Wine](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/demo/wine/)
+        * [Glass](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/demo/glass/)
 * Math
     * [Distance](http://php-ml.readthedocs.io/en/latest/math/distance/)
     * [Matrix](http://php-ml.readthedocs.io/en/latest/math/matrix/)
