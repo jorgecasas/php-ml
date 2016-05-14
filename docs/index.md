@@ -44,17 +44,19 @@ composer require php-ai/php-ml
     * [Least Squares](http://php-ml.readthedocs.io/en/latest/machine-learning/regression/least-squares/)
     * [SVR](http://php-ml.readthedocs.io/en/latest/machine-learning/regression/svr/)
 * Clustering
-    * [k-Means](http://php-ml.readthedocs.io/en/latest/machine-learning/clustering/k-means)
-    * [DBSCAN](http://php-ml.readthedocs.io/en/latest/machine-learning/clustering/dbscan)
+    * [k-Means](http://php-ml.readthedocs.io/en/latest/machine-learning/clustering/k-means/)
+    * [DBSCAN](http://php-ml.readthedocs.io/en/latest/machine-learning/clustering/dbscan/)
+* Metric
+    * [Accuracy](http://php-ml.readthedocs.io/en/latest/machine-learning/metric/accuracy/)
 * Cross Validation
-    * [Random Split](http://php-ml.readthedocs.io/en/latest/machine-learning/cross-validation/random-split)
+    * [Random Split](http://php-ml.readthedocs.io/en/latest/machine-learning/cross-validation/random-split/)
 * Preprocessing
-    * [Normalization](http://php-ml.readthedocs.io/en/latest/machine-learning/preprocessing/normalization)
-    * [Imputation missing values](http://php-ml.readthedocs.io/en/latest/machine-learning/preprocessing/imputation-missing-values)
+    * [Normalization](http://php-ml.readthedocs.io/en/latest/machine-learning/preprocessing/normalization/)
+    * [Imputation missing values](http://php-ml.readthedocs.io/en/latest/machine-learning/preprocessing/imputation-missing-values/)
 * Feature Extraction
-    * [Token Count Vectorizer](http://php-ml.readthedocs.io/en/latest/machine-learning/feature-extraction/token-count-vectorizer)
+    * [Token Count Vectorizer](http://php-ml.readthedocs.io/en/latest/machine-learning/feature-extraction/token-count-vectorizer/)
 * Datasets
-    * [CSV](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/csv-dataset)
+    * [CSV](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/csv-dataset/)
     * Ready to use:
         * [Iris](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/demo/iris/)
         * [Wine](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/demo/wine/)
