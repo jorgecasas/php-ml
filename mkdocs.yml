@@ -12,8 +12,13 @@ pages:
     - Clustering:
       - KMeans: machine-learning/clustering/k-means.md
       - DBSCAN: machine-learning/clustering/dbscan.md
+    - Metric:
+      - Accuracy: machine-learning/metric/accuracy.md
     - Cross Validation:
       - RandomSplit: machine-learning/cross-validation/random-split.md
+    - Preprocessing:
+      - Normalization: machine-learning/preprocessing/normalization.md
+      - Imputation missing values: machine-learning/preprocessing/imputation-missing-values.md
     - Feature Extraction:
       - Token Count Vectorizer: machine-learning/feature-extraction/token-count-vectorizer.md
     - Datasets:
@@ -21,9 +26,10 @@ pages:
       - CSV Dataset: machine-learning/datasets/csv-dataset.md
       - Ready to use datasets:
         - Iris: machine-learning/datasets/demo/iris.md
-    - Metric:
-      - Accuracy: machine-learning/metric/accuracy.md
+        - Wine: machine-learning/datasets/demo/wine.md
+        - Glass: machine-learning/datasets/demo/glass.md
   - Math:
     - Distance: math/distance.md
     - Matrix: math/matrix.md
+    - Statistic: math/statistic.md
 theme: readthedocs
