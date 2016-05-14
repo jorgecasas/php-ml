@@ -4,8 +4,8 @@ declare (strict_types = 1);
 
 namespace Phpml\Classification;
 
-use Phpml\Classification\Traits\Predictable;
-use Phpml\Classification\Traits\Trainable;
+use Phpml\Helper\Predictable;
+use Phpml\Helper\Trainable;
 use Phpml\Math\Distance;
 use Phpml\Math\Distance\Euclidean;
 

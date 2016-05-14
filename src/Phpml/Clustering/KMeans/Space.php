@@ -150,37 +150,11 @@ class Space extends SplObjectStorage
     {
         switch ($initMethod) {
             case KMeans::INIT_RANDOM:
-                list($min, $max) = $this->getBoundaries();
-                for ($n = 0; $n < $clustersNumber; ++$n) {
-                    $clusters[] = new Cluster($this, $this->getRandomPoint($min, $max)->getCoordinates());
-                }
+                $clusters = $this->initializeRandomClusters($clustersNumber);
                 break;
 
             case KMeans::INIT_KMEANS_PLUS_PLUS:
-                $position = rand(1, count($this));
-                for ($i = 1, $this->rewind(); $i < $position && $this->valid(); $i++, $this->next());
-                $clusters[] = new Cluster($this, $this->current()->getCoordinates());
-
-                $distances = new SplObjectStorage();
-
-                for ($i = 1; $i < $clustersNumber; ++$i) {
-                    $sum = 0;
-                    foreach ($this as $point) {
-                        $distance = $point->getDistanceWith($point->getClosest($clusters));
-                        $sum += $distances[$point] = $distance;
-                    }
-
-                    $sum = rand(0, (int) $sum);
-                    foreach ($this as $point) {
-                        if (($sum -= $distances[$point]) > 0) {
-                            continue;
-                        }
-
-                        $clusters[] = new Cluster($this, $point->getCoordinates());
-                        break;
-                    }
-                }
-
+                $clusters = $this->initializeKMPPClusters($clustersNumber);
                 break;
         }
         $clusters[0]->attachAll($this);
@@ -229,5 +203,57 @@ class Space extends SplObjectStorage
         }
 
         return $convergence;
+    }
+
+    /**
+     * @param int $clustersNumber
+     *
+     * @return array
+     */
+    private function initializeRandomClusters(int $clustersNumber)
+    {
+        $clusters = [];
+        list($min, $max) = $this->getBoundaries();
+
+        for ($n = 0; $n < $clustersNumber; ++$n) {
+            $clusters[] = new Cluster($this, $this->getRandomPoint($min, $max)->getCoordinates());
+        }
+
+        return $clusters;
+    }
+
+    /**
+     * @param int $clustersNumber
+     *
+     * @return array
+     */
+    protected function initializeKMPPClusters(int $clustersNumber)
+    {
+        $clusters = [];
+        $position = rand(1, count($this));
+        for ($i = 1, $this->rewind(); $i < $position && $this->valid(); $i++, $this->next());
+        $clusters[] = new Cluster($this, $this->current()->getCoordinates());
+
+        $distances = new SplObjectStorage();
+
+        for ($i = 1; $i < $clustersNumber; ++$i) {
+            $sum = 0;
+            foreach ($this as $point) {
+                $distance = $point->getDistanceWith($point->getClosest($clusters));
+                $sum += $distances[$point] = $distance;
+            }
+
+            $sum = rand(0, (int) $sum);
+            foreach ($this as $point) {
+                if (($sum -= $distances[$point]) > 0) {
+                    continue;
+                }
+
+                $clusters[] = new Cluster($this, $point->getCoordinates());
+                break;
+            }
+        }
+
+        return $clusters;
     }
 }

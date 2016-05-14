@@ -1,4 +1,4 @@
-# PHP Machine Learning library
+# PHP-ML - Machine Learning library for PHP
 
 [![Build Status](https://scrutinizer-ci.com/g/php-ai/php-ml/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/php-ai/php-ml/build-status/develop)
 [![Documentation Status](https://readthedocs.org/projects/php-ml/badge/?version=develop)](http://php-ml.readthedocs.org/en/develop/?badge=develop)
@@ -37,22 +37,32 @@ composer require php-ai/php-ml
 ## Features
 
 * Classification
+    * [SVC](http://php-ml.readthedocs.io/en/latest/machine-learning/classification/svc/)
     * [k-Nearest Neighbors](http://php-ml.readthedocs.io/en/latest/machine-learning/classification/k-nearest-neighbors/)
     * [Naive Bayes](http://php-ml.readthedocs.io/en/latest/machine-learning/classification/naive-bayes/)
 * Regression
     * [Least Squares](http://php-ml.readthedocs.io/en/latest/machine-learning/regression/least-squares/)
+    * [SVR](http://php-ml.readthedocs.io/en/latest/machine-learning/regression/svr/)
 * Clustering
     * [k-Means](http://php-ml.readthedocs.io/en/latest/machine-learning/clustering/k-means)
     * [DBSCAN](http://php-ml.readthedocs.io/en/latest/machine-learning/clustering/dbscan)
 * Cross Validation
     * [Random Split](http://php-ml.readthedocs.io/en/latest/machine-learning/cross-validation/random-split)
+* Preprocessing
+    * [Normalization](http://php-ml.readthedocs.io/en/latest/machine-learning/preprocessing/normalization)
+    * [Imputation missing values](http://php-ml.readthedocs.io/en/latest/machine-learning/preprocessing/imputation-missing-values)
+* Feature Extraction
+    * [Token Count Vectorizer](http://php-ml.readthedocs.io/en/latest/machine-learning/feature-extraction/token-count-vectorizer)
 * Datasets
     * [CSV](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/csv-dataset)
     * Ready to use:
         * [Iris](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/demo/iris/)
+        * [Wine](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/demo/wine/)
+        * [Glass](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/demo/glass/)
 * Math
     * [Distance](http://php-ml.readthedocs.io/en/latest/math/distance/)
     * [Matrix](http://php-ml.readthedocs.io/en/latest/math/matrix/)
+    * [Statistic](http://php-ml.readthedocs.io/en/latest/math/statistic/)
     
 
 ## Contribute

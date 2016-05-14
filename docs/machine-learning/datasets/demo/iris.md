@@ -14,6 +14,8 @@ Most popular and widely available dataset of iris flower measurement and class n
 To load Iris dataset simple use:
 
 ```
+use Phpml\Dataset\Demo\Iris;
+
 $dataset = new Iris();
 ```
 
