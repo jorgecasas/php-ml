@@ -23,6 +23,9 @@ $imputer = new Imputer(null, new MedianStrategy(), Imputer::AXIS_ROW);
 ## Example of use
 
 ```
+use Phpml\Preprocessing\Imputer;
+use Phpml\Preprocessing\Imputer\Strategy\MeanStrategy;
+
 $data = [
     [1, null, 3, 4],
     [4, 3, 2, 1],
