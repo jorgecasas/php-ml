@@ -26,6 +26,11 @@ class TokenCountVectorizer implements Vectorizer
     /**
      * @var array
      */
+    private $tokens;
+
+    /**
+     * @var array
+     */
     private $frequencies;
 
     /**
@@ -47,8 +52,10 @@ class TokenCountVectorizer implements Vectorizer
      */
     public function transform(array $samples): array
     {
+        $this->buildVocabulary($samples);
+
         foreach ($samples as $index => $sample) {
-            $samples[$index] = $this->transformSample($sample);
+            $samples[$index] = $this->transformSample($index);
         }
 
         $samples = $this->checkDocumentFrequency($samples);
@@ -65,14 +72,29 @@ class TokenCountVectorizer implements Vectorizer
     }
 
     /**
-     * @param string $sample
+     * @param array $samples
+     */
+    private function buildVocabulary(array &$samples)
+    {
+        foreach ($samples as $index => $sample) {
+            $tokens = $this->tokenizer->tokenize($sample);
+            foreach ($tokens as $token) {
+                $this->addTokenToVocabulary($token);
+            }
+            $this->tokens[$index] = $tokens;
+        }
+    }
+
+    /**
+     * @param int $index
      *
      * @return array
      */
-    private function transformSample(string $sample)
+    private function transformSample(int $index)
     {
         $counts = [];
-        $tokens = $this->tokenizer->tokenize($sample);
+        $tokens = $this->tokens[$index];
+
         foreach ($tokens as $token) {
             $index = $this->getTokenIndex($token);
             $this->updateFrequency($token);
@@ -83,21 +105,33 @@ class TokenCountVectorizer implements Vectorizer
             ++$counts[$index];
         }
 
+        foreach ($this->vocabulary as $index) {
+            if (!isset($counts[$index])) {
+                $counts[$index] = 0;
+            }
+        }
+
         return $counts;
     }
 
     /**
      * @param string $token
      *
-     * @return mixed
+     * @return int
      */
-    private function getTokenIndex(string $token)
+    private function getTokenIndex(string $token): int
+    {
+        return $this->vocabulary[$token];
+    }
+
+    /**
+     * @param string $token
+     */
+    private function addTokenToVocabulary(string $token)
     {
         if (!isset($this->vocabulary[$token])) {
             $this->vocabulary[$token] = count($this->vocabulary);
         }
-
-        return $this->vocabulary[$token];
     }
 
     /**
@@ -122,7 +156,7 @@ class TokenCountVectorizer implements Vectorizer
         if ($this->minDF > 0) {
             $beyondMinimum = $this->getBeyondMinimumIndexes(count($samples));
             foreach ($samples as $index => $sample) {
-                $samples[$index] = $this->unsetBeyondMinimum($sample, $beyondMinimum);
+                $samples[$index] = $this->resetBeyondMinimum($sample, $beyondMinimum);
             }
         }
 
@@ -135,10 +169,10 @@ class TokenCountVectorizer implements Vectorizer
      *
      * @return array
      */
-    private function unsetBeyondMinimum(array $sample, array $beyondMinimum)
+    private function resetBeyondMinimum(array $sample, array $beyondMinimum)
     {
         foreach ($beyondMinimum as $index) {
-            unset($sample[$index]);
+            $sample[$index] = 0;
         }
 
         return $sample;

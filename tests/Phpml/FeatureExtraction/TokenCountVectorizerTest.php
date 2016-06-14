@@ -17,16 +17,28 @@ class TokenCountVectorizerTest extends \PHPUnit_Framework_TestCase
             'Mauris diam eros fringilla diam',
         ];
 
-        $vocabulary = ['Lorem', 'ipsum', 'dolor', 'sit', 'amet', 'Mauris', 'placerat', 'diam', 'eros', 'fringilla'];
-        $vector = [
-            [0 => 1, 1 => 1, 2 => 2, 3 => 1, 4 => 1],
-            [5 => 1, 6 => 1, 1 => 1, 2 => 1],
-            [5 => 1, 7 => 2, 8 => 1, 9 => 1],
+        $vocabulary = [
+            0 => 'Lorem',
+            1 => 'ipsum',
+            2 => 'dolor',
+            3 => 'sit',
+            4 => 'amet',
+            5 => 'Mauris',
+            6 => 'placerat',
+            7 => 'diam',
+            8 => 'eros',
+            9 => 'fringilla',
+        ];
+
+        $tokensCounts = [
+            [0 => 1, 1 => 1, 2 => 2, 3 => 1, 4 => 1, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0],
+            [0 => 0, 1 => 1, 2 => 1, 3 => 0, 4 => 0, 5 => 1, 6 => 1, 7 => 0, 8 => 0, 9 => 0],
+            [0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 1, 6 => 0, 7 => 2, 8 => 1, 9 => 1],
         ];
 
         $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer());
 
-        $this->assertEquals($vector, $vectorizer->transform($samples));
+        $this->assertEquals($tokensCounts, $vectorizer->transform($samples));
         $this->assertEquals($vocabulary, $vectorizer->getVocabulary());
     }
 
@@ -40,34 +52,41 @@ class TokenCountVectorizerTest extends \PHPUnit_Framework_TestCase
             'ipsum sit amet',
         ];
 
-        $vocabulary = ['Lorem', 'ipsum', 'dolor', 'sit', 'amet'];
-        $vector = [
-            [0 => 1, 1 => 1, 3 => 1, 4 => 1],
-            [0 => 1, 1 => 1, 3 => 1, 4 => 1],
-            [1 => 1, 3 => 1, 4 => 1],
-            [1 => 1, 3 => 1, 4 => 1],
+        $vocabulary = [
+            0 => 'Lorem',
+            1 => 'ipsum',
+            2 => 'dolor',
+            3 => 'sit',
+            4 => 'amet',
+        ];
+
+        $tokensCounts = [
+            [0 => 1, 1 => 1, 2 => 0, 3 => 1, 4 => 1],
+            [0 => 1, 1 => 1, 2 => 0, 3 => 1, 4 => 1],
+            [0 => 0, 1 => 1, 2 => 0, 3 => 1, 4 => 1],
+            [0 => 0, 1 => 1, 2 => 0, 3 => 1, 4 => 1],
         ];
 
         $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer(), 0.5);
 
-        $this->assertEquals($vector, $vectorizer->transform($samples));
+        $this->assertEquals($tokensCounts, $vectorizer->transform($samples));
         $this->assertEquals($vocabulary, $vectorizer->getVocabulary());
 
-        // word at least in all samples
+        // word at least once in all samples
         $samples = [
             'Lorem ipsum dolor sit amet',
-            'Morbi quis lacinia arcu. Sed eu sagittis Lorem',
-            'Suspendisse gravida consequat eros Lorem',
+            'Morbi quis sagittis Lorem',
+            'eros Lorem',
         ];
 
-        $vector = [
-            [0 => 1],
-            [0 => 1],
-            [0 => 1],
+        $tokensCounts = [
+            [0 => 1, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0],
+            [0 => 1, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0],
+            [0 => 1, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0],
         ];
 
         $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer(), 1);
 
-        $this->assertEquals($vector, $vectorizer->transform($samples));
+        $this->assertEquals($tokensCounts, $vectorizer->transform($samples));
     }
 }

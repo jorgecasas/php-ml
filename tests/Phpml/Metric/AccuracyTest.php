@@ -52,5 +52,4 @@ class AccuracyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(0.959, $accuracy, '', 0.01);
     }
-
 }
