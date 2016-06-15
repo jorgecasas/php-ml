@@ -6,7 +6,7 @@ namespace Phpml\FeatureExtraction;
 
 use Phpml\Tokenization\Tokenizer;
 
-class TokenCountVectorizer implements Vectorizer
+class TokenCountVectorizer implements Transformer
 {
     /**
      * @var Tokenizer

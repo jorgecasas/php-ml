@@ -4,7 +4,7 @@ declare (strict_types = 1);
 
 namespace Phpml\FeatureExtraction;
 
-interface Vectorizer
+interface Transformer
 {
     /**
      * @param array $samples
