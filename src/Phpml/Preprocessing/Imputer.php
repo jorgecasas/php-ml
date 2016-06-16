@@ -41,7 +41,7 @@ class Imputer implements Preprocessor
     /**
      * @param array $samples
      */
-    public function preprocess(array &$samples)
+    public function transform(array &$samples)
     {
         foreach ($samples as &$sample) {
             $this->preprocessSample($sample, $samples);

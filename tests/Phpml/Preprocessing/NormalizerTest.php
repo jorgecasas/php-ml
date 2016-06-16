@@ -31,7 +31,7 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
         ];
 
         $normalizer = new Normalizer();
-        $normalizer->preprocess($samples);
+        $normalizer->transform($samples);
 
         $this->assertEquals($normalized, $samples, '', $delta = 0.01);
     }
@@ -51,7 +51,7 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
         ];
 
         $normalizer = new Normalizer(Normalizer::NORM_L1);
-        $normalizer->preprocess($samples);
+        $normalizer->transform($samples);
 
         $this->assertEquals($normalized, $samples, '', $delta = 0.01);
     }

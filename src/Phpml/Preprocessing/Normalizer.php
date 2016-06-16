@@ -33,7 +33,7 @@ class Normalizer implements Preprocessor
     /**
      * @param array $samples
      */
-    public function preprocess(array &$samples)
+    public function transform(array &$samples)
     {
         $method = sprintf('normalizeL%s', $this->norm);
         foreach ($samples as &$sample) {
