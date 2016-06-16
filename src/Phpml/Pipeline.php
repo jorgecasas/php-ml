@@ -18,7 +18,7 @@ class Pipeline implements Estimator
 
     /**
      * @param array|Transformer[] $transformers
-     * @param Estimator $estimator
+     * @param Estimator           $estimator
      */
     public function __construct(array $transformers = [], Estimator $estimator)
     {
@@ -76,11 +76,11 @@ class Pipeline implements Estimator
 
     /**
      * @param array $samples
+     *
      * @return mixed
      */
     public function predict(array $samples)
     {
         return $this->estimator->predict($samples);
     }
-
 }

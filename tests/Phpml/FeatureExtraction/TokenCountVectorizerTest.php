@@ -37,8 +37,9 @@ class TokenCountVectorizerTest extends \PHPUnit_Framework_TestCase
         ];
 
         $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer());
+        $vectorizer->transform($samples);
 
-        $this->assertEquals($tokensCounts, $vectorizer->transform($samples));
+        $this->assertEquals($tokensCounts, $samples);
         $this->assertEquals($vocabulary, $vectorizer->getVocabulary());
     }
 
@@ -68,8 +69,9 @@ class TokenCountVectorizerTest extends \PHPUnit_Framework_TestCase
         ];
 
         $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer(), 0.5);
+        $vectorizer->transform($samples);
 
-        $this->assertEquals($tokensCounts, $vectorizer->transform($samples));
+        $this->assertEquals($tokensCounts, $samples);
         $this->assertEquals($vocabulary, $vectorizer->getVocabulary());
 
         // word at least once in all samples
@@ -86,7 +88,8 @@ class TokenCountVectorizerTest extends \PHPUnit_Framework_TestCase
         ];
 
         $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer(), 1);
+        $vectorizer->transform($samples);
 
-        $this->assertEquals($tokensCounts, $vectorizer->transform($samples));
+        $this->assertEquals($tokensCounts, $samples);
     }
 }

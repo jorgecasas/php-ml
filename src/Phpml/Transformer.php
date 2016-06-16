@@ -8,8 +8,6 @@ interface Transformer
 {
     /**
      * @param array $samples
-     *
-     * @return array
      */
-    public function transform(array $samples): array;
+    public function transform(array &$samples);
 }

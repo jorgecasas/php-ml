@@ -48,10 +48,8 @@ class TokenCountVectorizer implements Transformer
 
     /**
      * @param array $samples
-     *
-     * @return array
      */
-    public function transform(array $samples): array
+    public function transform(array &$samples)
     {
         $this->buildVocabulary($samples);
 
@@ -60,8 +58,6 @@ class TokenCountVectorizer implements Transformer
         }
 
         $samples = $this->checkDocumentFrequency($samples);
-
-        return $samples;
     }
 
     /**

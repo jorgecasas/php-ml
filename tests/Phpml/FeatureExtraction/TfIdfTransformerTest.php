@@ -23,7 +23,8 @@ class TfIdfTransformerTest extends \PHPUnit_Framework_TestCase
         ];
 
         $transformer = new TfIdfTransformer();
+        $transformer->transform($samples);
 
-        $this->assertEquals($tfIdfSamples, $transformer->transform($samples), '', 0.001);
+        $this->assertEquals($tfIdfSamples, $samples, '', 0.001);
     }
 }

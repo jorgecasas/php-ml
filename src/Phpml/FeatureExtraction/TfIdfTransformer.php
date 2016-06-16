@@ -15,10 +15,8 @@ class TfIdfTransformer implements Transformer
 
     /**
      * @param array $samples
-     * 
-     * @return array
      */
-    public function transform(array $samples): array
+    public function transform(array &$samples)
     {
         $this->countTokensFrequency($samples);
 
@@ -32,8 +30,6 @@ class TfIdfTransformer implements Transformer
                 $feature = $feature * $this->idf[$index];
             }
         }
-
-        return $samples;
     }
 
     /**

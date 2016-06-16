@@ -10,11 +10,10 @@ use Phpml\Pipeline;
 
 class PipelineTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testPipelineConstruction()
     {
         $transformers = [
-            new TfIdfTransformer()
+            new TfIdfTransformer(),
         ];
         $estimator = new SVC();
 
@@ -23,5 +22,4 @@ class PipelineTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($transformers, $pipeline->getTransformers());
         $this->assertEquals($estimator, $pipeline->getEstimator());
     }
-
 }
