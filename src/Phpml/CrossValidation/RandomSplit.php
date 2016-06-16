@@ -44,7 +44,7 @@ class RandomSplit
         $this->seedGenerator($seed);
 
         $samples = $dataset->getSamples();
-        $labels = $dataset->getLabels();
+        $labels = $dataset->getTargets();
         $datasetSize = count($samples);
 
         for ($i = $datasetSize; $i > 0; --$i) {

@@ -14,5 +14,5 @@ interface Dataset
     /**
      * @return array
      */
-    public function getLabels(): array;
+    public function getTargets(): array;
 }

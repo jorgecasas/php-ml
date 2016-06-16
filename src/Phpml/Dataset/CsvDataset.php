@@ -36,7 +36,7 @@ class CsvDataset extends ArrayDataset
 
         while (($data = fgetcsv($handle, 1000, ',')) !== false) {
             $this->samples[] = array_slice($data, 0, $features);
-            $this->labels[] = $data[$features];
+            $this->targets[] = $data[$features];
         }
         fclose($handle);
     }
