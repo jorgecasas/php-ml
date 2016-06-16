@@ -8,5 +8,4 @@ use Phpml\Transformer;
 
 interface Preprocessor extends Transformer
 {
-
 }

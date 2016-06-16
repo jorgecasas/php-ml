@@ -43,7 +43,7 @@ class PipelineTest extends \PHPUnit_Framework_TestCase
         $targets = [
             4,
             1,
-            4
+            4,
         ];
 
         $pipeline = new Pipeline($transformers, $estimator);
@@ -53,5 +53,4 @@ class PipelineTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(4, $predicted[0]);
     }
-
 }
