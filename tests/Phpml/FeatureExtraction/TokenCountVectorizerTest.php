@@ -37,10 +37,12 @@ class TokenCountVectorizerTest extends \PHPUnit_Framework_TestCase
         ];
 
         $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer());
-        $vectorizer->transform($samples);
 
-        $this->assertEquals($tokensCounts, $samples);
+        $vectorizer->fit($samples);
         $this->assertEquals($vocabulary, $vectorizer->getVocabulary());
+
+        $vectorizer->transform($samples);
+        $this->assertEquals($tokensCounts, $samples);
     }
 
     public function testMinimumDocumentTokenCountFrequency()
@@ -69,10 +71,13 @@ class TokenCountVectorizerTest extends \PHPUnit_Framework_TestCase
         ];
 
         $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer(), 0.5);
-        $vectorizer->transform($samples);
 
-        $this->assertEquals($tokensCounts, $samples);
+        $vectorizer->fit($samples);
         $this->assertEquals($vocabulary, $vectorizer->getVocabulary());
+
+        $vectorizer->transform($samples);
+        $this->assertEquals($tokensCounts, $samples);
+
 
         // word at least once in all samples
         $samples = [
@@ -88,6 +93,7 @@ class TokenCountVectorizerTest extends \PHPUnit_Framework_TestCase
         ];
 
         $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer(), 1);
+        $vectorizer->fit($samples);
         $vectorizer->transform($samples);
 
         $this->assertEquals($tokensCounts, $samples);
