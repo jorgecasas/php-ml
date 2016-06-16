@@ -146,4 +146,31 @@ class ImputerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($imputeData, $data);
     }
+
+    public function testImputerWorksOnFitSamples()
+    {
+        $trainData = [
+            [1, 3, 4],
+            [6, 7, 8],
+            [8, 7, 5],
+        ];
+
+        $data = [
+            [1, 3, null],
+            [6, null, 8],
+            [null, 7, 5],
+        ];
+
+        $imputeData = [
+            [1, 3, 5.66],
+            [6, 5.66, 8],
+            [5, 7, 5],
+        ];
+
+        $imputer = new Imputer(null, new MeanStrategy(), Imputer::AXIS_COLUMN, $trainData);
+        $imputer->transform($data);
+
+        $this->assertEquals($imputeData, $data, '', $delta = 0.01);
+    }
+
 }
