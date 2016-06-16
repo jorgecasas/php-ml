@@ -172,5 +172,4 @@ class ImputerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($imputeData, $data, '', $delta = 0.01);
     }
-
 }

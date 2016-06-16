@@ -79,5 +79,4 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($normalized, $samples, '', $delta = 0.01);
     }
-
 }

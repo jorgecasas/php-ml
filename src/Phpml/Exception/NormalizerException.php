@@ -21,5 +21,4 @@ class NormalizerException extends \Exception
     {
         return new self('Fit is not allowed for this preprocessor.');
     }
-
 }

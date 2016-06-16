@@ -6,7 +6,6 @@ namespace Phpml;
 
 interface Transformer
 {
-
     /**
      * @param array $samples
      */

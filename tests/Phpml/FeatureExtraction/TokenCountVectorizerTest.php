@@ -78,7 +78,6 @@ class TokenCountVectorizerTest extends \PHPUnit_Framework_TestCase
         $vectorizer->transform($samples);
         $this->assertEquals($tokensCounts, $samples);
 
-
         // word at least once in all samples
         $samples = [
             'Lorem ipsum dolor sit amet',

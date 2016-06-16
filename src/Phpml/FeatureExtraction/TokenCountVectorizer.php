@@ -92,7 +92,7 @@ class TokenCountVectorizer implements Transformer
 
         foreach ($tokens as $token) {
             $index = $this->getTokenIndex($token);
-            if(false !== $index) {
+            if (false !== $index) {
                 $this->updateFrequency($token);
                 if (!isset($counts[$index])) {
                     $counts[$index] = 0;
