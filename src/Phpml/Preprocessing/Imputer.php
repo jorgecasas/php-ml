@@ -27,15 +27,22 @@ class Imputer implements Preprocessor
     private $axis;
 
     /**
+     * @var $samples
+     */
+    private $samples;
+
+    /**
      * @param mixed    $missingValue
      * @param Strategy $strategy
      * @param int      $axis
+     * @param array|null $samples
      */
-    public function __construct($missingValue = null, Strategy $strategy, int $axis = self::AXIS_COLUMN)
+    public function __construct($missingValue = null, Strategy $strategy, int $axis = self::AXIS_COLUMN, array $samples = [])
     {
         $this->missingValue = $missingValue;
         $this->strategy = $strategy;
         $this->axis = $axis;
+        $this->samples = $samples;
     }
 
     /**
@@ -43,7 +50,7 @@ class Imputer implements Preprocessor
      */
     public function fit(array $samples)
     {
-        // TODO: Implement fit() method.
+        $this->samples = $samples;
     }
 
     /**
@@ -52,19 +59,18 @@ class Imputer implements Preprocessor
     public function transform(array &$samples)
     {
         foreach ($samples as &$sample) {
-            $this->preprocessSample($sample, $samples);
+            $this->preprocessSample($sample);
         }
     }
 
     /**
      * @param array $sample
-     * @param array $samples
      */
-    private function preprocessSample(array &$sample, array $samples)
+    private function preprocessSample(array &$sample)
     {
         foreach ($sample as $column => &$value) {
             if ($value === $this->missingValue) {
-                $value = $this->strategy->replaceValue($this->getAxis($column, $sample, $samples));
+                $value = $this->strategy->replaceValue($this->getAxis($column, $sample));
             }
         }
     }
@@ -72,18 +78,17 @@ class Imputer implements Preprocessor
     /**
      * @param int   $column
      * @param array $currentSample
-     * @param array $samples
      * 
      * @return array
      */
-    private function getAxis(int $column, array $currentSample, array $samples): array
+    private function getAxis(int $column, array $currentSample): array
     {
         if (self::AXIS_ROW === $this->axis) {
             return array_diff($currentSample, [$this->missingValue]);
         }
 
         $axis = [];
-        foreach ($samples as $sample) {
+        foreach ($this->samples as $sample) {
             if ($sample[$column] !== $this->missingValue) {
                 $axis[] = $sample[$column];
             }

@@ -13,4 +13,13 @@ class NormalizerException extends \Exception
     {
         return new self('Unknown norm supplied.');
     }
+
+    /**
+     * @return NormalizerException
+     */
+    public static function fitNotAllowed()
+    {
+        return new self('Fit is not allowed for this preprocessor.');
+    }
+
 }

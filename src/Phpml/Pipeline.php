@@ -67,6 +67,7 @@ class Pipeline implements Estimator
      */
     public function train(array $samples, array $targets)
     {
+        $this->fitTransformers($samples);
         $this->transformSamples($samples);
         $this->estimator->train($samples, $targets);
     }
@@ -81,6 +82,16 @@ class Pipeline implements Estimator
         $this->transformSamples($samples);
 
         return $this->estimator->predict($samples);
+    }
+
+    /**
+     * @param array $samples
+     */
+    private function fitTransformers(array &$samples)
+    {
+        foreach ($this->transformers as $transformer) {
+            $transformer->fit($samples);
+        }
     }
 
     /**
