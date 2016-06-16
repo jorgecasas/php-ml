@@ -5,6 +5,7 @@ declare (strict_types = 1);
 namespace Phpml\FeatureExtraction;
 
 use Phpml\Tokenization\Tokenizer;
+use Phpml\Transformer;
 
 class TokenCountVectorizer implements Transformer
 {

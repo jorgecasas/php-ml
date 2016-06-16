@@ -4,18 +4,8 @@ declare (strict_types = 1);
 
 namespace Phpml\Regression;
 
-interface Regression
-{
-    /**
-     * @param array $samples
-     * @param array $targets
-     */
-    public function train(array $samples, array $targets);
+use Phpml\Estimator;
 
-    /**
-     * @param array $samples
-     *
-     * @return mixed
-     */
-    public function predict(array $samples);
+interface Regression extends Estimator
+{
 }

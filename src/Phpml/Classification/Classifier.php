@@ -4,18 +4,8 @@ declare (strict_types = 1);
 
 namespace Phpml\Classification;
 
-interface Classifier
-{
-    /**
-     * @param array $samples
-     * @param array $labels
-     */
-    public function train(array $samples, array $labels);
+use Phpml\Estimator;
 
-    /**
-     * @param array $samples
-     *
-     * @return mixed
-     */
-    public function predict(array $samples);
+interface Classifier extends Estimator
+{
 }

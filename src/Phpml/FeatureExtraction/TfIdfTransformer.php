@@ -4,6 +4,8 @@ declare (strict_types = 1);
 
 namespace Phpml\FeatureExtraction;
 
+use Phpml\Transformer;
+
 class TfIdfTransformer implements Transformer
 {
     /**

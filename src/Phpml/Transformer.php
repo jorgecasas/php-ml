@@ -2,7 +2,7 @@
 
 declare (strict_types = 1);
 
-namespace Phpml\FeatureExtraction;
+namespace Phpml;
 
 interface Transformer
 {
