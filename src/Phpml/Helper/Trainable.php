@@ -14,15 +14,15 @@ trait Trainable
     /**
      * @var array
      */
-    private $labels;
+    private $targets;
 
     /**
      * @param array $samples
-     * @param array $labels
+     * @param array $targets
      */
-    public function train(array $samples, array $labels)
+    public function train(array $samples, array $targets)
     {
         $this->samples = $samples;
-        $this->labels = $labels;
+        $this->targets = $targets;
     }
 }

@@ -2,28 +2,85 @@
 
 declare (strict_types = 1);
 
-namespace Phpml\Pipeline;
+namespace Phpml;
 
-class Pipeline
+class Pipeline implements Estimator
 {
     /**
-     * @var array
+     * @var array|Transformer[]
      */
-    private $stages;
+    private $transformers;
 
     /**
-     * @param array $stages
+     * @var Estimator
      */
-    public function __construct(array $stages)
+    private $estimator;
+
+    /**
+     * @param array|Transformer[] $transformers
+     * @param Estimator $estimator
+     */
+    public function __construct(array $transformers = [], Estimator $estimator)
     {
-        $this->stages = $stages;
+        foreach ($transformers as $transformer) {
+            $this->addTransformer($transformer);
+        }
+
+        $this->estimator = $estimator;
     }
 
     /**
-     * @param mixed $stage
+     * @param Transformer $transformer
      */
-    public function addStage($stage)
+    public function addTransformer(Transformer $transformer)
     {
-        $this->stages[] = $stage;
+        $this->transformers[] = $transformer;
     }
+
+    /**
+     * @param Estimator $estimator
+     */
+    public function setEstimator(Estimator $estimator)
+    {
+        $this->estimator = $estimator;
+    }
+
+    /**
+     * @return array|Transformer[]
+     */
+    public function getTransformers()
+    {
+        return $this->transformers;
+    }
+
+    /**
+     * @return Estimator
+     */
+    public function getEstimator()
+    {
+        return $this->estimator;
+    }
+
+    /**
+     * @param array $samples
+     * @param array $targets
+     */
+    public function train(array $samples, array $targets)
+    {
+        foreach ($this->transformers as $transformer) {
+            $samples = $transformer->transform($samples);
+        }
+
+        $this->estimator->train($samples, $targets);
+    }
+
+    /**
+     * @param array $samples
+     * @return mixed
+     */
+    public function predict(array $samples)
+    {
+        return $this->estimator->predict($samples);
+    }
+
 }
