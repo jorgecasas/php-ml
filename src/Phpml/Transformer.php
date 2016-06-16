@@ -6,6 +6,12 @@ namespace Phpml;
 
 interface Transformer
 {
+
+    /**
+     * @param array $samples
+     */
+    public function fit(array $samples);
+
     /**
      * @param array $samples
      */

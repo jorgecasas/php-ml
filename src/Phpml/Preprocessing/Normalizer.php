@@ -5,6 +5,7 @@ declare (strict_types = 1);
 namespace Phpml\Preprocessing;
 
 use Phpml\Exception\NormalizerException;
+use Phpml\Exception\PreprocessorException;
 
 class Normalizer implements Preprocessor
 {
@@ -28,6 +29,16 @@ class Normalizer implements Preprocessor
         }
 
         $this->norm = $norm;
+    }
+
+    /**
+     * @param array $samples
+     * 
+     * @throws PreprocessorException
+     */
+    public function fit(array $samples)
+    {
+        throw PreprocessorException::fitNotAllowed();
     }
 
     /**

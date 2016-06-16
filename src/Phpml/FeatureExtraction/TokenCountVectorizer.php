@@ -49,6 +49,14 @@ class TokenCountVectorizer implements Transformer
     /**
      * @param array $samples
      */
+    public function fit(array $samples)
+    {
+        // TODO: Implement fit() method.
+    }
+
+    /**
+     * @param array $samples
+     */
     public function transform(array &$samples)
     {
         $this->buildVocabulary($samples);
