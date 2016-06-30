@@ -3,6 +3,7 @@ os:
   - osx
 language: php
 php:
-  - '7.0'
+  - 7
+  - hhvm
 before_script: composer install
 script: bin/phpunit
