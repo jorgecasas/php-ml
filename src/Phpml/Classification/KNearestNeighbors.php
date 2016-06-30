@@ -67,7 +67,7 @@ class KNearestNeighbors implements Classifier
      *
      * @throws \Phpml\Exception\InvalidArgumentException
      */
-    private function kNeighborsDistances(array $sample): array
+    private function kNeighborsDistances(array $sample)
     {
         $distances = [];
 
