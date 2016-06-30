@@ -1,3 +1,6 @@
+os:
+  - linux
+  - osx
 language: php
 php:
   - '7.0'
