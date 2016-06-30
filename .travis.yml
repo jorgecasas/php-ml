@@ -1,5 +1,14 @@
 language: php
+
+os:
+  - linux
+  - windows
+
 php:
   - 7.0
-before_script: composer install --ignore-platform-reqs
-script: bin/phpunit
+
+before_script:
+  - composer install --ignore-platform-reqs
+
+script:
+  - bin/phpunit
