@@ -3,7 +3,7 @@ os:
   - osx
 language: php
 php:
-  - 7
+  - 7.0
   - hhvm
-before_script: composer install
+before_script: composer install --ignore-platform-reqs
 script: bin/phpunit
