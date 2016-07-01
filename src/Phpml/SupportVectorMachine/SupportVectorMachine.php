@@ -193,8 +193,11 @@ class SupportVectorMachine
      */
     private function getOSExtension()
     {
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        $os = strtoupper(substr(PHP_OS, 0, 3));
+        if ($os === 'WIN') {
             return '.exe';
+        } elseif ($os === 'DAR') {
+            return '-osx';
         }
 
         return '';
