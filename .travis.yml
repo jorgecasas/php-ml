@@ -15,7 +15,7 @@ matrix:
         - _PHP: php70
 
 before_install:
-  - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then /usr/bin/env bash build/prepare_osx_env.sh ; fi
+  - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then /usr/bin/env bash tools/prepare_osx_env.sh ; fi
 
 install:
   - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then /usr/bin/env bash tools/handle_brew_pkg.sh "${_PHP}" ; fi
