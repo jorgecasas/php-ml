@@ -1,13 +1,26 @@
 language: php
 
-os:
-  - linux
+matrix:
+  fast_finish: true
 
-php:
-  - 7.0
+  include:
+    - os: linux
+      php: '7.0'
 
-before_script:
-  - composer install --ignore-platform-reqs
+    - os: osx
+      osx_image: xcode7.3
+      language: generic
+      env:
+        - _OSX=10.11
+        - _PHP: php70
+
+before_install:
+  - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then /usr/bin/env bash build/prepare_osx_env.sh ; fi
+
+install:
+  - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then /usr/bin/env bash tools/handle_brew_pkg.sh "${_PHP}" ; fi
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install --dev --no-interaction --ignore-platform-reqs
 
 script:
   - bin/phpunit
