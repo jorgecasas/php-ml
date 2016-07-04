@@ -211,7 +211,7 @@ class SupportVectorMachine
      */
     private function buildTrainCommand(string $trainingSetFileName, string $modelFileName): string
     {
-        return sprintf('%ssvm-train%s -s %s -t %s -c %s -n %s -d %s%s -r %s -p %s -m %s -e %s -h %d -b %d \'%s\' \'%s\'',
+        return sprintf('%ssvm-train%s -s %s -t %s -c %s -n %s -d %s%s -r %s -p %s -m %s -e %s -h %d -b %d %s %s',
             $this->binPath,
             $this->getOSExtension(),
             $this->type,
@@ -226,8 +226,8 @@ class SupportVectorMachine
             $this->tolerance,
             $this->shrinking,
             $this->probabilityEstimates,
-            $trainingSetFileName,
-            $modelFileName
+            escapeshellarg($trainingSetFileName),
+            escapeshellarg($modelFileName)
         );
     }
 }
