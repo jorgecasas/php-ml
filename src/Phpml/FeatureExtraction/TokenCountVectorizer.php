@@ -15,6 +15,11 @@ class TokenCountVectorizer implements Transformer
     private $tokenizer;
 
     /**
+     * @var StopWords
+     */
+    private $stopWords;
+
+    /**
      * @var float
      */
     private $minDF;
@@ -31,12 +36,15 @@ class TokenCountVectorizer implements Transformer
 
     /**
      * @param Tokenizer $tokenizer
+     * @param StopWords $stopWords
      * @param float     $minDF
      */
-    public function __construct(Tokenizer $tokenizer, float $minDF = 0)
+    public function __construct(Tokenizer $tokenizer, StopWords $stopWords = null, float $minDF = 0)
     {
         $this->tokenizer = $tokenizer;
+        $this->stopWords = $stopWords;
         $this->minDF = $minDF;
+
         $this->vocabulary = [];
         $this->frequencies = [];
     }
@@ -118,6 +126,10 @@ class TokenCountVectorizer implements Transformer
      */
     private function getTokenIndex(string $token)
     {
+        if ($this->isStopWord($token)) {
+            return false;
+        }
+
         return isset($this->vocabulary[$token]) ? $this->vocabulary[$token] : false;
     }
 
@@ -126,9 +138,23 @@ class TokenCountVectorizer implements Transformer
      */
     private function addTokenToVocabulary(string $token)
     {
+        if ($this->isStopWord($token)) {
+            return;
+        }
+
         if (!isset($this->vocabulary[$token])) {
             $this->vocabulary[$token] = count($this->vocabulary);
         }
+    }
+
+    /**
+     * @param string $token
+     *
+     * @return bool
+     */
+    private function isStopWord(string $token): bool
+    {
+        return $this->stopWords && $this->stopWords->isStopWord($token);
     }
 
     /**
