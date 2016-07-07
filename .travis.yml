@@ -8,7 +8,7 @@ matrix:
       php: '7.0'
 
     - os: linux
-      php: hhvm-3.12
+      php: hhvm
       env:
         - HHVMPHP7="yes"
 
@@ -26,6 +26,9 @@ install:
   - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then /usr/bin/env bash tools/handle_brew_pkg.sh "${_PHP}" ; fi
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install --dev --no-interaction --ignore-platform-reqs
+
+before_script:
+  - if [[ $HHVMPHP7 == "yes" ]]; then echo hhvm.php7.all=1 >> /etc/hhvm/php.ini; fi
 
 script:
   - bin/phpunit
