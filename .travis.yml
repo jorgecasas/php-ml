@@ -7,10 +7,8 @@ matrix:
     - os: linux
       php: '7.0'
 
-#    - os: linux
-#      php: hhvm
-#      env:
-#        - HHVMPHP7="yes"
+    - os: linux
+      php: hhvm
 
     - os: osx
       osx_image: xcode7.3
@@ -27,9 +25,6 @@ install:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install --dev --no-interaction --ignore-platform-reqs
 
-before_script:
-  - if [[ $HHVMPHP7 == "yes" ]]; then echo hhvm.php7.all=1 >> /etc/hhvm/php.ini; fi
-  - if [[ $HHVMPHP7 == "yes" ]]; then sudo service hhvm restart ; sleep 1 ; fi
-
 script:
-  - bin/phpunit
+  - if [[ "$TRAVIS_PHP_VERSION" = "hhv*" ]]; then php -d hhvm.php7.all=1 bin/phpunit ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" = "php*" ]]; then bin/phpunit ; fi
