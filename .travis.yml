@@ -7,10 +7,10 @@ matrix:
     - os: linux
       php: '7.0'
 
-    - os: linux
-      php: hhvm
-      env:
-        - HHVMPHP7="yes"
+#    - os: linux
+#      php: hhvm
+#      env:
+#        - HHVMPHP7="yes"
 
     - os: osx
       osx_image: xcode7.3
