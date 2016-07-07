@@ -27,13 +27,13 @@ class KNearestNeighbors implements Classifier
      * @param int           $k
      * @param Distance|null $distanceMetric (if null then Euclidean distance as default)
      */
-    public function __construct(int $k = null, Distance $distanceMetric = null)
+    public function __construct(int $k = 3, Distance $distanceMetric = null)
     {
         if (null === $distanceMetric) {
             $distanceMetric = new Euclidean();
         }
 
-        $this->k = $k ?? 3;
+        $this->k = $k;
         $this->samples = [];
         $this->targets = [];
         $this->distanceMetric = $distanceMetric;

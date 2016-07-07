@@ -8,7 +8,7 @@ matrix:
       php: '7.0'
 
     - os: linux
-      php: hhvm
+      php: hhvm-3.12
       env:
         - HHVMPHP7="yes"
 
