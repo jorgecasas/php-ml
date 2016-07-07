@@ -78,7 +78,7 @@ class Normalizer implements Preprocessor
         foreach ($sample as $feature) {
             $norm2 += $feature * $feature;
         }
-        $norm2 = sqrt($norm2);
+        $norm2 = sqrt(floatval($norm2));
 
         if (0 == $norm2) {
             $sample = array_fill(0, count($sample), 1);
