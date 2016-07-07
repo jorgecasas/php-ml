@@ -26,5 +26,5 @@ install:
   - php composer.phar install --dev --no-interaction --ignore-platform-reqs
 
 script:
-  - if [[ "$TRAVIS_PHP_VERSION" = "hhv*" ]]; then php -d hhvm.php7.all=1 bin/phpunit ; fi
-  - if [[ "$TRAVIS_PHP_VERSION" = "php*" ]]; then bin/phpunit ; fi
+  - if [[ "${TRAVIS_PHP_VERSION}" = "hhv*" ]]; then php -d hhvm.php7.all=1 bin/phpunit ; fi
+  - if [[ "${TRAVIS_PHP_VERSION}" = "php*" ]]; then bin/phpunit ; fi
