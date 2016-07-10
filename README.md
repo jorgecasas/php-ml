@@ -50,6 +50,7 @@ composer require php-ai/php-ml
     * [Accuracy](http://php-ml.readthedocs.io/en/latest/machine-learning/metric/accuracy/)
 * Cross Validation
     * [Random Split](http://php-ml.readthedocs.io/en/latest/machine-learning/cross-validation/random-split/)
+    * [Stratified Random Split](http://php-ml.readthedocs.io/en/latest/machine-learning/cross-validation/stratified-random-split/)
 * Preprocessing
     * [Normalization](http://php-ml.readthedocs.io/en/latest/machine-learning/preprocessing/normalization/)
     * [Imputation missing values](http://php-ml.readthedocs.io/en/latest/machine-learning/preprocessing/imputation-missing-values/)
