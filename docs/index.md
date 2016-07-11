@@ -59,6 +59,7 @@ composer require php-ai/php-ml
     * [Imputation missing values](machine-learning/preprocessing/imputation-missing-values/)
 * Feature Extraction
     * [Token Count Vectorizer](machine-learning/feature-extraction/token-count-vectorizer/)
+    * [Tf-idf Transformer](machine-learning/feature-extraction/tf-idf-transformer/)
 * Datasets
     * [CSV](machine-learning/datasets/csv-dataset/)
     * Ready to use:

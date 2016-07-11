@@ -25,6 +25,7 @@ pages:
       - Imputation missing values: machine-learning/preprocessing/imputation-missing-values.md
     - Feature Extraction:
       - Token Count Vectorizer: machine-learning/feature-extraction/token-count-vectorizer.md
+      - Tf-idf Transformer: machine-learning/feature-extraction/tf-idf-transformer.md
     - Datasets:
       - Array Dataset: machine-learning/datasets/array-dataset.md
       - CSV Dataset: machine-learning/datasets/csv-dataset.md

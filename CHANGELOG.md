@@ -9,7 +9,7 @@ This changelog references the relevant changes done in PHP-ML library.
 
 * 0.1.1 (2016-07-12)
     * feature [Cross Validation] Stratified Random Split - equal distribution for targets in split
-    * feature [General] Documentation - add missing pages and fix links
+    * feature [General] Documentation - add missing pages (Pipeline, ConfusionMatrix and TfIdfTransformer) and fix links 
 
 * 0.1.0 (2016-07-08)
     * first develop release
