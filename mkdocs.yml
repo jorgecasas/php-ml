@@ -14,6 +14,7 @@ pages:
       - DBSCAN: machine-learning/clustering/dbscan.md
     - Metric:
       - Accuracy: machine-learning/metric/accuracy.md
+      - Confusion Matrix: machine-learning/metric/confusion-matrix.md
     - Workflow:
       - Pipeline: machine-learning/workflow/pipeline.md
     - Cross Validation:

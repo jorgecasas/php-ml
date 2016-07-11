@@ -48,6 +48,7 @@ composer require php-ai/php-ml
     * [DBSCAN](http://php-ml.readthedocs.io/en/latest/machine-learning/clustering/dbscan/)
 * Metric
     * [Accuracy](http://php-ml.readthedocs.io/en/latest/machine-learning/metric/accuracy/)
+    * [Confusion Matrix](http://php-ml.readthedocs.io/en/latest/machine-learning/metric/confusion-matrix/)
 * Workflow
     * [Pipeline](http://php-ml.readthedocs.io/en/latest/machine-learning/workflow/pipeline)
 * Cross Validation
