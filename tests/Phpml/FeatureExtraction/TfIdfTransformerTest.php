@@ -10,7 +10,7 @@ class TfIdfTransformerTest extends \PHPUnit_Framework_TestCase
 {
     public function testTfIdfTransformation()
     {
-        //https://en.wikipedia.org/wiki/Tf%E2%80%93idf
+        // https://en.wikipedia.org/wiki/Tf-idf
 
         $samples = [
             [0 => 1, 1 => 1, 2 => 2, 3 => 1, 4 => 0, 5 => 0],
