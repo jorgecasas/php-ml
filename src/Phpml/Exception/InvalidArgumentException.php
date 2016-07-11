@@ -65,4 +65,12 @@ class InvalidArgumentException extends \Exception
     {
         return new self('Invalid clusters number');
     }
+
+    /**
+     * @return InvalidArgumentException
+     */
+    public static function invalidStopWordsLanguage(string $language)
+    {
+        return new self(sprintf('Can\'t find %s language for StopWords', $language));
+    }
 }

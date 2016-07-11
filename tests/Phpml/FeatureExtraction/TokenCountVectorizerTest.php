@@ -4,12 +4,13 @@ declare (strict_types = 1);
 
 namespace tests\Phpml\FeatureExtraction;
 
+use Phpml\FeatureExtraction\StopWords;
 use Phpml\FeatureExtraction\TokenCountVectorizer;
 use Phpml\Tokenization\WhitespaceTokenizer;
 
 class TokenCountVectorizerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testTokenCountVectorizerWithWhitespaceTokenizer()
+    public function testTransformationWithWhitespaceTokenizer()
     {
         $samples = [
             'Lorem ipsum dolor sit amet dolor',
@@ -17,20 +18,35 @@ class TokenCountVectorizerTest extends \PHPUnit_Framework_TestCase
             'Mauris diam eros fringilla diam',
         ];
 
-        $vocabulary = ['Lorem', 'ipsum', 'dolor', 'sit', 'amet', 'Mauris', 'placerat', 'diam', 'eros', 'fringilla'];
-        $vector = [
-            [0 => 1, 1 => 1, 2 => 2, 3 => 1, 4 => 1],
-            [5 => 1, 6 => 1, 1 => 1, 2 => 1],
-            [5 => 1, 7 => 2, 8 => 1, 9 => 1],
+        $vocabulary = [
+            0 => 'Lorem',
+            1 => 'ipsum',
+            2 => 'dolor',
+            3 => 'sit',
+            4 => 'amet',
+            5 => 'Mauris',
+            6 => 'placerat',
+            7 => 'diam',
+            8 => 'eros',
+            9 => 'fringilla',
+        ];
+
+        $tokensCounts = [
+            [0 => 1, 1 => 1, 2 => 2, 3 => 1, 4 => 1, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0],
+            [0 => 0, 1 => 1, 2 => 1, 3 => 0, 4 => 0, 5 => 1, 6 => 1, 7 => 0, 8 => 0, 9 => 0],
+            [0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 1, 6 => 0, 7 => 2, 8 => 1, 9 => 1],
         ];
 
         $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer());
 
-        $this->assertEquals($vector, $vectorizer->transform($samples));
+        $vectorizer->fit($samples);
         $this->assertEquals($vocabulary, $vectorizer->getVocabulary());
+
+        $vectorizer->transform($samples);
+        $this->assertEquals($tokensCounts, $samples);
     }
 
-    public function testMinimumDocumentTokenCountFrequency()
+    public function testTransformationWithMinimumDocumentTokenCountFrequency()
     {
         // word at least in half samples
         $samples = [
@@ -40,34 +56,84 @@ class TokenCountVectorizerTest extends \PHPUnit_Framework_TestCase
             'ipsum sit amet',
         ];
 
-        $vocabulary = ['Lorem', 'ipsum', 'dolor', 'sit', 'amet'];
-        $vector = [
-            [0 => 1, 1 => 1, 3 => 1, 4 => 1],
-            [0 => 1, 1 => 1, 3 => 1, 4 => 1],
-            [1 => 1, 3 => 1, 4 => 1],
-            [1 => 1, 3 => 1, 4 => 1],
+        $vocabulary = [
+            0 => 'Lorem',
+            1 => 'ipsum',
+            2 => 'dolor',
+            3 => 'sit',
+            4 => 'amet',
         ];
 
-        $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer(), 0.5);
+        $tokensCounts = [
+            [0 => 1, 1 => 1, 2 => 0, 3 => 1, 4 => 1],
+            [0 => 1, 1 => 1, 2 => 0, 3 => 1, 4 => 1],
+            [0 => 0, 1 => 1, 2 => 0, 3 => 1, 4 => 1],
+            [0 => 0, 1 => 1, 2 => 0, 3 => 1, 4 => 1],
+        ];
 
-        $this->assertEquals($vector, $vectorizer->transform($samples));
+        $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer(), null, 0.5);
+
+        $vectorizer->fit($samples);
         $this->assertEquals($vocabulary, $vectorizer->getVocabulary());
 
-        // word at least in all samples
+        $vectorizer->transform($samples);
+        $this->assertEquals($tokensCounts, $samples);
+
+        // word at least once in all samples
         $samples = [
             'Lorem ipsum dolor sit amet',
-            'Morbi quis lacinia arcu. Sed eu sagittis Lorem',
-            'Suspendisse gravida consequat eros Lorem',
+            'Morbi quis sagittis Lorem',
+            'eros Lorem',
         ];
 
-        $vector = [
-            [0 => 1],
-            [0 => 1],
-            [0 => 1],
+        $tokensCounts = [
+            [0 => 1, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0],
+            [0 => 1, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0],
+            [0 => 1, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0],
         ];
 
-        $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer(), 1);
+        $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer(), null, 1);
+        $vectorizer->fit($samples);
+        $vectorizer->transform($samples);
 
-        $this->assertEquals($vector, $vectorizer->transform($samples));
+        $this->assertEquals($tokensCounts, $samples);
+    }
+
+    public function testTransformationWithStopWords()
+    {
+        $samples = [
+            'Lorem ipsum dolor sit amet dolor',
+            'Mauris placerat ipsum dolor',
+            'Mauris diam eros fringilla diam',
+        ];
+
+        $stopWords = new StopWords(['dolor', 'diam']);
+
+        $vocabulary = [
+            0 => 'Lorem',
+            1 => 'ipsum',
+            //2 => 'dolor',
+            2 => 'sit',
+            3 => 'amet',
+            4 => 'Mauris',
+            5 => 'placerat',
+            //7 => 'diam',
+            6 => 'eros',
+            7 => 'fringilla',
+        ];
+
+        $tokensCounts = [
+            [0 => 1, 1 => 1, 2 => 1, 3 => 1, 4 => 0, 5 => 0, 6 => 0, 7 => 0],
+            [0 => 0, 1 => 1, 2 => 0, 3 => 0, 4 => 1, 5 => 1, 6 => 0, 7 => 0],
+            [0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 1, 5 => 0, 6 => 1, 7 => 1],
+        ];
+
+        $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer(), $stopWords);
+
+        $vectorizer->fit($samples);
+        $this->assertEquals($vocabulary, $vectorizer->getVocabulary());
+
+        $vectorizer->transform($samples);
+        $this->assertEquals($tokensCounts, $samples);
     }
 }

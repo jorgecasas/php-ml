@@ -14,7 +14,7 @@ class WineTest extends \PHPUnit_Framework_TestCase
 
         // whole dataset
         $this->assertEquals(178, count($wine->getSamples()));
-        $this->assertEquals(178, count($wine->getLabels()));
+        $this->assertEquals(178, count($wine->getTargets()));
 
         // one sample features count
         $this->assertEquals(13, count($wine->getSamples()[0]));

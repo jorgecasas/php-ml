@@ -31,7 +31,7 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
         ];
 
         $normalizer = new Normalizer();
-        $normalizer->preprocess($samples);
+        $normalizer->transform($samples);
 
         $this->assertEquals($normalized, $samples, '', $delta = 0.01);
     }
@@ -51,7 +51,31 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
         ];
 
         $normalizer = new Normalizer(Normalizer::NORM_L1);
-        $normalizer->preprocess($samples);
+        $normalizer->transform($samples);
+
+        $this->assertEquals($normalized, $samples, '', $delta = 0.01);
+    }
+
+    public function testFitNotChangeNormalizerBehavior()
+    {
+        $samples = [
+            [1, -1, 2],
+            [2, 0, 0],
+            [0, 1, -1],
+        ];
+
+        $normalized = [
+            [0.4, -0.4, 0.81],
+            [1.0, 0.0, 0.0],
+            [0.0, 0.7, -0.7],
+        ];
+
+        $normalizer = new Normalizer();
+        $normalizer->transform($samples);
+
+        $this->assertEquals($normalized, $samples, '', $delta = 0.01);
+
+        $normalizer->fit($samples);
 
         $this->assertEquals($normalized, $samples, '', $delta = 0.01);
     }

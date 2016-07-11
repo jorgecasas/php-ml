@@ -4,7 +4,11 @@ declare (strict_types = 1);
 
 namespace tests\Phpml\Metric;
 
+use Phpml\Classification\SVC;
+use Phpml\CrossValidation\RandomSplit;
+use Phpml\Dataset\Demo\Iris;
 use Phpml\Metric\Accuracy;
+use Phpml\SupportVectorMachine\Kernel;
 
 class AccuracyTest extends \PHPUnit_Framework_TestCase
 {
@@ -33,5 +37,19 @@ class AccuracyTest extends \PHPUnit_Framework_TestCase
         $predictedLabels = ['a', 'b', 'b', 'b'];
 
         $this->assertEquals(3, Accuracy::score($actualLabels, $predictedLabels, false));
+    }
+
+    public function testAccuracyOnDemoDataset()
+    {
+        $dataset = new RandomSplit(new Iris(), 0.5, 123);
+
+        $classifier = new SVC(Kernel::RBF);
+        $classifier->train($dataset->getTrainSamples(), $dataset->getTrainLabels());
+
+        $predicted = $classifier->predict($dataset->getTestSamples());
+
+        $accuracy = Accuracy::score($dataset->getTestLabels(), $predicted);
+
+        $this->assertEquals(0.959, $accuracy, '', 0.01);
     }
 }

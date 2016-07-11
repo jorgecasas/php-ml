@@ -14,7 +14,7 @@ class IrisTest extends \PHPUnit_Framework_TestCase
 
         // whole dataset
         $this->assertEquals(150, count($iris->getSamples()));
-        $this->assertEquals(150, count($iris->getLabels()));
+        $this->assertEquals(150, count($iris->getTargets()));
 
         // one sample features count
         $this->assertEquals(4, count($iris->getSamples()[0]));

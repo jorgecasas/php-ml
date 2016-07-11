@@ -24,6 +24,6 @@ class ArrayDatasetTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals($samples, $dataset->getSamples());
-        $this->assertEquals($labels, $dataset->getLabels());
+        $this->assertEquals($labels, $dataset->getTargets());
     }
 }

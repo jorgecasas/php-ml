@@ -4,10 +4,8 @@ declare (strict_types = 1);
 
 namespace Phpml\Preprocessing;
 
-interface Preprocessor
+use Phpml\Transformer;
+
+interface Preprocessor extends Transformer
 {
-    /**
-     * @param array $samples
-     */
-    public function preprocess(array &$samples);
 }

@@ -16,22 +16,22 @@ class ArrayDataset implements Dataset
     /**
      * @var array
      */
-    protected $labels = [];
+    protected $targets = [];
 
     /**
      * @param array $samples
-     * @param array $labels
+     * @param array $targets
      *
      * @throws InvalidArgumentException
      */
-    public function __construct(array $samples, array $labels)
+    public function __construct(array $samples, array $targets)
     {
-        if (count($samples) != count($labels)) {
+        if (count($samples) != count($targets)) {
             throw InvalidArgumentException::arraySizeNotMatch();
         }
 
         $this->samples = $samples;
-        $this->labels = $labels;
+        $this->targets = $targets;
     }
 
     /**
@@ -45,8 +45,8 @@ class ArrayDataset implements Dataset
     /**
      * @return array
      */
-    public function getLabels(): array
+    public function getTargets(): array
     {
-        return $this->labels;
+        return $this->targets;
     }
 }

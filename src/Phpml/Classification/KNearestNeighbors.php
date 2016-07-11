@@ -35,7 +35,7 @@ class KNearestNeighbors implements Classifier
 
         $this->k = $k;
         $this->samples = [];
-        $this->labels = [];
+        $this->targets = [];
         $this->distanceMetric = $distanceMetric;
     }
 
@@ -48,10 +48,10 @@ class KNearestNeighbors implements Classifier
     {
         $distances = $this->kNeighborsDistances($sample);
 
-        $predictions = array_combine(array_values($this->labels), array_fill(0, count($this->labels), 0));
+        $predictions = array_combine(array_values($this->targets), array_fill(0, count($this->targets), 0));
 
         foreach ($distances as $index => $distance) {
-            ++$predictions[$this->labels[$index]];
+            ++$predictions[$this->targets[$index]];
         }
 
         arsort($predictions);
@@ -67,7 +67,7 @@ class KNearestNeighbors implements Classifier
      *
      * @throws \Phpml\Exception\InvalidArgumentException
      */
-    private function kNeighborsDistances(array $sample): array
+    private function kNeighborsDistances(array $sample)
     {
         $distances = [];
 

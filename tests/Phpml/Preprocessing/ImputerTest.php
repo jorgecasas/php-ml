@@ -27,8 +27,8 @@ class ImputerTest extends \PHPUnit_Framework_TestCase
             [8, 7, 4, 5],
         ];
 
-        $imputer = new Imputer(null, new MeanStrategy(), Imputer::AXIS_COLUMN);
-        $imputer->preprocess($data);
+        $imputer = new Imputer(null, new MeanStrategy(), Imputer::AXIS_COLUMN, $data);
+        $imputer->transform($data);
 
         $this->assertEquals($imputeData, $data, '', $delta = 0.01);
     }
@@ -49,8 +49,8 @@ class ImputerTest extends \PHPUnit_Framework_TestCase
             [8, 7, 6.66, 5],
         ];
 
-        $imputer = new Imputer(null, new MeanStrategy(), Imputer::AXIS_ROW);
-        $imputer->preprocess($data);
+        $imputer = new Imputer(null, new MeanStrategy(), Imputer::AXIS_ROW, $data);
+        $imputer->transform($data);
 
         $this->assertEquals($imputeData, $data, '', $delta = 0.01);
     }
@@ -71,8 +71,8 @@ class ImputerTest extends \PHPUnit_Framework_TestCase
             [8, 7, 3, 5],
         ];
 
-        $imputer = new Imputer(null, new MedianStrategy(), Imputer::AXIS_COLUMN);
-        $imputer->preprocess($data);
+        $imputer = new Imputer(null, new MedianStrategy(), Imputer::AXIS_COLUMN, $data);
+        $imputer->transform($data);
 
         $this->assertEquals($imputeData, $data, '', $delta = 0.01);
     }
@@ -93,8 +93,8 @@ class ImputerTest extends \PHPUnit_Framework_TestCase
             [8, 7, 7, 5],
         ];
 
-        $imputer = new Imputer(null, new MedianStrategy(), Imputer::AXIS_ROW);
-        $imputer->preprocess($data);
+        $imputer = new Imputer(null, new MedianStrategy(), Imputer::AXIS_ROW, $data);
+        $imputer->transform($data);
 
         $this->assertEquals($imputeData, $data, '', $delta = 0.01);
     }
@@ -117,8 +117,8 @@ class ImputerTest extends \PHPUnit_Framework_TestCase
             [8, 3, 2, 5],
         ];
 
-        $imputer = new Imputer(null, new MostFrequentStrategy(), Imputer::AXIS_COLUMN);
-        $imputer->preprocess($data);
+        $imputer = new Imputer(null, new MostFrequentStrategy(), Imputer::AXIS_COLUMN, $data);
+        $imputer->transform($data);
 
         $this->assertEquals($imputeData, $data);
     }
@@ -141,9 +141,35 @@ class ImputerTest extends \PHPUnit_Framework_TestCase
             [8, 3, 2, 5, 4],
         ];
 
-        $imputer = new Imputer(null, new MostFrequentStrategy(), Imputer::AXIS_ROW);
-        $imputer->preprocess($data);
+        $imputer = new Imputer(null, new MostFrequentStrategy(), Imputer::AXIS_ROW, $data);
+        $imputer->transform($data);
 
         $this->assertEquals($imputeData, $data);
+    }
+
+    public function testImputerWorksOnFitSamples()
+    {
+        $trainData = [
+            [1, 3, 4],
+            [6, 7, 8],
+            [8, 7, 5],
+        ];
+
+        $data = [
+            [1, 3, null],
+            [6, null, 8],
+            [null, 7, 5],
+        ];
+
+        $imputeData = [
+            [1, 3, 5.66],
+            [6, 5.66, 8],
+            [5, 7, 5],
+        ];
+
+        $imputer = new Imputer(null, new MeanStrategy(), Imputer::AXIS_COLUMN, $trainData);
+        $imputer->transform($data);
+
+        $this->assertEquals($imputeData, $data, '', $delta = 0.01);
     }
 }

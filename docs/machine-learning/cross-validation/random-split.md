@@ -1,4 +1,4 @@
-# RandomSplit
+# Random Split
 
 One of the simplest methods from Cross-validation is implemented as `RandomSpilt` class. Samples are split to two groups: train group and test group. You can adjust number of samples in each group.
 
@@ -6,7 +6,7 @@ One of the simplest methods from Cross-validation is implemented as `RandomSpilt
 
 * $dataset - object that implements `Dataset` interface
 * $testSize - a fraction of test split (float, from 0 to 1, default: 0.3)
-* $seed - seed for random generator (for tests)
+* $seed - seed for random generator (e.g. for tests)
  
 ```
 $randomSplit = new RandomSplit($dataset, 0.2);

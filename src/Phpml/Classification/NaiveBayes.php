@@ -19,7 +19,7 @@ class NaiveBayes implements Classifier
     protected function predictSample(array $sample)
     {
         $predictions = [];
-        foreach ($this->labels as $index => $label) {
+        foreach ($this->targets as $index => $label) {
             $predictions[$label] = 0;
             foreach ($sample as $token => $count) {
                 if (array_key_exists($token, $this->samples[$index])) {
