@@ -16,6 +16,7 @@ pages:
       - Accuracy: machine-learning/metric/accuracy.md
     - Cross Validation:
       - RandomSplit: machine-learning/cross-validation/random-split.md
+      - Stratified Random Split: machine-learning/cross-validation/stratified-random-split.md
     - Preprocessing:
       - Normalization: machine-learning/preprocessing/normalization.md
       - Imputation missing values: machine-learning/preprocessing/imputation-missing-values.md
