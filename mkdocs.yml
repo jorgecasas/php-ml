@@ -14,6 +14,8 @@ pages:
       - DBSCAN: machine-learning/clustering/dbscan.md
     - Metric:
       - Accuracy: machine-learning/metric/accuracy.md
+    - Workflow:
+      - Pipeline: machine-learning/workflow/pipeline.md
     - Cross Validation:
       - RandomSplit: machine-learning/cross-validation/random-split.md
       - Stratified Random Split: machine-learning/cross-validation/stratified-random-split.md

@@ -38,35 +38,36 @@ composer require php-ai/php-ml
 
 * Classification
     * [SVC](machine-learning/classification/svc/)
-    * [k-Nearest Neighbors](http://php-ml.readthedocs.io/en/latest/machine-learning/classification/k-nearest-neighbors/)
-    * [Naive Bayes](http://php-ml.readthedocs.io/en/latest/machine-learning/classification/naive-bayes/)
+    * [k-Nearest Neighbors](machine-learning/classification/k-nearest-neighbors/)
+    * [Naive Bayes](machine-learning/classification/naive-bayes/)
 * Regression
-    * [Least Squares](http://php-ml.readthedocs.io/en/latest/machine-learning/regression/least-squares/)
-    * [SVR](http://php-ml.readthedocs.io/en/latest/machine-learning/regression/svr/)
+    * [Least Squares](machine-learning/regression/least-squares/)
+    * [SVR](machine-learning/regression/svr/)
 * Clustering
-    * [k-Means](http://php-ml.readthedocs.io/en/latest/machine-learning/clustering/k-means/)
-    * [DBSCAN](http://php-ml.readthedocs.io/en/latest/machine-learning/clustering/dbscan/)
-* 
+    * [k-Means](machine-learning/clustering/k-means/)
+    * [DBSCAN](machine-learning/clustering/dbscan/)
 * Metric
-    * [Accuracy](http://php-ml.readthedocs.io/en/latest/machine-learning/metric/accuracy/)
+    * [Accuracy](machine-learning/metric/accuracy/)
+* Workflow
+    * [Pipeline](machine-learning/workflow/pipeline)
 * Cross Validation
-    * [Random Split](http://php-ml.readthedocs.io/en/latest/machine-learning/cross-validation/random-split/)
-    * [Stratified Random Split](http://php-ml.readthedocs.io/en/latest/machine-learning/cross-validation/stratified-random-split/)
+    * [Random Split](machine-learning/cross-validation/random-split/)
+    * [Stratified Random Split](machine-learning/cross-validation/stratified-random-split/)
 * Preprocessing
-    * [Normalization](http://php-ml.readthedocs.io/en/latest/machine-learning/preprocessing/normalization/)
-    * [Imputation missing values](http://php-ml.readthedocs.io/en/latest/machine-learning/preprocessing/imputation-missing-values/)
+    * [Normalization](machine-learning/preprocessing/normalization/)
+    * [Imputation missing values](machine-learning/preprocessing/imputation-missing-values/)
 * Feature Extraction
-    * [Token Count Vectorizer](http://php-ml.readthedocs.io/en/latest/machine-learning/feature-extraction/token-count-vectorizer/)
+    * [Token Count Vectorizer](machine-learning/feature-extraction/token-count-vectorizer/)
 * Datasets
-    * [CSV](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/csv-dataset/)
+    * [CSV](machine-learning/datasets/csv-dataset/)
     * Ready to use:
-        * [Iris](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/demo/iris/)
-        * [Wine](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/demo/wine/)
-        * [Glass](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/demo/glass/)
+        * [Iris](machine-learning/datasets/demo/iris/)
+        * [Wine](machine-learning/datasets/demo/wine/)
+        * [Glass](machine-learning/datasets/demo/glass/)
 * Math
-    * [Distance](http://php-ml.readthedocs.io/en/latest/math/distance/)
-    * [Matrix](http://php-ml.readthedocs.io/en/latest/math/matrix/)
-    * [Statistic](http://php-ml.readthedocs.io/en/latest/math/statistic/)
+    * [Distance](math/distance/)
+    * [Matrix](math/matrix/)
+    * [Statistic](math/statistic/)
     
 
 ## Contribute
