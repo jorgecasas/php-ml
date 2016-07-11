@@ -37,7 +37,7 @@ composer require php-ai/php-ml
 ## Features
 
 * Classification
-    * [SVC](http://php-ml.readthedocs.io/en/latest/machine-learning/classification/svc/)
+    * [SVC](machine-learning/classification/svc/)
     * [k-Nearest Neighbors](http://php-ml.readthedocs.io/en/latest/machine-learning/classification/k-nearest-neighbors/)
     * [Naive Bayes](http://php-ml.readthedocs.io/en/latest/machine-learning/classification/naive-bayes/)
 * Regression
@@ -46,6 +46,7 @@ composer require php-ai/php-ml
 * Clustering
     * [k-Means](http://php-ml.readthedocs.io/en/latest/machine-learning/clustering/k-means/)
     * [DBSCAN](http://php-ml.readthedocs.io/en/latest/machine-learning/clustering/dbscan/)
+* 
 * Metric
     * [Accuracy](http://php-ml.readthedocs.io/en/latest/machine-learning/metric/accuracy/)
 * Cross Validation
