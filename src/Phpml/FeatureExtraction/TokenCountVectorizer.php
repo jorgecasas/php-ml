@@ -116,6 +116,8 @@ class TokenCountVectorizer implements Transformer
             }
         }
 
+        ksort($counts);
+
         $sample = $counts;
     }
 
