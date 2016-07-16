@@ -3,7 +3,7 @@ CHANGELOG
 
 This changelog references the relevant changes done in PHP-ML library.
 
-* 0.2.0 (in plan)
+* 0.2.0 (in plan/progress)
     * feature [Dataset] - FilesDataset - load dataset from files (folder names as targets)
     * feature [Metric] - ClassificationReport - report about trained classifier
     * bug [Feature Extraction] - fix problem with token count vectorizer array order
