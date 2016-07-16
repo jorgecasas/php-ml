@@ -9,11 +9,6 @@ use Phpml\Exception\DatasetException;
 class CsvDataset extends ArrayDataset
 {
     /**
-     * @var string
-     */
-    protected $filepath;
-
-    /**
      * @param string $filepath
      * @param int    $features
      * @param bool   $headingRow

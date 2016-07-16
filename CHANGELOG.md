@@ -4,8 +4,9 @@ CHANGELOG
 This changelog references the relevant changes done in PHP-ML library.
 
 * 0.2.0 (in plan)
-    * feature [Dataset] - FileDataset - load dataset from files (folders as targets)
+    * feature [Dataset] - FilesDataset - load dataset from files (folder names as targets)
     * feature [Metric] - ClassificationReport - report about trained classifier
+    * bug [Feature Extraction] - fix problem with token count vectorizer array order
 
 * 0.1.1 (2016-07-12)
     * feature [Cross Validation] Stratified Random Split - equal distribution for targets in split
