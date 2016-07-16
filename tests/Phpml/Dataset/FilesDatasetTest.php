@@ -31,8 +31,13 @@ class FilesDatasetTest extends \PHPUnit_Framework_TestCase
         $firstSample = file_get_contents($rootPath.'/business/001.txt');
         $this->assertEquals($firstSample, $dataset->getSamples()[0][0]);
 
+        $firstTarget = 'business';
+        $this->assertEquals($firstTarget, $dataset->getTargets()[0]);
+
         $lastSample = file_get_contents($rootPath.'/tech/010.txt');
         $this->assertEquals($lastSample, $dataset->getSamples()[49][0]);
+
+        $lastTarget = 'tech';
+        $this->assertEquals($lastTarget, $dataset->getTargets()[49]);
     }
-    
 }

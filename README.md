@@ -61,7 +61,9 @@ composer require php-ai/php-ml
     * [Token Count Vectorizer](http://php-ml.readthedocs.io/en/latest/machine-learning/feature-extraction/token-count-vectorizer/)
     * [Tf-idf Transformer](http://php-ml.readthedocs.io/en/latest/machine-learning/feature-extraction/tf-idf-transformer/)
 * Datasets
+    * [Array](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/array-dataset/)
     * [CSV](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/csv-dataset/)
+    * [Files](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/files-dataset/)
     * Ready to use:
         * [Iris](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/demo/iris/)
         * [Wine](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/demo/wine/)

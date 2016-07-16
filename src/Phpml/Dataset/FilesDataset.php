@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare (strict_types = 1);
 
 namespace Phpml\Dataset;
 
@@ -26,7 +27,7 @@ class FilesDataset extends ArrayDataset
      */
     private function scanRootPath(string $rootPath)
     {
-        foreach(glob($rootPath . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR) as $dir) {
+        foreach (glob($rootPath.DIRECTORY_SEPARATOR.'*', GLOB_ONLYDIR) as $dir) {
             $this->scanDir($dir);
         }
     }
@@ -38,10 +39,9 @@ class FilesDataset extends ArrayDataset
     {
         $target = basename($dir);
 
-        foreach(array_filter(glob($dir. DIRECTORY_SEPARATOR . '*'), 'is_file') as $file) {
+        foreach (array_filter(glob($dir.DIRECTORY_SEPARATOR.'*'), 'is_file') as $file) {
             $this->samples[] = [file_get_contents($file)];
             $this->targets[] = $target;
         }
     }
-
 }
