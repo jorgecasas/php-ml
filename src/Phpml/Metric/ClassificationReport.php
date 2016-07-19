@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare (strict_types = 1);
 
 namespace Phpml\Metric;
 
@@ -40,13 +41,13 @@ class ClassificationReport
 
         foreach ($actualLabels as $index => $actual) {
             $predicted = $predictedLabels[$index];
-            $this->support[$actual]++;
+            ++$this->support[$actual];
 
-            if($actual === $predicted) {
-                $truePositive[$actual]++;
+            if ($actual === $predicted) {
+                ++$truePositive[$actual];
             } else {
-                $falsePositive[$predicted]++;
-                $falseNegative[$actual]++;
+                ++$falsePositive[$predicted];
+                ++$falseNegative[$actual];
             }
         }
 
@@ -104,7 +105,7 @@ class ClassificationReport
         foreach ($truePositive as $label => $tp) {
             $this->precision[$label] = $tp / ($tp + $falsePositive[$label]);
             $this->recall[$label] = $tp / ($tp + $falseNegative[$label]);
-            $this->f1score[$label] = $this->computeF1Score((float)$this->precision[$label], (float)$this->recall[$label]);
+            $this->f1score[$label] = $this->computeF1Score((float) $this->precision[$label], (float) $this->recall[$label]);
         }
     }
 
@@ -124,7 +125,7 @@ class ClassificationReport
      */
     private function computeF1Score(float $precision, float $recall): float
     {
-        if(0 == ($divider = $precision+$recall)) {
+        if (0 == ($divider = $precision + $recall)) {
             return 0.0;
         }
 
@@ -144,5 +145,4 @@ class ClassificationReport
 
         return $labels;
     }
-
 }
