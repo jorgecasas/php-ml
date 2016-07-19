@@ -51,6 +51,7 @@ composer require php-ai/php-ml
 * Metric
     * [Accuracy](machine-learning/metric/accuracy/)
     * [Confusion Matrix](machine-learning/metric/confusion-matrix/)
+    * [Classification Report](machine-learning/metric/classification-report/)
 * Workflow
     * [Pipeline](machine-learning/workflow/pipeline)
 * Cross Validation

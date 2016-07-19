@@ -15,6 +15,7 @@ pages:
     - Metric:
       - Accuracy: machine-learning/metric/accuracy.md
       - Confusion Matrix: machine-learning/metric/confusion-matrix.md
+      - Classification Report: machine-learning/metric/classification-report.md
     - Workflow:
       - Pipeline: machine-learning/workflow/pipeline.md
     - Cross Validation:
