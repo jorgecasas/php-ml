@@ -1,5 +1,7 @@
 # PHP-ML - Machine Learning library for PHP
 
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.0-8892BF.svg)](https://php.net/)
+[![Latest Stable Version](https://img.shields.io/packagist/v/php-ai/php-ml.svg)](https://packagist.org/packages/php-ai/php-ml)
 [![Build Status](https://scrutinizer-ci.com/g/php-ai/php-ml/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/php-ai/php-ml/build-status/develop)
 [![Documentation Status](https://readthedocs.org/projects/php-ml/badge/?version=develop)](http://php-ml.readthedocs.org/en/develop/?badge=develop)
 [![Total Downloads](https://poser.pugx.org/php-ai/php-ml/downloads.svg)](https://packagist.org/packages/php-ai/php-ml)
@@ -8,7 +10,9 @@
 
 ![PHP-ML - Machine Learning library for PHP](assets/php-ml-logo.png)
 
-Fresh approach to Machine Learning in PHP. Note that at the moment PHP is not the best choice for machine learning but maybe this will change ...
+Fresh approach to Machine Learning in PHP. Algorithms, Cross Validation, Preprocessing, Feature Extraction and much more in one library.
+
+PHP-ML requires PHP >= 7.0.
 
 Simple example of classification:
 ```php
