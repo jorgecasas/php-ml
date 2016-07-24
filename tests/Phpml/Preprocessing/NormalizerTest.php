@@ -79,4 +79,24 @@ class NormalizerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($normalized, $samples, '', $delta = 0.01);
     }
+
+    public function testL1NormWithZeroSumCondition()
+    {
+        $samples = [
+            [0, 0, 0],
+            [2, 0, 0],
+            [0, 1, -1],
+        ];
+
+        $normalized = [
+            [0.33, 0.33, 0.33],
+            [1.0, 0.0, 0.0],
+            [0.0, 0.5, -0.5],
+        ];
+
+        $normalizer = new Normalizer(Normalizer::NORM_L1);
+        $normalizer->transform($samples);
+
+        $this->assertEquals($normalized, $samples, '', $delta = 0.01);
+    }
 }

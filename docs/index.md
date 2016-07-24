@@ -1,12 +1,18 @@
 # PHP-ML - Machine Learning library for PHP
 
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.0-8892BF.svg)](https://php.net/)
+[![Latest Stable Version](https://img.shields.io/packagist/v/php-ai/php-ml.svg)](https://packagist.org/packages/php-ai/php-ml)
 [![Build Status](https://scrutinizer-ci.com/g/php-ai/php-ml/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/php-ai/php-ml/build-status/develop)
 [![Documentation Status](https://readthedocs.org/projects/php-ml/badge/?version=develop)](http://php-ml.readthedocs.org/en/develop/?badge=develop)
 [![Total Downloads](https://poser.pugx.org/php-ai/php-ml/downloads.svg)](https://packagist.org/packages/php-ai/php-ml)
 [![License](https://poser.pugx.org/php-ai/php-ml/license.svg)](https://packagist.org/packages/php-ai/php-ml)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/php-ai/php-ml/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/php-ai/php-ml/?branch=develop)
 
-Fresh approach to Machine Learning in PHP. Note that at the moment PHP is not the best choice for machine learning but maybe this will change ...
+![PHP-ML - Machine Learning library for PHP](assets/php-ml-logo.png)
+
+Fresh approach to Machine Learning in PHP. Algorithms, Cross Validation, Preprocessing, Feature Extraction and much more in one library.
+
+PHP-ML requires PHP >= 7.0.
 
 Simple example of classification:
 ```php
@@ -34,6 +40,10 @@ Currently this library is in the process of developing, but You can install it w
 composer require php-ai/php-ml
 ```
 
+## Examples
+
+Example scripts are available in a separate repository [php-ai/php-ml-examples](https://github.com/php-ai/php-ml-examples).
+
 ## Features
 
 * Classification
@@ -49,6 +59,7 @@ composer require php-ai/php-ml
 * Metric
     * [Accuracy](machine-learning/metric/accuracy/)
     * [Confusion Matrix](machine-learning/metric/confusion-matrix/)
+    * [Classification Report](machine-learning/metric/classification-report/)
 * Workflow
     * [Pipeline](machine-learning/workflow/pipeline)
 * Cross Validation
@@ -61,7 +72,9 @@ composer require php-ai/php-ml
     * [Token Count Vectorizer](machine-learning/feature-extraction/token-count-vectorizer/)
     * [Tf-idf Transformer](machine-learning/feature-extraction/tf-idf-transformer/)
 * Datasets
+    * [Array](machine-learning/datasets/array-dataset/)
     * [CSV](machine-learning/datasets/csv-dataset/)
+    * [Files](machine-learning/datasets/files-dataset/)
     * Ready to use:
         * [Iris](machine-learning/datasets/demo/iris/)
         * [Wine](machine-learning/datasets/demo/wine/)

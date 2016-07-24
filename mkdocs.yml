@@ -15,6 +15,7 @@ pages:
     - Metric:
       - Accuracy: machine-learning/metric/accuracy.md
       - Confusion Matrix: machine-learning/metric/confusion-matrix.md
+      - Classification Report: machine-learning/metric/classification-report.md
     - Workflow:
       - Pipeline: machine-learning/workflow/pipeline.md
     - Cross Validation:
@@ -29,6 +30,7 @@ pages:
     - Datasets:
       - Array Dataset: machine-learning/datasets/array-dataset.md
       - CSV Dataset: machine-learning/datasets/csv-dataset.md
+      - Files Dataset: machine-learning/datasets/files-dataset.md
       - Ready to use datasets:
         - Iris: machine-learning/datasets/demo/iris.md
         - Wine: machine-learning/datasets/demo/wine.md

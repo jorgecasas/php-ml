@@ -48,4 +48,12 @@ class KMeansTest extends \PHPUnit_Framework_TestCase
         $clusters = $kmeans->cluster($samples);
         $this->assertEquals(4, count($clusters));
     }
+
+    /**
+     * @expectedException \Phpml\Exception\InvalidArgumentException
+     */
+    public function testThrowExceptionOnInvalidClusterNumber()
+    {
+        new KMeans(0);
+    }
 }

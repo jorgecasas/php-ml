@@ -10,6 +10,7 @@ use Phpml\Pipeline;
 use Phpml\Preprocessing\Imputer;
 use Phpml\Preprocessing\Normalizer;
 use Phpml\Preprocessing\Imputer\Strategy\MostFrequentStrategy;
+use Phpml\Regression\SVR;
 
 class PipelineTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,6 +24,16 @@ class PipelineTest extends \PHPUnit_Framework_TestCase
         $pipeline = new Pipeline($transformers, $estimator);
 
         $this->assertEquals($transformers, $pipeline->getTransformers());
+        $this->assertEquals($estimator, $pipeline->getEstimator());
+    }
+
+    public function testPipelineEstimatorSetter()
+    {
+        $pipeline = new Pipeline([new TfIdfTransformer()], new SVC());
+
+        $estimator = new SVR();
+        $pipeline->setEstimator($estimator);
+
         $this->assertEquals($estimator, $pipeline->getEstimator());
     }
 

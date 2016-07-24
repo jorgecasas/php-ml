@@ -40,10 +40,10 @@ class TokenCountVectorizerTest extends \PHPUnit_Framework_TestCase
         $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer());
 
         $vectorizer->fit($samples);
-        $this->assertEquals($vocabulary, $vectorizer->getVocabulary());
+        $this->assertSame($vocabulary, $vectorizer->getVocabulary());
 
         $vectorizer->transform($samples);
-        $this->assertEquals($tokensCounts, $samples);
+        $this->assertSame($tokensCounts, $samples);
     }
 
     public function testTransformationWithMinimumDocumentTokenCountFrequency()
@@ -74,10 +74,10 @@ class TokenCountVectorizerTest extends \PHPUnit_Framework_TestCase
         $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer(), null, 0.5);
 
         $vectorizer->fit($samples);
-        $this->assertEquals($vocabulary, $vectorizer->getVocabulary());
+        $this->assertSame($vocabulary, $vectorizer->getVocabulary());
 
         $vectorizer->transform($samples);
-        $this->assertEquals($tokensCounts, $samples);
+        $this->assertSame($tokensCounts, $samples);
 
         // word at least once in all samples
         $samples = [
@@ -96,7 +96,7 @@ class TokenCountVectorizerTest extends \PHPUnit_Framework_TestCase
         $vectorizer->fit($samples);
         $vectorizer->transform($samples);
 
-        $this->assertEquals($tokensCounts, $samples);
+        $this->assertSame($tokensCounts, $samples);
     }
 
     public function testTransformationWithStopWords()
@@ -131,9 +131,9 @@ class TokenCountVectorizerTest extends \PHPUnit_Framework_TestCase
         $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer(), $stopWords);
 
         $vectorizer->fit($samples);
-        $this->assertEquals($vocabulary, $vectorizer->getVocabulary());
+        $this->assertSame($vocabulary, $vectorizer->getVocabulary());
 
         $vectorizer->transform($samples);
-        $this->assertEquals($tokensCounts, $samples);
+        $this->assertSame($tokensCounts, $samples);
     }
 }
