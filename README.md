@@ -40,6 +40,10 @@ Currently this library is in the process of developing, but You can install it w
 composer require php-ai/php-ml
 ```
 
+## Examples
+
+Example scripts are available in a separate repository [php-ai/php-ml-examples](https://github.com/php-ai/php-ml-examples).
+
 ## Features
 
 * Classification
