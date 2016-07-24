@@ -13,5 +13,4 @@ class NormalizerException extends \Exception
     {
         return new self('Unknown norm supplied.');
     }
-    
 }
