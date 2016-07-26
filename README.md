@@ -84,17 +84,12 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
     * [Matrix](http://php-ml.readthedocs.io/en/latest/math/matrix/)
     * [Statistic](http://php-ml.readthedocs.io/en/latest/math/statistic/)
     
-
 ## Contribute
 
 - Issue Tracker: github.com/php-ai/php-ml/issues
 - Source Code: github.com/php-ai/php-ml
 
-After installation, you can launch the test suite in project root directory (you will need to install dev requirements with Composer)
-
-```
-bin/phpunit
-```
+You can find more about contributing in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
