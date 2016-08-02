@@ -61,7 +61,7 @@ class Space extends SplObjectStorage
      */
     public function addPoint(array $coordinates, $data = null)
     {
-        return $this->attach($this->newPoint($coordinates), $data);
+        $this->attach($this->newPoint($coordinates), $data);
     }
 
     /**
@@ -74,7 +74,7 @@ class Space extends SplObjectStorage
             throw new InvalidArgumentException('can only attach points to spaces');
         }
 
-        return parent::attach($point, $data);
+        parent::attach($point, $data);
     }
 
     /**
@@ -230,8 +230,8 @@ class Space extends SplObjectStorage
     protected function initializeKMPPClusters(int $clustersNumber)
     {
         $clusters = [];
-        $position = rand(1, count($this));
-        for ($i = 1, $this->rewind(); $i < $position && $this->valid(); $i++, $this->next());
+        $this->rewind();
+
         $clusters[] = new Cluster($this, $this->current()->getCoordinates());
 
         $distances = new SplObjectStorage();

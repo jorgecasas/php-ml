@@ -193,7 +193,8 @@ class Matrix
         $product = [];
         $multiplier = $matrix->toArray();
         for ($i = 0; $i < $this->rows; ++$i) {
-            for ($j = 0; $j < $matrix->getColumns(); ++$j) {
+            $columns = $matrix->getColumns();
+            for ($j = 0; $j < $columns; ++$j) {
                 $product[$i][$j] = 0;
                 for ($k = 0; $k < $this->columns; ++$k) {
                     $product[$i][$j] += $this->matrix[$i][$k] * $multiplier[$k][$j];
