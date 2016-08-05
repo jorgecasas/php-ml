@@ -6,7 +6,7 @@ namespace tests\Phpml\NeuralNetwork\Node;
 
 use Phpml\NeuralNetwork\ActivationFunction\BinaryStep;
 use Phpml\NeuralNetwork\Node\Neuron;
-use Phpml\NeuralNetwork\Node\Synapse;
+use Phpml\NeuralNetwork\Node\Neuron\Synapse;
 
 class NeuronTest extends \PHPUnit_Framework_TestCase
 {
@@ -53,7 +53,7 @@ class NeuronTest extends \PHPUnit_Framework_TestCase
     /**
      * @param int $output
      *
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return Synapse|\PHPUnit_Framework_MockObject_MockObject
      */
     private function getSynapseMock($output = 2)
     {

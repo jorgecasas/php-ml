@@ -5,6 +5,7 @@ declare (strict_types = 1);
 namespace Phpml\NeuralNetwork\Node;
 
 use Phpml\NeuralNetwork\ActivationFunction;
+use Phpml\NeuralNetwork\Node\Neuron\Synapse;
 use Phpml\NeuralNetwork\Node;
 
 class Neuron implements Node

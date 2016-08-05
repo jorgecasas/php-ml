@@ -2,11 +2,11 @@
 
 declare (strict_types = 1);
 
-namespace Phpml\NeuralNetwork\Node;
+namespace Phpml\NeuralNetwork\Node\Neuron;
 
 use Phpml\NeuralNetwork\Node;
 
-class Synapse implements Node
+class Synapse
 {
     /**
      * @var float

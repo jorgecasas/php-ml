@@ -2,10 +2,10 @@
 
 declare (strict_types = 1);
 
-namespace tests\Phpml\NeuralNetwork\Node;
+namespace tests\Phpml\NeuralNetwork\Node\Neuron;
 
+use Phpml\NeuralNetwork\Node\Neuron\Synapse;
 use Phpml\NeuralNetwork\Node\Neuron;
-use Phpml\NeuralNetwork\Node\Synapse;
 
 class SynapseTest extends \PHPUnit_Framework_TestCase
 {
