@@ -6,5 +6,4 @@ namespace Phpml\NeuralNetwork\Network;
 
 class MultilayerPerceptron extends LayeredNetwork
 {
-
 }

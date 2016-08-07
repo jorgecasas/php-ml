@@ -4,9 +4,8 @@ declare (strict_types = 1);
 
 namespace Phpml\NeuralNetwork;
 
-interface Network extends Node
+interface Network
 {
-
     /**
      * @param mixed $input
      */
@@ -15,6 +14,15 @@ interface Network extends Node
     /**
      * @return array
      */
-    public function getLayers(): array;
+    public function getOutput(): array;
 
+    /**
+     * @param Layer $layer
+     */
+    public function addLayer(Layer $layer);
+
+    /**
+     * @return Layer[]
+     */
+    public function getLayers(): array;
 }
