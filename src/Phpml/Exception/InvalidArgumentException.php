@@ -81,4 +81,12 @@ class InvalidArgumentException extends \Exception
     {
         return new self('Layer node class must implement Node interface');
     }
+
+    /**
+     * @return InvalidArgumentException
+     */
+    public static function invalidLayersNumber()
+    {
+        return new self('Provide at least 2 layers: 1 input and 1 output');
+    }
 }
