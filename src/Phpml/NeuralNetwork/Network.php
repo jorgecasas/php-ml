@@ -8,6 +8,8 @@ interface Network
 {
     /**
      * @param mixed $input
+     *
+     * @return self
      */
     public function setInput($input);
 

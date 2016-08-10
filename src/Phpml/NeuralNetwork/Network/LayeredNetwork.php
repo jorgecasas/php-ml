@@ -6,6 +6,8 @@ namespace Phpml\NeuralNetwork\Network;
 
 use Phpml\NeuralNetwork\Layer;
 use Phpml\NeuralNetwork\Network;
+use Phpml\NeuralNetwork\Node\Input;
+use Phpml\NeuralNetwork\Node\Neuron;
 
 abstract class LayeredNetwork implements Network
 {
@@ -53,13 +55,27 @@ abstract class LayeredNetwork implements Network
 
     /**
      * @param mixed $input
+     *
+     * @return $this
      */
     public function setInput($input)
     {
         $firstLayer = $this->layers[0];
 
         foreach ($firstLayer->getNodes() as $key => $neuron) {
-            $neuron->setInput($input[$key]);
+            if ($neuron instanceof Input) {
+                $neuron->setInput($input[$key]);
+            }
         }
+
+        foreach ($this->getLayers() as $layer) {
+            foreach ($layer->getNodes() as $node) {
+                if ($node instanceof Neuron) {
+                    $node->refresh();
+                }
+            }
+        }
+
+        return $this;
     }
 }
