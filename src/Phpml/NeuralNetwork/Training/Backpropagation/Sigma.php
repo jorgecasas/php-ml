@@ -43,4 +43,22 @@ class Sigma
     {
         return $this->sigma;
     }
+
+    /**
+     * @param Neuron $neuron
+     *
+     * @return float
+     */
+    public function getSigmaForNeuron(Neuron $neuron): float
+    {
+        $sigma = 0.0;
+
+        foreach ($this->neuron->getSynapses() as $synapse) {
+            if ($synapse->getNode() == $neuron) {
+                $sigma += $synapse->getWeight() * $this->getSigma();
+            }
+        }
+
+        return $sigma;
+    }
 }
