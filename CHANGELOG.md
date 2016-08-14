@@ -3,9 +3,11 @@ CHANGELOG
 
 This changelog references the relevant changes done in PHP-ML library.
 
-* 0.1.3 (in plan/progress)
-    * SSE, SSTo, SSR [Regression] - sum of the squared
-    * 
+* 0.2.1 (in plan/progress)
+    * feature [Regression] - SSE, SSTo, SSR  - sum of the squared
+
+* 0.2.0 (2016-08-14)
+    * feature [NeuralNetwork] - MultilayerPerceptron and Backpropagation training 
 
 * 0.1.2 (2016-07-24)
     * feature [Dataset] - FilesDataset - load dataset from files (folder names as targets)
