@@ -3,7 +3,7 @@
     "type": "library",
     "description": "PHP-ML - Machine Learning library for PHP",
     "license": "MIT",
-    "keywords": ["machine learning","pattern recognition","computational learning theory","artificial intelligence"],
+    "keywords": ["machine learning","pattern recognition","neural network","computational learning theory","artificial intelligence"],
     "homepage": "https://github.com/php-ai/php-ml",
     "authors": [
         {
