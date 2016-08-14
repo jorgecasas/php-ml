@@ -2,7 +2,7 @@
 
 Classifier implementing the k-nearest neighbors algorithm.
 
-### Constructor Parameters
+## Constructor Parameters
 
 * $k - number of nearest neighbors to scan (default: 3)
 * $distanceMetric - Distance object, default Euclidean (see [distance documentation](math/distance/))
@@ -12,7 +12,7 @@ $classifier = new KNearestNeighbors($k=4);
 $classifier = new KNearestNeighbors($k=3, new Minkowski($lambda=4));
 ```
 
-### Train
+## Train
 
 To train a classifier simply provide train samples and labels (as `array`). Example:
 
@@ -24,7 +24,7 @@ $classifier = new KNearestNeighbors();
 $classifier->train($samples, $labels);
 ```
 
-### Predict
+## Predict
 
 To predict sample label use `predict` method. You can provide one sample or array of samples:
 

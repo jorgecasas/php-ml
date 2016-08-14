@@ -73,4 +73,20 @@ class InvalidArgumentException extends \Exception
     {
         return new self(sprintf('Can\'t find %s language for StopWords', $language));
     }
+
+    /**
+     * @return InvalidArgumentException
+     */
+    public static function invalidLayerNodeClass()
+    {
+        return new self('Layer node class must implement Node interface');
+    }
+
+    /**
+     * @return InvalidArgumentException
+     */
+    public static function invalidLayersNumber()
+    {
+        return new self('Provide at least 2 layers: 1 input and 1 output');
+    }
 }

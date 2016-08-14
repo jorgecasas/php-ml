@@ -13,5 +13,8 @@ class ProductTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(10, Product::scalar([2, 3], [-1, 4]));
         $this->assertEquals(-0.1, Product::scalar([1, 4, 1], [-2, 0.5, -0.1]));
         $this->assertEquals(8, Product::scalar([2], [4]));
+
+        //test for non numeric values
+        $this->assertEquals(0, Product::scalar(['', null, [], new \stdClass()], [null]));
     }
 }

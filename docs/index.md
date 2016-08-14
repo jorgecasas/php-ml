@@ -62,6 +62,9 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
     * [Classification Report](machine-learning/metric/classification-report/)
 * Workflow
     * [Pipeline](machine-learning/workflow/pipeline)
+* Neural Network
+    * [Multilayer Perceptron](machine-learning/neural-network/multilayer-perceptron/)
+    * [Backpropagation training](machine-learning/neural-network/backpropagation/)
 * Cross Validation
     * [Random Split](machine-learning/cross-validation/random-split/)
     * [Stratified Random Split](machine-learning/cross-validation/stratified-random-split/)
@@ -90,11 +93,7 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
 - Issue Tracker: github.com/php-ai/php-ml/issues
 - Source Code: github.com/php-ai/php-ml
 
-After installation, you can launch the test suite in project root directory (you will need to install dev requirements with Composer)
-
-```
-bin/phpunit
-```
+You can find more about contributing in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
