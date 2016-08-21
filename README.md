@@ -89,8 +89,8 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
     
 ## Contribute
 
-- Issue Tracker: github.com/php-ai/php-ml/issues
-- Source Code: github.com/php-ai/php-ml
+- [Issue Tracker: github.com/php-ai/php-ml](https://github.com/php-ai/php-ml/issues)
+- [Source Code:  github.com/php-ai/php-ml](https://github.com/php-ai/php-ml)
 
 You can find more about contributing in [CONTRIBUTING.md](CONTRIBUTING.md).
 
