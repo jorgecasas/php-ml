@@ -71,12 +71,12 @@ class AprioriTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->invoke($apriori, 'contains', [$L[2], [3, 4]]));
     }
 
-    public function testRules()
+    public function testGetRules()
     {
         $apriori = new Apriori(0.4, 0.8);
         $apriori->train($this->sampleChars, []);
 
-        $this->assertCount(19, $apriori->rules());
+        $this->assertCount(19, $apriori->getRules());
     }
 
     public function testAntecedents()
