@@ -46,6 +46,8 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
 
 ## Features
 
+* Association rule learning
+    * [Apriori](http://php-ml.readthedocs.io/en/latest/machine-learning/association/apriori/)
 * Classification
     * [SVC](http://php-ml.readthedocs.io/en/latest/machine-learning/classification/svc/)
     * [k-Nearest Neighbors](http://php-ml.readthedocs.io/en/latest/machine-learning/classification/k-nearest-neighbors/)
@@ -85,6 +87,7 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
 * Math
     * [Distance](http://php-ml.readthedocs.io/en/latest/math/distance/)
     * [Matrix](http://php-ml.readthedocs.io/en/latest/math/matrix/)
+    * [Set](http://php-ml.readthedocs.io/en/latest/math/set/)
     * [Statistic](http://php-ml.readthedocs.io/en/latest/math/statistic/)
     
 ## Contribute

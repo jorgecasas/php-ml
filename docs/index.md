@@ -46,6 +46,8 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
 
 ## Features
 
+* Association rule Lerning
+    * [Apriori](machine-learning/association/apriori/)
 * Classification
     * [SVC](machine-learning/classification/svc/)
     * [k-Nearest Neighbors](machine-learning/classification/k-nearest-neighbors/)
@@ -85,6 +87,7 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
 * Math
     * [Distance](math/distance/)
     * [Matrix](math/matrix/)
+    * [Set](math/set/)
     * [Statistic](math/statistic/)
     
 
