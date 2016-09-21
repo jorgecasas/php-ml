@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare (strict_types = 1);
 
 namespace tests\Classification;
 
@@ -8,14 +8,14 @@ use Phpml\Association\Apriori;
 
 class AprioriTest extends \PHPUnit_Framework_TestCase
 {
-    private $sampleGreek  = [
+    private $sampleGreek = [
         ['alpha', 'beta', 'epsilon'],
         ['alpha', 'beta', 'theta'],
         ['alpha', 'beta', 'epsilon'],
         ['alpha', 'beta', 'theta'],
     ];
 
-    private $sampleChars  = [
+    private $sampleChars = [
         ['E', 'D', 'N', 'E+N', 'EN'],
         ['E', 'R', 'N', 'E+R', 'E+N', 'ER', 'EN'],
         ['D', 'R'],
@@ -25,7 +25,7 @@ class AprioriTest extends \PHPUnit_Framework_TestCase
         ['E', 'D', 'N', 'E+N', 'EN'],
         ['E', 'R', 'E+R'],
         ['E'],
-        ['N',],
+        ['N'],
     ];
 
     private $sampleBasket = [
@@ -179,7 +179,7 @@ class AprioriTest extends \PHPUnit_Framework_TestCase
     public function invoke(&$object, $method, array $params = array())
     {
         $reflection = new \ReflectionClass(get_class($object));
-        $method     = $reflection->getMethod($method);
+        $method = $reflection->getMethod($method);
         $method->setAccessible(true);
 
         return $method->invokeArgs($object, $params);
