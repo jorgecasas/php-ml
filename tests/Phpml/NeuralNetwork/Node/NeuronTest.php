@@ -20,7 +20,7 @@ class NeuronTest extends \PHPUnit_Framework_TestCase
 
     public function testNeuronActivationFunction()
     {
-        $activationFunction = $this->getMock(BinaryStep::class);
+        $activationFunction = $this->getMockBuilder(BinaryStep::class)->getMock();
         $activationFunction->method('compute')->with(0)->willReturn($output = 0.69);
 
         $neuron = new Neuron($activationFunction);
@@ -57,7 +57,7 @@ class NeuronTest extends \PHPUnit_Framework_TestCase
      */
     private function getSynapseMock($output = 2)
     {
-        $synapse = $this->getMock(Synapse::class, [], [], '', false);
+        $synapse = $this->getMockBuilder(Synapse::class)->disableOriginalConstructor()->getMock();
         $synapse->method('getOutput')->willReturn($output);
 
         return $synapse;

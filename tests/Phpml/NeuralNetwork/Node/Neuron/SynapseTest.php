@@ -44,8 +44,8 @@ class SynapseTest extends \PHPUnit_Framework_TestCase
      */
     private function getNodeMock($output = 1)
     {
-        $node = $this->getMock(Neuron::class);
-        $node->method('getOutput')->willReturn($nodeOutput = 0.5);
+        $node = $this->getMockBuilder(Neuron::class)->getMock();
+        $node->method('getOutput')->willReturn($output);
 
         return $node;
     }
