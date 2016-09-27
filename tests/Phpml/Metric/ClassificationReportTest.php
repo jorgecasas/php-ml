@@ -47,4 +47,24 @@ class ClassificationReportTest extends  \PHPUnit_Framework_TestCase
         $this->assertEquals($support, $report->getSupport(), '', 0.01);
         $this->assertEquals($average, $report->getAverage(), '', 0.01);
     }
+
+    public function testPreventDivideByZeroWhenTruePositiveAndFalsePositiveSumEqualsZero()
+    {
+        $labels = [1, 2];
+        $predicted = [2, 2];
+
+        $report = new ClassificationReport($labels, $predicted);
+
+        $this->assertEquals([1 => 0.0, 2 => 0.5], $report->getPrecision(), '', 0.01);
+    }
+
+    public function testPreventDivideByZeroWhenTruePositiveAndFalseNegativeSumEqualsZero()
+    {
+        $labels = [2, 2, 1];
+        $predicted = [2, 2, 3];
+
+        $report = new ClassificationReport($labels, $predicted);
+
+        $this->assertEquals([1 => 0.0, 2 => 1, 3 => 0], $report->getPrecision(), '', 0.01);
+    }
 }

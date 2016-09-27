@@ -37,7 +37,7 @@ class ClassificationReport
      */
     public function __construct(array $actualLabels, array $predictedLabels)
     {
-        $truePositive = $falsePositive = $falseNegative = $this->support = self::getLabelIndexedArray($actualLabels);
+        $truePositive = $falsePositive = $falseNegative = $this->support = self::getLabelIndexedArray($actualLabels, $predictedLabels);
 
         foreach ($actualLabels as $index => $actual) {
             $predicted = $predictedLabels[$index];
@@ -103,8 +103,8 @@ class ClassificationReport
     private function computeMetrics(array $truePositive, array $falsePositive, array $falseNegative)
     {
         foreach ($truePositive as $label => $tp) {
-            $this->precision[$label] = $tp / ($tp + $falsePositive[$label]);
-            $this->recall[$label] = $tp / ($tp + $falseNegative[$label]);
+            $this->precision[$label] = $this->computePrecision($tp, $falsePositive[$label]);
+            $this->recall[$label] = $this->computeRecall($tp, $falseNegative[$label]);
             $this->f1score[$label] = $this->computeF1Score((float) $this->precision[$label], (float) $this->recall[$label]);
         }
     }
@@ -115,6 +115,36 @@ class ClassificationReport
             $values = array_filter($this->$metric);
             $this->average[$metric] = array_sum($values) / count($values);
         }
+    }
+
+    /**
+     * @param int $truePositive
+     * @param int $falsePositive
+     *
+     * @return float|string
+     */
+    private function computePrecision(int $truePositive, int $falsePositive)
+    {
+        if (0 == ($divider = $truePositive + $falsePositive)) {
+            return 0.0;
+        }
+
+        return $truePositive / $divider;
+    }
+
+    /**
+     * @param int $truePositive
+     * @param int $falseNegative
+     *
+     * @return float|string
+     */
+    private function computeRecall(int $truePositive, int $falseNegative)
+    {
+        if (0 == ($divider = $truePositive + $falseNegative)) {
+            return 0.0;
+        }
+
+        return $truePositive / $divider;
     }
 
     /**
@@ -133,13 +163,14 @@ class ClassificationReport
     }
 
     /**
-     * @param array $labels
+     * @param array $actualLabels
+     * @param array $predictedLabels
      *
      * @return array
      */
-    private static function getLabelIndexedArray(array $labels): array
+    private static function getLabelIndexedArray(array $actualLabels, array $predictedLabels): array
     {
-        $labels = array_values(array_unique($labels));
+        $labels = array_values(array_unique(array_merge($actualLabels, $predictedLabels)));
         sort($labels);
         $labels = array_combine($labels, array_fill(0, count($labels), 0));
 
