@@ -12,7 +12,7 @@ use Phpml\Dataset\CsvDataset;
  * Samples total: 178
  * Features per sample: 13.
  */
-class Wine extends CsvDataset
+class WineDataset extends CsvDataset
 {
     public function __construct()
     {

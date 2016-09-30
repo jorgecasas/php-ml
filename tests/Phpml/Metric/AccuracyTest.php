@@ -6,7 +6,7 @@ namespace tests\Phpml\Metric;
 
 use Phpml\Classification\SVC;
 use Phpml\CrossValidation\RandomSplit;
-use Phpml\Dataset\Demo\Iris;
+use Phpml\Dataset\Demo\IrisDataset;
 use Phpml\Metric\Accuracy;
 use Phpml\SupportVectorMachine\Kernel;
 
@@ -41,7 +41,7 @@ class AccuracyTest extends \PHPUnit_Framework_TestCase
 
     public function testAccuracyOnDemoDataset()
     {
-        $dataset = new RandomSplit(new Iris(), 0.5, 123);
+        $dataset = new RandomSplit(new IrisDataset(), 0.5, 123);
 
         $classifier = new SVC(Kernel::RBF);
         $classifier->train($dataset->getTrainSamples(), $dataset->getTrainLabels());

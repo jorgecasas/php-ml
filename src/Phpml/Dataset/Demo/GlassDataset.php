@@ -18,7 +18,7 @@ use Phpml\Dataset\CsvDataset;
  * Samples total: 214
  * Features per sample: 9.
  */
-class Glass extends CsvDataset
+class GlassDataset extends CsvDataset
 {
     public function __construct()
     {

@@ -4,13 +4,13 @@ declare (strict_types = 1);
 
 namespace tests\Phpml\Dataset\Demo;
 
-use Phpml\Dataset\Demo\Glass;
+use Phpml\Dataset\Demo\GlassDataset;
 
-class GlassTest extends \PHPUnit_Framework_TestCase
+class GlassDatasetTest extends \PHPUnit_Framework_TestCase
 {
     public function testLoadingWineDataset()
     {
-        $glass = new Glass();
+        $glass = new GlassDataset();
 
         // whole dataset
         $this->assertEquals(214, count($glass->getSamples()));

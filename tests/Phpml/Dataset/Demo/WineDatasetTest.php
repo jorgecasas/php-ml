@@ -4,13 +4,13 @@ declare (strict_types = 1);
 
 namespace tests\Phpml\Dataset\Demo;
 
-use Phpml\Dataset\Demo\Wine;
+use Phpml\Dataset\Demo\WineDataset;
 
-class WineTest extends \PHPUnit_Framework_TestCase
+class WineDatasetTest extends \PHPUnit_Framework_TestCase
 {
     public function testLoadingWineDataset()
     {
-        $wine = new Wine();
+        $wine = new WineDataset();
 
         // whole dataset
         $this->assertEquals(178, count($wine->getSamples()));

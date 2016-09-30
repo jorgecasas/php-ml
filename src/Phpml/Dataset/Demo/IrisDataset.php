@@ -12,7 +12,7 @@ use Phpml\Dataset\CsvDataset;
  * Samples total: 150
  * Features per sample: 4.
  */
-class Iris extends CsvDataset
+class IrisDataset extends CsvDataset
 {
     public function __construct()
     {
