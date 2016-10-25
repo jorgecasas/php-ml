@@ -5,6 +5,8 @@ This changelog references the relevant changes done in PHP-ML library.
 
 * 0.2.1 (in plan/progress)
     * feature [Regression] - SSE, SSTo, SSR  - sum of the squared
+    * feature [Association] - Apriori algorithm implementation
+    * bug [Metric] - division by zero
 
 * 0.2.0 (2016-08-14)
     * feature [NeuralNetwork] - MultilayerPerceptron and Backpropagation training 
