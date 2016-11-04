@@ -17,5 +17,5 @@ To get samples or labels you can use getters:
 
 ```
 $dataset->getSamples();
-$dataset->getLabels();
+$dataset->getTargets();
 ```
