@@ -67,4 +67,19 @@ class ClassificationReportTest extends  \PHPUnit_Framework_TestCase
 
         $this->assertEquals([1 => 0.0, 2 => 1, 3 => 0], $report->getPrecision(), '', 0.01);
     }
+
+    public function testPreventDividedByZeroWhenPredictedLabelsAllNotMatch()
+    {
+        $labels = [1,2,3,4,5];
+        $predicted = [2,3,4,5,6];
+
+        $report = new ClassificationReport($labels, $predicted);
+
+        $this->assertEquals([
+            'precision' => 0,
+            'recall' => 0,
+            'f1score' => 0
+        ], $report->getAverage(), '', 0.01);
+    }
+
 }

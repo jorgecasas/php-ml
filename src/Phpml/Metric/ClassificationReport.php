@@ -113,6 +113,10 @@ class ClassificationReport
     {
         foreach (['precision', 'recall', 'f1score'] as $metric) {
             $values = array_filter($this->$metric);
+            if(0==count($values)) {
+                $this->average[$metric] = 0.0;
+                continue;
+            }
             $this->average[$metric] = array_sum($values) / count($values);
         }
     }
