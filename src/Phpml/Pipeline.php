@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Phpml;
 
@@ -20,7 +20,7 @@ class Pipeline implements Estimator
      * @param array|Transformer[] $transformers
      * @param Estimator           $estimator
      */
-    public function __construct(array $transformers = [], Estimator $estimator)
+    public function __construct(array $transformers, Estimator $estimator)
     {
         foreach ($transformers as $transformer) {
             $this->addTransformer($transformer);

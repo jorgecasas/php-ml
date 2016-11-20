@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Phpml\NeuralNetwork\Training;
 
@@ -126,7 +126,7 @@ class Backpropagation implements Training
 
     /**
      * @param Neuron $neuron
-     * 
+     *
      * @return float
      */
     private function getPrevSigma(Neuron $neuron): float

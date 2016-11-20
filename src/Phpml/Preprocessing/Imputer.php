@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Phpml\Preprocessing;
 
@@ -37,7 +37,7 @@ class Imputer implements Preprocessor
      * @param int        $axis
      * @param array|null $samples
      */
-    public function __construct($missingValue = null, Strategy $strategy, int $axis = self::AXIS_COLUMN, array $samples = [])
+    public function __construct($missingValue, Strategy $strategy, int $axis = self::AXIS_COLUMN, array $samples = [])
     {
         $this->missingValue = $missingValue;
         $this->strategy = $strategy;
@@ -78,7 +78,7 @@ class Imputer implements Preprocessor
     /**
      * @param int   $column
      * @param array $currentSample
-     * 
+     *
      * @return array
      */
     private function getAxis(int $column, array $currentSample): array

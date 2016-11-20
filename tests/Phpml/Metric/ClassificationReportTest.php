@@ -1,12 +1,12 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace tests\Phpml\Metric;
 
 use Phpml\Metric\ClassificationReport;
 
-class ClassificationReportTest extends  \PHPUnit_Framework_TestCase
+class ClassificationReportTest extends \PHPUnit_Framework_TestCase
 {
     public function testClassificationReportGenerateWithStringLabels()
     {
@@ -70,16 +70,15 @@ class ClassificationReportTest extends  \PHPUnit_Framework_TestCase
 
     public function testPreventDividedByZeroWhenPredictedLabelsAllNotMatch()
     {
-        $labels = [1,2,3,4,5];
-        $predicted = [2,3,4,5,6];
+        $labels = [1, 2, 3, 4, 5];
+        $predicted = [2, 3, 4, 5, 6];
 
         $report = new ClassificationReport($labels, $predicted);
 
         $this->assertEquals([
             'precision' => 0,
             'recall' => 0,
-            'f1score' => 0
+            'f1score' => 0,
         ], $report->getAverage(), '', 0.01);
     }
-
 }

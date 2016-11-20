@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Phpml\Math;
 
@@ -113,7 +113,7 @@ class Matrix
 
     /**
      * @return float|int
-     * 
+     *
      * @throws MatrixException
      */
     public function getDeterminant()

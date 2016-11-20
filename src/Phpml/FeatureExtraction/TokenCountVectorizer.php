@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Phpml\FeatureExtraction;
 
@@ -173,7 +173,7 @@ class TokenCountVectorizer implements Transformer
 
     /**
      * @param array $samples
-     * 
+     *
      * @return array
      */
     private function checkDocumentFrequency(array &$samples)

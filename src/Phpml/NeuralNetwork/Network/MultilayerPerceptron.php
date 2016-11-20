@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Phpml\NeuralNetwork\Network;
 
@@ -64,7 +64,7 @@ class MultilayerPerceptron extends LayeredNetwork
     private function addBiasNodes()
     {
         $biasLayers = count($this->layers) - 1;
-        for ($i = 0;$i < $biasLayers;++$i) {
+        for ($i = 0; $i < $biasLayers; ++$i) {
             $this->layers[$i]->addNode(new Bias());
         }
     }

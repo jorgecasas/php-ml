@@ -3,8 +3,10 @@ CHANGELOG
 
 This changelog references the relevant changes done in PHP-ML library.
 
-* 0.2.1 (in plan/progress)
+* 0.2.2 (in plan/progress)
     * feature [Regression] - SSE, SSTo, SSR  - sum of the squared
+
+* 0.2.1 (2016-11-20)
     * feature [Association] - Apriori algorithm implementation
     * bug [Metric] - division by zero
 

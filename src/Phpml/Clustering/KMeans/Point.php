@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Phpml\Clustering\KMeans;
 
@@ -46,7 +46,7 @@ class Point implements ArrayAccess
         $distance = 0;
         for ($n = 0; $n < $this->dimension; ++$n) {
             $difference = $this->coordinates[$n] - $point->coordinates[$n];
-            $distance  += $difference * $difference;
+            $distance += $difference * $difference;
         }
 
         return $precise ? sqrt((float) $distance) : $distance;

@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Phpml\Metric;
 
@@ -113,7 +113,7 @@ class ClassificationReport
     {
         foreach (['precision', 'recall', 'f1score'] as $metric) {
             $values = array_filter($this->$metric);
-            if(0==count($values)) {
+            if (0 == count($values)) {
                 $this->average[$metric] = 0.0;
                 continue;
             }

@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Phpml\Preprocessing\Imputer\Strategy;
 
@@ -11,7 +11,7 @@ class MedianStrategy implements Strategy
 {
     /**
      * @param array $currentAxis
-     * 
+     *
      * @return float
      */
     public function replaceValue(array $currentAxis)

@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Phpml\Math\Statistic;
 
@@ -30,7 +30,7 @@ class Correlation
         $a2 = 0;
         $b2 = 0;
 
-        for ($i = 0;$i < $count;++$i) {
+        for ($i = 0; $i < $count; ++$i) {
             $a = $x[$i] - $meanX;
             $b = $y[$i] - $meanY;
             $axb = $axb + ($a * $b);
