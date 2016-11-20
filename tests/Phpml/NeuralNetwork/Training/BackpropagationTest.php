@@ -18,7 +18,7 @@ class BackpropagationTest extends \PHPUnit_Framework_TestCase
             [[1, 0], [0, 1], [1, 1], [0, 0]],
             [[1], [1], [0], [0]],
             $desiredError = 0.3,
-            30000
+            40000
         );
 
         $this->assertEquals(0, $network->setInput([1, 1])->getOutput()[0], '', $desiredError);
