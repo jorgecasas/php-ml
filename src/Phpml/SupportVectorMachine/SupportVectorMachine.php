@@ -132,7 +132,7 @@ class SupportVectorMachine
     {
         $this->labels = $labels;
         $trainingSet = DataTransformer::trainingSet($samples, $labels, in_array($this->type, [Type::EPSILON_SVR, Type::NU_SVR]));
-        file_put_contents($trainingSetFileName = $this->varPath.uniqid(), $trainingSet);
+        file_put_contents($trainingSetFileName = $this->varPath.uniqid('phpml', true), $trainingSet);
         $modelFileName = $trainingSetFileName.'-model';
 
         $command = $this->buildTrainCommand($trainingSetFileName, $modelFileName);
@@ -161,7 +161,7 @@ class SupportVectorMachine
     public function predict(array $samples)
     {
         $testSet = DataTransformer::testSet($samples);
-        file_put_contents($testSetFileName = $this->varPath.uniqid(), $testSet);
+        file_put_contents($testSetFileName = $this->varPath.uniqid('phpml', true), $testSet);
         file_put_contents($modelFileName = $testSetFileName.'-model', $this->model);
         $outputFileName = $testSetFileName.'-output';
 
