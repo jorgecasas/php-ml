@@ -39,7 +39,7 @@ class TokenCountVectorizer implements Transformer
      * @param StopWords $stopWords
      * @param float     $minDF
      */
-    public function __construct(Tokenizer $tokenizer, StopWords $stopWords = null, float $minDF = 0)
+    public function __construct(Tokenizer $tokenizer, StopWords $stopWords = null, float $minDF = 0.0)
     {
         $this->tokenizer = $tokenizer;
         $this->stopWords = $stopWords;

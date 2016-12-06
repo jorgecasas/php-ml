@@ -17,7 +17,7 @@ class Minkowski implements Distance
     /**
      * @param float $lambda
      */
-    public function __construct(float $lambda = 3)
+    public function __construct(float $lambda = 3.0)
     {
         $this->lambda = $lambda;
     }
