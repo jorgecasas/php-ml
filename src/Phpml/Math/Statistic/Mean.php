@@ -34,11 +34,11 @@ class Mean
         self::checkArrayLength($numbers);
 
         $count = count($numbers);
-        $middleIndex = floor($count / 2);
+        $middleIndex = (int)floor($count / 2);
         sort($numbers, SORT_NUMERIC);
         $median = $numbers[$middleIndex];
 
-        if (0 == $count % 2) {
+        if (0 === $count % 2) {
             $median = ($median + $numbers[$middleIndex - 1]) / 2;
         }
 
