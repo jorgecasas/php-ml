@@ -132,7 +132,7 @@ class TokenCountVectorizer implements Transformer
             return false;
         }
 
-        return isset($this->vocabulary[$token]) ? $this->vocabulary[$token] : false;
+        return $this->vocabulary[$token] ?? false;
     }
 
     /**

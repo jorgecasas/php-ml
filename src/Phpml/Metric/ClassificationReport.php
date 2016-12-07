@@ -163,7 +163,7 @@ class ClassificationReport
             return 0.0;
         }
 
-        return 2.0 * (($precision * $recall) / ($divider));
+        return 2.0 * (($precision * $recall) / $divider);
     }
 
     /**
