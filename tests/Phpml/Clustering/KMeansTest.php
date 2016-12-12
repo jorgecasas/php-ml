@@ -15,14 +15,14 @@ class KMeansTest extends \PHPUnit_Framework_TestCase
         $kmeans = new KMeans(2);
         $clusters = $kmeans->cluster($samples);
 
-        $this->assertEquals(2, count($clusters));
+        $this->assertCount(2, $clusters);
 
         foreach ($samples as $index => $sample) {
             if (in_array($sample, $clusters[0]) || in_array($sample, $clusters[1])) {
                 unset($samples[$index]);
             }
         }
-        $this->assertEquals(0, count($samples));
+        $this->assertCount(0, $samples);
     }
 
     public function testKMeansInitializationMethods()
@@ -42,11 +42,11 @@ class KMeansTest extends \PHPUnit_Framework_TestCase
 
         $kmeans = new KMeans(4, KMeans::INIT_KMEANS_PLUS_PLUS);
         $clusters = $kmeans->cluster($samples);
-        $this->assertEquals(4, count($clusters));
+        $this->assertCount(4, $clusters);
 
         $kmeans = new KMeans(4, KMeans::INIT_RANDOM);
         $clusters = $kmeans->cluster($samples);
-        $this->assertEquals(4, count($clusters));
+        $this->assertCount(4, $clusters);
     }
 
     /**

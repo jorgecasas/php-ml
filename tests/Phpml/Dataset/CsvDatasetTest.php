@@ -22,8 +22,8 @@ class CsvDatasetTest extends \PHPUnit_Framework_TestCase
 
         $dataset = new CsvDataset($filePath, 2, true);
 
-        $this->assertEquals(10, count($dataset->getSamples()));
-        $this->assertEquals(10, count($dataset->getTargets()));
+        $this->assertCount(10, $dataset->getSamples());
+        $this->assertCount(10, $dataset->getTargets());
     }
 
     public function testSampleCsvDatasetWithoutHeaderRow()
@@ -32,7 +32,7 @@ class CsvDatasetTest extends \PHPUnit_Framework_TestCase
 
         $dataset = new CsvDataset($filePath, 2, false);
 
-        $this->assertEquals(11, count($dataset->getSamples()));
-        $this->assertEquals(11, count($dataset->getTargets()));
+        $this->assertCount(11, $dataset->getSamples());
+        $this->assertCount(11, $dataset->getTargets());
     }
 }

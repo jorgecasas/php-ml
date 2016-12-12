@@ -39,7 +39,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInternalType('array', $power);
         $this->assertEquals([new Set(), new Set(['A']), new Set(['B']), new Set(['A', 'B'])], $power);
-        $this->assertEquals(4, count($power));
+        $this->assertCount(4, $power);
     }
 
     public function testCartesian()
@@ -48,7 +48,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInternalType('array', $cartesian);
         $this->assertEquals([new Set(['A', 1]), new Set(['A', 2])], $cartesian);
-        $this->assertEquals(2, count($cartesian));
+        $this->assertCount(2, $cartesian);
     }
 
     public function testContains()

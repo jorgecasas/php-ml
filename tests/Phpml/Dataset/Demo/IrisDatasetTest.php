@@ -13,10 +13,10 @@ class IrisDatasetTest extends \PHPUnit_Framework_TestCase
         $iris = new IrisDataset();
 
         // whole dataset
-        $this->assertEquals(150, count($iris->getSamples()));
-        $this->assertEquals(150, count($iris->getTargets()));
+        $this->assertCount(150, $iris->getSamples());
+        $this->assertCount(150, $iris->getTargets());
 
         // one sample features count
-        $this->assertEquals(4, count($iris->getSamples()[0]));
+        $this->assertCount(4, $iris->getSamples()[0]);
     }
 }

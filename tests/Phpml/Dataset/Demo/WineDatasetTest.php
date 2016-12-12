@@ -13,10 +13,10 @@ class WineDatasetTest extends \PHPUnit_Framework_TestCase
         $wine = new WineDataset();
 
         // whole dataset
-        $this->assertEquals(178, count($wine->getSamples()));
-        $this->assertEquals(178, count($wine->getTargets()));
+        $this->assertCount(178, $wine->getSamples());
+        $this->assertCount(178, $wine->getTargets());
 
         // one sample features count
-        $this->assertEquals(13, count($wine->getSamples()[0]));
+        $this->assertCount(13, $wine->getSamples()[0]);
     }
 }

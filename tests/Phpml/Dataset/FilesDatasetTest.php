@@ -22,8 +22,8 @@ class FilesDatasetTest extends \PHPUnit_Framework_TestCase
 
         $dataset = new FilesDataset($rootPath);
 
-        $this->assertEquals(50, count($dataset->getSamples()));
-        $this->assertEquals(50, count($dataset->getTargets()));
+        $this->assertCount(50, $dataset->getSamples());
+        $this->assertCount(50, $dataset->getTargets());
 
         $targets = ['business', 'entertainment', 'politics', 'sport', 'tech'];
         $this->assertEquals($targets, array_values(array_unique($dataset->getTargets())));

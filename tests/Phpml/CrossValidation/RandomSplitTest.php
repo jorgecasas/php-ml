@@ -34,13 +34,13 @@ class RandomSplitTest extends \PHPUnit_Framework_TestCase
 
         $randomSplit = new RandomSplit($dataset, 0.5);
 
-        $this->assertEquals(2, count($randomSplit->getTestSamples()));
-        $this->assertEquals(2, count($randomSplit->getTrainSamples()));
+        $this->assertCount(2, $randomSplit->getTestSamples());
+        $this->assertCount(2, $randomSplit->getTrainSamples());
 
         $randomSplit2 = new RandomSplit($dataset, 0.25);
 
-        $this->assertEquals(1, count($randomSplit2->getTestSamples()));
-        $this->assertEquals(3, count($randomSplit2->getTrainSamples()));
+        $this->assertCount(1, $randomSplit2->getTestSamples());
+        $this->assertCount(3, $randomSplit2->getTrainSamples());
     }
 
     public function testDatasetRandomSplitWithSameSeed()

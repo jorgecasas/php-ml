@@ -13,10 +13,10 @@ class GlassDatasetTest extends \PHPUnit_Framework_TestCase
         $glass = new GlassDataset();
 
         // whole dataset
-        $this->assertEquals(214, count($glass->getSamples()));
-        $this->assertEquals(214, count($glass->getTargets()));
+        $this->assertCount(214, $glass->getSamples());
+        $this->assertCount(214, $glass->getTargets());
 
         // one sample features count
-        $this->assertEquals(9, count($glass->getSamples()[0]));
+        $this->assertCount(9, $glass->getSamples()[0]);
     }
 }
