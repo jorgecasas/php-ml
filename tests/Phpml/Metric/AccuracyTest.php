@@ -50,6 +50,8 @@ class AccuracyTest extends \PHPUnit_Framework_TestCase
 
         $accuracy = Accuracy::score($dataset->getTestLabels(), $predicted);
 
-        $this->assertEquals(0.959, $accuracy, '', 0.01);
+        $expected = PHP_VERSION_ID >= 70100 ? 1 : 0.959;
+
+        $this->assertEquals($expected, $accuracy, '', 0.01);
     }
 }
