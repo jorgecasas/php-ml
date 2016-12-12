@@ -118,7 +118,7 @@ class Space extends SplObjectStorage
         $point = $this->newPoint(array_fill(0, $this->dimension, null));
 
         for ($n = 0; $n < $this->dimension; ++$n) {
-            $point[$n] = rand($min[$n], $max[$n]);
+            $point[$n] = random_int($min[$n], $max[$n]);
         }
 
         return $point;
@@ -243,7 +243,7 @@ class Space extends SplObjectStorage
                 $sum += $distances[$point] = $distance;
             }
 
-            $sum = rand(0, (int) $sum);
+            $sum = random_int(0, (int) $sum);
             foreach ($this as $point) {
                 if (($sum -= $distances[$point]) > 0) {
                     continue;
