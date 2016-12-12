@@ -31,7 +31,7 @@ class Accuracy
         }
 
         if ($normalize) {
-            $score = $score / count($actualLabels);
+            $score /= count($actualLabels);
         }
 
         return $score;

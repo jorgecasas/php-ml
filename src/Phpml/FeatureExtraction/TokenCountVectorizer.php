@@ -173,8 +173,6 @@ class TokenCountVectorizer implements Transformer
 
     /**
      * @param array $samples
-     *
-     * @return array
      */
     private function checkDocumentFrequency(array &$samples)
     {

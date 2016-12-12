@@ -64,7 +64,7 @@ class Normalizer implements Preprocessor
             $sample = array_fill(0, $count, 1.0 / $count);
         } else {
             foreach ($sample as &$feature) {
-                $feature = $feature / $norm1;
+                $feature /= $norm1;
             }
         }
     }
@@ -84,7 +84,7 @@ class Normalizer implements Preprocessor
             $sample = array_fill(0, count($sample), 1);
         } else {
             foreach ($sample as &$feature) {
-                $feature = $feature / $norm2;
+                $feature /= $norm2;
             }
         }
     }

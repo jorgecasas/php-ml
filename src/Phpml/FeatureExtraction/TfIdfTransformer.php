@@ -43,15 +43,13 @@ class TfIdfTransformer implements Transformer
     {
         foreach ($samples as &$sample) {
             foreach ($sample as $index => &$feature) {
-                $feature = $feature * $this->idf[$index];
+                $feature *= $this->idf[$index];
             }
         }
     }
 
     /**
      * @param array $samples
-     *
-     * @return array
      */
     private function countTokensFrequency(array $samples)
     {
