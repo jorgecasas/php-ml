@@ -60,6 +60,8 @@ class Cluster extends Point implements IteratorAggregate, Countable
      * @param Point $point
      *
      * @return Point
+     *
+     * @throws \LogicException
      */
     public function attach(Point $point)
     {

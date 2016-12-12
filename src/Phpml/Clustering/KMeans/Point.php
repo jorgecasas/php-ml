@@ -53,11 +53,11 @@ class Point implements ArrayAccess
     }
 
     /**
-     * @param $points
+     * @param array $points
      *
      * @return mixed
      */
-    public function getClosest($points)
+    public function getClosest(array $points)
     {
         foreach ($points as $point) {
             $distance = $this->getDistanceWith($point, false);
