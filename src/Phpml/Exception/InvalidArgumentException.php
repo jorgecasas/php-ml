@@ -67,6 +67,8 @@ class InvalidArgumentException extends \Exception
     }
 
     /**
+     * @param string $language
+     *
      * @return InvalidArgumentException
      */
     public static function invalidStopWordsLanguage(string $language)

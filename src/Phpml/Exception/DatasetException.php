@@ -7,22 +7,31 @@ namespace Phpml\Exception;
 class DatasetException extends \Exception
 {
     /**
+     * @param string $filepath
+     *
      * @return DatasetException
      */
-    public static function missingFile($filepath)
+    public static function missingFile(string $filepath)
     {
         return new self(sprintf('Dataset file "%s" missing.', $filepath));
     }
 
     /**
+     * @param string $path
+     *
      * @return DatasetException
      */
-    public static function missingFolder($path)
+    public static function missingFolder(string $path)
     {
         return new self(sprintf('Dataset root folder "%s" missing.', $path));
     }
 
-    public static function cantOpenFile($filepath)
+    /**
+     * @param string $filepath
+     *
+     * @return DatasetException
+     */
+    public static function cantOpenFile(string $filepath)
     {
         return new self(sprintf('Dataset file "%s" can\'t be open.', $filepath));
     }
