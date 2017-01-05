@@ -12,4 +12,4 @@ Helper class that loads data from CSV file. It extends the `ArrayDataset`.
 $dataset = new CsvDataset('dataset.csv', 2, true);
 ```
 
-See [ArrayDataset](machine-learning/datasets/array-dataset/) for more information.
+See [ArrayDataset](array-dataset.md) for more information.

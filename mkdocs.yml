@@ -2,6 +2,8 @@ site_name: PHP-ML - Machine Learning library for PHP
 pages:
   - Home: index.md
   - Machine Learning:
+    - Association rule learning:
+      - Apriori: machine-learning/association/apriori.md
     - Classification:
       - SVC: machine-learning/classification/svc.md
       - KNearestNeighbors: machine-learning/classification/k-nearest-neighbors.md
@@ -41,5 +43,6 @@ pages:
   - Math:
     - Distance: math/distance.md
     - Matrix: math/matrix.md
+    - Set: math/set.md
     - Statistic: math/statistic.md
 theme: readthedocs
