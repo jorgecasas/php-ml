@@ -12,7 +12,7 @@ use Phpml\Dataset\FilesDataset;
 $dataset = new FilesDataset('path/to/data');
 ```
 
-See [ArrayDataset](machine-learning/datasets/array-dataset/) for more information.
+See [ArrayDataset](array-dataset.md) for more information.
 
 ### Example
 
