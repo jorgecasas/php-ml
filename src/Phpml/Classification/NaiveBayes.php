@@ -12,24 +12,62 @@ use Phpml\Math\Statistic\StandardDeviation;
 class NaiveBayes implements Classifier
 {
     use Trainable, Predictable;
+
     const CONTINUOS    = 1;
     const NOMINAL    = 2;
     const EPSILON = 1e-10;
-    private $std = array();
-    private $mean= array();
-    private $discreteProb = array();
-    private $dataType = array();
-    private $p = array();
+
+    /**
+     * @var array
+     */
+    private $std = [];
+
+    /**
+     * @var array
+     */
+    private $mean= [];
+
+    /**
+     * @var array
+     */
+    private $discreteProb = [];
+
+    /**
+     * @var array
+     */
+    private $dataType = [];
+
+    /**
+     * @var array
+     */
+    private $p = [];
+
+    /**
+     * @var int
+     */
     private $sampleCount = 0;
+
+    /**
+     * @var int
+     */
     private $featureCount = 0;
-    private $labels = array();
+
+    /**
+     * @var array
+     */
+    private $labels = [];
+
+    /**
+     * @param array $samples
+     * @param array $targets
+     */
     public function train(array $samples, array $targets)
     {
         $this->samples = $samples;
         $this->targets = $targets;
         $this->sampleCount = count($samples);
         $this->featureCount = count($samples[0]);
-        // Get distinct targets
+
         $this->labels = $targets;
         array_unique($this->labels);
         foreach ($this->labels as $label) {
@@ -67,7 +105,7 @@ class NaiveBayes implements Classifier
                 }, $db);
             } else {
                 $this->mean[$label][$i] = Mean::arithmetic($values);
-				// Add epsilon in order to avoid zero stdev
+                // Add epsilon in order to avoid zero stdev
                 $this->std[$label][$i] = 1e-10 + StandardDeviation::population($values, false);
             }
         }
@@ -75,10 +113,11 @@ class NaiveBayes implements Classifier
 
     /**
      * Calculates the probability P(label|sample_n)
-	 *
+     *
      * @param array $sample
      * @param int $feature
      * @param string $label
+     * @return float
      */
     private function sampleProbability($sample, $feature, $label)
     {
@@ -94,14 +133,14 @@ class NaiveBayes implements Classifier
         $mean= $this->mean[$label][$feature];
         // Calculate the probability density by use of normal/Gaussian distribution
         // Ref: https://en.wikipedia.org/wiki/Normal_distribution
-		//
-		// In order to avoid numerical errors because of small or zero values,
-		// some libraries adopt taking log of calculations such as
-		// scikit-learn did.
-		// (See : https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/naive_bayes.py)
-		$pdf  =  -0.5 * log(2.0 * pi() * $std * $std);
-		$pdf -= 0.5 * pow($value - $mean, 2) / ($std * $std);
-		return $pdf;
+        //
+        // In order to avoid numerical errors because of small or zero values,
+        // some libraries adopt taking log of calculations such as
+        // scikit-learn did.
+        // (See : https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/naive_bayes.py)
+        $pdf  =  -0.5 * log(2.0 * pi() * $std * $std);
+        $pdf -= 0.5 * pow($value - $mean, 2) / ($std * $std);
+        return $pdf;
     }
 
     /**
