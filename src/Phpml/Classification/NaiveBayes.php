@@ -68,8 +68,8 @@ class NaiveBayes implements Classifier
         $this->sampleCount = count($samples);
         $this->featureCount = count($samples[0]);
 
-        $this->labels = $targets;
-        array_unique($this->labels);
+        $labelCounts = array_count_values($targets);
+        $this->labels = array_keys($labelCounts);
         foreach ($this->labels as $label) {
             $samples = $this->getSamplesByLabel($label);
             $this->p[$label] = count($samples) / $this->sampleCount;
@@ -165,32 +165,20 @@ class NaiveBayes implements Classifier
      */
     protected function predictSample(array $sample)
     {
-        $isArray = is_array($sample[0]);
-        $samples = $sample;
-        if (!$isArray) {
-            $samples = array($sample);
-        }
-        $samplePredictions = array();
-        foreach ($samples as $sample) {
-            // Use NaiveBayes assumption for each label using:
-            //	P(label|features) = P(label) * P(feature0|label) * P(feature1|label) .... P(featureN|label)
-            // Then compare probability for each class to determine which label is most likely
-            $predictions = array();
-            foreach ($this->labels as $label) {
-                $p = $this->p[$label];
-                for ($i=0; $i<$this->featureCount; $i++) {
-                    $Plf = $this->sampleProbability($sample, $i, $label);
-                    $p += $Plf;
-                }
-                $predictions[$label] = $p;
+        // Use NaiveBayes assumption for each label using:
+        //	P(label|features) = P(label) * P(feature0|label) * P(feature1|label) .... P(featureN|label)
+        // Then compare probability for each class to determine which label is most likely
+        $predictions = array();
+        foreach ($this->labels as $label) {
+            $p = $this->p[$label];
+            for ($i=0; $i<$this->featureCount; $i++) {
+                $Plf = $this->sampleProbability($sample, $i, $label);
+                $p += $Plf;
             }
-            arsort($predictions, SORT_NUMERIC);
-            reset($predictions);
-            $samplePredictions[] = key($predictions);
+            $predictions[$label] = $p;
         }
-        if (! $isArray) {
-            return $samplePredictions[0];
-        }
-        return $samplePredictions;
+        arsort($predictions, SORT_NUMERIC);
+        reset($predictions);
+        return key($predictions);
     }
 }
