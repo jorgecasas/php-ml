@@ -212,7 +212,7 @@ class Matrix
      */
     public function divideByScalar($value)
     {
-        $newMatrix = array();
+        $newMatrix = [];
         for ($i = 0; $i < $this->rows; ++$i) {
             for ($j = 0; $j < $this->columns; ++$j) {
                 $newMatrix[$i][$j] = $this->matrix[$i][$j] / $value;
@@ -233,7 +233,7 @@ class Matrix
             throw MatrixException::notSquareMatrix();
         }
 
-        $newMatrix = array();
+        $newMatrix = [];
         for ($i = 0; $i < $this->rows; ++$i) {
             for ($j = 0; $j < $this->columns; ++$j) {
                 $minor = $this->crossOut($i, $j)->getDeterminant();

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace tests\Clustering;
@@ -10,7 +11,7 @@ class FuzzyCMeansTest extends \PHPUnit_Framework_TestCase
     public function testFCMSamplesClustering()
     {
         $samples = [[1, 1], [8, 7], [1, 2], [7, 8], [2, 1], [8, 9]];
-        $fcm = new FuzzyCMeans(2); 
+        $fcm = new FuzzyCMeans(2);
         $clusters = $fcm->cluster($samples);
         $this->assertCount(2, $clusters);
         foreach ($samples as $index => $sample) {

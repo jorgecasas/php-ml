@@ -19,20 +19,23 @@ class DecisionTree implements Classifier
     /**
      * @var array
      */
-    private $samples = array();
+    private $samples = [];
 
     /**
      * @var array
      */
     private $columnTypes;
+
     /**
      * @var array
      */
-    private $labels = array();
+    private $labels = [];
+
     /**
      * @var int
      */
     private $featureCount = 0;
+
     /**
      * @var DecisionTreeLeaf
      */
@@ -201,7 +204,7 @@ class DecisionTree implements Classifier
     {
         // Detect and convert continuous data column values into
         // discrete values by using the median as a threshold value
-        $columns = array();
+        $columns = [];
         for ($i=0; $i<$this->featureCount; $i++) {
             $values = array_column($samples, $i);
             if ($this->columnTypes[$i] == self::CONTINUOS) {

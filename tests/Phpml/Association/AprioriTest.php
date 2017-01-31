@@ -176,7 +176,7 @@ class AprioriTest extends \PHPUnit_Framework_TestCase
      *
      * @return mixed
      */
-    public function invoke(&$object, $method, array $params = array())
+    public function invoke(&$object, $method, array $params = [])
     {
         $reflection = new \ReflectionClass(get_class($object));
         $method = $reflection->getMethod($method);

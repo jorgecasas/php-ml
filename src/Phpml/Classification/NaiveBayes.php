@@ -150,7 +150,7 @@ class NaiveBayes implements Classifier
      */
     private function getSamplesByLabel($label)
     {
-        $samples = array();
+        $samples = [];
         for ($i=0; $i<$this->sampleCount; $i++) {
             if ($this->targets[$i] == $label) {
                 $samples[] = $this->samples[$i];
@@ -168,7 +168,7 @@ class NaiveBayes implements Classifier
         // Use NaiveBayes assumption for each label using:
         //	P(label|features) = P(label) * P(feature0|label) * P(feature1|label) .... P(featureN|label)
         // Then compare probability for each class to determine which label is most likely
-        $predictions = array();
+        $predictions = [];
         foreach ($this->labels as $label) {
             $p = $this->p[$label];
             for ($i=0; $i<$this->featureCount; $i++) {

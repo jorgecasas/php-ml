@@ -104,7 +104,7 @@ class Space extends SplObjectStorage
             }
         }
 
-        return array($min, $max);
+        return [$min, $max];
     }
 
     /**

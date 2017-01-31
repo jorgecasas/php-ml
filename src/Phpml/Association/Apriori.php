@@ -160,7 +160,7 @@ class Apriori implements Associator
         $results = [[]];
         foreach ($sample as $item) {
             foreach ($results as $combination) {
-                $results[] = array_merge(array($item), $combination);
+                $results[] = array_merge([$item], $combination);
             }
         }
 
