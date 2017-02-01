@@ -64,12 +64,13 @@ class DecisionTree implements Classifier
      */
     public function train(array $samples, array $targets)
     {
-        $this->featureCount = count($samples[0]);
-        $this->columnTypes = $this->getColumnTypes($samples);
-        $this->samples = $samples;
-        $this->targets = $targets;
-        $this->labels = array_keys(array_count_values($targets));
-        $this->tree = $this->getSplitLeaf(range(0, count($samples) - 1));
+        $this->samples = array_merge($this->samples, $samples);
+        $this->targets = array_merge($this->targets, $targets);
+
+        $this->featureCount = count($this->samples[0]);
+        $this->columnTypes = $this->getColumnTypes($this->samples);
+        $this->labels = array_keys(array_count_values($this->targets));
+        $this->tree = $this->getSplitLeaf(range(0, count($this->samples) - 1));
     }
 
     protected function getColumnTypes(array $samples)

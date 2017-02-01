@@ -34,6 +34,8 @@ $regression = new SVR(Kernel::LINEAR);
 $regression->train($samples, $targets);
 ```
 
+You can train the model using multiple data sets, predictions will be based on all the training data.
+
 ### Predict
 
 To predict sample target value use `predict` method. You can provide one sample or array of samples:

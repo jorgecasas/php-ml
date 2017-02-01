@@ -24,6 +24,8 @@ $classifier = new KNearestNeighbors();
 $classifier->train($samples, $labels);
 ```
 
+You can train the classifier using multiple data sets, predictions will be based on all the training data.
+
 ## Predict
 
 To predict sample label use `predict` method. You can provide one sample or array of samples:

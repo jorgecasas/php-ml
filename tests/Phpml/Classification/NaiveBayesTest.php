@@ -34,5 +34,15 @@ class NaiveBayesTest extends \PHPUnit_Framework_TestCase
         $predicted = $classifier->predict($testSamples);
 
         $this->assertEquals($testLabels, $predicted);
+
+        // Feed an extra set of training data.
+        $samples = [[1, 1, 6]];
+        $labels = ['d'];
+        $classifier->train($samples, $labels);
+
+        $testSamples = [[1, 1, 6], [5, 1, 1]];
+        $testLabels = ['d', 'a'];
+        $this->assertEquals($testLabels, $classifier->predict($testSamples));
+
     }
 }

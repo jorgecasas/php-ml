@@ -9,12 +9,12 @@ trait Trainable
     /**
      * @var array
      */
-    private $samples;
+    private $samples = [];
 
     /**
      * @var array
      */
-    private $targets;
+    private $targets = [];
 
     /**
      * @param array $samples
@@ -22,7 +22,7 @@ trait Trainable
      */
     public function train(array $samples, array $targets)
     {
-        $this->samples = $samples;
-        $this->targets = $targets;
+        $this->samples = array_merge($this->samples, $samples);
+        $this->targets = array_merge($this->targets, $targets);
     }
 }

@@ -13,12 +13,12 @@ class LeastSquares implements Regression
     /**
      * @var array
      */
-    private $samples;
+    private $samples = [];
 
     /**
      * @var array
      */
-    private $targets;
+    private $targets = [];
 
     /**
      * @var float
@@ -36,8 +36,8 @@ class LeastSquares implements Regression
      */
     public function train(array $samples, array $targets)
     {
-        $this->samples = $samples;
-        $this->targets = $targets;
+        $this->samples = array_merge($this->samples, $samples);
+        $this->targets = array_merge($this->targets, $targets);
 
         $this->computeCoefficients();
     }

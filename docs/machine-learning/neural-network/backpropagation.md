@@ -27,3 +27,4 @@ $training->train(
     $maxIteraions = 30000
 );
 ```
+You can train the neural network using multiple data sets, predictions will be based on all the training data.

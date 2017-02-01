@@ -8,7 +8,7 @@ use Phpml\Classification\DecisionTree;
 
 class DecisionTreeTest extends \PHPUnit_Framework_TestCase
 {
-    public $data = [
+    private $data = [
         ['sunny',        85,        85,    'false',    'Dont_play'    ],
         ['sunny',        80,    90,    'true',        'Dont_play'    ],
         ['overcast',    83,    78,    'false',    'Play'        ],
@@ -25,34 +25,39 @@ class DecisionTreeTest extends \PHPUnit_Framework_TestCase
         ['rain',        71,    80,    'true',    'Dont_play'    ]
     ];
 
-    public function getData()
+    private $extraData = [
+        ['scorching',   90,     95,     'false',   'Dont_play'],
+        ['scorching',  100,     93,     'true',    'Dont_play'],
+    ];
+
+    private function getData($input)
     {
-        static $data = null, $targets = null;
-        if ($data == null) {
-            $data = $this->data;
-            $targets = array_column($data, 4);
-            array_walk($data, function (&$v) {
-                array_splice($v, 4, 1);
-            });
-        }
-        return [$data, $targets];
+        $targets = array_column($input, 4);
+        array_walk($input, function (&$v) {
+            array_splice($v, 4, 1);
+        });
+        return [$input, $targets];
     }
 
     public function testPredictSingleSample()
     {
-        list($data, $targets) = $this->getData();
+        list($data, $targets) = $this->getData($this->data);
         $classifier = new DecisionTree(5);
         $classifier->train($data, $targets);
         $this->assertEquals('Dont_play', $classifier->predict(['sunny', 78, 72, 'false']));
         $this->assertEquals('Play', $classifier->predict(['overcast', 60, 60, 'false']));
         $this->assertEquals('Dont_play', $classifier->predict(['rain', 60, 60, 'true']));
 
+        list($data, $targets) = $this->getData($this->extraData);
+        $classifier->train($data, $targets);
+        $this->assertEquals('Dont_play', $classifier->predict(['scorching', 95, 90, 'true']));
+        $this->assertEquals('Play', $classifier->predict(['overcast', 60, 60, 'false']));
         return $classifier;
     }
 
     public function testTreeDepth()
     {
-        list($data, $targets) = $this->getData();
+        list($data, $targets) = $this->getData($this->data);
         $classifier = new DecisionTree(5);
         $classifier->train($data, $targets);
         $this->assertTrue(5 >= $classifier->actualDepth);

@@ -63,12 +63,12 @@ class NaiveBayes implements Classifier
      */
     public function train(array $samples, array $targets)
     {
-        $this->samples = $samples;
-        $this->targets = $targets;
-        $this->sampleCount = count($samples);
-        $this->featureCount = count($samples[0]);
+        $this->samples = array_merge($this->samples, $samples);
+        $this->targets = array_merge($this->targets, $targets);
+        $this->sampleCount = count($this->samples);
+        $this->featureCount = count($this->samples[0]);
 
-        $labelCounts = array_count_values($targets);
+        $labelCounts = array_count_values($this->targets);
         $this->labels = array_keys($labelCounts);
         foreach ($this->labels as $label) {
             $samples = $this->getSamplesByLabel($label);
