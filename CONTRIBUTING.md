@@ -38,6 +38,10 @@ This script run PHP Coding Standards Fixer with `--level=symfony` param.
 
 More about PHP-CS-Fixer: [http://cs.sensiolabs.org/](http://cs.sensiolabs.org/)
 
+## Documentation
+
+Please update the documentation pages if necessary. You can find them in docs/.
+
 ---
 
 Thank you very much again for your contribution!
