@@ -6,6 +6,7 @@ namespace tests\Classification;
 
 use Phpml\Classification\SVC;
 use Phpml\SupportVectorMachine\Kernel;
+use Phpml\ModelManager;
 
 class SVCTest extends \PHPUnit_Framework_TestCase
 {
@@ -41,5 +42,27 @@ class SVCTest extends \PHPUnit_Framework_TestCase
         $predictions = $classifier->predict($testSamples);
 
         $this->assertEquals($testLabels, $predictions);
+    }
+
+    public function testSaveAndRestore()
+    {
+        $trainSamples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
+        $trainLabels = ['a', 'a', 'a', 'b', 'b', 'b'];
+
+        $testSamples = [[3, 2], [5, 1], [4, 3]];
+        $testLabels = ['b', 'b', 'b'];
+
+        $classifier = new SVC(Kernel::LINEAR, $cost = 1000);
+        $classifier->train($trainSamples, $trainLabels);
+        $predicted = $classifier->predict($testSamples);
+
+        $filename = 'svc-test-'.rand(100, 999).'-'.uniqid();
+        $filepath = tempnam(sys_get_temp_dir(), $filename);
+        $modelManager = new ModelManager();
+        $modelManager->saveToFile($classifier, $filepath);
+
+        $restoredClassifier = $modelManager->restoreFromFile($filepath);
+        $this->assertEquals($classifier, $restoredClassifier);
+        $this->assertEquals($predicted, $restoredClassifier->predict($testSamples));
     }
 }

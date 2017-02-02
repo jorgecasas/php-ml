@@ -6,6 +6,7 @@ namespace tests\Regression;
 
 use Phpml\Regression\SVR;
 use Phpml\SupportVectorMachine\Kernel;
+use Phpml\ModelManager;
 
 class SVRTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,4 +35,27 @@ class SVRTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals([4109.82, 4112.28], $regression->predict([[60000, 1996], [60000, 2000]]), '', $delta);
     }
+
+    public function testSaveAndRestore()
+    {
+
+        $samples = [[60], [61], [62], [63], [65]];
+        $targets = [3.1, 3.6, 3.8, 4, 4.1];
+
+        $regression = new SVR(Kernel::LINEAR);
+        $regression->train($samples, $targets);
+
+        $testSamples = [64];
+        $predicted = $regression->predict($testSamples);
+
+        $filename = 'svr-test'.rand(100, 999).'-'.uniqid();
+        $filepath = tempnam(sys_get_temp_dir(), $filename);
+        $modelManager = new ModelManager();
+        $modelManager->saveToFile($regression, $filepath);
+
+        $restoredRegression = $modelManager->restoreFromFile($filepath);
+        $this->assertEquals($regression, $restoredRegression);
+        $this->assertEquals($predicted, $restoredRegression->predict($testSamples));
+    }
+
 }

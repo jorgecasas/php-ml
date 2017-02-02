@@ -40,6 +40,8 @@ pages:
         - Iris: machine-learning/datasets/demo/iris.md
         - Wine: machine-learning/datasets/demo/wine.md
         - Glass: machine-learning/datasets/demo/glass.md
+    - Models management:
+        - Persistency: machine-learning/model-manager/persistency.md
   - Math:
     - Distance: math/distance.md
     - Matrix: math/matrix.md

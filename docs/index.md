@@ -84,6 +84,8 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
         * [Iris](machine-learning/datasets/demo/iris/)
         * [Wine](machine-learning/datasets/demo/wine/)
         * [Glass](machine-learning/datasets/demo/glass/)
+* Models management
+    * [Persistency](machine-learning/model-manager/persistency/)
 * Math
     * [Distance](math/distance/)
     * [Matrix](math/matrix/)

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace tests\Classification;
 
 use Phpml\Association\Apriori;
+use Phpml\ModelManager;
 
 class AprioriTest extends \PHPUnit_Framework_TestCase
 {
@@ -183,5 +184,23 @@ class AprioriTest extends \PHPUnit_Framework_TestCase
         $method->setAccessible(true);
 
         return $method->invokeArgs($object, $params);
+    }
+
+    public function testSaveAndRestore()
+    {
+        $classifier = new Apriori(0.5, 0.5);
+        $classifier->train($this->sampleGreek, []);
+
+        $testSamples = [['alpha', 'epsilon'], ['beta', 'theta']];
+        $predicted = $classifier->predict($testSamples);
+
+        $filename = 'apriori-test-'.rand(100, 999).'-'.uniqid();
+        $filepath = tempnam(sys_get_temp_dir(), $filename);
+        $modelManager = new ModelManager();
+        $modelManager->saveToFile($classifier, $filepath);
+
+        $restoredClassifier = $modelManager->restoreFromFile($filepath);
+        $this->assertEquals($classifier, $restoredClassifier);
+        $this->assertEquals($predicted, $restoredClassifier->predict($testSamples));
     }
 }

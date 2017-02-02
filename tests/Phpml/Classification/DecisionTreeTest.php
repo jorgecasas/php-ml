@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace tests\Classification;
 
 use Phpml\Classification\DecisionTree;
+use Phpml\ModelManager;
 
 class DecisionTreeTest extends \PHPUnit_Framework_TestCase
 {
@@ -53,6 +54,26 @@ class DecisionTreeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Dont_play', $classifier->predict(['scorching', 95, 90, 'true']));
         $this->assertEquals('Play', $classifier->predict(['overcast', 60, 60, 'false']));
         return $classifier;
+    }
+
+    public function testSaveAndRestore()
+    {
+        list($data, $targets) = $this->getData($this->data);
+        $classifier = new DecisionTree(5);
+        $classifier->train($data, $targets);
+
+        $testSamples = [['sunny', 78, 72, 'false'], ['overcast', 60, 60, 'false']];
+        $predicted = $classifier->predict($testSamples);
+
+        $filename = 'decision-tree-test-'.rand(100, 999).'-'.uniqid();
+        $filepath = tempnam(sys_get_temp_dir(), $filename);
+        $modelManager = new ModelManager();
+        $modelManager->saveToFile($classifier, $filepath);
+
+        $restoredClassifier = $modelManager->restoreFromFile($filepath);
+        $this->assertEquals($classifier, $restoredClassifier);
+        $this->assertEquals($predicted, $restoredClassifier->predict($testSamples));
+
     }
 
     public function testTreeDepth()

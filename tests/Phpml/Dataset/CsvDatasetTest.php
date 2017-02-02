@@ -9,7 +9,7 @@ use Phpml\Dataset\CsvDataset;
 class CsvDatasetTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException \Phpml\Exception\DatasetException
+     * @expectedException \Phpml\Exception\FileException
      */
     public function testThrowExceptionOnMissingFile()
     {

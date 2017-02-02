@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Phpml\Dataset;
 
-use Phpml\Exception\DatasetException;
+use Phpml\Exception\FileException;
 
 class CsvDataset extends ArrayDataset
 {
@@ -13,16 +13,16 @@ class CsvDataset extends ArrayDataset
      * @param int    $features
      * @param bool   $headingRow
      *
-     * @throws DatasetException
+     * @throws FileException
      */
     public function __construct(string $filepath, int $features, bool $headingRow = true)
     {
         if (!file_exists($filepath)) {
-            throw DatasetException::missingFile(basename($filepath));
+            throw FileException::missingFile(basename($filepath));
         }
 
         if (false === $handle = fopen($filepath, 'rb')) {
-            throw DatasetException::cantOpenFile(basename($filepath));
+            throw FileException::cantOpenFile(basename($filepath));
         }
 
         if ($headingRow) {

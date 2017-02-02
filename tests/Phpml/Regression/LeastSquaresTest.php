@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace tests\Regression;
 
 use Phpml\Regression\LeastSquares;
+use Phpml\ModelManager;
 
 class LeastSquaresTest extends \PHPUnit_Framework_TestCase
 {
@@ -65,4 +66,28 @@ class LeastSquaresTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(4094.82, $regression->predict([60000, 1996]), '', $delta);
         $this->assertEquals(5711.40, $regression->predict([60000, 2000]), '', $delta);
     }
+
+    public function testSaveAndRestore()
+    {
+        //https://www.easycalculation.com/analytical/learn-least-square-regression.php
+        $samples = [[60], [61], [62], [63], [65]];
+        $targets = [[3.1], [3.6], [3.8], [4], [4.1]];
+
+        $regression = new LeastSquares();
+        $regression->train($samples, $targets);
+
+        //http://www.stat.wmich.edu/s216/book/node127.html
+        $testSamples = [[9300], [10565], [15000]];
+        $predicted = $regression->predict($testSamples);
+
+        $filename = 'least-squares-test-'.rand(100, 999).'-'.uniqid();
+        $filepath = tempnam(sys_get_temp_dir(), $filename);
+        $modelManager = new ModelManager();
+        $modelManager->saveToFile($regression, $filepath);
+
+        $restoredRegression = $modelManager->restoreFromFile($filepath);
+        $this->assertEquals($regression, $restoredRegression);
+        $this->assertEquals($predicted, $restoredRegression->predict($testSamples));
+    }
+
 }

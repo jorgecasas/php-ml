@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace tests\Classification;
 
 use Phpml\Classification\NaiveBayes;
+use Phpml\ModelManager;
 
 class NaiveBayesTest extends \PHPUnit_Framework_TestCase
 {
@@ -45,4 +46,27 @@ class NaiveBayesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($testLabels, $classifier->predict($testSamples));
 
     }
+
+    public function testSaveAndRestore()
+    {
+        $trainSamples = [[5, 1, 1], [1, 5, 1], [1, 1, 5]];
+        $trainLabels = ['a', 'b', 'c'];
+
+        $testSamples = [[3, 1, 1], [5, 1, 1], [4, 3, 8]];
+        $testLabels = ['a', 'a', 'c'];
+
+        $classifier = new NaiveBayes();
+        $classifier->train($trainSamples, $trainLabels);
+        $predicted = $classifier->predict($testSamples);
+
+        $filename = 'naive-bayes-test-'.rand(100, 999).'-'.uniqid();
+        $filepath = tempnam(sys_get_temp_dir(), $filename);
+        $modelManager = new ModelManager();
+        $modelManager->saveToFile($classifier, $filepath);
+
+        $restoredClassifier = $modelManager->restoreFromFile($filepath);
+        $this->assertEquals($classifier, $restoredClassifier);
+        $this->assertEquals($predicted, $restoredClassifier->predict($testSamples));
+    }
+
 }
