@@ -12,27 +12,15 @@ class ModelManagerTest extends TestCase
 {
     public function testSaveAndRestore()
     {
-        $filename = 'test-save-to-file-'.rand(100, 999).'-'.uniqid();
-        $filepath = tempnam(sys_get_temp_dir(), $filename);
+        $filename = uniqid();
+        $filepath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $filename;
 
-        $obj = new LeastSquares();
+        $estimator = new LeastSquares();
         $modelManager = new ModelManager();
-        $modelManager->saveToFile($obj, $filepath);
+        $modelManager->saveToFile($estimator, $filepath);
 
         $restored = $modelManager->restoreFromFile($filepath);
-        $this->assertEquals($obj, $restored);
-    }
-
-    /**
-     * @expectedException \Phpml\Exception\FileException
-     */
-    public function testSaveToWrongFile()
-    {
-        $filepath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'unexisting';
-
-        $obj = new LeastSquares();
-        $modelManager = new ModelManager();
-        $modelManager->saveToFile($obj, $filepath);
+        $this->assertEquals($estimator, $restored);
     }
 
     /**
