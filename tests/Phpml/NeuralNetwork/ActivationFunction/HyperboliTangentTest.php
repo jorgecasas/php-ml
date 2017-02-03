@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Phpml\NeuralNetwork\ActivationFunction;
 
 use Phpml\NeuralNetwork\ActivationFunction\HyperbolicTangent;
+use PHPUnit\Framework\TestCase;
 
-class HyperboliTangentTest extends \PHPUnit_Framework_TestCase
+class HyperboliTangentTest extends TestCase
 {
     /**
      * @param $beta

@@ -26,5 +26,4 @@ class SerializeException extends \Exception
     {
         return new self(sprintf('Class "%s" can not be serialized.', $classname));
     }
-
 }

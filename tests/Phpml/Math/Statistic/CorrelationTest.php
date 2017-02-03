@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace test\Phpml\Math\StandardDeviation;
 
 use Phpml\Math\Statistic\Correlation;
+use PHPUnit\Framework\TestCase;
 
-class CorrelationTest extends \PHPUnit_Framework_TestCase
+class CorrelationTest extends TestCase
 {
     public function testPearsonCorrelation()
     {

@@ -8,8 +8,9 @@ use Phpml\Preprocessing\Imputer;
 use Phpml\Preprocessing\Imputer\Strategy\MeanStrategy;
 use Phpml\Preprocessing\Imputer\Strategy\MedianStrategy;
 use Phpml\Preprocessing\Imputer\Strategy\MostFrequentStrategy;
+use PHPUnit\Framework\TestCase;
 
-class ImputerTest extends \PHPUnit_Framework_TestCase
+class ImputerTest extends TestCase
 {
     public function testComplementsMissingValuesWithMeanStrategyOnColumnAxis()
     {

@@ -7,8 +7,9 @@ namespace tests\Classification;
 use Phpml\Classification\KNearestNeighbors;
 use Phpml\Math\Distance\Chebyshev;
 use Phpml\ModelManager;
+use PHPUnit\Framework\TestCase;
 
-class KNearestNeighborsTest extends \PHPUnit_Framework_TestCase
+class KNearestNeighborsTest extends TestCase
 {
     public function testPredictSingleSampleWithDefaultK()
     {

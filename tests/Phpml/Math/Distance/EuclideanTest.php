@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Phpml\Metric;
 
 use Phpml\Math\Distance\Euclidean;
+use PHPUnit\Framework\TestCase;
 
-class EuclideanTest extends \PHPUnit_Framework_TestCase
+class EuclideanTest extends TestCase
 {
     /**
      * @var Euclidean

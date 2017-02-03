@@ -6,8 +6,9 @@ namespace tests\Phpml\NeuralNetwork\Node\Neuron;
 
 use Phpml\NeuralNetwork\Node\Neuron\Synapse;
 use Phpml\NeuralNetwork\Node\Neuron;
+use PHPUnit\Framework\TestCase;
 
-class SynapseTest extends \PHPUnit_Framework_TestCase
+class SynapseTest extends TestCase
 {
     public function testSynapseInitialization()
     {

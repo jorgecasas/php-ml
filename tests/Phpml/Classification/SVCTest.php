@@ -7,8 +7,9 @@ namespace tests\Classification;
 use Phpml\Classification\SVC;
 use Phpml\SupportVectorMachine\Kernel;
 use Phpml\ModelManager;
+use PHPUnit\Framework\TestCase;
 
-class SVCTest extends \PHPUnit_Framework_TestCase
+class SVCTest extends TestCase
 {
     public function testPredictSingleSampleWithLinearKernel()
     {

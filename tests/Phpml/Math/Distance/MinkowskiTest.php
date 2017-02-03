@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Phpml\Metric;
 
 use Phpml\Math\Distance\Minkowski;
+use PHPUnit\Framework\TestCase;
 
-class MinkowskiTest extends \PHPUnit_Framework_TestCase
+class MinkowskiTest extends TestCase
 {
     /**
      * @var Minkowski

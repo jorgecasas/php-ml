@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Tokenization;
 
 use Phpml\Tokenization\WordTokenizer;
+use PHPUnit\Framework\TestCase;
 
-class WordTokenizerTest extends \PHPUnit_Framework_TestCase
+class WordTokenizerTest extends TestCase
 {
     public function testTokenizationOnAscii()
     {

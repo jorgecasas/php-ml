@@ -6,10 +6,10 @@ namespace tests;
 
 use Phpml\ModelManager;
 use Phpml\Regression\LeastSquares;
+use PHPUnit\Framework\TestCase;
 
-class ModelManagerTest extends \PHPUnit_Framework_TestCase
+class ModelManagerTest extends TestCase
 {
-
     public function testSaveAndRestore()
     {
         $filename = 'test-save-to-file-'.rand(100, 999).'-'.uniqid();

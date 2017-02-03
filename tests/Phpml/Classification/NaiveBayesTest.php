@@ -6,8 +6,9 @@ namespace tests\Classification;
 
 use Phpml\Classification\NaiveBayes;
 use Phpml\ModelManager;
+use PHPUnit\Framework\TestCase;
 
-class NaiveBayesTest extends \PHPUnit_Framework_TestCase
+class NaiveBayesTest extends TestCase
 {
     public function testPredictSingleSample()
     {
@@ -44,7 +45,6 @@ class NaiveBayesTest extends \PHPUnit_Framework_TestCase
         $testSamples = [[1, 1, 6], [5, 1, 1]];
         $testLabels = ['d', 'a'];
         $this->assertEquals($testLabels, $classifier->predict($testSamples));
-
     }
 
     public function testSaveAndRestore()
@@ -68,5 +68,4 @@ class NaiveBayesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($classifier, $restoredClassifier);
         $this->assertEquals($predicted, $restoredClassifier->predict($testSamples));
     }
-
 }

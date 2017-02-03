@@ -6,8 +6,9 @@ namespace tests\Classification;
 
 use Phpml\Association\Apriori;
 use Phpml\ModelManager;
+use PHPUnit\Framework\TestCase;
 
-class AprioriTest extends \PHPUnit_Framework_TestCase
+class AprioriTest extends TestCase
 {
     private $sampleGreek = [
         ['alpha', 'beta', 'epsilon'],

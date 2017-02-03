@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Phpml\FeatureExtraction;
 
 use Phpml\FeatureExtraction\StopWords;
+use PHPUnit\Framework\TestCase;
 
-class StopWordsTest extends \PHPUnit_Framework_TestCase
+class StopWordsTest extends TestCase
 {
     public function testCustomStopWords()
     {

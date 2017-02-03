@@ -6,8 +6,9 @@ namespace tests\Classification;
 
 use Phpml\Classification\DecisionTree;
 use Phpml\ModelManager;
+use PHPUnit\Framework\TestCase;
 
-class DecisionTreeTest extends \PHPUnit_Framework_TestCase
+class DecisionTreeTest extends TestCase
 {
     private $data = [
         ['sunny',        85,        85,    'false',    'Dont_play'    ],
@@ -73,7 +74,6 @@ class DecisionTreeTest extends \PHPUnit_Framework_TestCase
         $restoredClassifier = $modelManager->restoreFromFile($filepath);
         $this->assertEquals($classifier, $restoredClassifier);
         $this->assertEquals($predicted, $restoredClassifier->predict($testSamples));
-
     }
 
     public function testTreeDepth()

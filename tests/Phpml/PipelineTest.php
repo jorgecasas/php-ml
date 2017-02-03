@@ -11,8 +11,9 @@ use Phpml\Preprocessing\Imputer;
 use Phpml\Preprocessing\Normalizer;
 use Phpml\Preprocessing\Imputer\Strategy\MostFrequentStrategy;
 use Phpml\Regression\SVR;
+use PHPUnit\Framework\TestCase;
 
-class PipelineTest extends \PHPUnit_Framework_TestCase
+class PipelineTest extends TestCase
 {
     public function testPipelineConstruction()
     {

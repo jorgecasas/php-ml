@@ -9,8 +9,9 @@ use Phpml\CrossValidation\RandomSplit;
 use Phpml\Dataset\Demo\IrisDataset;
 use Phpml\Metric\Accuracy;
 use Phpml\SupportVectorMachine\Kernel;
+use PHPUnit\Framework\TestCase;
 
-class AccuracyTest extends \PHPUnit_Framework_TestCase
+class AccuracyTest extends TestCase
 {
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException

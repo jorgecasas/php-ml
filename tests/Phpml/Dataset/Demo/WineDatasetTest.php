@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Phpml\Dataset\Demo;
 
 use Phpml\Dataset\Demo\WineDataset;
+use PHPUnit\Framework\TestCase;
 
-class WineDatasetTest extends \PHPUnit_Framework_TestCase
+class WineDatasetTest extends TestCase
 {
     public function testLoadingWineDataset()
     {

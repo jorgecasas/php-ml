@@ -7,8 +7,9 @@ namespace tests\Phpml\FeatureExtraction;
 use Phpml\FeatureExtraction\StopWords;
 use Phpml\FeatureExtraction\TokenCountVectorizer;
 use Phpml\Tokenization\WhitespaceTokenizer;
+use PHPUnit\Framework\TestCase;
 
-class TokenCountVectorizerTest extends \PHPUnit_Framework_TestCase
+class TokenCountVectorizerTest extends TestCase
 {
     public function testTransformationWithWhitespaceTokenizer()
     {

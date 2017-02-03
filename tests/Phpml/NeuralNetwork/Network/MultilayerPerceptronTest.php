@@ -6,8 +6,9 @@ namespace tests\Phpml\NeuralNetwork\Network;
 
 use Phpml\NeuralNetwork\Network\MultilayerPerceptron;
 use Phpml\NeuralNetwork\Node\Neuron;
+use PHPUnit\Framework\TestCase;
 
-class MultilayerPerceptronTest extends \PHPUnit_Framework_TestCase
+class MultilayerPerceptronTest extends TestCase
 {
     public function testMultilayerPerceptronLayersInitialization()
     {

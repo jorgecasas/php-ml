@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Phpml\NeuralNetwork\Node;
 
 use Phpml\NeuralNetwork\Node\Input;
+use PHPUnit\Framework\TestCase;
 
-class InputTest extends \PHPUnit_Framework_TestCase
+class InputTest extends TestCase
 {
     public function testInputInitialization()
     {

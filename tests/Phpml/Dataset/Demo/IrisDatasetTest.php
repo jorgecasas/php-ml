@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Phpml\Dataset\Demo;
 
 use Phpml\Dataset\Demo\IrisDataset;
+use PHPUnit\Framework\TestCase;
 
-class IrisDatasetTest extends \PHPUnit_Framework_TestCase
+class IrisDatasetTest extends TestCase
 {
     public function testLoadingIrisDataset()
     {

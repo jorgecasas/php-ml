@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Phpml\Metric;
 
 use Phpml\Metric\ConfusionMatrix;
+use PHPUnit\Framework\TestCase;
 
-class ConfusionMatrixTest extends \PHPUnit_Framework_TestCase
+class ConfusionMatrixTest extends TestCase
 {
     public function testComputeConfusionMatrixOnNumericLabels()
     {

@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Clustering;
 
 use Phpml\Clustering\KMeans;
+use PHPUnit\Framework\TestCase;
 
-class KMeansTest extends \PHPUnit_Framework_TestCase
+class KMeansTest extends TestCase
 {
     public function testKMeansSamplesClustering()
     {

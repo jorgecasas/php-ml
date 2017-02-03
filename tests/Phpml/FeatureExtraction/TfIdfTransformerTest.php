@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Phpml\FeatureExtraction;
 
 use Phpml\FeatureExtraction\TfIdfTransformer;
+use PHPUnit\Framework\TestCase;
 
-class TfIdfTransformerTest extends \PHPUnit_Framework_TestCase
+class TfIdfTransformerTest extends TestCase
 {
     public function testTfIdfTransformation()
     {

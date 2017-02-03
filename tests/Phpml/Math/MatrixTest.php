@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Phpml\Math;
 
 use Phpml\Math\Matrix;
+use PHPUnit\Framework\TestCase;
 
-class MatrixTest extends \PHPUnit_Framework_TestCase
+class MatrixTest extends TestCase
 {
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException

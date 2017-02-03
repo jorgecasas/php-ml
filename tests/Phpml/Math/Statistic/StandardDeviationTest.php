@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace test\Phpml\Math\StandardDeviation;
 
 use Phpml\Math\Statistic\StandardDeviation;
+use PHPUnit\Framework\TestCase;
 
-class StandardDeviationTest extends \PHPUnit_Framework_TestCase
+class StandardDeviationTest extends TestCase
 {
     public function testStandardDeviationOfPopulationSample()
     {

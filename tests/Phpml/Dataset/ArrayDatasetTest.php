@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Phpml\Dataset;
 
 use Phpml\Dataset\ArrayDataset;
+use PHPUnit\Framework\TestCase;
 
-class ArrayDatasetTest extends \PHPUnit_Framework_TestCase
+class ArrayDatasetTest extends TestCase
 {
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException

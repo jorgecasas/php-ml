@@ -7,8 +7,9 @@ namespace tests\SupportVectorMachine;
 use Phpml\SupportVectorMachine\Kernel;
 use Phpml\SupportVectorMachine\SupportVectorMachine;
 use Phpml\SupportVectorMachine\Type;
+use PHPUnit\Framework\TestCase;
 
-class SupportVectorMachineTest extends \PHPUnit_Framework_TestCase
+class SupportVectorMachineTest extends TestCase
 {
     public function testTrainCSVCModelWithLinearKernel()
     {

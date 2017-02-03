@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Phpml\NeuralNetwork\ActivationFunction;
 
 use Phpml\NeuralNetwork\ActivationFunction\Gaussian;
+use PHPUnit\Framework\TestCase;
 
-class GaussianTest extends \PHPUnit_Framework_TestCase
+class GaussianTest extends TestCase
 {
     /**
      * @param $expected

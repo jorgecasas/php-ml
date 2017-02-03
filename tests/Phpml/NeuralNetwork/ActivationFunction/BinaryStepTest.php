@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Phpml\NeuralNetwork\ActivationFunction;
 
 use Phpml\NeuralNetwork\ActivationFunction\BinaryStep;
+use PHPUnit\Framework\TestCase;
 
-class BinaryStepTest extends \PHPUnit_Framework_TestCase
+class BinaryStepTest extends TestCase
 {
     /**
      * @param $expected

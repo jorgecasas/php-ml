@@ -6,8 +6,9 @@ namespace tests\Phpml\CrossValidation;
 
 use Phpml\CrossValidation\StratifiedRandomSplit;
 use Phpml\Dataset\ArrayDataset;
+use PHPUnit\Framework\TestCase;
 
-class StratifiedRandomSplitTest extends \PHPUnit_Framework_TestCase
+class StratifiedRandomSplitTest extends TestCase
 {
     public function testDatasetStratifiedRandomSplitWithEvenDistribution()
     {

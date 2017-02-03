@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Preprocessing;
 
 use Phpml\Preprocessing\Normalizer;
+use PHPUnit\Framework\TestCase;
 
-class NormalizerTest extends \PHPUnit_Framework_TestCase
+class NormalizerTest extends TestCase
 {
     /**
      * @expectedException \Phpml\Exception\NormalizerException

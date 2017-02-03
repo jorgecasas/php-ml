@@ -7,8 +7,9 @@ namespace tests\Phpml\NeuralNetwork\Node;
 use Phpml\NeuralNetwork\ActivationFunction\BinaryStep;
 use Phpml\NeuralNetwork\Node\Neuron;
 use Phpml\NeuralNetwork\Node\Neuron\Synapse;
+use PHPUnit\Framework\TestCase;
 
-class NeuronTest extends \PHPUnit_Framework_TestCase
+class NeuronTest extends TestCase
 {
     public function testNeuronInitialization()
     {

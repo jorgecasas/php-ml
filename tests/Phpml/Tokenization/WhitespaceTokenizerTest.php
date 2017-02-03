@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Tokenization;
 
 use Phpml\Tokenization\WhitespaceTokenizer;
+use PHPUnit\Framework\TestCase;
 
-class WhitespaceTokenizerTest extends \PHPUnit_Framework_TestCase
+class WhitespaceTokenizerTest extends TestCase
 {
     public function testTokenizationOnAscii()
     {

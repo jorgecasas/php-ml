@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace test\Phpml\Math\StandardDeviation;
 
 use Phpml\Math\Statistic\Mean;
+use PHPUnit\Framework\TestCase;
 
-class MeanTest extends \PHPUnit_Framework_TestCase
+class MeanTest extends TestCase
 {
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException

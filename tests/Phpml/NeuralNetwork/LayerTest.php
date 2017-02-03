@@ -7,8 +7,9 @@ namespace tests\Phpml\NeuralNetwork;
 use Phpml\NeuralNetwork\Node\Bias;
 use Phpml\NeuralNetwork\Layer;
 use Phpml\NeuralNetwork\Node\Neuron;
+use PHPUnit\Framework\TestCase;
 
-class LayerTest extends \PHPUnit_Framework_TestCase
+class LayerTest extends TestCase
 {
     public function testLayerInitialization()
     {

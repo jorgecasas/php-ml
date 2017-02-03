@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Clustering;
 
 use Phpml\Clustering\FuzzyCMeans;
+use PHPUnit\Framework\TestCase;
 
-class FuzzyCMeansTest extends \PHPUnit_Framework_TestCase
+class FuzzyCMeansTest extends TestCase
 {
     public function testFCMSamplesClustering()
     {

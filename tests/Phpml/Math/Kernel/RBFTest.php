@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace test\Phpml\Math\Kernel;
 
 use Phpml\Math\Kernel\RBF;
+use PHPUnit\Framework\TestCase;
 
-class RBFTest extends \PHPUnit_Framework_TestCase
+class RBFTest extends TestCase
 {
     public function testComputeRBFKernelFunction()
     {

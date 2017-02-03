@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\SupportVectorMachine;
 
 use Phpml\SupportVectorMachine\DataTransformer;
+use PHPUnit\Framework\TestCase;
 
-class DataTransformerTest extends \PHPUnit_Framework_TestCase
+class DataTransformerTest extends TestCase
 {
     public function testTransformDatasetToTrainingSet()
     {

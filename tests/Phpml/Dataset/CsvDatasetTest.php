@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Phpml\Dataset;
 
 use Phpml\Dataset\CsvDataset;
+use PHPUnit\Framework\TestCase;
 
-class CsvDatasetTest extends \PHPUnit_Framework_TestCase
+class CsvDatasetTest extends TestCase
 {
     /**
      * @expectedException \Phpml\Exception\FileException

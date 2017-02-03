@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Clustering;
 
 use Phpml\Clustering\DBSCAN;
+use PHPUnit\Framework\TestCase;
 
-class DBSCANTest extends \PHPUnit_Framework_TestCase
+class DBSCANTest extends TestCase
 {
     public function testDBSCANSamplesClustering()
     {

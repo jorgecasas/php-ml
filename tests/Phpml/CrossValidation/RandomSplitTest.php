@@ -6,8 +6,9 @@ namespace tests\Phpml\CrossValidation;
 
 use Phpml\CrossValidation\RandomSplit;
 use Phpml\Dataset\ArrayDataset;
+use PHPUnit\Framework\TestCase;
 
-class RandomSplitTest extends \PHPUnit_Framework_TestCase
+class RandomSplitTest extends TestCase
 {
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException

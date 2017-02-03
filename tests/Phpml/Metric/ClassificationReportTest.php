@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace tests\Phpml\Metric;
 
 use Phpml\Metric\ClassificationReport;
+use PHPUnit\Framework\TestCase;
 
-class ClassificationReportTest extends \PHPUnit_Framework_TestCase
+class ClassificationReportTest extends TestCase
 {
     public function testClassificationReportGenerateWithStringLabels()
     {

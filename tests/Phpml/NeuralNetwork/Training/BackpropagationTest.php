@@ -6,8 +6,9 @@ namespace tests\Phpml\NeuralNetwork\Training;
 
 use Phpml\NeuralNetwork\Network\MultilayerPerceptron;
 use Phpml\NeuralNetwork\Training\Backpropagation;
+use PHPUnit\Framework\TestCase;
 
-class BackpropagationTest extends \PHPUnit_Framework_TestCase
+class BackpropagationTest extends TestCase
 {
     public function testBackpropagationForXORLearning()
     {
