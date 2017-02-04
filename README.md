@@ -84,6 +84,8 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
         * [Iris](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/demo/iris/)
         * [Wine](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/demo/wine/)
         * [Glass](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/demo/glass/)
+* Models management
+    * [Persistency](http://php-ml.readthedocs.io/en/latest/machine-learning/model-manager/persistency/)
 * Math
     * [Distance](http://php-ml.readthedocs.io/en/latest/math/distance/)
     * [Matrix](http://php-ml.readthedocs.io/en/latest/math/matrix/)
