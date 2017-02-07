@@ -52,6 +52,11 @@ class DecisionTree implements Classifier
     public $actualDepth = 0;
 
     /**
+     * @var int
+     */
+    private $numUsableFeatures = 0;
+
+    /**
      * @param int $maxDepth
      */
     public function __construct($maxDepth = 10)
@@ -144,15 +149,15 @@ class DecisionTree implements Classifier
         $samples = array_combine($records, $this->preprocess($samples));
         $bestGiniVal = 1;
         $bestSplit = null;
-        for ($i=0; $i<$this->featureCount; $i++) {
+        $features = $this->getSelectedFeatures();
+        foreach ($features as $i) {
             $colValues = [];
-            $baseValue = null;
             foreach ($samples as $index => $row) {
                 $colValues[$index] = $row[$i];
-                if ($baseValue === null) {
-                    $baseValue = $row[$i];
-                }
             }
+            $counts = array_count_values($colValues);
+            arsort($counts);
+            $baseValue = key($counts);
             $gini = $this->getGiniIndex($baseValue, $colValues, $targets);
             if ($bestSplit == null || $bestGiniVal > $gini) {
                 $split = new DecisionTreeLeaf();
@@ -165,6 +170,27 @@ class DecisionTree implements Classifier
             }
         }
         return $bestSplit;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getSelectedFeatures()
+    {
+        $allFeatures = range(0, $this->featureCount - 1);
+        if ($this->numUsableFeatures == 0) {
+            return $allFeatures;
+        }
+
+        $numFeatures = $this->numUsableFeatures;
+        if ($numFeatures > $this->featureCount) {
+            $numFeatures = $this->featureCount;
+        }
+        shuffle($allFeatures);
+        $selectedFeatures = array_slice($allFeatures, 0, $numFeatures, false);
+        sort($selectedFeatures);
+
+        return $selectedFeatures;
     }
 
     /**
@@ -249,6 +275,27 @@ class DecisionTree implements Classifier
     }
 
     /**
+     * This method is used to set number of columns to be used
+     * when deciding a split at an internal node of the tree.  <br>
+     * If the value is given 0, then all features are used (default behaviour),
+     * otherwise the given value will be used as a maximum for number of columns
+     * randomly selected for each split operation.
+     *
+     * @param int $numFeatures
+     * @return $this
+     * @throws Exception
+     */
+    public function setNumFeatures(int $numFeatures)
+    {
+        if ($numFeatures < 0) {
+            throw new \Exception("Selected column count should be greater or equal to zero");
+        }
+
+        $this->numUsableFeatures = $numFeatures;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getHtml()
@@ -273,6 +320,7 @@ class DecisionTree implements Classifier
                 $node = $node->rightLeaf;
             }
         } while ($node);
-        return $node->classValue;
+
+        return $node ? $node->classValue : $this->labels[0];
     }
 }

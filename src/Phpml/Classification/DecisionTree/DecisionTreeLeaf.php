@@ -62,7 +62,7 @@ class DecisionTreeLeaf
     public function evaluate($record)
     {
         $recordField = $record[$this->columnIndex];
-        if (preg_match("/^([<>=]{1,2})\s*(.*)/", $this->value, $matches)) {
+        if (is_string($this->value) && preg_match("/^([<>=]{1,2})\s*(.*)/", $this->value, $matches)) {
             $op = $matches[1];
             $value= floatval($matches[2]);
             $recordField = strval($recordField);
