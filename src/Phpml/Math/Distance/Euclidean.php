@@ -24,10 +24,9 @@ class Euclidean implements Distance
         }
 
         $distance = 0;
-        $count = count($a);
 
-        for ($i = 0; $i < $count; ++$i) {
-            $distance += pow($a[$i] - $b[$i], 2);
+        foreach ($a as $i => $val) {
+            $distance += ($val - $b[$i]) ** 2;
         }
 
         return sqrt((float) $distance);
