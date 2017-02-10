@@ -52,6 +52,10 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
     * [SVC](http://php-ml.readthedocs.io/en/latest/machine-learning/classification/svc/)
     * [k-Nearest Neighbors](http://php-ml.readthedocs.io/en/latest/machine-learning/classification/k-nearest-neighbors/)
     * [Naive Bayes](http://php-ml.readthedocs.io/en/latest/machine-learning/classification/naive-bayes/)
+    * Decision Tree (CART)
+    * Ensemble Algorithms
+        * Bagging (Bootstrap Aggregating)
+        * Random Forest
 * Regression
     * [Least Squares](http://php-ml.readthedocs.io/en/latest/machine-learning/regression/least-squares/)
     * [SVR](http://php-ml.readthedocs.io/en/latest/machine-learning/regression/svr/)
