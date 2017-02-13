@@ -6,7 +6,6 @@ namespace Phpml\Classification\DecisionTree;
 
 class DecisionTreeLeaf
 {
-    const OPERATOR_EQ = '=';
     /**
      * @var string
      */
@@ -46,6 +45,11 @@ class DecisionTreeLeaf
     public $isTerminal = false;
 
     /**
+     * @var bool
+     */
+    public $isContinuous = false;
+
+    /**
      * @var float
      */
     public $giniIndex = 0;
@@ -62,7 +66,7 @@ class DecisionTreeLeaf
     public function evaluate($record)
     {
         $recordField = $record[$this->columnIndex];
-        if (is_string($this->value) && preg_match("/^([<>=]{1,2})\s*(.*)/", $this->value, $matches)) {
+        if ($this->isContinuous && preg_match("/^([<>=]{1,2})\s*(.*)/", strval($this->value), $matches)) {
             $op = $matches[1];
             $value= floatval($matches[2]);
             $recordField = strval($recordField);
@@ -72,13 +76,51 @@ class DecisionTreeLeaf
         return $recordField == $this->value;
     }
 
-    public function __toString()
+    /**
+     * Returns Mean Decrease Impurity (MDI) in the node.
+     * For terminal nodes, this value is equal to 0
+     *
+     * @return float
+     */
+    public function getNodeImpurityDecrease(int $parentRecordCount)
+    {
+        if ($this->isTerminal) {
+            return 0.0;
+        }
+
+        $nodeSampleCount = (float)count($this->records);
+        $iT = $this->giniIndex;
+
+        if ($this->leftLeaf) {
+            $pL = count($this->leftLeaf->records)/$nodeSampleCount;
+            $iT -= $pL * $this->leftLeaf->giniIndex;
+        }
+
+        if ($this->rightLeaf) {
+            $pR = count($this->rightLeaf->records)/$nodeSampleCount;
+            $iT -= $pR * $this->rightLeaf->giniIndex;
+        }
+
+        return $iT * $nodeSampleCount / $parentRecordCount;
+    }
+
+    /**
+     * Returns HTML representation of the node including children nodes
+     *
+     * @param $columnNames
+     * @return string
+     */
+    public function getHTML($columnNames = null)
     {
         if ($this->isTerminal) {
             $value = "<b>$this->classValue</b>";
         } else {
             $value = $this->value;
-            $col = "col_$this->columnIndex";
+            if ($columnNames !== null) {
+                $col = $columnNames[$this->columnIndex];
+            } else {
+                $col = "col_$this->columnIndex";
+            }
             if (! preg_match("/^[<>=]{1,2}/", $value)) {
                 $value = "=$value";
             }
@@ -89,13 +131,13 @@ class DecisionTreeLeaf
         if ($this->leftLeaf || $this->rightLeaf) {
             $str .='<tr>';
             if ($this->leftLeaf) {
-                $str .="<td valign=top><b>| Yes</b><br>$this->leftLeaf</td>";
+                $str .="<td valign=top><b>| Yes</b><br>" . $this->leftLeaf->getHTML($columnNames) . "</td>";
             } else {
                 $str .='<td></td>';
             }
             $str .='<td>&nbsp;</td>';
             if ($this->rightLeaf) {
-                $str .="<td valign=top align=right><b>No |</b><br>$this->rightLeaf</td>";
+                $str .="<td valign=top align=right><b>No |</b><br>" . $this->rightLeaf->getHTML($columnNames) . "</td>";
             } else {
                 $str .='<td></td>';
             }
@@ -103,5 +145,15 @@ class DecisionTreeLeaf
         }
         $str .= '</table>';
         return $str;
+    }
+
+    /**
+     * HTML representation of the tree without column names
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getHTML();
     }
 }

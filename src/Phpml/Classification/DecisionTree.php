@@ -57,6 +57,17 @@ class DecisionTree implements Classifier
     private $numUsableFeatures = 0;
 
     /**
+     * @var array
+     */
+    private $featureImportances = null;
+
+    /**
+     *
+     * @var array
+     */
+    private $columnNames = null;
+
+    /**
      * @param int $maxDepth
      */
     public function __construct($maxDepth = 10)
@@ -76,6 +87,21 @@ class DecisionTree implements Classifier
         $this->columnTypes = $this->getColumnTypes($this->samples);
         $this->labels = array_keys(array_count_values($this->targets));
         $this->tree = $this->getSplitLeaf(range(0, count($this->samples) - 1));
+
+        // Each time the tree is trained, feature importances are reset so that
+        // we will have to compute it again depending on the new data
+        $this->featureImportances = null;
+
+        // If column names are given or computed before, then there is no
+        // need to init it and accidentally remove the previous given names
+        if ($this->columnNames === null) {
+            $this->columnNames = range(0, $this->featureCount - 1);
+        } elseif (count($this->columnNames) > $this->featureCount) {
+            $this->columnNames = array_slice($this->columnNames, 0, $this->featureCount);
+        } elseif (count($this->columnNames) < $this->featureCount) {
+            $this->columnNames = array_merge($this->columnNames,
+                range(count($this->columnNames), $this->featureCount - 1));
+        }
     }
 
     protected function getColumnTypes(array $samples)
@@ -164,6 +190,7 @@ class DecisionTree implements Classifier
                 $split->value = $baseValue;
                 $split->giniIndex = $gini;
                 $split->columnIndex = $i;
+                $split->isContinuous = $this->columnTypes[$i] == self::CONTINUOS;
                 $split->records = $records;
                 $bestSplit = $split;
                 $bestGiniVal = $gini;
@@ -292,6 +319,25 @@ class DecisionTree implements Classifier
         }
 
         $this->numUsableFeatures = $numFeatures;
+
+        return $this;
+    }
+
+    /**
+     * A string array to represent columns. Useful when HTML output or
+     * column importances are desired to be inspected.
+     *
+     * @param array $names
+     * @return $this
+     */
+    public function setColumnNames(array $names)
+    {
+        if ($this->featureCount != 0 && count($names) != $this->featureCount) {
+            throw new \Exception("Length of the given array should be equal to feature count ($this->featureCount)");
+        }
+
+        $this->columnNames = $names;
+
         return $this;
     }
 
@@ -300,7 +346,80 @@ class DecisionTree implements Classifier
      */
     public function getHtml()
     {
-        return $this->tree->__toString();
+        return $this->tree->getHTML($this->columnNames);
+    }
+
+    /**
+     * This will return an array including an importance value for
+     * each column in the given dataset. The importance values are
+     * normalized and their total makes 1.<br/>
+     *
+     * @param array $labels
+     * @return array
+     */
+    public function getFeatureImportances()
+    {
+        if ($this->featureImportances !== null) {
+            return $this->featureImportances;
+        }
+
+        $sampleCount = count($this->samples);
+        $this->featureImportances = [];
+        foreach ($this->columnNames as $column => $columnName) {
+            $nodes = $this->getSplitNodesByColumn($column, $this->tree);
+
+            $importance = 0;
+            foreach ($nodes as $node) {
+                $importance += $node->getNodeImpurityDecrease($sampleCount);
+            }
+
+            $this->featureImportances[$columnName] = $importance;
+        }
+
+        // Normalize & sort the importances
+        $total = array_sum($this->featureImportances);
+        if ($total > 0) {
+            foreach ($this->featureImportances as &$importance) {
+                $importance /= $total;
+            }
+            arsort($this->featureImportances);
+        }
+
+        return $this->featureImportances;
+    }
+
+    /**
+     * Collects and returns an array of internal nodes that use the given
+     * column as a split criteron
+     *
+     * @param int $column
+     * @param DecisionTreeLeaf
+     * @param array $collected
+     *
+     * @return array
+     */
+    protected function getSplitNodesByColumn($column, DecisionTreeLeaf $node)
+    {
+        if (!$node || $node->isTerminal) {
+            return [];
+        }
+
+        $nodes = [];
+        if ($node->columnIndex == $column) {
+            $nodes[] = $node;
+        }
+
+        $lNodes = [];
+        $rNodes = [];
+        if ($node->leftLeaf) {
+            $lNodes = $this->getSplitNodesByColumn($column, $node->leftLeaf);
+        }
+        if ($node->rightLeaf) {
+            $rNodes = $this->getSplitNodesByColumn($column, $node->rightLeaf);
+        }
+        $nodes = array_merge($nodes, $lNodes, $rNodes);
+
+        return $nodes;
     }
 
     /**

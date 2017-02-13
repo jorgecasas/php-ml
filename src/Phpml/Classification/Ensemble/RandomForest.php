@@ -16,6 +16,18 @@ class RandomForest extends Bagging
      */
     protected $featureSubsetRatio = 'log';
 
+    /**
+     * @var array
+     */
+    protected $columnNames = null;
+
+    /**
+     * Initializes RandomForest with the given number of trees. More trees
+     * may increase the prediction performance while it will also substantially
+     * increase the processing time and the required memory
+     *
+     * @param type $numClassifier
+     */
     public function __construct($numClassifier = 50)
     {
         parent::__construct($numClassifier);
@@ -24,14 +36,13 @@ class RandomForest extends Bagging
     }
 
     /**
-     * This method is used to determine how much of the original columns (features)
+     * This method is used to determine how many of the original columns (features)
      * will be used to construct subsets to train base classifiers.<br>
      *
      * Allowed values: 'sqrt', 'log' or any float number between 0.1 and 1.0 <br>
      *
-     * If there are many features that diminishes classification performance, then
-     * small values should be preferred, otherwise, with low number of features,
-     * default value (0.7) will result in satisfactory performance.
+     * Default value for the ratio is 'log' which results in log(numFeatures, 2) + 1
+     * features to be taken into consideration while selecting subspace of features
      *
      * @param mixed $ratio string or float should be given
      * @return $this
@@ -66,6 +77,55 @@ class RandomForest extends Bagging
     }
 
     /**
+     * This will return an array including an importance value for
+     * each column in the given dataset. Importance values for a column
+     * is the average importance of that column in all trees in the forest
+     *
+     * @return array
+     */
+    public function getFeatureImportances()
+    {
+        // Traverse each tree and sum importance of the columns
+        $sum = [];
+        foreach ($this->classifiers as $tree) {
+            /* @var $tree DecisionTree */
+            $importances = $tree->getFeatureImportances();
+
+            foreach ($importances as $column => $importance) {
+                if (array_key_exists($column, $sum)) {
+                    $sum[$column] += $importance;
+                } else {
+                    $sum[$column] = $importance;
+                }
+            }
+        }
+
+        // Normalize & sort the importance values
+        $total = array_sum($sum);
+        foreach ($sum as &$importance) {
+            $importance /= $total;
+        }
+
+        arsort($sum);
+
+        return $sum;
+    }
+
+    /**
+     * A string array to represent the columns is given. They are useful
+     * when trying to print some information about the trees such as feature importances
+     *
+     * @param array $names
+     * @return $this
+     */
+    public function setColumnNames(array $names)
+    {
+        $this->columnNames = $names;
+
+        return $this;
+    }
+
+    /**
      * @param DecisionTree $classifier
      * @param int $index
      * @return DecisionTree
@@ -84,6 +144,12 @@ class RandomForest extends Bagging
             $featureCount = $this->featureCount;
         }
 
-        return $classifier->setNumFeatures($featureCount);
+        if ($this->columnNames === null) {
+            $this->columnNames = range(0, $this->featureCount - 1);
+        }
+
+        return $classifier
+                ->setColumnNames($this->columnNames)
+                ->setNumFeatures($featureCount);
     }
 }

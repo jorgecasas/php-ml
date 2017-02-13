@@ -9,6 +9,11 @@ use Phpml\Exception\FileException;
 class CsvDataset extends ArrayDataset
 {
     /**
+     * @var array
+     */
+    protected $columnNames;
+
+    /**
      * @param string $filepath
      * @param int    $features
      * @param bool   $headingRow
@@ -26,7 +31,10 @@ class CsvDataset extends ArrayDataset
         }
 
         if ($headingRow) {
-            fgets($handle);
+            $data = fgetcsv($handle, 1000, ',');
+            $this->columnNames = array_slice($data, 0, $features);
+        } else {
+            $this->columnNames = range(0, $features - 1);
         }
 
         while (($data = fgetcsv($handle, 1000, ',')) !== false) {
@@ -34,5 +42,13 @@ class CsvDataset extends ArrayDataset
             $this->targets[] = $data[$features];
         }
         fclose($handle);
+    }
+
+    /**
+     * @return array
+     */
+    public function getColumnNames()
+    {
+        return $this->columnNames;
     }
 }

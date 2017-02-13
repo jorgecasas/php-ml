@@ -53,7 +53,7 @@ class Bagging implements Classifier
     /**
      * @var float
      */
-    protected $subsetRatio = 0.5;
+    protected $subsetRatio = 0.7;
 
     /**
      * @var array
@@ -120,7 +120,7 @@ class Bagging implements Classifier
         $this->featureCount = count($samples[0]);
         $this->numSamples = count($this->samples);
 
-        // Init classifiers and train them with random sub-samples
+        // Init classifiers and train them with bootstrap samples
         $this->classifiers = $this->initClassifiers();
         $index = 0;
         foreach ($this->classifiers as $classifier) {
@@ -134,16 +134,14 @@ class Bagging implements Classifier
      * @param int $index
      * @return array
      */
-    protected function getRandomSubset($index)
+    protected function getRandomSubset(int $index)
     {
-        $subsetLength = (int)ceil(sqrt($this->numSamples));
-        $denom = $this->subsetRatio / 2;
-        $subsetLength = $this->numSamples / (1 / $denom);
-        $index = $index * $subsetLength % $this->numSamples;
         $samples = [];
         $targets = [];
-        for ($i=0; $i<$subsetLength * 2; $i++) {
-            $rand = rand($index, $this->numSamples - 1);
+        srand($index);
+        $bootstrapSize = $this->subsetRatio * $this->numSamples;
+        for ($i=0; $i < $bootstrapSize; $i++) {
+            $rand = rand(0, $this->numSamples - 1);
             $samples[] = $this->samples[$rand];
             $targets[] = $this->targets[$rand];
         }
