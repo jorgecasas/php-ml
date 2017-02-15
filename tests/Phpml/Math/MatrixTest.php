@@ -141,6 +141,20 @@ class MatrixTest extends TestCase
         $matrix->inverse();
     }
 
+    /**
+     * @expectedException \Phpml\Exception\MatrixException
+     */
+    public function testThrowExceptionWhenInverseIfMatrixIsSingular()
+    {
+       $matrix = new Matrix([
+          [0, 0, 0],
+          [0, 0, 0],
+          [0, 0, 0],
+       ]);
+
+       $matrix->inverse();
+    }
+
     public function testInverseMatrix()
     {
         //http://ncalculators.com/matrix/inverse-matrix.htm

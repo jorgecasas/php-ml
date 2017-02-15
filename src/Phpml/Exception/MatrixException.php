@@ -21,4 +21,12 @@ class MatrixException extends \Exception
     {
         return new self('Column out of range');
     }
+
+    /**
+     * @return MatrixException
+     */
+    public static function singularMatrix()
+    {
+       return new self('Matrix is singular');
+    }
 }

@@ -233,6 +233,10 @@ class Matrix
             throw MatrixException::notSquareMatrix();
         }
 
+        if ($this->isSingular()) {
+            throw MatrixException::singularMatrix();
+        }
+
         $newMatrix = [];
         for ($i = 0; $i < $this->rows; ++$i) {
             for ($j = 0; $j < $this->columns; ++$j) {
@@ -270,5 +274,13 @@ class Matrix
         }
 
         return new self($newMatrix, false);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSingular() : bool
+    {
+        return 0 == $this->getDeterminant();
     }
 }
