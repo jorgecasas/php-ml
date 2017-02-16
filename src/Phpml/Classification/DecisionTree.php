@@ -59,6 +59,11 @@ class DecisionTree implements Classifier
     /**
      * @var array
      */
+    private $selectedFeatures;
+
+    /**
+     * @var array
+     */
     private $featureImportances = null;
 
     /**
@@ -126,33 +131,45 @@ class DecisionTree implements Classifier
         if ($this->actualDepth < $depth) {
             $this->actualDepth = $depth;
         }
+
+        // Traverse all records to see if all records belong to the same class,
+        // otherwise group the records so that we can classify the leaf
+        // in case maximum depth is reached
         $leftRecords = [];
         $rightRecords= [];
         $remainingTargets = [];
         $prevRecord = null;
         $allSame = true;
+
         foreach ($records as $recordNo) {
+            // Check if the previous record is the same with the current one
             $record = $this->samples[$recordNo];
             if ($prevRecord && $prevRecord != $record) {
                 $allSame = false;
             }
             $prevRecord = $record;
+
+            // According to the split criteron, this record will
+            // belong to either left or the right side in the next split
             if ($split->evaluate($record)) {
                 $leftRecords[] = $recordNo;
             } else {
                 $rightRecords[]= $recordNo;
             }
+
+            // Group remaining targets
             $target = $this->targets[$recordNo];
-            if (! in_array($target, $remainingTargets)) {
-                $remainingTargets[] = $target;
+            if (! array_key_exists($target, $remainingTargets)) {
+                $remainingTargets[$target] = 1;
+            } else {
+                $remainingTargets[$target]++;
             }
         }
 
         if (count($remainingTargets) == 1 || $allSame || $depth >= $this->maxDepth) {
             $split->isTerminal = 1;
-            $classes = array_count_values($remainingTargets);
-            arsort($classes);
-            $split->classValue = key($classes);
+            arsort($remainingTargets);
+            $split->classValue = key($remainingTargets);
         } else {
             if ($leftRecords) {
                 $split->leftLeaf = $this->getSplitLeaf($leftRecords, $depth + 1);
@@ -200,13 +217,29 @@ class DecisionTree implements Classifier
     }
 
     /**
+     * Returns available features/columns to the tree for the decision making
+     * process. <br>
+     *
+     * If a number is given with setNumFeatures() method, then a random selection
+     * of features up to this number is returned. <br>
+     *
+     * If some features are manually selected by use of setSelectedFeatures(),
+     * then only these features are returned <br>
+     *
+     * If any of above methods were not called beforehand, then all features
+     * are returned by default.
+     *
      * @return array
      */
     protected function getSelectedFeatures()
     {
         $allFeatures = range(0, $this->featureCount - 1);
-        if ($this->numUsableFeatures == 0) {
+        if ($this->numUsableFeatures == 0 && ! $this->selectedFeatures) {
             return $allFeatures;
+        }
+
+        if ($this->selectedFeatures) {
+            return $this->selectedFeatures;
         }
 
         $numFeatures = $this->numUsableFeatures;
@@ -321,6 +354,16 @@ class DecisionTree implements Classifier
         $this->numUsableFeatures = $numFeatures;
 
         return $this;
+    }
+
+    /**
+     * Used to set predefined features to consider while deciding which column to use for a split,
+     *
+     * @param array $features
+     */
+    protected function setSelectedFeatures(array $selectedFeatures)
+    {
+        $this->selectedFeatures = $selectedFeatures;
     }
 
     /**

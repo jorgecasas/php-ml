@@ -100,4 +100,32 @@ class NormalizerTest extends TestCase
 
         $this->assertEquals($normalized, $samples, '', $delta = 0.01);
     }
+
+    public function testStandardNorm()
+    {
+        // Generate 10 random vectors of length 3
+        $samples = [];
+        srand(time());
+        for ($i=0; $i<10; $i++) {
+            $sample = array_fill(0, 3, 0);
+            for ($k=0; $k<3; $k++) {
+                $sample[$k] = rand(1, 100);
+            }
+            $samples[] = $sample;
+        }
+
+        // Use standard normalization
+        $normalizer = new Normalizer(Normalizer::NORM_STD);
+        $normalizer->transform($samples);
+
+        // Values in the vector should be some value between -3 and +3
+        $this->assertCount(10, $samples);
+        foreach ($samples as $sample) {
+            $errors = array_filter($sample,
+                function ($element) {
+                    return $element < -3 || $element > 3;
+                });
+            $this->assertCount(0, $errors);
+        }
+    }
 }
