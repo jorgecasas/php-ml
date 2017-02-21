@@ -24,7 +24,7 @@ class DecisionTree implements Classifier
     /**
      * @var array
      */
-    private $columnTypes;
+    protected $columnTypes;
 
     /**
      * @var array
@@ -39,12 +39,12 @@ class DecisionTree implements Classifier
     /**
      * @var DecisionTreeLeaf
      */
-    private $tree = null;
+    protected $tree = null;
 
     /**
      * @var int
      */
-    private $maxDepth;
+    protected $maxDepth;
 
     /**
      * @var int
@@ -79,6 +79,7 @@ class DecisionTree implements Classifier
     {
         $this->maxDepth = $maxDepth;
     }
+
     /**
      * @param array $samples
      * @param array $targets
@@ -209,6 +210,17 @@ class DecisionTree implements Classifier
                 $split->columnIndex = $i;
                 $split->isContinuous = $this->columnTypes[$i] == self::CONTINUOS;
                 $split->records = $records;
+
+                // If a numeric column is to be selected, then
+                // the original numeric value and the selected operator
+                // will also be saved into the leaf for future access
+                if ($this->columnTypes[$i] == self::CONTINUOS) {
+                    $matches = [];
+                    preg_match("/^([<>=]{1,2})\s*(.*)/", strval($split->value), $matches);
+                    $split->operator = $matches[1];
+                    $split->numericValue = floatval($matches[2]);
+                }
+
                 $bestSplit = $split;
                 $bestGiniVal = $gini;
             }
@@ -318,15 +330,21 @@ class DecisionTree implements Classifier
     protected function isCategoricalColumn(array $columnValues)
     {
         $count = count($columnValues);
+
         // There are two main indicators that *may* show whether a
         // column is composed of discrete set of values:
-        // 1- Column may contain string values
+        // 1- Column may contain string values and not float values
         // 2- Number of unique values in the column is only a small fraction of
         //	  all values in that column (Lower than or equal to %20 of all values)
         $numericValues = array_filter($columnValues, 'is_numeric');
+        $floatValues = array_filter($columnValues, 'is_float');
+        if ($floatValues) {
+            return false;
+        }
         if (count($numericValues) != $count) {
             return true;
         }
+
         $distinctValues = array_count_values($columnValues);
         if (count($distinctValues) <= $count / 5) {
             return true;
@@ -357,9 +375,9 @@ class DecisionTree implements Classifier
     }
 
     /**
-     * Used to set predefined features to consider while deciding which column to use for a split,
+     * Used to set predefined features to consider while deciding which column to use for a split
      *
-     * @param array $features
+     * @param array $selectedFeatures
      */
     protected function setSelectedFeatures(array $selectedFeatures)
     {

@@ -12,6 +12,16 @@ class DecisionTreeLeaf
     public $value;
 
     /**
+     * @var float
+     */
+    public $numericValue;
+
+    /**
+     * @var string
+     */
+    public $operator;
+
+    /**
      * @var int
      */
     public $columnIndex;
@@ -66,13 +76,15 @@ class DecisionTreeLeaf
     public function evaluate($record)
     {
         $recordField = $record[$this->columnIndex];
-        if ($this->isContinuous && preg_match("/^([<>=]{1,2})\s*(.*)/", strval($this->value), $matches)) {
-            $op = $matches[1];
-            $value= floatval($matches[2]);
+
+        if ($this->isContinuous) {
+            $op = $this->operator;
+            $value= $this->numericValue;
             $recordField = strval($recordField);
             eval("\$result = $recordField $op $value;");
             return $result;
         }
+        
         return $recordField == $this->value;
     }
 

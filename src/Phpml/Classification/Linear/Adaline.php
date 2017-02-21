@@ -8,7 +8,6 @@ use Phpml\Helper\Predictable;
 use Phpml\Helper\Trainable;
 use Phpml\Classification\Classifier;
 use Phpml\Classification\Linear\Perceptron;
-use Phpml\Preprocessing\Normalizer;
 
 class Adaline extends Perceptron
 {
@@ -39,11 +38,6 @@ class Adaline extends Perceptron
     protected $trainingType;
 
     /**
-     * @var Normalizer
-     */
-    private $normalizer;
-
-    /**
      * Initalize an Adaline (ADAptive LInear NEuron) classifier with given learning rate and maximum
      * number of iterations used while training the classifier <br>
      *
@@ -58,29 +52,13 @@ class Adaline extends Perceptron
     public function __construct(float $learningRate = 0.001, int $maxIterations = 1000,
         bool $normalizeInputs = true, int $trainingType = self::BATCH_TRAINING)
     {
-        if ($normalizeInputs) {
-            $this->normalizer = new Normalizer(Normalizer::NORM_STD);
-        }
-
         if (! in_array($trainingType, [self::BATCH_TRAINING, self::ONLINE_TRAINING])) {
             throw new \Exception("Adaline can only be trained with batch and online/stochastic gradient descent algorithm");
         }
+
         $this->trainingType = $trainingType;
 
-        parent::__construct($learningRate, $maxIterations);
-    }
-
-    /**
-     * @param array $samples
-     * @param array $targets
-     */
-    public function train(array $samples, array $targets)
-    {
-        if ($this->normalizer) {
-            $this->normalizer->transform($samples);
-        }
-
-        parent::train($samples, $targets);
+        parent::__construct($learningRate, $maxIterations, $normalizeInputs);
     }
 
     /**
@@ -100,22 +78,8 @@ class Adaline extends Perceptron
         while ($this->maxIterations > $currIter++) {
             $outputs = array_map([$this, 'output'], $this->samples);
             $updates = array_map([$this, 'gradient'], $this->targets, $outputs);
-            $sum = array_sum($updates);
 
-            // Updates all weights at once
-            for ($i=0; $i <= $this->featureCount; $i++) {
-                if ($i == 0) {
-                    $this->weights[0] += $this->learningRate * $sum;
-                } else {
-                    $col = array_column($this->samples, $i - 1);
-                    $error = 0;
-                    foreach ($col as $index => $val) {
-                        $error += $val * $updates[$index];
-                    }
-
-                    $this->weights[$i] += $this->learningRate * $error;
-                }
-            }
+            $this->updateWeights($updates);
         }
     }
 
@@ -132,17 +96,27 @@ class Adaline extends Perceptron
     }
 
     /**
-     * @param array $sample
-     * @return mixed
+     * Updates the weights of the network given the direction of the
+     * gradient for each sample
+     *
+     * @param array $updates
      */
-    public function predictSample(array $sample)
+    protected function updateWeights(array $updates)
     {
-        if ($this->normalizer) {
-            $samples = [$sample];
-            $this->normalizer->transform($samples);
-            $sample = $samples[0];
-        }
+        // Updates all weights at once
+        for ($i=0; $i <= $this->featureCount; $i++) {
+            if ($i == 0) {
+                $this->weights[0] += $this->learningRate * array_sum($updates);
+            } else {
+                $col = array_column($this->samples, $i - 1);
 
-        return parent::predictSample($sample);
+                $error = 0;
+                foreach ($col as $index => $val) {
+                    $error += $val * $updates[$index];
+                }
+
+                $this->weights[$i] += $this->learningRate * $error;
+            }
+        }
     }
 }

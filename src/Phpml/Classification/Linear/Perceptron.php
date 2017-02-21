@@ -7,6 +7,7 @@ namespace Phpml\Classification\Linear;
 use Phpml\Helper\Predictable;
 use Phpml\Helper\Trainable;
 use Phpml\Classification\Classifier;
+use Phpml\Preprocessing\Normalizer;
 
 class Perceptron implements Classifier
 {
@@ -56,6 +57,11 @@ class Perceptron implements Classifier
     protected $maxIterations;
 
     /**
+     * @var Normalizer
+     */
+    protected $normalizer;
+
+    /**
      * Initalize a perceptron classifier with given learning rate and maximum
      * number of iterations used while training the perceptron <br>
      *
@@ -64,7 +70,8 @@ class Perceptron implements Classifier
      * @param int $learningRate
      * @param int $maxIterations
      */
-    public function __construct(float $learningRate = 0.001, int $maxIterations = 1000)
+    public function __construct(float $learningRate = 0.001, int $maxIterations = 1000,
+        bool $normalizeInputs = true)
     {
         if ($learningRate <= 0.0 || $learningRate > 1.0) {
             throw new \Exception("Learning rate should be a float value between 0.0(exclusive) and 1.0(inclusive)");
@@ -72,6 +79,10 @@ class Perceptron implements Classifier
 
         if ($maxIterations <= 0) {
             throw new \Exception("Maximum number of iterations should be an integer greater than 0");
+        }
+
+        if ($normalizeInputs) {
+            $this->normalizer = new Normalizer(Normalizer::NORM_STD);
         }
 
         $this->learningRate = $learningRate;
@@ -87,6 +98,10 @@ class Perceptron implements Classifier
         $this->labels = array_keys(array_count_values($targets));
         if (count($this->labels) > 2) {
             throw new \Exception("Perceptron is for only binary (two-class) classification");
+        }
+
+        if ($this->normalizer) {
+            $this->normalizer->transform($samples);
         }
 
         // Set all target values to either -1 or 1
@@ -167,6 +182,12 @@ class Perceptron implements Classifier
      */
     protected function predictSample(array $sample)
     {
+        if ($this->normalizer) {
+            $samples = [$sample];
+            $this->normalizer->transform($samples);
+            $sample = $samples[0];
+        }
+
         $predictedClass = $this->outputClass($sample);
 
         return $this->labels[ $predictedClass ];
