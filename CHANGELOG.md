@@ -3,8 +3,13 @@ CHANGELOG
 
 This changelog references the relevant changes done in PHP-ML library.
 
-* 0.3.1 (in plan/progress)
-    * feature [Regression] - SSE, SSTo, SSR  - sum of the squared
+* 0.4.0 (2017-02-23)
+    * feature [Classification] - Ensemble Classifiers : Bagging and RandomForest by Mustafa Karabulut
+    * feature [Classification] - RandomForest::getFeatureImportances() method by Mustafa Karabulut
+    * feature [Classification] - Linear classifiers: Perceptron, Adaline, DecisionStump by Mustafa Karabulut
+    * feature [Classification] - AdaBoost algorithm by Mustafa Karabulut
+    * bug [Math] - Check if matrix is singular doing inverse by Povilas Susinskas
+    * optimization - Euclidean optimization by Mustafa Karabulut
 
 * 0.3.0 (2017-02-04)
     * feature [Persistency] - ModelManager - save and restore trained models by David Monllaó

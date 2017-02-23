@@ -146,13 +146,13 @@ class MatrixTest extends TestCase
      */
     public function testThrowExceptionWhenInverseIfMatrixIsSingular()
     {
-       $matrix = new Matrix([
+        $matrix = new Matrix([
           [0, 0, 0],
           [0, 0, 0],
           [0, 0, 0],
        ]);
 
-       $matrix->inverse();
+        $matrix->inverse();
     }
 
     public function testInverseMatrix()

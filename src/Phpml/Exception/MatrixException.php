@@ -27,6 +27,6 @@ class MatrixException extends \Exception
      */
     public static function singularMatrix()
     {
-       return new self('Matrix is singular');
+        return new self('Matrix is singular');
     }
 }

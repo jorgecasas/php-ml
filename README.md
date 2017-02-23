@@ -56,6 +56,11 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
     * Ensemble Algorithms
         * Bagging (Bootstrap Aggregating)
         * Random Forest
+        * AdaBoost
+    * Linear
+        * Adaline
+        * Decision Stump
+        * Perceptron
 * Regression
     * [Least Squares](http://php-ml.readthedocs.io/en/latest/machine-learning/regression/least-squares/)
     * [SVR](http://php-ml.readthedocs.io/en/latest/machine-learning/regression/svr/)
