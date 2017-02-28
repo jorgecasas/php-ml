@@ -110,12 +110,13 @@ class DecisionTree implements Classifier
         }
     }
 
-    protected function getColumnTypes(array $samples)
+    public static function getColumnTypes(array $samples)
     {
         $types = [];
-        for ($i=0; $i<$this->featureCount; $i++) {
+        $featureCount = count($samples[0]);
+        for ($i=0; $i < $featureCount; $i++) {
             $values = array_column($samples, $i);
-            $isCategorical = $this->isCategoricalColumn($values);
+            $isCategorical = self::isCategoricalColumn($values);
             $types[] = $isCategorical ? self::NOMINAL : self::CONTINUOS;
         }
         return $types;
@@ -327,13 +328,13 @@ class DecisionTree implements Classifier
      * @param array $columnValues
      * @return bool
      */
-    protected function isCategoricalColumn(array $columnValues)
+    protected static function isCategoricalColumn(array $columnValues)
     {
         $count = count($columnValues);
 
         // There are two main indicators that *may* show whether a
         // column is composed of discrete set of values:
-        // 1- Column may contain string values and not float values
+        // 1- Column may contain string values and non-float values
         // 2- Number of unique values in the column is only a small fraction of
         //	  all values in that column (Lower than or equal to %20 of all values)
         $numericValues = array_filter($columnValues, 'is_numeric');

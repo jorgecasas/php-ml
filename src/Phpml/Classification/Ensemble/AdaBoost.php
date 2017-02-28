@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Phpml\Classification\Ensemble;
 
 use Phpml\Classification\Linear\DecisionStump;
+use Phpml\Classification\WeightedClassifier;
+use Phpml\Math\Statistic\Mean;
+use Phpml\Math\Statistic\StandardDeviation;
 use Phpml\Classification\Classifier;
 use Phpml\Helper\Predictable;
 use Phpml\Helper\Trainable;
@@ -44,7 +47,7 @@ class AdaBoost implements Classifier
     protected $weights = [];
 
     /**
-     * Base classifiers
+     * List of selected 'weak' classifiers
      *
      * @var array
      */
@@ -58,14 +61,36 @@ class AdaBoost implements Classifier
     protected $alpha = [];
 
     /**
+     * @var string
+     */
+    protected $baseClassifier = DecisionStump::class;
+
+    /**
+     * @var array
+     */
+    protected $classifierOptions = [];
+
+    /**
      * ADAptive BOOSTing (AdaBoost) is an ensemble algorithm to
      * improve classification performance of 'weak' classifiers such as
      * DecisionStump (default base classifier of AdaBoost).
      *
      */
-    public function __construct(int $maxIterations = 30)
+    public function __construct(int $maxIterations = 50)
     {
         $this->maxIterations = $maxIterations;
+    }
+
+    /**
+     * Sets the base classifier that will be used for boosting (default = DecisionStump)
+     *
+     * @param string $baseClassifier
+     * @param array $classifierOptions
+     */
+    public function setBaseClassifier(string $baseClassifier = DecisionStump::class, array $classifierOptions = [])
+    {
+        $this->baseClassifier = $baseClassifier;
+        $this->classifierOptions = $classifierOptions;
     }
 
     /**
@@ -77,7 +102,7 @@ class AdaBoost implements Classifier
         // Initialize usual variables
         $this->labels = array_keys(array_count_values($targets));
         if (count($this->labels) != 2) {
-            throw new \Exception("AdaBoost is a binary classifier and can only classify between two classes");
+            throw new \Exception("AdaBoost is a binary classifier and can classify between two classes only");
         }
 
         // Set all target values to either -1 or 1
@@ -98,9 +123,12 @@ class AdaBoost implements Classifier
         // Execute the algorithm for a maximum number of iterations
         $currIter = 0;
         while ($this->maxIterations > $currIter++) {
+
             // Determine the best 'weak' classifier based on current weights
-            // and update alpha & weight values at each iteration
-            list($classifier, $errorRate) = $this->getBestClassifier();
+            $classifier = $this->getBestClassifier();
+            $errorRate = $this->evaluateClassifier($classifier);
+
+            // Update alpha & weight values at each iteration
             $alpha = $this->calculateAlpha($errorRate);
             $this->updateWeights($classifier, $alpha);
 
@@ -117,24 +145,71 @@ class AdaBoost implements Classifier
      */
     protected function getBestClassifier()
     {
-        // This method works only for "DecisionStump" classifier, for now.
-        // As a future task, it will be generalized enough to work with other
-        //  classifiers as well
-        $minErrorRate = 1.0;
-        $bestClassifier = null;
-        for ($i=0; $i < $this->featureCount; $i++) {
-            $stump = new DecisionStump($i);
-            $stump->setSampleWeights($this->weights);
-            $stump->train($this->samples, $this->targets);
+        $ref = new \ReflectionClass($this->baseClassifier);
+        if ($this->classifierOptions) {
+            $classifier = $ref->newInstanceArgs($this->classifierOptions);
+        } else {
+            $classifier = $ref->newInstance();
+        }
 
-            $errorRate = $stump->getTrainingErrorRate();
-            if ($errorRate < $minErrorRate) {
-                $bestClassifier = $stump;
-                $minErrorRate = $errorRate;
+        if (is_subclass_of($classifier, WeightedClassifier::class)) {
+            $classifier->setSampleWeights($this->weights);
+            $classifier->train($this->samples, $this->targets);
+        } else {
+            list($samples, $targets) = $this->resample();
+            $classifier->train($samples, $targets);
+        }
+
+        return $classifier;
+    }
+
+    /**
+     * Resamples the dataset in accordance with the weights and
+     * returns the new dataset
+     *
+     * @return array
+     */
+    protected function resample()
+    {
+        $weights = $this->weights;
+        $std = StandardDeviation::population($weights);
+        $mean= Mean::arithmetic($weights);
+        $min = min($weights);
+        $minZ= (int)round(($min - $mean) / $std);
+
+        $samples = [];
+        $targets = [];
+        foreach ($weights as $index => $weight) {
+            $z = (int)round(($weight - $mean) / $std) - $minZ + 1;
+            for ($i=0; $i < $z; $i++) {
+                if (rand(0, 1) == 0) {
+                    continue;
+                }
+                $samples[] = $this->samples[$index];
+                $targets[] = $this->targets[$index];
             }
         }
 
-        return [$bestClassifier, $minErrorRate];
+        return [$samples, $targets];
+    }
+
+    /**
+     * Evaluates the classifier and returns the classification error rate
+     *
+     * @param Classifier $classifier
+     */
+    protected function evaluateClassifier(Classifier $classifier)
+    {
+        $total = (float) array_sum($this->weights);
+        $wrong = 0;
+        foreach ($this->samples as $index => $sample) {
+            $predicted = $classifier->predict($sample);
+            if ($predicted != $this->targets[$index]) {
+                $wrong += $this->weights[$index];
+            }
+        }
+
+        return $wrong / $total;
     }
 
     /**
@@ -154,10 +229,10 @@ class AdaBoost implements Classifier
     /**
      * Updates the sample weights
      *
-     * @param DecisionStump $classifier
+     * @param Classifier $classifier
      * @param float $alpha
      */
-    protected function updateWeights(DecisionStump $classifier, float $alpha)
+    protected function updateWeights(Classifier $classifier, float $alpha)
     {
         $sumOfWeights = array_sum($this->weights);
         $weightsT1 = [];

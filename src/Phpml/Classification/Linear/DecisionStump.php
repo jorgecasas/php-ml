@@ -6,18 +6,19 @@ namespace Phpml\Classification\Linear;
 
 use Phpml\Helper\Predictable;
 use Phpml\Helper\Trainable;
-use Phpml\Classification\Classifier;
+use Phpml\Classification\WeightedClassifier;
 use Phpml\Classification\DecisionTree;
-use Phpml\Classification\DecisionTree\DecisionTreeLeaf;
 
-class DecisionStump extends DecisionTree
+class DecisionStump extends WeightedClassifier
 {
     use Trainable, Predictable;
+
+    const AUTO_SELECT = -1;
 
     /**
      * @var int
      */
-    protected $columnIndex;
+    protected $givenColumnIndex;
 
 
     /**
@@ -37,6 +38,31 @@ class DecisionStump extends DecisionTree
     protected $trainingErrorRate;
 
     /**
+     * @var int
+     */
+    protected $column;
+
+    /**
+     * @var mixed
+     */
+    protected $value;
+
+    /**
+     * @var string
+     */
+    protected $operator;
+
+    /**
+     * @var array
+     */
+    protected $columnTypes;
+
+    /**
+     * @var float
+     */
+    protected $numSplitCount = 10.0;
+
+    /**
      * A DecisionStump classifier is a one-level deep DecisionTree. It is generally
      * used with ensemble algorithms as in the weak classifier role. <br>
      *
@@ -46,11 +72,9 @@ class DecisionStump extends DecisionTree
      *
      * @param int $columnIndex
      */
-    public function __construct(int $columnIndex = -1)
+    public function __construct(int $columnIndex = self::AUTO_SELECT)
     {
-        $this->columnIndex = $columnIndex;
-
-        parent::__construct(1);
+        $this->givenColumnIndex = $columnIndex;
     }
 
     /**
@@ -59,95 +83,167 @@ class DecisionStump extends DecisionTree
      */
     public function train(array $samples, array $targets)
     {
-        if ($this->columnIndex > count($samples[0]) - 1) {
-            $this->columnIndex = -1;
+        $this->samples = array_merge($this->samples, $samples);
+        $this->targets = array_merge($this->targets, $targets);
+
+        // DecisionStump is capable of classifying between two classes only
+        $labels = array_count_values($this->targets);
+        $this->labels = array_keys($labels);
+        if (count($this->labels) != 2) {
+            throw new \Exception("DecisionStump can classify between two classes only:" . implode(',', $this->labels));
         }
 
-        if ($this->columnIndex >= 0) {
-            $this->setSelectedFeatures([$this->columnIndex]);
+        // If a column index is given, it should be among the existing columns
+        if ($this->givenColumnIndex > count($samples[0]) - 1) {
+            $this->givenColumnIndex = self::AUTO_SELECT;
         }
 
+        // Check the size of the weights given.
+        // If none given, then assign 1 as a weight to each sample
         if ($this->weights) {
             $numWeights = count($this->weights);
-            if ($numWeights != count($samples)) {
+            if ($numWeights != count($this->samples)) {
                 throw new \Exception("Number of sample weights does not match with number of samples");
             }
         } else {
             $this->weights = array_fill(0, count($samples), 1);
         }
 
-        parent::train($samples, $targets);
+        // Determine type of each column as either "continuous" or "nominal"
+        $this->columnTypes = DecisionTree::getColumnTypes($this->samples);
 
-        $this->columnIndex = $this->tree->columnIndex;
+        // Try to find the best split in the columns of the dataset
+        // by calculating error rate for each split point in each column
+        $columns = range(0, count($samples[0]) - 1);
+        if ($this->givenColumnIndex != self::AUTO_SELECT) {
+            $columns = [$this->givenColumnIndex];
+        }
 
-        // For numerical values, try to optimize the value by finding a different threshold value
-        if ($this->columnTypes[$this->columnIndex] == self::CONTINUOS) {
-            $this->optimizeDecision($samples, $targets);
+        $bestSplit = [
+            'value' => 0, 'operator' => '',
+            'column' => 0, 'trainingErrorRate' => 1.0];
+        foreach ($columns as $col) {
+            if ($this->columnTypes[$col] == DecisionTree::CONTINUOS) {
+                $split = $this->getBestNumericalSplit($col);
+            } else {
+                $split = $this->getBestNominalSplit($col);
+            }
+
+            if ($split['trainingErrorRate'] < $bestSplit['trainingErrorRate']) {
+                $bestSplit = $split;
+            }
+        }
+
+        // Assign determined best values to the stump
+        foreach ($bestSplit as $name => $value) {
+            $this->{$name} = $value;
         }
     }
 
     /**
-     * Used to set sample weights.
+     * While finding best split point for a numerical valued column,
+     * DecisionStump looks for equally distanced values between minimum and maximum
+     * values in the column. Given <i>$count</i> value determines how many split
+     * points to be probed. The more split counts, the better performance but
+     * worse processing time (Default value is 10.0)
      *
-     * @param array $weights
+     * @param float $count
      */
-    public function setSampleWeights(array $weights)
+    public function setNumericalSplitCount(float $count)
     {
-        $this->weights = $weights;
+        $this->numSplitCount = $count;
     }
 
     /**
-     * Returns the training error rate, the proportion of wrong predictions
-     * over the total number of samples
+     * Determines best split point for the given column
      *
-     * @return float
-     */
-    public function getTrainingErrorRate()
-    {
-        return $this->trainingErrorRate;
-    }
-
-    /**
-     * Tries to optimize the threshold by probing a range of different values
-     * between the minimum and maximum values in the selected column
+     * @param int $col
      *
-     * @param array $samples
-     * @param array $targets
+     * @return array
      */
-    protected function optimizeDecision(array $samples, array $targets)
+    protected function getBestNumericalSplit(int $col)
     {
-        $values = array_column($samples, $this->columnIndex);
+        $values = array_column($this->samples, $col);
         $minValue = min($values);
         $maxValue = max($values);
-        $stepSize = ($maxValue - $minValue) / 100.0;
+        $stepSize = ($maxValue - $minValue) / $this->numSplitCount;
 
-        $leftLabel = $this->tree->leftLeaf->classValue;
-        $rightLabel= $this->tree->rightLeaf->classValue;
-
-        $bestOperator = $this->tree->operator;
-        $bestThreshold = $this->tree->numericValue;
-        $bestErrorRate = $this->calculateErrorRate(
-                $bestThreshold, $bestOperator, $values, $targets, $leftLabel, $rightLabel);
+        $split = null;
 
         foreach (['<=', '>'] as $operator) {
+            // Before trying all possible split points, let's first try
+            // the average value for the cut point
+            $threshold = array_sum($values) / (float) count($values);
+            $errorRate = $this->calculateErrorRate($threshold, $operator, $values);
+            if ($split == null || $errorRate < $split['trainingErrorRate']) {
+                $split = ['value' => $threshold, 'operator' => $operator,
+                        'column' => $col, 'trainingErrorRate' => $errorRate];
+            }
+
+            // Try other possible points one by one
             for ($step = $minValue; $step <= $maxValue; $step+= $stepSize) {
                 $threshold = (float)$step;
-                $errorRate = $this->calculateErrorRate(
-                    $threshold, $operator, $values, $targets, $leftLabel, $rightLabel);
-
-                if ($errorRate < $bestErrorRate) {
-                    $bestErrorRate = $errorRate;
-                    $bestThreshold = $threshold;
-                    $bestOperator = $operator;
+                $errorRate = $this->calculateErrorRate($threshold, $operator, $values);
+                if ($errorRate < $split['trainingErrorRate']) {
+                    $split = ['value' => $threshold, 'operator' => $operator,
+                        'column' => $col, 'trainingErrorRate' => $errorRate];
                 }
             }// for
         }
 
-        // Update the tree node value
-        $this->tree->numericValue = $bestThreshold;
-        $this->tree->operator = $bestOperator;
-        $this->tree->value = "$bestOperator $bestThreshold";
-        $this->trainingErrorRate = $bestErrorRate;
+        return $split;
+    }
+
+    /**
+     *
+     * @param int $col
+     *
+     * @return array
+     */
+    protected function getBestNominalSplit(int $col)
+    {
+        $values = array_column($this->samples, $col);
+        $valueCounts = array_count_values($values);
+        $distinctVals= array_keys($valueCounts);
+
+        $split = null;
+
+        foreach (['=', '!='] as $operator) {
+            foreach ($distinctVals as $val) {
+                $errorRate = $this->calculateErrorRate($val, $operator, $values);
+
+                if ($split == null || $split['trainingErrorRate'] < $errorRate) {
+                    $split = ['value' => $val, 'operator' => $operator,
+                        'column' => $col, 'trainingErrorRate' => $errorRate];
+                }
+            }// for
+        }
+
+        return $split;
+    }
+
+
+    /**
+     *
+     * @param type $leftValue
+     * @param type $operator
+     * @param type $rightValue
+     *
+     * @return boolean
+     */
+    protected function evaluate($leftValue, $operator, $rightValue)
+    {
+        switch ($operator) {
+            case '>': return $leftValue > $rightValue;
+            case '>=': return $leftValue >= $rightValue;
+            case '<': return $leftValue < $rightValue;
+            case '<=': return $leftValue <= $rightValue;
+            case '=': return $leftValue == $rightValue;
+            case '!=':
+            case '<>': return $leftValue != $rightValue;
+        }
+
+        return false;
     }
 
     /**
@@ -157,23 +253,42 @@ class DecisionStump extends DecisionTree
      * @param float $threshold
      * @param string $operator
      * @param array $values
-     * @param array $targets
-     * @param mixed $leftLabel
-     * @param mixed $rightLabel
      */
-    protected function calculateErrorRate(float $threshold, string $operator, array $values, array $targets, $leftLabel, $rightLabel)
+    protected function calculateErrorRate(float $threshold, string $operator, array $values)
     {
         $total = (float) array_sum($this->weights);
-        $wrong = 0;
-
+        $wrong = 0.0;
+        $leftLabel = $this->labels[0];
+        $rightLabel= $this->labels[1];
         foreach ($values as $index => $value) {
-            eval("\$predicted = \$value $operator \$threshold ? \$leftLabel : \$rightLabel;");
+            if ($this->evaluate($threshold, $operator, $value)) {
+                $predicted = $leftLabel;
+            } else {
+                $predicted = $rightLabel;
+            }
 
-            if ($predicted != $targets[$index]) {
+            if ($predicted != $this->targets[$index]) {
                 $wrong += $this->weights[$index];
             }
         }
 
         return $wrong / $total;
+    }
+
+    /**
+     * @param array $sample
+     * @return mixed
+     */
+    protected function predictSample(array $sample)
+    {
+        if ($this->evaluate($this->value, $this->operator, $sample[$this->column])) {
+            return $this->labels[0];
+        }
+        return $this->labels[1];
+    }
+
+    public function __toString()
+    {
+        return "$this->column $this->operator $this->value";
     }
 }

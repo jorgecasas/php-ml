@@ -76,10 +76,16 @@ class Adaline extends Perceptron
         // Batch learning is executed:
         $currIter = 0;
         while ($this->maxIterations > $currIter++) {
+            $weights = $this->weights;
+
             $outputs = array_map([$this, 'output'], $this->samples);
             $updates = array_map([$this, 'gradient'], $this->targets, $outputs);
 
             $this->updateWeights($updates);
+
+            if ($this->earlyStop($weights)) {
+                break;
+            }
         }
     }
 

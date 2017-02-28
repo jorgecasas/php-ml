@@ -62,6 +62,14 @@ class Perceptron implements Classifier
     protected $normalizer;
 
     /**
+     * Minimum amount of change in the weights between iterations
+     * that needs to be obtained to continue the training
+     *
+     * @var float
+     */
+    protected $threshold = 1e-5;
+
+    /**
      * Initalize a perceptron classifier with given learning rate and maximum
      * number of iterations used while training the perceptron <br>
      *
@@ -89,6 +97,20 @@ class Perceptron implements Classifier
         $this->maxIterations = $maxIterations;
     }
 
+    /**
+     * Sets minimum value for the change in the weights
+     * between iterations to continue the iterations.<br>
+     *
+     * If the weight change is less than given value then the
+     * algorithm will stop training
+     *
+     * @param float $threshold
+     */
+    public function setChangeThreshold(float $threshold = 1e-5)
+    {
+        $this->threshold = $threshold;
+    }
+
    /**
      * @param array $samples
      * @param array $targets
@@ -97,7 +119,7 @@ class Perceptron implements Classifier
     {
         $this->labels = array_keys(array_count_values($targets));
         if (count($this->labels) > 2) {
-            throw new \Exception("Perceptron is for only binary (two-class) classification");
+            throw new \Exception("Perceptron is for binary (two-class) classification only");
         }
 
         if ($this->normalizer) {
@@ -130,11 +152,20 @@ class Perceptron implements Classifier
     protected function runTraining()
     {
         $currIter = 0;
+        $bestWeights = null;
+        $bestScore = count($this->samples);
+        $bestWeightIter = 0;
+
         while ($this->maxIterations > $currIter++) {
+            $weights = $this->weights;
+            $misClassified = 0;
             foreach ($this->samples as $index => $sample) {
                 $target = $this->targets[$index];
                 $prediction = $this->{static::$errorFunction}($sample);
                 $update = $target - $prediction;
+                if ($target != $prediction) {
+                    $misClassified++;
+                }
                 // Update bias
                 $this->weights[0] += $update * $this->learningRate; // Bias
                 // Update other weights
@@ -142,7 +173,45 @@ class Perceptron implements Classifier
                     $this->weights[$i] += $update * $sample[$i - 1] * $this->learningRate;
                 }
             }
+
+            // Save the best weights in the "pocket" so that
+            // any future weights worse than this will be disregarded
+            if ($bestWeights == null || $misClassified <= $bestScore) {
+                $bestWeights = $weights;
+                $bestScore = $misClassified;
+                $bestWeightIter = $currIter;
+            }
+
+            // Check for early stop
+            if ($this->earlyStop($weights)) {
+                break;
+            }
         }
+
+        // The weights in the pocket are better than or equal to the last state
+        // so, we use these weights
+        $this->weights = $bestWeights;
+    }
+
+    /**
+     * @param array $oldWeights
+     *
+     * @return boolean
+     */
+    protected function earlyStop($oldWeights)
+    {
+        // Check for early stop: No change larger than 1e-5
+        $diff = array_map(
+            function ($w1, $w2) {
+                return abs($w1 - $w2) > 1e-5 ? 1 : 0;
+            },
+            $oldWeights, $this->weights);
+
+        if (array_sum($diff) == 0) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
