@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Phpml\Classification\Linear;
 
-use Phpml\Helper\Predictable;
-use Phpml\Helper\Trainable;
 use Phpml\Classification\Classifier;
-use Phpml\Classification\Linear\Perceptron;
 
 class Adaline extends Perceptron
 {

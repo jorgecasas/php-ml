@@ -7,6 +7,7 @@ return PhpCsFixer\Config::create()
         'array_syntax' => ['syntax' => 'short'],
         'blank_line_after_opening_tag' => true,
         'single_blank_line_before_namespace' => true,
+        'no_unused_imports' => true
     ])
     ->setFinder(
         PhpCsFixer\Finder::create()

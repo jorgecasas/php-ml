@@ -6,10 +6,8 @@ namespace Phpml\Classification\Ensemble;
 
 use Phpml\Helper\Predictable;
 use Phpml\Helper\Trainable;
-use Phpml\Math\Statistic\Mean;
 use Phpml\Classification\Classifier;
 use Phpml\Classification\DecisionTree;
-use Phpml\Classification\NaiveBayes;
 
 class Bagging implements Classifier
 {

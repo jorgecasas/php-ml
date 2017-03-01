@@ -7,7 +7,6 @@ namespace tests\Classification\Ensemble;
 use Phpml\Classification\Ensemble\Bagging;
 use Phpml\Classification\DecisionTree;
 use Phpml\Classification\NaiveBayes;
-use Phpml\Classification\KNearestNeighbors;
 use Phpml\ModelManager;
 use PHPUnit\Framework\TestCase;
 
