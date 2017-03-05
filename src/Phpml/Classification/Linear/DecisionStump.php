@@ -26,15 +26,6 @@ class DecisionStump extends WeightedClassifier
     protected $binaryLabels;
 
     /**
-     * Sample weights : If used the optimization on the decision value
-     * will take these weights into account. If not given, all samples
-     * will be weighed with the same value of 1
-     *
-     * @var array
-     */
-    protected $weights = null;
-
-    /**
      * Lowest error rate obtained while training/optimizing the model
      *
      * @var float
@@ -96,6 +87,7 @@ class DecisionStump extends WeightedClassifier
     /**
      * @param array $samples
      * @param array $targets
+     * @throws \Exception
      */
     protected function trainBinary(array $samples, array $targets)
     {
@@ -213,12 +205,11 @@ class DecisionStump extends WeightedClassifier
     }
 
     /**
-     *
      * @param int $col
      *
      * @return array
      */
-    protected function getBestNominalSplit(int $col)
+    protected function getBestNominalSplit(int $col) : array
     {
         $values = array_column($this->samples, $col);
         $valueCounts = array_count_values($values);
@@ -235,7 +226,7 @@ class DecisionStump extends WeightedClassifier
                         'prob' => $prob, 'column' => $col,
                         'trainingErrorRate' => $errorRate];
                 }
-            }// for
+            }
         }
 
         return $split;
@@ -275,7 +266,7 @@ class DecisionStump extends WeightedClassifier
      *
      * @return array
      */
-    protected function calculateErrorRate(float $threshold, string $operator, array $values)
+    protected function calculateErrorRate(float $threshold, string $operator, array $values) : array
     {
         $wrong = 0.0;
         $prob = [];
@@ -325,7 +316,7 @@ class DecisionStump extends WeightedClassifier
      *
      * @return float
      */
-    protected function predictProbability(array $sample, $label)
+    protected function predictProbability(array $sample, $label) : float
     {
         $predicted = $this->predictSampleBinary($sample);
         if (strval($predicted) == strval($label)) {
