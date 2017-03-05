@@ -135,7 +135,7 @@ class DecisionStump extends WeightedClassifier
             'prob' => [], 'column' => 0,
             'trainingErrorRate' => 1.0];
         foreach ($columns as $col) {
-            if ($this->columnTypes[$col] == DecisionTree::CONTINUOS) {
+            if ($this->columnTypes[$col] == DecisionTree::CONTINUOUS) {
                 $split = $this->getBestNumericalSplit($col);
             } else {
                 $split = $this->getBestNominalSplit($col);

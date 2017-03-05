@@ -6,7 +6,10 @@ namespace Phpml\Classification;
 
 abstract class WeightedClassifier implements Classifier
 {
-    protected $weights = null;
+    /**
+     * @var array
+     */
+    protected $weights;
 
     /**
      * Sets the array including a weight for each sample
