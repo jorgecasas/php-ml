@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Phpml\Classification\Linear;
 
 use Phpml\Helper\Predictable;
+use Phpml\Helper\OneVsRest;
 use Phpml\Classification\Classifier;
 use Phpml\Preprocessing\Normalizer;
 
 class Perceptron implements Classifier
 {
-    use Predictable;
+    use Predictable, OneVsRest;
 
     /**
      * The function whose result will be used to calculate the network error
@@ -114,7 +115,7 @@ class Perceptron implements Classifier
      * @param array $samples
      * @param array $targets
      */
-    public function train(array $samples, array $targets)
+    public function trainBinary(array $samples, array $targets)
     {
         $this->labels = array_keys(array_count_values($targets));
         if (count($this->labels) > 2) {
@@ -128,7 +129,7 @@ class Perceptron implements Classifier
         // Set all target values to either -1 or 1
         $this->labels = [1 => $this->labels[0], -1 => $this->labels[1]];
         foreach ($targets as $target) {
-            $this->targets[] = $target == $this->labels[1] ? 1 : -1;
+            $this->targets[] = strval($target) == strval($this->labels[1]) ? 1 : -1;
         }
 
         // Set samples and feature count vars
@@ -214,6 +215,25 @@ class Perceptron implements Classifier
     }
 
     /**
+     * Checks if the sample should be normalized and if so, returns the
+     * normalized sample
+     *
+     * @param array $sample
+     *
+     * @return array
+     */
+    protected function checkNormalizedSample(array $sample)
+    {
+        if ($this->normalizer) {
+            $samples = [$sample];
+            $this->normalizer->transform($samples);
+            $sample = $samples[0];
+        }
+
+        return $sample;
+    }
+
+    /**
      * Calculates net output of the network as a float value for the given input
      *
      * @param array $sample
@@ -245,16 +265,33 @@ class Perceptron implements Classifier
     }
 
     /**
+     * Returns the probability of the sample of belonging to the given label.
+     *
+     * The probability is simply taken as the distance of the sample
+     * to the decision plane.
+     *
+     * @param array $sample
+     * @param mixed $label
+     */
+    protected function predictProbability(array $sample, $label)
+    {
+        $predicted = $this->predictSampleBinary($sample);
+
+        if (strval($predicted) == strval($label)) {
+            $sample = $this->checkNormalizedSample($sample);
+            return abs($this->output($sample));
+        }
+
+        return 0.0;
+    }
+
+    /**
      * @param array $sample
      * @return mixed
      */
-    protected function predictSample(array $sample)
+    protected function predictSampleBinary(array $sample)
     {
-        if ($this->normalizer) {
-            $samples = [$sample];
-            $this->normalizer->transform($samples);
-            $sample = $samples[0];
-        }
+        $sample = $this->checkNormalizedSample($sample);
 
         $predictedClass = $this->outputClass($sample);
 

@@ -19,11 +19,6 @@ class DecisionTree implements Classifier
     /**
      * @var array
      */
-    private $samples = [];
-
-    /**
-     * @var array
-     */
     protected $columnTypes;
 
     /**
