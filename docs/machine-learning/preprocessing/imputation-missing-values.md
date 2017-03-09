@@ -34,7 +34,7 @@ $data = [
 ];
 
 $imputer = new Imputer(null, new MeanStrategy(), Imputer::AXIS_COLUMN);
-$imputer->preprocess($data);
+$imputer->transform($data);
 
 /*
 $data = [
