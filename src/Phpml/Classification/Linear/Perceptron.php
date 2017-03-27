@@ -6,20 +6,14 @@ namespace Phpml\Classification\Linear;
 
 use Phpml\Helper\Predictable;
 use Phpml\Helper\OneVsRest;
+use Phpml\Helper\Optimizer\StochasticGD;
+use Phpml\Helper\Optimizer\GD;
 use Phpml\Classification\Classifier;
 use Phpml\Preprocessing\Normalizer;
 
 class Perceptron implements Classifier
 {
     use Predictable, OneVsRest;
-
-    /**
-     * The function whose result will be used to calculate the network error
-     * for each instance
-     *
-     * @var string
-     */
-    protected static $errorFunction = 'outputClass';
 
    /**
      * @var array
@@ -62,12 +56,14 @@ class Perceptron implements Classifier
     protected $normalizer;
 
     /**
-     * Minimum amount of change in the weights between iterations
-     * that needs to be obtained to continue the training
-     *
-     * @var float
+     * @var bool
      */
-    protected $threshold = 1e-5;
+    protected $enableEarlyStop = true;
+
+    /**
+     * @var array
+     */
+    protected $costValues = [];
 
     /**
      * Initalize a perceptron classifier with given learning rate and maximum
@@ -97,20 +93,6 @@ class Perceptron implements Classifier
         $this->maxIterations = $maxIterations;
     }
 
-    /**
-     * Sets minimum value for the change in the weights
-     * between iterations to continue the iterations.<br>
-     *
-     * If the weight change is less than given value then the
-     * algorithm will stop training
-     *
-     * @param float $threshold
-     */
-    public function setChangeThreshold(float $threshold = 1e-5)
-    {
-        $this->threshold = $threshold;
-    }
-
    /**
      * @param array $samples
      * @param array $targets
@@ -136,82 +118,72 @@ class Perceptron implements Classifier
         $this->samples = array_merge($this->samples, $samples);
         $this->featureCount = count($this->samples[0]);
 
-        // Init weights with random values
-        $this->weights = array_fill(0, $this->featureCount + 1, 0);
-        foreach ($this->weights as &$weight) {
-            $weight = rand() / (float) getrandmax();
-        }
-        // Do training
         $this->runTraining();
     }
 
     /**
-     * Adapts the weights with respect to given samples and targets
-     * by use of perceptron learning rule
+     * Normally enabling early stopping for the optimization procedure may
+     * help saving processing time while in some cases it may result in
+     * premature convergence.<br>
+     *
+     * If "false" is given, the optimization procedure will always be executed
+     * for $maxIterations times
+     *
+     * @param bool $enable
      */
-    protected function runTraining()
+    public function setEarlyStop(bool $enable = true)
     {
-        $currIter = 0;
-        $bestWeights = null;
-        $bestScore = count($this->samples);
-        $bestWeightIter = 0;
+        $this->enableEarlyStop = $enable;
 
-        while ($this->maxIterations > $currIter++) {
-            $weights = $this->weights;
-            $misClassified = 0;
-            foreach ($this->samples as $index => $sample) {
-                $target = $this->targets[$index];
-                $prediction = $this->{static::$errorFunction}($sample);
-                $update = $target - $prediction;
-                if ($target != $prediction) {
-                    $misClassified++;
-                }
-                // Update bias
-                $this->weights[0] += $update * $this->learningRate; // Bias
-                // Update other weights
-                for ($i=1; $i <= $this->featureCount; $i++) {
-                    $this->weights[$i] += $update * $sample[$i - 1] * $this->learningRate;
-                }
-            }
-
-            // Save the best weights in the "pocket" so that
-            // any future weights worse than this will be disregarded
-            if ($bestWeights == null || $misClassified <= $bestScore) {
-                $bestWeights = $weights;
-                $bestScore = $misClassified;
-                $bestWeightIter = $currIter;
-            }
-
-            // Check for early stop
-            if ($this->earlyStop($weights)) {
-                break;
-            }
-        }
-
-        // The weights in the pocket are better than or equal to the last state
-        // so, we use these weights
-        $this->weights = $bestWeights;
+        return $this;
     }
 
     /**
-     * @param array $oldWeights
+     * Returns the cost values obtained during the training.
      *
-     * @return boolean
+     * @return array
      */
-    protected function earlyStop($oldWeights)
+    public function getCostValues()
     {
-        // Check for early stop: No change larger than 1e-5
-        $diff = array_map(
-            function ($w1, $w2) {
-                return abs($w1 - $w2) > 1e-5 ? 1 : 0;
-            },
-            $oldWeights, $this->weights);
+        return $this->costValues;
+    }
 
-        if (array_sum($diff) == 0) {
-            return true;
-        }
+    /**
+     * Trains the perceptron model with Stochastic Gradient Descent optimization
+     * to get the correct set of weights
+     */
+    protected function runTraining()
+    {
+        // The cost function is the sum of squares
+        $callback = function ($weights, $sample, $target) {
+            $this->weights = $weights;
 
-        return false;
+            $prediction = $this->outputClass($sample);
+            $gradient = $prediction - $target;
+            $error = $gradient**2;
+
+            return [$error, $gradient];
+        };
+
+        $this->runGradientDescent($callback);
+    }
+
+    /**
+     * Executes Stochastic Gradient Descent algorithm for
+     * the given cost function
+     */
+    protected function runGradientDescent(\Closure $gradientFunc, bool $isBatch = false)
+    {
+        $class = $isBatch ? GD::class :  StochasticGD::class;
+
+        $optimizer = (new $class($this->featureCount))
+            ->setLearningRate($this->learningRate)
+            ->setMaxIterations($this->maxIterations)
+            ->setChangeThreshold(1e-6)
+            ->setEarlyStop($this->enableEarlyStop);
+
+        $this->weights = $optimizer->runOptimization($this->samples, $this->targets, $gradientFunc);
+        $this->costValues = $optimizer->getCostValues();
     }
 
     /**

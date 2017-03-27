@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Classification\Linear;
+namespace tests\Classification\Ensemble;
 
 use Phpml\Classification\Ensemble\AdaBoost;
 use Phpml\ModelManager;

@@ -15,7 +15,7 @@ trait OneVsRest
      * @var array
      */
     protected $targets = [];
-    
+
     /**
      * @var array
      */
@@ -25,6 +25,11 @@ trait OneVsRest
      * @var array
      */
     protected $labels;
+
+    /**
+     * @var array
+     */
+    protected $costValues;
 
     /**
      * Train a binary classifier in the OvR style
@@ -55,6 +60,12 @@ trait OneVsRest
                 $predictor->trainBinary($samples, $targets);
                 $this->classifiers[$label] = $predictor;
             }
+        }
+        
+        // If the underlying classifier is capable of giving the cost values
+        // during the training, then assign it to the relevant variable
+        if (method_exists($this->classifiers[0], 'getCostValues')) {
+            $this->costValues = $this->classifiers[0]->getCostValues();
         }
     }
 

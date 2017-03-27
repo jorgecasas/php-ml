@@ -16,6 +16,7 @@ class PerceptronTest extends TestCase
         $samples = [[0, 0], [1, 0], [0, 1], [1, 1], [0.6, 0.6]];
         $targets = [0, 0, 0, 1, 1];
         $classifier = new Perceptron(0.001, 5000);
+        $classifier->setEarlyStop(false);
         $classifier->train($samples, $targets);
         $this->assertEquals(0, $classifier->predict([0.1, 0.2]));
         $this->assertEquals(0, $classifier->predict([0, 1]));
@@ -25,6 +26,7 @@ class PerceptronTest extends TestCase
         $samples = [[0.1, 0.1], [0.4, 0.], [0., 0.3], [1, 0], [0, 1], [1, 1]];
         $targets = [0, 0, 0, 1, 1, 1];
         $classifier = new Perceptron(0.001, 5000, false);
+        $classifier->setEarlyStop(false);
         $classifier->train($samples, $targets);
         $this->assertEquals(0, $classifier->predict([0., 0.]));
         $this->assertEquals(1, $classifier->predict([0.1, 0.99]));
@@ -40,11 +42,12 @@ class PerceptronTest extends TestCase
         $targets = [0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2];
 
         $classifier = new Perceptron();
+        $classifier->setEarlyStop(false);
         $classifier->train($samples, $targets);
         $this->assertEquals(0, $classifier->predict([0.5, 0.5]));
         $this->assertEquals(1, $classifier->predict([6.0, 5.0]));
         $this->assertEquals(2, $classifier->predict([3.0, 9.5]));
-        
+
         return $classifier;
     }
 
