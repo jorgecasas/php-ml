@@ -14,9 +14,9 @@ These data are the results of a chemical analysis of wines grown in the same reg
 To load Wine dataset simple use:
 
 ```
-use Phpml\Dataset\Demo\Wine;
+use Phpml\Dataset\Demo\WineDataset;
 
-$dataset = new Wine();
+$dataset = new WineDataset();
 ```
 
 ### Several samples example

@@ -21,9 +21,9 @@ Samples per class:
 To load Glass dataset simple use:
 
 ```
-use Phpml\Dataset\Demo\Glass;
+use Phpml\Dataset\Demo\GlassDataset;
 
-$dataset = new Glass();
+$dataset = new GlassDataset();
 ```
 
 ### Several samples example
