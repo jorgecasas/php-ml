@@ -10,20 +10,17 @@ use Phpml\Helper\Optimizer\StochasticGD;
 use Phpml\Helper\Optimizer\GD;
 use Phpml\Classification\Classifier;
 use Phpml\Preprocessing\Normalizer;
+use Phpml\IncrementalEstimator;
+use Phpml\Helper\PartiallyTrainable;
 
-class Perceptron implements Classifier
+class Perceptron implements Classifier, IncrementalEstimator
 {
     use Predictable, OneVsRest;
 
-   /**
-     * @var array
-     */
-    protected $samples = [];
-
     /**
-     * @var array
+     * @var \Phpml\Helper\Optimizer\Optimizer
      */
-    protected $targets = [];
+    protected $optimizer;
 
     /**
      * @var array
@@ -93,32 +90,47 @@ class Perceptron implements Classifier
         $this->maxIterations = $maxIterations;
     }
 
+    /**
+     * @param array $samples
+     * @param array $targets
+     * @param array $labels
+     */
+    public function partialTrain(array $samples, array $targets, array $labels = array())
+    {
+        return $this->trainByLabel($samples, $targets, $labels);
+    }
+
    /**
      * @param array $samples
      * @param array $targets
+     * @param array $labels
      */
-    public function trainBinary(array $samples, array $targets)
+    public function trainBinary(array $samples, array $targets, array $labels)
     {
-        $this->labels = array_keys(array_count_values($targets));
-        if (count($this->labels) > 2) {
-            throw new \Exception("Perceptron is for binary (two-class) classification only");
-        }
 
         if ($this->normalizer) {
             $this->normalizer->transform($samples);
         }
 
         // Set all target values to either -1 or 1
-        $this->labels = [1 => $this->labels[0], -1 => $this->labels[1]];
-        foreach ($targets as $target) {
-            $this->targets[] = strval($target) == strval($this->labels[1]) ? 1 : -1;
+        $this->labels = [1 => $labels[0], -1 => $labels[1]];
+        foreach ($targets as $key => $target) {
+            $targets[$key] = strval($target) == strval($this->labels[1]) ? 1 : -1;
         }
 
         // Set samples and feature count vars
-        $this->samples = array_merge($this->samples, $samples);
-        $this->featureCount = count($this->samples[0]);
+        $this->featureCount = count($samples[0]);
 
-        $this->runTraining();
+        $this->runTraining($samples, $targets);
+    }
+
+    protected function resetBinary()
+    {
+        $this->labels = [];
+        $this->optimizer = null;
+        $this->featureCount = 0;
+        $this->weights = null;
+        $this->costValues = [];
     }
 
     /**
@@ -151,8 +163,11 @@ class Perceptron implements Classifier
     /**
      * Trains the perceptron model with Stochastic Gradient Descent optimization
      * to get the correct set of weights
+     *
+     * @param array $samples
+     * @param array $targets
      */
-    protected function runTraining()
+    protected function runTraining(array $samples, array $targets)
     {
         // The cost function is the sum of squares
         $callback = function ($weights, $sample, $target) {
@@ -165,25 +180,30 @@ class Perceptron implements Classifier
             return [$error, $gradient];
         };
 
-        $this->runGradientDescent($callback);
+        $this->runGradientDescent($samples, $targets, $callback);
     }
 
     /**
-     * Executes Stochastic Gradient Descent algorithm for
+     * Executes a Gradient Descent algorithm for
      * the given cost function
+     *
+     * @param array $samples
+     * @param array $targets
      */
-    protected function runGradientDescent(\Closure $gradientFunc, bool $isBatch = false)
+    protected function runGradientDescent(array $samples, array $targets, \Closure $gradientFunc, bool $isBatch = false)
     {
         $class = $isBatch ? GD::class :  StochasticGD::class;
 
-        $optimizer = (new $class($this->featureCount))
-            ->setLearningRate($this->learningRate)
-            ->setMaxIterations($this->maxIterations)
-            ->setChangeThreshold(1e-6)
-            ->setEarlyStop($this->enableEarlyStop);
+        if (empty($this->optimizer)) {
+            $this->optimizer = (new $class($this->featureCount))
+                ->setLearningRate($this->learningRate)
+                ->setMaxIterations($this->maxIterations)
+                ->setChangeThreshold(1e-6)
+                ->setEarlyStop($this->enableEarlyStop);
+        }
 
-        $this->weights = $optimizer->runOptimization($this->samples, $this->targets, $gradientFunc);
-        $this->costValues = $optimizer->getCostValues();
+        $this->weights = $this->optimizer->runOptimization($samples, $targets, $gradientFunc);
+        $this->costValues = $this->optimizer->getCostValues();
     }
 
     /**

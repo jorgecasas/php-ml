@@ -16,14 +16,14 @@ class StochasticGD extends Optimizer
      *
      * @var array
      */
-    protected $samples;
+    protected $samples = [];
 
     /**
      * y (targets)
      *
      * @var array
      */
-    protected $targets;
+    protected $targets = [];
 
     /**
      * Callback function to get the gradient and cost value
@@ -31,7 +31,7 @@ class StochasticGD extends Optimizer
      *
      * @var \Closure
      */
-    protected $gradientCb;
+    protected $gradientCb = null;
 
     /**
      * Maximum number of iterations used to train the model
@@ -192,6 +192,8 @@ class StochasticGD extends Optimizer
             }
         }
 
+        $this->clear();
+
         // Solution in the pocket is better than or equal to the last state
         // so, we use this solution
         return $this->theta = $bestTheta;
@@ -267,5 +269,17 @@ class StochasticGD extends Optimizer
     public function getCostValues()
     {
         return $this->costValues;
+    }
+
+    /**
+     * Clears the optimizer internal vars after the optimization process.
+     *
+     * @return void
+     */
+    protected function clear()
+    {
+        $this->samples = [];
+        $this->targets = [];
+        $this->gradientCb = null;
     }
 }

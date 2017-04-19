@@ -48,7 +48,23 @@ class PerceptronTest extends TestCase
         $this->assertEquals(1, $classifier->predict([6.0, 5.0]));
         $this->assertEquals(2, $classifier->predict([3.0, 9.5]));
 
-        return $classifier;
+        // Extra partial training should lead to the same results.
+        $classifier->partialTrain([[0, 1], [1, 0]], [0, 0], [0, 1, 2]);
+        $this->assertEquals(0, $classifier->predict([0.5, 0.5]));
+        $this->assertEquals(1, $classifier->predict([6.0, 5.0]));
+        $this->assertEquals(2, $classifier->predict([3.0, 9.5]));
+
+        // Train should clear previous data.
+        $samples = [
+            [0, 0], [0, 1], [1, 0], [1, 1], // First group : a cluster at bottom-left corner in 2D
+            [5, 5], [6, 5], [5, 6], [7, 5], // Second group: another cluster at the middle-right
+            [3, 10],[3, 10],[3, 8], [3, 9]  // Third group : cluster at the top-middle
+        ];
+        $targets = [2, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1];
+        $classifier->train($samples, $targets);
+        $this->assertEquals(2, $classifier->predict([0.5, 0.5]));
+        $this->assertEquals(0, $classifier->predict([6.0, 5.0]));
+        $this->assertEquals(1, $classifier->predict([3.0, 9.5]));
     }
 
     public function testSaveAndRestore()

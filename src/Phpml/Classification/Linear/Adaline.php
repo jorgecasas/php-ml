@@ -53,8 +53,11 @@ class Adaline extends Perceptron
     /**
      * Adapts the weights with respect to given samples and targets
      * by use of gradient descent learning rule
+     *
+     * @param array $samples
+     * @param array $targets
      */
-    protected function runTraining()
+    protected function runTraining(array $samples, array $targets)
     {
         // The cost function is the sum of squares
         $callback = function ($weights, $sample, $target) {
@@ -69,6 +72,6 @@ class Adaline extends Perceptron
 
         $isBatch = $this->trainingType == self::BATCH_TRAINING;
 
-        return parent::runGradientDescent($callback, $isBatch);
+        return parent::runGradientDescent($samples, $targets, $callback, $isBatch);
     }
 }

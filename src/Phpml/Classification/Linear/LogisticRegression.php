@@ -123,20 +123,23 @@ class LogisticRegression extends Adaline
     /**
      * Adapts the weights with respect to given samples and targets
      * by use of selected solver
+     *
+     * @param array $samples
+     * @param array $targets
      */
-    protected function runTraining()
+    protected function runTraining(array $samples, array $targets)
     {
         $callback = $this->getCostFunction();
 
         switch ($this->trainingType) {
             case self::BATCH_TRAINING:
-                return $this->runGradientDescent($callback, true);
+                return $this->runGradientDescent($samples, $targets, $callback, true);
 
             case self::ONLINE_TRAINING:
-                return $this->runGradientDescent($callback, false);
+                return $this->runGradientDescent($samples, $targets, $callback, false);
 
             case self::CONJUGATE_GRAD_TRAINING:
-                return $this->runConjugateGradient($callback);
+                return $this->runConjugateGradient($samples, $targets, $callback);
         }
     }
 
@@ -144,13 +147,15 @@ class LogisticRegression extends Adaline
      * Executes Conjugate Gradient method to optimize the
      * weights of the LogReg model
      */
-    protected function runConjugateGradient(\Closure $gradientFunc)
+    protected function runConjugateGradient(array $samples, array $targets, \Closure $gradientFunc)
     {
-        $optimizer = (new ConjugateGradient($this->featureCount))
-            ->setMaxIterations($this->maxIterations);
+        if (empty($this->optimizer)) {
+            $this->optimizer = (new ConjugateGradient($this->featureCount))
+                ->setMaxIterations($this->maxIterations);
+        }
 
-        $this->weights = $optimizer->runOptimization($this->samples, $this->targets, $gradientFunc);
-        $this->costValues = $optimizer->getCostValues();
+        $this->weights = $this->optimizer->runOptimization($samples, $targets, $gradientFunc);
+        $this->costValues = $this->optimizer->getCostValues();
     }
 
     /**

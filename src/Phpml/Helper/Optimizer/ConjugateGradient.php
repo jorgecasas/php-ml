@@ -57,6 +57,8 @@ class ConjugateGradient extends GD
             }
         }
 
+        $this->clear();
+
         return $this->theta;
     }
 

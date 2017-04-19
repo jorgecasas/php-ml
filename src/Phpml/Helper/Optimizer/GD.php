@@ -15,7 +15,7 @@ class GD extends StochasticGD
      *
      * @var int
      */
-    protected $sampleCount;
+    protected $sampleCount = null;
 
     /**
      * @param array $samples
@@ -48,6 +48,8 @@ class GD extends StochasticGD
                 break;
             }
         }
+
+        $this->clear();
 
         return $this->theta;
     }
@@ -104,5 +106,16 @@ class GD extends StochasticGD
                     ($error + $penalty * $this->theta[$i]);
             }
         }
+    }
+
+    /**
+     * Clears the optimizer internal vars after the optimization process.
+     *
+     * @return void
+     */
+    protected function clear()
+    {
+        $this->sampleCount = null;
+        parent::clear();
     }
 }

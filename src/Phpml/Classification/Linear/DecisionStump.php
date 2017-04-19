@@ -89,15 +89,13 @@ class DecisionStump extends WeightedClassifier
      * @param array $targets
      * @throws \Exception
      */
-    protected function trainBinary(array $samples, array $targets)
+    protected function trainBinary(array $samples, array $targets, array $labels)
     {
-        $this->samples = array_merge($this->samples, $samples);
-        $this->targets = array_merge($this->targets, $targets);
-        $this->binaryLabels = array_keys(array_count_values($this->targets));
-        $this->featureCount = count($this->samples[0]);
+        $this->binaryLabels = $labels;
+        $this->featureCount = count($samples[0]);
 
         // If a column index is given, it should be among the existing columns
-        if ($this->givenColumnIndex > count($this->samples[0]) - 1) {
+        if ($this->givenColumnIndex > count($samples[0]) - 1) {
             $this->givenColumnIndex = self::AUTO_SELECT;
         }
 
@@ -105,19 +103,19 @@ class DecisionStump extends WeightedClassifier
         // If none given, then assign 1 as a weight to each sample
         if ($this->weights) {
             $numWeights = count($this->weights);
-            if ($numWeights != count($this->samples)) {
+            if ($numWeights != count($samples)) {
                 throw new \Exception("Number of sample weights does not match with number of samples");
             }
         } else {
-            $this->weights = array_fill(0, count($this->samples), 1);
+            $this->weights = array_fill(0, count($samples), 1);
         }
 
         // Determine type of each column as either "continuous" or "nominal"
-        $this->columnTypes = DecisionTree::getColumnTypes($this->samples);
+        $this->columnTypes = DecisionTree::getColumnTypes($samples);
 
         // Try to find the best split in the columns of the dataset
         // by calculating error rate for each split point in each column
-        $columns = range(0, count($this->samples[0]) - 1);
+        $columns = range(0, count($samples[0]) - 1);
         if ($this->givenColumnIndex != self::AUTO_SELECT) {
             $columns = [$this->givenColumnIndex];
         }
@@ -128,9 +126,9 @@ class DecisionStump extends WeightedClassifier
             'trainingErrorRate' => 1.0];
         foreach ($columns as $col) {
             if ($this->columnTypes[$col] == DecisionTree::CONTINUOUS) {
-                $split = $this->getBestNumericalSplit($col);
+                $split = $this->getBestNumericalSplit($samples, $targets, $col);
             } else {
-                $split = $this->getBestNominalSplit($col);
+                $split = $this->getBestNominalSplit($samples, $targets, $col);
             }
 
             if ($split['trainingErrorRate'] < $bestSplit['trainingErrorRate']) {
@@ -161,13 +159,15 @@ class DecisionStump extends WeightedClassifier
     /**
      * Determines best split point for the given column
      *
+     * @param array $samples
+     * @param array $targets
      * @param int $col
      *
      * @return array
      */
-    protected function getBestNumericalSplit(int $col)
+    protected function getBestNumericalSplit(array $samples, array $targets, int $col)
     {
-        $values = array_column($this->samples, $col);
+        $values = array_column($samples, $col);
         // Trying all possible points may be accomplished in two general ways:
         // 1- Try all values in the $samples array ($values)
         // 2- Artificially split the range of values into several parts and try them
@@ -182,7 +182,7 @@ class DecisionStump extends WeightedClassifier
             // Before trying all possible split points, let's first try
             // the average value for the cut point
             $threshold = array_sum($values) / (float) count($values);
-            list($errorRate, $prob) = $this->calculateErrorRate($threshold, $operator, $values);
+            list($errorRate, $prob) = $this->calculateErrorRate($targets, $threshold, $operator, $values);
             if ($split == null || $errorRate < $split['trainingErrorRate']) {
                 $split = ['value' => $threshold, 'operator' => $operator,
                         'prob' => $prob, 'column' => $col,
@@ -192,7 +192,7 @@ class DecisionStump extends WeightedClassifier
             // Try other possible points one by one
             for ($step = $minValue; $step <= $maxValue; $step+= $stepSize) {
                 $threshold = (float)$step;
-                list($errorRate, $prob) = $this->calculateErrorRate($threshold, $operator, $values);
+                list($errorRate, $prob) = $this->calculateErrorRate($targets, $threshold, $operator, $values);
                 if ($errorRate < $split['trainingErrorRate']) {
                     $split = ['value' => $threshold, 'operator' => $operator,
                         'prob' => $prob, 'column' => $col,
@@ -205,13 +205,15 @@ class DecisionStump extends WeightedClassifier
     }
 
     /**
+     * @param array $samples
+     * @param array $targets
      * @param int $col
      *
      * @return array
      */
-    protected function getBestNominalSplit(int $col) : array
+    protected function getBestNominalSplit(array $samples, array $targets, int $col) : array
     {
-        $values = array_column($this->samples, $col);
+        $values = array_column($samples, $col);
         $valueCounts = array_count_values($values);
         $distinctVals= array_keys($valueCounts);
 
@@ -219,7 +221,7 @@ class DecisionStump extends WeightedClassifier
 
         foreach (['=', '!='] as $operator) {
             foreach ($distinctVals as $val) {
-                list($errorRate, $prob) = $this->calculateErrorRate($val, $operator, $values);
+                list($errorRate, $prob) = $this->calculateErrorRate($targets, $val, $operator, $values);
 
                 if ($split == null || $split['trainingErrorRate'] < $errorRate) {
                     $split = ['value' => $val, 'operator' => $operator,
@@ -260,13 +262,14 @@ class DecisionStump extends WeightedClassifier
      * Calculates the ratio of wrong predictions based on the new threshold
      * value given as the parameter
      *
+     * @param array $targets
      * @param float $threshold
      * @param string $operator
      * @param array $values
      *
      * @return array
      */
-    protected function calculateErrorRate(float $threshold, string $operator, array $values) : array
+    protected function calculateErrorRate(array $targets, float $threshold, string $operator, array $values) : array
     {
         $wrong = 0.0;
         $prob = [];
@@ -280,8 +283,8 @@ class DecisionStump extends WeightedClassifier
                 $predicted = $rightLabel;
             }
 
-            $target = $this->targets[$index];
-            if (strval($predicted) != strval($this->targets[$index])) {
+            $target = $targets[$index];
+            if (strval($predicted) != strval($targets[$index])) {
                 $wrong += $this->weights[$index];
             }
 
@@ -338,6 +341,13 @@ class DecisionStump extends WeightedClassifier
         }
 
         return $this->binaryLabels[1];
+    }
+
+    /**
+     * @return void
+     */
+    protected function resetBinary()
+    {
     }
 
     /**
