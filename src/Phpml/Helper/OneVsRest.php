@@ -44,7 +44,7 @@ trait OneVsRest
      * @param array $allLabels All training set labels
      * @return void
      */
-    protected function trainByLabel(array $samples, array $targets, array $allLabels = array())
+    protected function trainByLabel(array $samples, array $targets, array $allLabels = [])
     {
 
         // Overwrites the current value if it exist. $allLabels must be provided for each partialTrain run.
@@ -129,14 +129,13 @@ trait OneVsRest
      */
     private function binarizeTargets($targets, $label)
     {
-
         $notLabel = "not_$label";
         foreach ($targets as $key => $target) {
             $targets[$key] = $target == $label ? $label : $notLabel;
         }
 
-        $labels = array($label, $notLabel);
-        return array($targets, $labels);
+        $labels = [$label, $notLabel];
+        return [$targets, $labels];
     }
 
 

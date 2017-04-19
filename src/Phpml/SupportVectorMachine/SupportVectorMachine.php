@@ -6,12 +6,11 @@ namespace Phpml\SupportVectorMachine;
 
 use Phpml\Helper\Trainable;
 
-
 class SupportVectorMachine
 {
-	 use Trainable;
-	 
-	 /**
+    use Trainable;
+     
+     /**
      * @var int
      */
     private $type;

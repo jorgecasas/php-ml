@@ -12,5 +12,5 @@ interface IncrementalEstimator
      * @param array $targets
      * @param array $labels
      */
-    public function partialTrain(array $samples, array $targets, array $labels = array());
+    public function partialTrain(array $samples, array $targets, array $labels = []);
 }

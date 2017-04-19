@@ -11,7 +11,6 @@ use Phpml\Helper\Optimizer\GD;
 use Phpml\Classification\Classifier;
 use Phpml\Preprocessing\Normalizer;
 use Phpml\IncrementalEstimator;
-use Phpml\Helper\PartiallyTrainable;
 
 class Perceptron implements Classifier, IncrementalEstimator
 {
@@ -95,7 +94,7 @@ class Perceptron implements Classifier, IncrementalEstimator
      * @param array $targets
      * @param array $labels
      */
-    public function partialTrain(array $samples, array $targets, array $labels = array())
+    public function partialTrain(array $samples, array $targets, array $labels = [])
     {
         return $this->trainByLabel($samples, $targets, $labels);
     }
@@ -107,7 +106,6 @@ class Perceptron implements Classifier, IncrementalEstimator
      */
     public function trainBinary(array $samples, array $targets, array $labels)
     {
-
         if ($this->normalizer) {
             $this->normalizer->transform($samples);
         }
