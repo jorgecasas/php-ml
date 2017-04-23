@@ -24,7 +24,7 @@ $labels = ['a', 'a', 'a', 'b', 'b', 'b'];
 $classifier = new KNearestNeighbors();
 $classifier->train($samples, $labels);
 
-$classifier->predict([3, 2]); 
+$classifier->predict([3, 2]);
 // return 'b'
 ```
 
@@ -61,12 +61,14 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
         * Adaline
         * Decision Stump
         * Perceptron
+        * LogisticRegression
 * Regression
     * [Least Squares](http://php-ml.readthedocs.io/en/latest/machine-learning/regression/least-squares/)
     * [SVR](http://php-ml.readthedocs.io/en/latest/machine-learning/regression/svr/)
 * Clustering
     * [k-Means](http://php-ml.readthedocs.io/en/latest/machine-learning/clustering/k-means/)
     * [DBSCAN](http://php-ml.readthedocs.io/en/latest/machine-learning/clustering/dbscan/)
+    * Fuzzy C-Means
 * Metric
     * [Accuracy](http://php-ml.readthedocs.io/en/latest/machine-learning/metric/accuracy/)
     * [Confusion Matrix](http://php-ml.readthedocs.io/en/latest/machine-learning/metric/confusion-matrix/)
@@ -85,6 +87,9 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
 * Feature Extraction
     * [Token Count Vectorizer](http://php-ml.readthedocs.io/en/latest/machine-learning/feature-extraction/token-count-vectorizer/)
     * [Tf-idf Transformer](http://php-ml.readthedocs.io/en/latest/machine-learning/feature-extraction/tf-idf-transformer/)
+* Dimensionality Reduction
+    * PCA
+    * Kernel PCA
 * Datasets
     * [Array](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/array-dataset/)
     * [CSV](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/csv-dataset/)
@@ -100,7 +105,8 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
     * [Matrix](http://php-ml.readthedocs.io/en/latest/math/matrix/)
     * [Set](http://php-ml.readthedocs.io/en/latest/math/set/)
     * [Statistic](http://php-ml.readthedocs.io/en/latest/math/statistic/)
-    
+	* Linear Algebra
+
 ## Contribute
 
 - [Issue Tracker: github.com/php-ai/php-ml](https://github.com/php-ai/php-ml/issues)

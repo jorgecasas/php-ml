@@ -55,7 +55,7 @@ class InvalidArgumentException extends \Exception
      */
     public static function inconsistentMatrixSupplied()
     {
-        return new self('Inconsistent matrix aupplied');
+        return new self('Inconsistent matrix applied');
     }
 
     /**

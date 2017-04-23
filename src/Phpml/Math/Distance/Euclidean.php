@@ -31,4 +31,17 @@ class Euclidean implements Distance
 
         return sqrt((float) $distance);
     }
+
+    /**
+     * Square of Euclidean distance
+     *
+     * @param array $a
+     * @param array $b
+     *
+     * @return float
+     */
+    public function sqDistance(array $a, array $b): float
+    {
+        return $this->distance($a, $b) ** 2;
+    }
 }

@@ -37,8 +37,15 @@ class Matrix
      */
     public function __construct(array $matrix, bool $validate = true)
     {
-        $this->rows = count($matrix);
-        $this->columns = count($matrix[0]);
+        // When a row vector is given
+        if (!is_array($matrix[0])) {
+            $this->rows = 1;
+            $this->columns = count($matrix);
+            $matrix = [$matrix];
+        } else {
+            $this->rows = count($matrix);
+            $this->columns = count($matrix[0]);
+        }
 
         if ($validate) {
             for ($i = 0; $i < $this->rows; ++$i) {
@@ -75,6 +82,14 @@ class Matrix
     }
 
     /**
+     * @return float
+     */
+    public function toScalar()
+    {
+        return $this->matrix[0][0];
+    }
+
+    /**
      * @return int
      */
     public function getRows()
@@ -103,13 +118,9 @@ class Matrix
             throw MatrixException::columnOutOfRange();
         }
 
-        $values = [];
-        for ($i = 0; $i < $this->rows; ++$i) {
-            $values[] = $this->matrix[$i][$column];
-        }
-
-        return $values;
+        return array_column($this->matrix, $column);
     }
+
 
     /**
      * @return float|int
@@ -167,14 +178,15 @@ class Matrix
      */
     public function transpose()
     {
-        $newMatrix = [];
-        for ($i = 0; $i < $this->rows; ++$i) {
-            for ($j = 0; $j < $this->columns; ++$j) {
-                $newMatrix[$j][$i] = $this->matrix[$i][$j];
-            }
+        if ($this->rows == 1) {
+            $matrix = array_map(function ($el) {
+                return [$el];
+            }, $this->matrix[0]);
+        } else {
+            $matrix = array_map(null, ...$this->matrix);
         }
 
-        return new self($newMatrix, false);
+        return new self($matrix, false);
     }
 
     /**
@@ -220,6 +232,64 @@ class Matrix
         }
 
         return new self($newMatrix, false);
+    }
+
+    /**
+     * @param $value
+     *
+     * @return Matrix
+     */
+    public function multiplyByScalar($value)
+    {
+        $newMatrix = [];
+        for ($i = 0; $i < $this->rows; ++$i) {
+            for ($j = 0; $j < $this->columns; ++$j) {
+                $newMatrix[$i][$j] = $this->matrix[$i][$j] * $value;
+            }
+        }
+
+        return new self($newMatrix, false);
+    }
+
+    /**
+     * Element-wise addition of the matrix with another one
+     *
+     * @param Matrix $other
+     */
+    public function add(Matrix $other)
+    {
+        return $this->_add($other);
+    }
+
+    /**
+     * Element-wise subtracting of another matrix from this one
+     *
+     * @param Matrix $other
+     */
+    public function subtract(Matrix $other)
+    {
+        return $this->_add($other, -1);
+    }
+
+    /**
+     * Element-wise addition or substraction depending on the given sign parameter
+     *
+     * @param Matrix $other
+     * @param type $sign
+     */
+    protected function _add(Matrix $other, $sign = 1)
+    {
+        $a1 = $this->toArray();
+        $a2 = $other->toArray();
+
+        $newMatrix = [];
+        for ($i=0; $i < $this->rows; $i++) {
+            for ($k=0; $k < $this->columns; $k++) {
+                $newMatrix[$i][$k] = $a1[$i][$k] + $sign * $a2[$i][$k];
+            }
+        }
+
+        return new Matrix($newMatrix, false);
     }
 
     /**
@@ -282,5 +352,34 @@ class Matrix
     public function isSingular() : bool
     {
         return 0 == $this->getDeterminant();
+    }
+
+    /**
+     * Returns the transpose of given array
+     *
+     * @param array $array
+     *
+     * @return array
+     */
+    public static function transposeArray(array $array)
+    {
+        return (new Matrix($array, false))->transpose()->toArray();
+    }
+
+    /**
+     * Returns the dot product of two arrays<br>
+     * Matrix::dot(x, y) ==> x.y'
+     *
+     * @param array $array1
+     * @param array $array2
+     *
+     * @return array
+     */
+    public static function dot(array $array1, array $array2)
+    {
+        $m1 = new Matrix($array1, false);
+        $m2 = new Matrix($array2, false);
+
+        return $m1->multiply($m2->transpose())->toArray()[0];
     }
 }

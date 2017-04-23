@@ -188,4 +188,80 @@ class MatrixTest extends TestCase
 
         $this->assertEquals($crossOuted, $matrix->crossOut(1, 1)->toArray());
     }
+
+    public function testToScalar()
+    {
+        $matrix = new Matrix([[1, 2, 3], [3, 2, 3]]);
+
+        $this->assertEquals($matrix->toScalar(), 1);
+    }
+
+    public function testMultiplyByScalar()
+    {
+        $matrix = new Matrix([
+            [4, 6, 8],
+            [2, 10, 20],
+        ]);
+
+        $result = [
+            [-8, -12, -16],
+            [-4, -20, -40],
+        ];
+
+        $this->assertEquals($result, $matrix->multiplyByScalar(-2)->toArray());
+    }
+
+    public function testAdd()
+    {
+        $array1 = [1, 1, 1];
+        $array2 = [2, 2, 2];
+        $result = [3, 3, 3];
+
+        $m1 = new Matrix($array1);
+        $m2 = new Matrix($array2);
+
+        $this->assertEquals($result, $m1->add($m2)->toArray()[0]);
+    }
+
+    public function testSubtract()
+    {
+        $array1 = [1, 1, 1];
+        $array2 = [2, 2, 2];
+        $result = [-1, -1, -1];
+
+        $m1 = new Matrix($array1);
+        $m2 = new Matrix($array2);
+
+        $this->assertEquals($result, $m1->subtract($m2)->toArray()[0]);
+    }
+
+    public function testTransposeArray()
+    {
+        $array = [
+            [1, 1, 1],
+            [2, 2, 2]
+        ];
+        $transposed = [
+            [1, 2],
+            [1, 2],
+            [1, 2]
+        ];
+
+        $this->assertEquals($transposed, Matrix::transposeArray($array));
+    }
+
+    public function testDot()
+    {
+        $vect1 = [2, 2, 2];
+        $vect2 = [3, 3, 3];
+        $dot = [18];
+
+        $this->assertEquals($dot, Matrix::dot($vect1, $vect2));
+
+        $matrix1 = [[1, 1], [2, 2]];
+        $matrix2 = [[3, 3], [3, 3], [3, 3]];
+        $dot = [6, 12];
+        
+        $this->assertEquals($dot, Matrix::dot($matrix2, $matrix1));
+    }
 }
