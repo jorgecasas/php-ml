@@ -111,6 +111,9 @@ class NormalizerTest extends TestCase
             for ($k=0; $k<3; $k++) {
                 $sample[$k] = rand(1, 100);
             }
+            // Last feature's value shared across samples.
+            $sample[] = 1;
+
             $samples[] = $sample;
         }
 
@@ -126,6 +129,7 @@ class NormalizerTest extends TestCase
                     return $element < -3 || $element > 3;
                 });
             $this->assertCount(0, $errors);
+            $this->assertEquals(0, $sample[3]);
         }
     }
 }

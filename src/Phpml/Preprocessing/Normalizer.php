@@ -134,7 +134,12 @@ class Normalizer implements Preprocessor
     private function normalizeSTD(array &$sample)
     {
         foreach ($sample as $i => $val) {
-            $sample[$i] = ($sample[$i] - $this->mean[$i]) / $this->std[$i];
+            if ($this->std[$i] != 0) {
+                $sample[$i] = ($sample[$i] - $this->mean[$i]) / $this->std[$i];
+            } else {
+                // Same value for all samples.
+                $sample[$i] = 0;
+            }
         }
     }
 }
