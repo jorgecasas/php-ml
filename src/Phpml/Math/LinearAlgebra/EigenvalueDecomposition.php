@@ -130,10 +130,10 @@ class EigenvalueDecomposition
                     $this->e[$j] = $g;
                 }
                 $f = 0.0;
+                if ($h === 0 || $h < 1e-32) {
+                    $h = 1e-32;
+                }
                 for ($j = 0; $j < $i; ++$j) {
-                    if ($h === 0) {
-                        $h = 1e-20;
-                    }
                     $this->e[$j] /= $h;
                     $f += $this->e[$j] * $this->d[$j];
                 }

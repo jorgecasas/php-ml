@@ -88,8 +88,9 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
     * [Token Count Vectorizer](http://php-ml.readthedocs.io/en/latest/machine-learning/feature-extraction/token-count-vectorizer/)
     * [Tf-idf Transformer](http://php-ml.readthedocs.io/en/latest/machine-learning/feature-extraction/tf-idf-transformer/)
 * Dimensionality Reduction
-    * PCA
+    * PCA (Principal Component Analysis)
     * Kernel PCA
+    * LDA (Linear Discriminant Analysis)
 * Datasets
     * [Array](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/array-dataset/)
     * [CSV](http://php-ml.readthedocs.io/en/latest/machine-learning/datasets/csv-dataset/)
