@@ -9,8 +9,8 @@ use Phpml\Helper\Trainable;
 class SupportVectorMachine
 {
     use Trainable;
-     
-     /**
+
+    /**
      * @var int
      */
     private $type;
@@ -126,6 +126,26 @@ class SupportVectorMachine
 
         $this->binPath = $rootPath.'bin'.DIRECTORY_SEPARATOR.'libsvm'.DIRECTORY_SEPARATOR;
         $this->varPath = $rootPath.'var'.DIRECTORY_SEPARATOR;
+    }
+
+    /**
+     * @param string $binPath
+     */
+    public function setBinPath(string $binPath)
+    {
+        $this->binPath = $binPath;
+
+        return $this;
+    }
+
+    /**
+     * @param string $varPath
+     */
+    public function setVarPath(string $varPath)
+    {
+        $this->varPath = $varPath;
+
+        return $this;
     }
 
     /**
