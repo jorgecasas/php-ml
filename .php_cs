@@ -13,5 +13,6 @@ return PhpCsFixer\Config::create()
         PhpCsFixer\Finder::create()
             ->in(__DIR__ . '/src')
             ->in(__DIR__ . '/tests')
-    )->setRiskyAllowed(true)
+    )
+    ->setRiskyAllowed(true)
     ->setUsingCache(false);

@@ -6,7 +6,7 @@ code base clean, unified and future proof.
 
 ## Branch
 
-You should only open pull requests against the develop branch.
+You should only open pull requests against the master branch.
 
 ## Unit-Tests
 
@@ -28,13 +28,7 @@ Please allow me time to review your pull requests. I will give my best to review
 
 ## Coding Standards
 
-When contributing code to PHP-ML, you must follow its coding standards. To make a long story short, here is the golden tool:
-
-```
-tools/php-cs-fixer.sh
-```
-
-This script run PHP Coding Standards Fixer with `--level=symfony` param.
+When contributing code to PHP-ML, you must follow its coding standards. It's as easy as executing `php-cs-fixer` (v2) in root directory.
 
 More about PHP-CS-Fixer: [http://cs.sensiolabs.org/](http://cs.sensiolabs.org/)
 
