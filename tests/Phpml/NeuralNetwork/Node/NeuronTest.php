@@ -46,7 +46,7 @@ class NeuronTest extends TestCase
 
         $this->assertEquals(0.5, $neuron->getOutput(), '', 0.01);
 
-        $neuron->refresh();
+        $neuron->reset();
 
         $this->assertEquals(0.88, $neuron->getOutput(), '', 0.01);
     }

@@ -67,6 +67,14 @@ class InvalidArgumentException extends \Exception
     }
 
     /**
+     * @return InvalidArgumentException
+     */
+    public static function invalidTarget($target)
+    {
+        return new self('Target with value ' . $target . ' is not part of the accepted classes');
+    }
+
+    /**
      * @param string $language
      *
      * @return InvalidArgumentException
@@ -89,6 +97,15 @@ class InvalidArgumentException extends \Exception
      */
     public static function invalidLayersNumber()
     {
-        return new self('Provide at least 2 layers: 1 input and 1 output');
+        return new self('Provide at least 1 hidden layer');
     }
+
+    /**
+     * @return InvalidArgumentException
+     */
+    public static function invalidClassesNumber()
+    {
+        return new self('Provide at least 2 different classes');
+    }
+
 }

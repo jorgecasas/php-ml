@@ -71,7 +71,7 @@ abstract class LayeredNetwork implements Network
         foreach ($this->getLayers() as $layer) {
             foreach ($layer->getNodes() as $node) {
                 if ($node instanceof Neuron) {
-                    $node->refresh();
+                    $node->reset();
                 }
             }
         }

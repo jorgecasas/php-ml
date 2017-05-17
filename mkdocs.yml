@@ -21,8 +21,7 @@ pages:
     - Workflow:
       - Pipeline: machine-learning/workflow/pipeline.md
     - Neural Network:
-      - Multilayer Perceptron: machine-learning/neural-network/multilayer-perceptron.md
-      - Backpropagation training: machine-learning/neural-network/backpropagation.md
+      - Multilayer Perceptron Classifier: machine-learning/neural-network/multilayer-perceptron-classifier.md
     - Cross Validation:
       - RandomSplit: machine-learning/cross-validation/random-split.md
       - Stratified Random Split: machine-learning/cross-validation/stratified-random-split.md
