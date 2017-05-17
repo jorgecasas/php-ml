@@ -11,7 +11,7 @@ class InvalidArgumentException extends \Exception
      */
     public static function arraySizeNotMatch()
     {
-        return new self('Size of given arrays not match');
+        return new self('Size of given arrays does not match');
     }
 
     /**
@@ -55,7 +55,7 @@ class InvalidArgumentException extends \Exception
      */
     public static function inconsistentMatrixSupplied()
     {
-        return new self('Inconsistent matrix applied');
+        return new self('Inconsistent matrix supplied');
     }
 
     /**

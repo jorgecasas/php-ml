@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Phpml\DimensionReduction;
 
-use Phpml\Math\Statistic\Mean;
 use Phpml\Math\Matrix;
 
 class LDA extends EigenTransformerBase
@@ -30,7 +29,7 @@ class LDA extends EigenTransformerBase
     public $counts;
 
     /**
-     * @var float
+     * @var float[]
      */
     public $overallMean;
 
@@ -111,12 +110,12 @@ class LDA extends EigenTransformerBase
      * Calculates mean of each column for each class and returns
      * n by m matrix where n is number of labels and m is number of columns
      *
-     * @param type $data
-     * @param type $classes
+     * @param array $data
+     * @param array $classes
      *
      * @return array
      */
-    protected function calculateMeans($data, $classes) : array
+    protected function calculateMeans(array $data, array $classes) : array
     {
         $means = [];
         $counts= [];
@@ -126,17 +125,18 @@ class LDA extends EigenTransformerBase
             $label = array_search($classes[$index], $this->labels);
 
             foreach ($row as $col => $val) {
-                if (! isset($means[$label][$col])) {
+                if (!isset($means[$label][$col])) {
                     $means[$label][$col] = 0.0;
                 }
                 $means[$label][$col] += $val;
                 $overallMean[$col] += $val;
             }
 
-            if (! isset($counts[$label])) {
+            if (!isset($counts[$label])) {
                 $counts[$label] = 0;
             }
-            $counts[$label]++;
+
+            ++$counts[$label];
         }
 
         foreach ($means as $index => $row) {
@@ -231,6 +231,8 @@ class LDA extends EigenTransformerBase
      * @param array $sample
      *
      * @return array
+     *
+     * @throws \Exception
      */
     public function transform(array $sample)
     {
@@ -238,7 +240,7 @@ class LDA extends EigenTransformerBase
             throw new \Exception("LDA has not been fitted with respect to original dataset, please run LDA::fit() first");
         }
 
-        if (! is_array($sample[0])) {
+        if (!is_array($sample[0])) {
             $sample = [$sample];
         }
 

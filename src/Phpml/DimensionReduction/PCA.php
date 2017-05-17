@@ -6,7 +6,6 @@ namespace Phpml\DimensionReduction;
 
 use Phpml\Math\Statistic\Covariance;
 use Phpml\Math\Statistic\Mean;
-use Phpml\Math\Matrix;
 
 class PCA extends EigenTransformerBase
 {
@@ -86,7 +85,7 @@ class PCA extends EigenTransformerBase
     {
         // Calculate means for each dimension
         $this->means = [];
-        for ($i=0; $i < $n; $i++) {
+        for ($i = 0; $i < $n; ++$i) {
             $column = array_column($data, $i);
             $this->means[] = Mean::arithmetic($column);
         }
@@ -97,7 +96,7 @@ class PCA extends EigenTransformerBase
      * each dimension therefore dimensions will be centered to zero
      *
      * @param array $data
-     * @param int $n
+     * @param int   $n
      *
      * @return array
      */
@@ -109,7 +108,7 @@ class PCA extends EigenTransformerBase
 
         // Normalize data
         foreach ($data as $i => $row) {
-            for ($k=0; $k < $n; $k++) {
+            for ($k = 0; $k < $n; ++$k) {
                 $data[$i][$k] -= $this->means[$k];
             }
         }
@@ -124,6 +123,8 @@ class PCA extends EigenTransformerBase
      * @param array $sample
      *
      * @return array
+     *
+     * @throws \Exception
      */
     public function transform(array $sample)
     {
@@ -131,7 +132,7 @@ class PCA extends EigenTransformerBase
             throw new \Exception("PCA has not been fitted with respect to original dataset, please run PCA::fit() first");
         }
 
-        if (! is_array($sample[0])) {
+        if (!is_array($sample[0])) {
             $sample = [$sample];
         }
 

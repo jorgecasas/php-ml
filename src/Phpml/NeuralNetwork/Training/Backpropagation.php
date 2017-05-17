@@ -44,10 +44,12 @@ class Backpropagation implements Training
      */
     public function train(array $samples, array $targets, float $desiredError = 0.001, int $maxIterations = 10000)
     {
+        $samplesCount = count($samples);
+
         for ($i = 0; $i < $maxIterations; ++$i) {
             $resultsWithinError = $this->trainSamples($samples, $targets, $desiredError);
 
-            if ($resultsWithinError == count($samples)) {
+            if ($resultsWithinError === $samplesCount) {
                 break;
             }
         }

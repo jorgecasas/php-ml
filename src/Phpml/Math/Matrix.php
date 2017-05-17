@@ -139,6 +139,7 @@ class Matrix
         }
 
         $lu = new LUDecomposition($this);
+
         return $this->determinant = $lu->det();
     }
 
@@ -232,6 +233,8 @@ class Matrix
      * Element-wise addition of the matrix with another one
      *
      * @param Matrix $other
+     *
+     * @return Matrix
      */
     public function add(Matrix $other)
     {
@@ -242,6 +245,8 @@ class Matrix
      * Element-wise subtracting of another matrix from this one
      *
      * @param Matrix $other
+     *
+     * @return Matrix
      */
     public function subtract(Matrix $other)
     {
@@ -252,7 +257,9 @@ class Matrix
      * Element-wise addition or substraction depending on the given sign parameter
      *
      * @param Matrix $other
-     * @param type $sign
+     * @param int    $sign
+     *
+     * @return Matrix
      */
     protected function _add(Matrix $other, $sign = 1)
     {
@@ -260,13 +267,13 @@ class Matrix
         $a2 = $other->toArray();
 
         $newMatrix = [];
-        for ($i=0; $i < $this->rows; $i++) {
-            for ($k=0; $k < $this->columns; $k++) {
+        for ($i = 0; $i < $this->rows; ++$i) {
+            for ($k = 0; $k < $this->columns; ++$k) {
                 $newMatrix[$i][$k] = $a1[$i][$k] + $sign * $a2[$i][$k];
             }
         }
 
-        return new Matrix($newMatrix, false);
+        return new self($newMatrix, false);
     }
 
     /**
@@ -295,7 +302,7 @@ class Matrix
     protected function getIdentity()
     {
         $array = array_fill(0, $this->rows, array_fill(0, $this->columns, 0));
-        for ($i=0; $i < $this->rows; $i++) {
+        for ($i = 0; $i < $this->rows; ++$i) {
             $array[$i][$i] = 1;
         }
 
@@ -345,7 +352,7 @@ class Matrix
      */
     public static function transposeArray(array $array)
     {
-        return (new Matrix($array, false))->transpose()->toArray();
+        return (new self($array, false))->transpose()->toArray();
     }
 
     /**
@@ -359,8 +366,8 @@ class Matrix
      */
     public static function dot(array $array1, array $array2)
     {
-        $m1 = new Matrix($array1, false);
-        $m2 = new Matrix($array2, false);
+        $m1 = new self($array1, false);
+        $m2 = new self($array2, false);
 
         return $m1->multiply($m2->transpose())->toArray()[0];
     }

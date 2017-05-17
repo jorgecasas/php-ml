@@ -130,6 +130,8 @@ class SupportVectorMachine
 
     /**
      * @param string $binPath
+     *
+     * @return $this
      */
     public function setBinPath(string $binPath)
     {
@@ -140,6 +142,8 @@ class SupportVectorMachine
 
     /**
      * @param string $varPath
+     *
+     * @return $this
      */
     public function setVarPath(string $varPath)
     {
@@ -230,8 +234,8 @@ class SupportVectorMachine
     }
 
     /**
-     * @param $trainingSetFileName
-     * @param $modelFileName
+     * @param string $trainingSetFileName
+     * @param string $modelFileName
      *
      * @return string
      */
