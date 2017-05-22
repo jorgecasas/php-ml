@@ -45,4 +45,12 @@ class StopWordsTest extends TestCase
         $this->assertTrue($stopWords->isStopWord('wam'));
         $this->assertFalse($stopWords->isStopWord('transhumanizm'));
     }
+
+    public function testFrenchStopWords()
+    {
+        $stopWords = StopWords::factory('French');
+
+        $this->assertTrue($stopWords->isStopWord('alors'));
+        $this->assertFalse($stopWords->isStopWord('carte'));
+    }
 }
