@@ -33,6 +33,14 @@ abstract class LayeredNetwork implements Network
     }
 
     /**
+     * @return void
+     */
+    public function removeLayers()
+    {
+        unset($this->layers);
+    }
+
+    /**
      * @return Layer
      */
     public function getOutputLayer(): Layer

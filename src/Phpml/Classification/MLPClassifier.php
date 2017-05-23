@@ -4,17 +4,8 @@ declare(strict_types=1);
 
 namespace Phpml\Classification;
 
-use Phpml\Classification\Classifier;
 use Phpml\Exception\InvalidArgumentException;
 use Phpml\NeuralNetwork\Network\MultilayerPerceptron;
-use Phpml\NeuralNetwork\Training\Backpropagation;
-use Phpml\NeuralNetwork\ActivationFunction;
-use Phpml\NeuralNetwork\Layer;
-use Phpml\NeuralNetwork\Node\Bias;
-use Phpml\NeuralNetwork\Node\Input;
-use Phpml\NeuralNetwork\Node\Neuron;
-use Phpml\NeuralNetwork\Node\Neuron\Synapse;
-use Phpml\Helper\Predictable;
 
 class MLPClassifier extends MultilayerPerceptron implements Classifier
 {

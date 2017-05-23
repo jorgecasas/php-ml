@@ -29,6 +29,19 @@ $mlp->train(
     $samples = [[1, 0, 0, 0], [0, 1, 1, 0], [1, 1, 1, 1], [0, 0, 0, 0]],
     $targets = ['a', 'a', 'b', 'c']
 );
+```
+
+Use partialTrain method to train in batches. Example:
+
+```
+$mlp->partialTrain(
+    $samples = [[1, 0, 0, 0], [0, 1, 1, 0]],
+    $targets = ['a', 'a']
+);
+$mlp->partialTrain(
+    $samples = [[1, 1, 1, 1], [0, 0, 0, 0]],
+    $targets = ['b', 'c']
+);
 
 ```
 

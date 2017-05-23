@@ -17,12 +17,12 @@ class Backpropagation
     /**
      * @var array
      */
-    private $sigmas;
+    private $sigmas = null;
 
     /**
      * @var array
      */
-    private $prevSigmas;
+    private $prevSigmas = null;
 
     /**
      * @param int $theta
@@ -38,14 +38,12 @@ class Backpropagation
      */
     public function backpropagate(array $layers, $targetClass)
     {
-
         $layersNumber = count($layers);
 
         // Backpropagation.
         for ($i = $layersNumber; $i > 1; --$i) {
             $this->sigmas = [];
             foreach ($layers[$i - 1]->getNodes() as $key => $neuron) {
-
                 if ($neuron instanceof Neuron) {
                     $sigma = $this->getSigma($neuron, $targetClass, $key, $i == $layersNumber);
                     foreach ($neuron->getSynapses() as $synapse) {
@@ -55,6 +53,10 @@ class Backpropagation
             }
             $this->prevSigmas = $this->sigmas;
         }
+
+        // Clean some memory (also it helps make MLP persistency & children more maintainable).
+        $this->sigmas = null;
+        $this->prevSigmas = null;
     }
 
     /**
