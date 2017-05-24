@@ -6,11 +6,13 @@ namespace tests;
 
 use Phpml\Classification\SVC;
 use Phpml\FeatureExtraction\TfIdfTransformer;
+use Phpml\FeatureExtraction\TokenCountVectorizer;
 use Phpml\Pipeline;
 use Phpml\Preprocessing\Imputer;
 use Phpml\Preprocessing\Normalizer;
 use Phpml\Preprocessing\Imputer\Strategy\MostFrequentStrategy;
 use Phpml\Regression\SVR;
+use Phpml\Tokenization\WordTokenizer;
 use PHPUnit\Framework\TestCase;
 
 class PipelineTest extends TestCase
@@ -64,5 +66,42 @@ class PipelineTest extends TestCase
         $predicted = $pipeline->predict([[0, 0, 0]]);
 
         $this->assertEquals(4, $predicted[0]);
+    }
+
+    public function testPipelineTransformers()
+    {
+        $transformers = [
+            new TokenCountVectorizer(new WordTokenizer()),
+            new TfIdfTransformer()
+        ];
+
+        $estimator = new SVC();
+
+        $samples = [
+            'Hello Paul',
+            'Hello Martin',
+            'Goodbye Tom',
+            'Hello John',
+            'Goodbye Alex',
+            'Bye Tony',
+        ];
+
+        $targets = [
+            'greetings',
+            'greetings',
+            'farewell',
+            'greetings',
+            'farewell',
+            'farewell',
+        ];
+
+        $pipeline = new Pipeline($transformers, $estimator);
+        $pipeline->train($samples, $targets);
+
+        $expected = ['greetings', 'farewell'];
+
+        $predicted = $pipeline->predict(['Hello Max', 'Goodbye Mark']);
+
+        $this->assertEquals($expected, $predicted);
     }
 }
