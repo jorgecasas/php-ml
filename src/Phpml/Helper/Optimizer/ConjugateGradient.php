@@ -352,11 +352,11 @@ class mp
      * Element-wise <b>subtraction</b> of a vector with a scalar
      *
      * @param array $m1
-     * @param array $m2
+     * @param float $m2
      *
      * @return array
      */
-    public static function subs(array $m1, array $m2)
+    public static function subs(array $m1, float $m2)
     {
         return self::adds($m1, $m2, -1);
     }
