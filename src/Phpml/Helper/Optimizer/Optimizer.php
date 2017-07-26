@@ -64,5 +64,5 @@ abstract class Optimizer
      * @param array    $targets
      * @param \Closure $gradientCb
      */
-    abstract protected function runOptimization(array $samples, array $targets, \Closure $gradientCb);
+    abstract public function runOptimization(array $samples, array $targets, \Closure $gradientCb);
 }
