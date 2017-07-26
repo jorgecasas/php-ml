@@ -99,11 +99,11 @@ class Perceptron implements Classifier, IncrementalEstimator
         $this->trainByLabel($samples, $targets, $labels);
     }
 
-   /**
-     * @param array $samples
-     * @param array $targets
-     * @param array $labels
-     */
+    /**
+      * @param array $samples
+      * @param array $targets
+      * @param array $labels
+      */
     public function trainBinary(array $samples, array $targets, array $labels)
     {
         if ($this->normalizer) {

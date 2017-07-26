@@ -101,7 +101,8 @@ class DecisionTree implements Classifier
         } elseif (count($this->columnNames) > $this->featureCount) {
             $this->columnNames = array_slice($this->columnNames, 0, $this->featureCount);
         } elseif (count($this->columnNames) < $this->featureCount) {
-            $this->columnNames = array_merge($this->columnNames,
+            $this->columnNames = array_merge(
+                $this->columnNames,
                 range(count($this->columnNames), $this->featureCount - 1)
             );
         }

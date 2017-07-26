@@ -105,9 +105,18 @@ class SupportVectorMachine
      * @param bool       $probabilityEstimates
      */
     public function __construct(
-        int $type, int $kernel, float $cost = 1.0, float $nu = 0.5, int $degree = 3,
-        float $gamma = null, float $coef0 = 0.0, float $epsilon = 0.1, float $tolerance = 0.001,
-        int $cacheSize = 100, bool $shrinking = true, bool $probabilityEstimates = false
+        int $type,
+        int $kernel,
+        float $cost = 1.0,
+        float $nu = 0.5,
+        int $degree = 3,
+        float $gamma = null,
+        float $coef0 = 0.0,
+        float $epsilon = 0.1,
+        float $tolerance = 0.001,
+        int $cacheSize = 100,
+        bool $shrinking = true,
+        bool $probabilityEstimates = false
     ) {
         $this->type = $type;
         $this->kernel = $kernel;
@@ -241,7 +250,8 @@ class SupportVectorMachine
      */
     private function buildTrainCommand(string $trainingSetFileName, string $modelFileName): string
     {
-        return sprintf('%ssvm-train%s -s %s -t %s -c %s -n %s -d %s%s -r %s -p %s -m %s -e %s -h %d -b %d %s %s',
+        return sprintf(
+            '%ssvm-train%s -s %s -t %s -c %s -n %s -d %s%s -r %s -p %s -m %s -e %s -h %d -b %d %s %s',
             $this->binPath,
             $this->getOSExtension(),
             $this->type,

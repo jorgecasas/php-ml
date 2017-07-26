@@ -243,7 +243,9 @@ class StochasticGD extends Optimizer
             function ($w1, $w2) {
                 return abs($w1 - $w2) > $this->threshold ? 1 : 0;
             },
-            $oldTheta, $this->theta);
+            $oldTheta,
+            $this->theta
+        );
 
         if (array_sum($diff) == 0) {
             return true;

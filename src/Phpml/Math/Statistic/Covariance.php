@@ -150,7 +150,12 @@ class Covariance
                     $cov[$i][$k] = $cov[$k][$i];
                 } else {
                     $cov[$i][$k] = self::fromDataset(
-                        $data, $i, $k, true, $means[$i], $means[$k]
+                        $data,
+                        $i,
+                        $k,
+                        true,
+                        $means[$i],
+                        $means[$k]
                     );
                 }
             }

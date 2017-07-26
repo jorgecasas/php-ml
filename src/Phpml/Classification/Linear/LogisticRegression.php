@@ -67,10 +67,13 @@ class LogisticRegression extends Adaline
      *
      * @throws \Exception
      */
-    public function __construct(int $maxIterations = 500, bool $normalizeInputs = true,
-        int $trainingType = self::CONJUGATE_GRAD_TRAINING, string $cost = 'sse',
-        string $penalty = 'L2')
-    {
+    public function __construct(
+        int $maxIterations = 500,
+        bool $normalizeInputs = true,
+        int $trainingType = self::CONJUGATE_GRAD_TRAINING,
+        string $cost = 'sse',
+        string $penalty = 'L2'
+    ) {
         $trainingTypes = range(self::BATCH_TRAINING, self::CONJUGATE_GRAD_TRAINING);
         if (!in_array($trainingType, $trainingTypes)) {
             throw new \Exception("Logistic regression can only be trained with " .

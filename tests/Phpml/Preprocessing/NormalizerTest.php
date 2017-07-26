@@ -124,10 +124,12 @@ class NormalizerTest extends TestCase
         // Values in the vector should be some value between -3 and +3
         $this->assertCount(10, $samples);
         foreach ($samples as $sample) {
-            $errors = array_filter($sample,
+            $errors = array_filter(
+                $sample,
                 function ($element) {
                     return $element < -3 || $element > 3;
-                });
+                }
+            );
             $this->assertCount(0, $errors);
             $this->assertEquals(0, $sample[3]);
         }
