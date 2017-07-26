@@ -67,6 +67,8 @@ class InvalidArgumentException extends \Exception
     }
 
     /**
+     * @param mixed $target
+     *
      * @return InvalidArgumentException
      */
     public static function invalidTarget($target)

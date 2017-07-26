@@ -114,6 +114,9 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
     /**
      * @param array $samples
      * @param array $targets
+     * @param array $classes
+     *
+     * @throws InvalidArgumentException
      */
     public function partialTrain(array $samples, array $targets, array $classes = [])
     {

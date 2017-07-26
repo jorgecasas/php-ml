@@ -11,7 +11,10 @@ class MLPClassifier extends MultilayerPerceptron implements Classifier
 {
 
     /**
-     * @param  mixed $target
+     * @param mixed $target
+     *
+     * @throws InvalidArgumentException
+     *
      * @return int
      */
     public function getTargetClass($target): int
