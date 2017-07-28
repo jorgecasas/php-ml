@@ -28,7 +28,7 @@ Please allow me time to review your pull requests. I will give my best to review
 
 ## Coding Standards
 
-When contributing code to PHP-ML, you must follow its coding standards. It's as easy as executing `php-cs-fixer` (v2) in root directory.
+When contributing code to PHP-ML, you must follow its coding standards. It's as easy as executing `./bin/php-cs-fixer fix` in root directory.
 
 More about PHP-CS-Fixer: [http://cs.sensiolabs.org/](http://cs.sensiolabs.org/)
 
