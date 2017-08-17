@@ -106,7 +106,7 @@ class DecisionStump extends WeightedClassifier
         if ($this->weights) {
             $numWeights = count($this->weights);
             if ($numWeights != count($samples)) {
-                throw new \Exception("Number of sample weights does not match with number of samples");
+                throw new \Exception('Number of sample weights does not match with number of samples');
             }
         } else {
             $this->weights = array_fill(0, count($samples), 1);
@@ -163,7 +163,7 @@ class DecisionStump extends WeightedClassifier
      *
      * @param array $samples
      * @param array $targets
-     * @param int $col
+     * @param int   $col
      *
      * @return array
      */
@@ -192,8 +192,8 @@ class DecisionStump extends WeightedClassifier
             }
 
             // Try other possible points one by one
-            for ($step = $minValue; $step <= $maxValue; $step+= $stepSize) {
-                $threshold = (float)$step;
+            for ($step = $minValue; $step <= $maxValue; $step += $stepSize) {
+                $threshold = (float) $step;
                 list($errorRate, $prob) = $this->calculateErrorRate($targets, $threshold, $operator, $values);
                 if ($errorRate < $split['trainingErrorRate']) {
                     $split = ['value' => $threshold, 'operator' => $operator,
@@ -209,7 +209,7 @@ class DecisionStump extends WeightedClassifier
     /**
      * @param array $samples
      * @param array $targets
-     * @param int $col
+     * @param int   $col
      *
      * @return array
      */
@@ -217,7 +217,7 @@ class DecisionStump extends WeightedClassifier
     {
         $values = array_column($samples, $col);
         $valueCounts = array_count_values($values);
-        $distinctVals= array_keys($valueCounts);
+        $distinctVals = array_keys($valueCounts);
 
         $split = null;
 
@@ -235,7 +235,6 @@ class DecisionStump extends WeightedClassifier
 
         return $split;
     }
-
 
     /**
      *
@@ -264,10 +263,10 @@ class DecisionStump extends WeightedClassifier
      * Calculates the ratio of wrong predictions based on the new threshold
      * value given as the parameter
      *
-     * @param array $targets
-     * @param float $threshold
+     * @param array  $targets
+     * @param float  $threshold
      * @param string $operator
-     * @param array $values
+     * @param array  $values
      *
      * @return array
      */
@@ -276,7 +275,7 @@ class DecisionStump extends WeightedClassifier
         $wrong = 0.0;
         $prob = [];
         $leftLabel = $this->binaryLabels[0];
-        $rightLabel= $this->binaryLabels[1];
+        $rightLabel = $this->binaryLabels[1];
 
         foreach ($values as $index => $value) {
             if ($this->evaluate($value, $operator, $threshold)) {
@@ -299,7 +298,7 @@ class DecisionStump extends WeightedClassifier
         // Calculate probabilities: Proportion of labels in each leaf
         $dist = array_combine($this->binaryLabels, array_fill(0, 2, 0.0));
         foreach ($prob as $leaf => $counts) {
-            $leafTotal = (float)array_sum($prob[$leaf]);
+            $leafTotal = (float) array_sum($prob[$leaf]);
             foreach ($counts as $label => $count) {
                 if (strval($leaf) == strval($label)) {
                     $dist[$leaf] = $count / $leafTotal;
@@ -357,8 +356,8 @@ class DecisionStump extends WeightedClassifier
      */
     public function __toString()
     {
-        return "IF $this->column $this->operator $this->value " .
-            "THEN " . $this->binaryLabels[0] . " ".
-            "ELSE " . $this->binaryLabels[1];
+        return "IF $this->column $this->operator $this->value ".
+            'THEN '.$this->binaryLabels[0].' '.
+            'ELSE '.$this->binaryLabels[1];
     }
 }

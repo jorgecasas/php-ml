@@ -84,10 +84,11 @@ class Bagging implements Classifier
     public function setSubsetRatio(float $ratio)
     {
         if ($ratio < 0.1 || $ratio > 1.0) {
-            throw new \Exception("Subset ratio should be between 0.1 and 1.0");
+            throw new \Exception('Subset ratio should be between 0.1 and 1.0');
         }
 
         $this->subsetRatio = $ratio;
+
         return $this;
     }
 
@@ -100,7 +101,7 @@ class Bagging implements Classifier
      * names are neglected.
      *
      * @param string $classifier
-     * @param array $classifierOptions
+     * @param array  $classifierOptions
      *
      * @return $this
      */
@@ -135,6 +136,7 @@ class Bagging implements Classifier
 
     /**
      * @param int $index
+     *
      * @return array
      */
     protected function getRandomSubset(int $index)
@@ -168,6 +170,7 @@ class Bagging implements Classifier
 
             $classifiers[] = $this->initSingleClassifier($obj);
         }
+
         return $classifiers;
     }
 
@@ -183,6 +186,7 @@ class Bagging implements Classifier
 
     /**
      * @param array $sample
+     *
      * @return mixed
      */
     protected function predictSample(array $sample)
@@ -196,6 +200,7 @@ class Bagging implements Classifier
         $counts = array_count_values($predictions);
         arsort($counts);
         reset($counts);
+
         return key($counts);
     }
 }

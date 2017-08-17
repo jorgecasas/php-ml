@@ -73,7 +73,7 @@ class InvalidArgumentException extends \Exception
      */
     public static function invalidTarget($target)
     {
-        return new self('Target with value ' . $target . ' is not part of the accepted classes');
+        return new self('Target with value '.$target.' is not part of the accepted classes');
     }
 
     /**

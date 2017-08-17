@@ -9,7 +9,6 @@ use Phpml\NeuralNetwork\Network\MultilayerPerceptron;
 
 class MLPClassifier extends MultilayerPerceptron implements Classifier
 {
-
     /**
      * @param mixed $target
      *
@@ -22,6 +21,7 @@ class MLPClassifier extends MultilayerPerceptron implements Classifier
         if (!in_array($target, $this->classes)) {
             throw InvalidArgumentException::invalidTarget($target);
         }
+
         return array_search($target, $this->classes);
     }
 
@@ -42,6 +42,7 @@ class MLPClassifier extends MultilayerPerceptron implements Classifier
                 $max = $value;
             }
         }
+
         return $this->classes[$predictedClass];
     }
 

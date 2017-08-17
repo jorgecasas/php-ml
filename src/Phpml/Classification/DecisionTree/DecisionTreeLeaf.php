@@ -34,7 +34,7 @@ class DecisionTreeLeaf
     /**
      * @var DecisionTreeLeaf
      */
-    public $rightLeaf= null;
+    public $rightLeaf = null;
 
     /**
      * @var array
@@ -71,6 +71,7 @@ class DecisionTreeLeaf
 
     /**
      * @param array $record
+     *
      * @return bool
      */
     public function evaluate($record)
@@ -79,9 +80,10 @@ class DecisionTreeLeaf
 
         if ($this->isContinuous) {
             $op = $this->operator;
-            $value= $this->numericValue;
+            $value = $this->numericValue;
             $recordField = strval($recordField);
             eval("\$result = $recordField $op $value;");
+
             return $result;
         }
         
@@ -102,16 +104,16 @@ class DecisionTreeLeaf
             return 0.0;
         }
 
-        $nodeSampleCount = (float)count($this->records);
+        $nodeSampleCount = (float) count($this->records);
         $iT = $this->giniIndex;
 
         if ($this->leftLeaf) {
-            $pL = count($this->leftLeaf->records)/$nodeSampleCount;
+            $pL = count($this->leftLeaf->records) / $nodeSampleCount;
             $iT -= $pL * $this->leftLeaf->giniIndex;
         }
 
         if ($this->rightLeaf) {
-            $pR = count($this->rightLeaf->records)/$nodeSampleCount;
+            $pR = count($this->rightLeaf->records) / $nodeSampleCount;
             $iT -= $pR * $this->rightLeaf->giniIndex;
         }
 
@@ -122,6 +124,7 @@ class DecisionTreeLeaf
      * Returns HTML representation of the node including children nodes
      *
      * @param $columnNames
+     *
      * @return string
      */
     public function getHTML($columnNames = null)
@@ -135,29 +138,34 @@ class DecisionTreeLeaf
             } else {
                 $col = "col_$this->columnIndex";
             }
-            if (!preg_match("/^[<>=]{1,2}/", $value)) {
+            if (!preg_match('/^[<>=]{1,2}/', $value)) {
                 $value = "=$value";
             }
-            $value = "<b>$col $value</b><br>Gini: ". number_format($this->giniIndex, 2);
+            $value = "<b>$col $value</b><br>Gini: ".number_format($this->giniIndex, 2);
         }
-        $str = "<table ><tr><td colspan=3 align=center style='border:1px solid;'>
-				$value</td></tr>";
+
+        $str = "<table ><tr><td colspan=3 align=center style='border:1px solid;'>$value</td></tr>";
+
         if ($this->leftLeaf || $this->rightLeaf) {
-            $str .='<tr>';
+            $str .= '<tr>';
             if ($this->leftLeaf) {
-                $str .="<td valign=top><b>| Yes</b><br>" . $this->leftLeaf->getHTML($columnNames) . "</td>";
+                $str .= '<td valign=top><b>| Yes</b><br>'.$this->leftLeaf->getHTML($columnNames).'</td>';
             } else {
-                $str .='<td></td>';
+                $str .= '<td></td>';
             }
-            $str .='<td>&nbsp;</td>';
+
+            $str .= '<td>&nbsp;</td>';
             if ($this->rightLeaf) {
-                $str .="<td valign=top align=right><b>No |</b><br>" . $this->rightLeaf->getHTML($columnNames) . "</td>";
+                $str .= '<td valign=top align=right><b>No |</b><br>'.$this->rightLeaf->getHTML($columnNames).'</td>';
             } else {
-                $str .='<td></td>';
+                $str .= '<td></td>';
             }
+
             $str .= '</tr>';
         }
+
         $str .= '</table>';
+
         return $str;
     }
 

@@ -9,12 +9,12 @@ class Adaline extends Perceptron
     /**
      * Batch training is the default Adaline training algorithm
      */
-    const BATCH_TRAINING    = 1;
+    const BATCH_TRAINING = 1;
 
     /**
      * Online training: Stochastic gradient descent learning
      */
-    const ONLINE_TRAINING    = 2;
+    const ONLINE_TRAINING = 2;
 
     /**
      * Training type may be either 'Batch' or 'Online' learning
@@ -46,7 +46,7 @@ class Adaline extends Perceptron
         int $trainingType = self::BATCH_TRAINING
     ) {
         if (!in_array($trainingType, [self::BATCH_TRAINING, self::ONLINE_TRAINING])) {
-            throw new \Exception("Adaline can only be trained with batch and online/stochastic gradient descent algorithm");
+            throw new \Exception('Adaline can only be trained with batch and online/stochastic gradient descent algorithm');
         }
 
         $this->trainingType = $trainingType;

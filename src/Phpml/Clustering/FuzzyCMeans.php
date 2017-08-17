@@ -58,10 +58,10 @@ class FuzzyCMeans implements Clusterer
     private $samples;
 
     /**
-     * @param int $clustersNumber
+     * @param int   $clustersNumber
      * @param float $fuzziness
      * @param float $epsilon
-     * @param int $maxIterations
+     * @param int   $maxIterations
      *
      * @throws InvalidArgumentException
      */
@@ -159,6 +159,7 @@ class FuzzyCMeans implements Clusterer
      *
      * @param int $row
      * @param int $col
+     *
      * @return float
      */
     protected function getDistanceCalc(int $row, int $col)
@@ -179,6 +180,7 @@ class FuzzyCMeans implements Clusterer
             $val = pow($dist1 / $dist2, 2.0 / ($this->fuzziness - 1));
             $sum += $val;
         }
+
         return $sum;
     }
 
@@ -212,13 +214,14 @@ class FuzzyCMeans implements Clusterer
 
     /**
      * @param array|Point[] $samples
+     *
      * @return array
      */
     public function cluster(array $samples)
     {
         // Initialize variables, clusters and membership matrix
         $this->sampleCount = count($samples);
-        $this->samples =& $samples;
+        $this->samples = &$samples;
         $this->space = new Space(count($samples[0]));
         $this->initClusters();
 

@@ -21,6 +21,7 @@ class FuzzyCMeansTest extends TestCase
             }
         }
         $this->assertCount(0, $samples);
+
         return $fcm;
     }
 

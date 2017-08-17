@@ -109,6 +109,7 @@ trait OneVsRest
         // multiple instances of this classifier
         $classifier = clone $this;
         $classifier->reset();
+
         return $classifier;
     }
 
@@ -121,6 +122,7 @@ trait OneVsRest
      *
      * @param array $targets
      * @param mixed $label
+     *
      * @return array Binarized targets and target's labels
      */
     private function binarizeTargets($targets, $label)
@@ -131,9 +133,9 @@ trait OneVsRest
         }
 
         $labels = [$label, $notLabel];
+
         return [$targets, $labels];
     }
-
 
     /**
      * @param array $sample
@@ -153,6 +155,7 @@ trait OneVsRest
         }
 
         arsort($probs, SORT_NUMERIC);
+
         return key($probs);
     }
 

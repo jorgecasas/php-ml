@@ -72,7 +72,7 @@ class StochasticGD extends Optimizer
      *
      * @var array
      */
-    protected $costValues= [];
+    protected $costValues = [];
 
     /**
      * Initializes the SGD optimizer for the given number of dimensions
@@ -151,8 +151,8 @@ class StochasticGD extends Optimizer
      * The cost function to minimize and the gradient of the function are to be
      * handled by the callback function provided as the third parameter of the method.
      *
-     * @param array $samples
-     * @param array $targets
+     * @param array    $samples
+     * @param array    $targets
      * @param \Closure $gradientCb
      *
      * @return array

@@ -59,9 +59,9 @@ class LogisticRegression extends Adaline
      *
      * Penalty (Regularization term) can be 'L2' or empty string to cancel penalty term
      *
-     * @param int $maxIterations
-     * @param bool $normalizeInputs
-     * @param int $trainingType
+     * @param int    $maxIterations
+     * @param bool   $normalizeInputs
+     * @param int    $trainingType
      * @param string $cost
      * @param string $penalty
      *
@@ -76,13 +76,13 @@ class LogisticRegression extends Adaline
     ) {
         $trainingTypes = range(self::BATCH_TRAINING, self::CONJUGATE_GRAD_TRAINING);
         if (!in_array($trainingType, $trainingTypes)) {
-            throw new \Exception("Logistic regression can only be trained with " .
-                "batch (gradient descent), online (stochastic gradient descent) " .
-                "or conjugate batch (conjugate gradients) algorithms");
+            throw new \Exception('Logistic regression can only be trained with '.
+                'batch (gradient descent), online (stochastic gradient descent) '.
+                'or conjugate batch (conjugate gradients) algorithms');
         }
 
         if (!in_array($cost, ['log', 'sse'])) {
-            throw new \Exception("Logistic regression cost function can be one of the following: \n" .
+            throw new \Exception("Logistic regression cost function can be one of the following: \n".
                 "'log' for log-likelihood and 'sse' for sum of squared errors");
         }
 
@@ -290,6 +290,7 @@ class LogisticRegression extends Adaline
 
         if (strval($predicted) == strval($label)) {
             $sample = $this->checkNormalizedSample($sample);
+
             return abs($this->output($sample) - 0.5);
         }
 

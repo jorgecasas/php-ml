@@ -43,6 +43,6 @@ class Minkowski implements Distance
             $distance += pow(abs($a[$i] - $b[$i]), $this->lambda);
         }
 
-        return (float)pow($distance, 1 / $this->lambda);
+        return (float) pow($distance, 1 / $this->lambda);
     }
 }

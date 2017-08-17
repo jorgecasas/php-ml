@@ -122,7 +122,6 @@ class Matrix
         return array_column($this->matrix, $column);
     }
 
-
     /**
      * @return float|int
      *

@@ -74,11 +74,11 @@ class Perceptron implements Classifier, IncrementalEstimator
     public function __construct(float $learningRate = 0.001, int $maxIterations = 1000, bool $normalizeInputs = true)
     {
         if ($learningRate <= 0.0 || $learningRate > 1.0) {
-            throw new \Exception("Learning rate should be a float value between 0.0(exclusive) and 1.0(inclusive)");
+            throw new \Exception('Learning rate should be a float value between 0.0(exclusive) and 1.0(inclusive)');
         }
 
         if ($maxIterations <= 0) {
-            throw new \Exception("Maximum number of iterations must be an integer greater than 0");
+            throw new \Exception('Maximum number of iterations must be an integer greater than 0');
         }
 
         if ($normalizeInputs) {
@@ -175,7 +175,7 @@ class Perceptron implements Classifier, IncrementalEstimator
 
             $prediction = $this->outputClass($sample);
             $gradient = $prediction - $target;
-            $error = $gradient**2;
+            $error = $gradient ** 2;
 
             return [$error, $gradient];
         };
@@ -231,6 +231,7 @@ class Perceptron implements Classifier, IncrementalEstimator
      * Calculates net output of the network as a float value for the given input
      *
      * @param array $sample
+     *
      * @return int
      */
     protected function output(array $sample)
@@ -251,6 +252,7 @@ class Perceptron implements Classifier, IncrementalEstimator
      * Returns the class value (either -1 or 1) for the given input
      *
      * @param array $sample
+     *
      * @return int
      */
     protected function outputClass(array $sample)
@@ -275,6 +277,7 @@ class Perceptron implements Classifier, IncrementalEstimator
 
         if (strval($predicted) == strval($label)) {
             $sample = $this->checkNormalizedSample($sample);
+
             return abs($this->output($sample));
         }
 

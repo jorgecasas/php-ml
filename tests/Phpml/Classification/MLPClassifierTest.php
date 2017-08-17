@@ -180,6 +180,7 @@ class MLPClassifierTest extends TestCase
             [0, 1, 2]
         );
     }
+
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */

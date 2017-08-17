@@ -32,7 +32,7 @@ class TfIdfTransformer implements Transformer
 
         $count = count($samples);
         foreach ($this->idf as &$value) {
-            $value = log((float)($count / $value), 10.0);
+            $value = log((float) ($count / $value), 10.0);
         }
     }
 

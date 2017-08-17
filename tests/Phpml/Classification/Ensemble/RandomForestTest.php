@@ -14,12 +14,13 @@ class RandomForestTest extends BaggingTest
     {
         $classifier = new RandomForest($numBaseClassifiers);
         $classifier->setFeatureSubsetRatio('log');
+
         return $classifier;
     }
 
     protected function getAvailableBaseClassifiers()
     {
-        return [ DecisionTree::class => ['depth' => 5] ];
+        return [DecisionTree::class => ['depth' => 5]];
     }
 
     public function testOtherBaseClassifier()

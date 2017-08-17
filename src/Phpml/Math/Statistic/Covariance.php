@@ -80,7 +80,7 @@ class Covariance
         }
 
         if ($i < 0 || $k < 0 || $i >= $n || $k >= $n) {
-            throw new \Exception("Given indices i and k do not match with the dimensionality of data");
+            throw new \Exception('Given indices i and k do not match with the dimensionality of data');
         }
 
         if ($meanX === null || $meanY === null) {

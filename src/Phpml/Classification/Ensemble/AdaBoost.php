@@ -18,6 +18,7 @@ class AdaBoost implements Classifier
 
     /**
      * Actual labels given in the targets array
+     *
      * @var array
      */
     protected $labels = [];
@@ -86,7 +87,7 @@ class AdaBoost implements Classifier
      * Sets the base classifier that will be used for boosting (default = DecisionStump)
      *
      * @param string $baseClassifier
-     * @param array $classifierOptions
+     * @param array  $classifierOptions
      */
     public function setBaseClassifier(string $baseClassifier = DecisionStump::class, array $classifierOptions = [])
     {
@@ -105,7 +106,7 @@ class AdaBoost implements Classifier
         // Initialize usual variables
         $this->labels = array_keys(array_count_values($targets));
         if (count($this->labels) != 2) {
-            throw new \Exception("AdaBoost is a binary classifier and can classify between two classes only");
+            throw new \Exception('AdaBoost is a binary classifier and can classify between two classes only');
         }
 
         // Set all target values to either -1 or 1
@@ -175,14 +176,14 @@ class AdaBoost implements Classifier
     {
         $weights = $this->weights;
         $std = StandardDeviation::population($weights);
-        $mean= Mean::arithmetic($weights);
+        $mean = Mean::arithmetic($weights);
         $min = min($weights);
-        $minZ= (int)round(($min - $mean) / $std);
+        $minZ = (int) round(($min - $mean) / $std);
 
         $samples = [];
         $targets = [];
         foreach ($weights as $index => $weight) {
-            $z = (int)round(($weight - $mean) / $std) - $minZ + 1;
+            $z = (int) round(($weight - $mean) / $std) - $minZ + 1;
             for ($i = 0; $i < $z; ++$i) {
                 if (rand(0, 1) == 0) {
                     continue;
@@ -220,6 +221,7 @@ class AdaBoost implements Classifier
      * Calculates alpha of a classifier
      *
      * @param float $errorRate
+     *
      * @return float
      */
     protected function calculateAlpha(float $errorRate)
@@ -227,6 +229,7 @@ class AdaBoost implements Classifier
         if ($errorRate == 0) {
             $errorRate = 1e-10;
         }
+
         return 0.5 * log((1 - $errorRate) / $errorRate);
     }
 
@@ -234,7 +237,7 @@ class AdaBoost implements Classifier
      * Updates the sample weights
      *
      * @param Classifier $classifier
-     * @param float $alpha
+     * @param float      $alpha
      */
     protected function updateWeights(Classifier $classifier, float $alpha)
     {
@@ -254,6 +257,7 @@ class AdaBoost implements Classifier
 
     /**
      * @param array $sample
+     *
      * @return mixed
      */
     public function predictSample(array $sample)
@@ -264,6 +268,6 @@ class AdaBoost implements Classifier
             $sum += $h * $alpha;
         }
 
-        return $this->labels[ $sum > 0 ? 1 : -1];
+        return $this->labels[$sum > 0 ? 1 : -1];
     }
 }

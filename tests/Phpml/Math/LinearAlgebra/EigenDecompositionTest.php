@@ -22,7 +22,7 @@ class EigenDecompositionTest extends TestCase
             [0.614444444, 0.716555556]
         ];
         $knownEigvalues = [0.0490833989, 1.28402771];
-        $knownEigvectors= [[-0.735178656, 0.677873399], [-0.677873399, -0.735178656]];
+        $knownEigvectors = [[-0.735178656, 0.677873399], [-0.677873399, -0.735178656]];
 
         $decomp = new EigenvalueDecomposition($matrix);
         $eigVectors = $decomp->getEigenvectors();
@@ -37,8 +37,8 @@ class EigenDecompositionTest extends TestCase
         $len = 3;
         $A = array_fill(0, $len, array_fill(0, $len, 0.0));
         srand(intval(microtime(true) * 1000));
-        for ($i=0; $i < $len; $i++) {
-            for ($k=0; $k < $len; $k++) {
+        for ($i = 0; $i < $len; ++$i) {
+            for ($k = 0; $k < $len; ++$k) {
                 if ($i > $k) {
                     $A[$i][$k] = $A[$k][$i];
                 } else {
@@ -49,7 +49,7 @@ class EigenDecompositionTest extends TestCase
 
         $decomp = new EigenvalueDecomposition($A);
         $eigValues = $decomp->getRealEigenvalues();
-        $eigVectors= $decomp->getEigenvectors();
+        $eigVectors = $decomp->getEigenvectors();
 
         foreach ($eigValues as $index => $lambda) {
             $m1 = new Matrix($A);
@@ -57,7 +57,7 @@ class EigenDecompositionTest extends TestCase
 
             // A.v=λ.v
             $leftSide = $m1->multiply($m2)->toArray();
-            $rightSide= $m2->multiplyByScalar($lambda)->toArray();
+            $rightSide = $m2->multiplyByScalar($lambda)->toArray();
 
             $this->assertEquals($leftSide, $rightSide, '', $epsilon);
         }

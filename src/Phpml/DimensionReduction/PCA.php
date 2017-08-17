@@ -28,20 +28,20 @@ class PCA extends EigenTransformerBase
      * within the data. It is a lossy data compression technique.<br>
      *
      * @param float $totalVariance Total explained variance to be preserved
-     * @param int $numFeatures Number of features to be preserved
+     * @param int   $numFeatures   Number of features to be preserved
      *
      * @throws \Exception
      */
     public function __construct($totalVariance = null, $numFeatures = null)
     {
         if ($totalVariance !== null && ($totalVariance < 0.1 || $totalVariance > 0.99)) {
-            throw new \Exception("Total variance can be a value between 0.1 and 0.99");
+            throw new \Exception('Total variance can be a value between 0.1 and 0.99');
         }
         if ($numFeatures !== null && $numFeatures <= 0) {
-            throw new \Exception("Number of features to be preserved should be greater than 0");
+            throw new \Exception('Number of features to be preserved should be greater than 0');
         }
         if ($totalVariance !== null && $numFeatures !== null) {
-            throw new \Exception("Either totalVariance or numFeatures should be specified in order to run the algorithm");
+            throw new \Exception('Either totalVariance or numFeatures should be specified in order to run the algorithm');
         }
 
         if ($numFeatures !== null) {
@@ -79,7 +79,7 @@ class PCA extends EigenTransformerBase
 
     /**
      * @param array $data
-     * @param int $n
+     * @param int   $n
      */
     protected function calculateMeans(array $data, int $n)
     {
@@ -129,7 +129,7 @@ class PCA extends EigenTransformerBase
     public function transform(array $sample)
     {
         if (!$this->fit) {
-            throw new \Exception("PCA has not been fitted with respect to original dataset, please run PCA::fit() first");
+            throw new \Exception('PCA has not been fitted with respect to original dataset, please run PCA::fit() first');
         }
 
         if (!is_array($sample[0])) {

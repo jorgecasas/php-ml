@@ -66,7 +66,7 @@ class Space extends SplObjectStorage
 
     /**
      * @param Point $point
-     * @param null   $data
+     * @param null  $data
      */
     public function attach($point, $data = null)
     {

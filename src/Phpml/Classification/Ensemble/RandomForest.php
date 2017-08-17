@@ -50,7 +50,7 @@ class RandomForest extends Bagging
     public function setFeatureSubsetRatio($ratio)
     {
         if (is_float($ratio) && ($ratio < 0.1 || $ratio > 1.0)) {
-            throw new \Exception("When a float given, feature subset ratio should be between 0.1 and 1.0");
+            throw new \Exception('When a float given, feature subset ratio should be between 0.1 and 1.0');
         }
 
         if (is_string($ratio) && $ratio != 'sqrt' && $ratio != 'log') {
@@ -58,6 +58,7 @@ class RandomForest extends Bagging
         }
 
         $this->featureSubsetRatio = $ratio;
+
         return $this;
     }
 
@@ -74,7 +75,7 @@ class RandomForest extends Bagging
     public function setClassifer(string $classifier, array $classifierOptions = [])
     {
         if ($classifier != DecisionTree::class) {
-            throw new \Exception("RandomForest can only use DecisionTree as base classifier");
+            throw new \Exception('RandomForest can only use DecisionTree as base classifier');
         }
 
         return parent::setClassifer($classifier, $classifierOptions);
@@ -120,6 +121,7 @@ class RandomForest extends Bagging
      * when trying to print some information about the trees such as feature importances
      *
      * @param array $names
+     *
      * @return $this
      */
     public function setColumnNames(array $names)
@@ -137,11 +139,11 @@ class RandomForest extends Bagging
     protected function initSingleClassifier($classifier)
     {
         if (is_float($this->featureSubsetRatio)) {
-            $featureCount = (int)($this->featureSubsetRatio * $this->featureCount);
+            $featureCount = (int) ($this->featureSubsetRatio * $this->featureCount);
         } elseif ($this->featureCount == 'sqrt') {
-            $featureCount = (int)sqrt($this->featureCount) + 1;
+            $featureCount = (int) sqrt($this->featureCount) + 1;
         } else {
-            $featureCount = (int)log($this->featureCount, 2) + 1;
+            $featureCount = (int) log($this->featureCount, 2) + 1;
         }
 
         if ($featureCount >= $this->featureCount) {

@@ -106,9 +106,9 @@ class NormalizerTest extends TestCase
         // Generate 10 random vectors of length 3
         $samples = [];
         srand(time());
-        for ($i=0; $i<10; $i++) {
+        for ($i = 0; $i < 10; ++$i) {
             $sample = array_fill(0, 3, 0);
-            for ($k=0; $k<3; $k++) {
+            for ($k = 0; $k < 3; ++$k) {
                 $sample[$k] = rand(1, 100);
             }
             // Last feature's value shared across samples.

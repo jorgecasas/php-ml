@@ -12,7 +12,7 @@ class Normalizer implements Preprocessor
 {
     const NORM_L1 = 1;
     const NORM_L2 = 2;
-    const NORM_STD= 3;
+    const NORM_STD = 3;
 
     /**
      * @var int
@@ -77,7 +77,7 @@ class Normalizer implements Preprocessor
         $methods = [
             self::NORM_L1 => 'normalizeL1',
             self::NORM_L2 => 'normalizeL2',
-            self::NORM_STD=> 'normalizeSTD'
+            self::NORM_STD => 'normalizeSTD'
         ];
         $method = $methods[$this->norm];
 
@@ -117,7 +117,7 @@ class Normalizer implements Preprocessor
         foreach ($sample as $feature) {
             $norm2 += $feature * $feature;
         }
-        $norm2 = sqrt((float)$norm2);
+        $norm2 = sqrt((float) $norm2);
 
         if (0 == $norm2) {
             $sample = array_fill(0, count($sample), 1);

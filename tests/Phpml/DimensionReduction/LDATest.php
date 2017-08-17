@@ -57,7 +57,7 @@ class LDATest extends TestCase
         // for each projected row
         foreach ($data as $i => $row) {
             $newRow = [$transformed2[$i]];
-            $newRow2= $lda->transform($row);
+            $newRow2 = $lda->transform($row);
 
             array_map($check, $newRow, $newRow2);
         }

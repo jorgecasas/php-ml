@@ -17,11 +17,14 @@ declare(strict_types=1);
  *	@author Paul Meagher
  *	@author Bartosz Matosiuk
  *	@author Michael Bommarito
+ *
  *	@version 1.1
+ *
  *	@license PHP v3.0
  *
  *  Slightly changed to adapt the original code to PHP-ML library
  *  @date 2017/04/24
+ *
  *  @author Mustafa Karabulut
  */
 
@@ -34,34 +37,38 @@ class LUDecomposition
 {
     /**
      *	Decomposition storage
+     *
      *	@var array
      */
     private $LU = [];
 
     /**
      *	Row dimension.
+     *
      *	@var int
      */
     private $m;
 
     /**
      *	Column dimension.
+     *
      *	@var int
      */
     private $n;
 
     /**
      *	Pivot sign.
+     *
      *	@var int
      */
     private $pivsign;
 
     /**
      *	Internal storage of pivot vector.
+     *
      *	@var array
      */
     private $piv = [];
-
 
     /**
      * Constructs Structure to access L, U and piv.
@@ -78,8 +85,8 @@ class LUDecomposition
 
         // Use a "left-looking", dot-product, Crout/Doolittle algorithm.
         $this->LU = $A->toArray();
-        $this->m  = $A->getRows();
-        $this->n  = $A->getColumns();
+        $this->m = $A->getRows();
+        $this->n = $A->getColumns();
         for ($i = 0; $i < $this->m; ++$i) {
             $this->piv[$i] = $i;
         }
@@ -128,8 +135,7 @@ class LUDecomposition
                 }
             }
         }
-    }    //	function __construct()
-
+    }
 
     /**
      * Get lower triangular factor.
@@ -150,9 +156,9 @@ class LUDecomposition
                 }
             }
         }
-        return new Matrix($L);
-    }    //	function getL()
 
+        return new Matrix($L);
+    }
 
     /**
      * Get upper triangular factor.
@@ -171,9 +177,9 @@ class LUDecomposition
                 }
             }
         }
-        return new Matrix($U);
-    }    //	function getU()
 
+        return new Matrix($U);
+    }
 
     /**
      * Return pivot permutation vector.
@@ -183,8 +189,7 @@ class LUDecomposition
     public function getPivot()
     {
         return $this->piv;
-    }    //	function getPivot()
-
+    }
 
     /**
      * Alias for getPivot
@@ -194,8 +199,7 @@ class LUDecomposition
     public function getDoublePivot()
     {
         return $this->getPivot();
-    }    //	function getDoublePivot()
-
+    }
 
     /**
      * Is the matrix nonsingular?
@@ -211,8 +215,7 @@ class LUDecomposition
         }
 
         return true;
-    }    //	function isNonsingular()
-
+    }
 
     /**
      * Count determinants
@@ -233,8 +236,7 @@ class LUDecomposition
         }
 
         return $d;
-    }    //	function det()
-
+    }
 
     /**
      * Solve A*X = B
@@ -257,7 +259,7 @@ class LUDecomposition
 
         // Copy right hand side with pivoting
         $nx = $B->getColumns();
-        $X  = $this->getSubMatrix($B->toArray(), $this->piv, 0, $nx - 1);
+        $X = $this->getSubMatrix($B->toArray(), $this->piv, 0, $nx - 1);
         // Solve L*Y = B(piv,:)
         for ($k = 0; $k < $this->n; ++$k) {
             for ($i = $k + 1; $i < $this->n; ++$i) {
@@ -277,8 +279,9 @@ class LUDecomposition
                 }
             }
         }
+
         return $X;
-    }    //	function solve()
+    }
 
     /**
      * @param array $matrix
@@ -302,4 +305,4 @@ class LUDecomposition
 
         return $R;
     }
-}    //	class LUDecomposition
+}

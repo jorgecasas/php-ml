@@ -43,20 +43,20 @@ class LDA extends EigenTransformerBase
      * or numFeatures (number of features in the dataset) to be preserved.
      *
      * @param float|null $totalVariance Total explained variance to be preserved
-     * @param int|null $numFeatures Number of features to be preserved
+     * @param int|null   $numFeatures   Number of features to be preserved
      *
      * @throws \Exception
      */
     public function __construct($totalVariance = null, $numFeatures = null)
     {
         if ($totalVariance !== null && ($totalVariance < 0.1 || $totalVariance > 0.99)) {
-            throw new \Exception("Total variance can be a value between 0.1 and 0.99");
+            throw new \Exception('Total variance can be a value between 0.1 and 0.99');
         }
         if ($numFeatures !== null && $numFeatures <= 0) {
-            throw new \Exception("Number of features to be preserved should be greater than 0");
+            throw new \Exception('Number of features to be preserved should be greater than 0');
         }
         if ($totalVariance !== null && $numFeatures !== null) {
-            throw new \Exception("Either totalVariance or numFeatures should be specified in order to run the algorithm");
+            throw new \Exception('Either totalVariance or numFeatures should be specified in order to run the algorithm');
         }
 
         if ($numFeatures !== null) {
@@ -78,7 +78,7 @@ class LDA extends EigenTransformerBase
     public function fit(array $data, array $classes) : array
     {
         $this->labels = $this->getLabels($classes);
-        $this->means  = $this->calculateMeans($data, $classes);
+        $this->means = $this->calculateMeans($data, $classes);
 
         $sW = $this->calculateClassVar($data, $classes);
         $sB = $this->calculateClassCov();
@@ -105,7 +105,6 @@ class LDA extends EigenTransformerBase
         return array_keys($counts);
     }
 
-
     /**
      * Calculates mean of each column for each class and returns
      * n by m matrix where n is number of labels and m is number of columns
@@ -118,7 +117,7 @@ class LDA extends EigenTransformerBase
     protected function calculateMeans(array $data, array $classes) : array
     {
         $means = [];
-        $counts= [];
+        $counts = [];
         $overallMean = array_fill(0, count($data[0]), 0.0);
 
         foreach ($data as $index => $row) {
@@ -155,7 +154,6 @@ class LDA extends EigenTransformerBase
 
         return $means;
     }
-
 
     /**
      * Returns in-class scatter matrix for each class, which
@@ -237,7 +235,7 @@ class LDA extends EigenTransformerBase
     public function transform(array $sample)
     {
         if (!$this->fit) {
-            throw new \Exception("LDA has not been fitted with respect to original dataset, please run LDA::fit() first");
+            throw new \Exception('LDA has not been fitted with respect to original dataset, please run LDA::fit() first');
         }
 
         if (!is_array($sample[0])) {

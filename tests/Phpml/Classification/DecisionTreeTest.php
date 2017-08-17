@@ -11,20 +11,20 @@ use PHPUnit\Framework\TestCase;
 class DecisionTreeTest extends TestCase
 {
     private $data = [
-        ['sunny',        85,        85,    'false',    'Dont_play'    ],
-        ['sunny',        80,    90,    'true',        'Dont_play'    ],
-        ['overcast',    83,    78,    'false',    'Play'        ],
-        ['rain',        70,    96,    'false',    'Play'        ],
-        ['rain',        68,    80,    'false',    'Play'        ],
-        ['rain',        65,    70,    'true',    'Dont_play'    ],
-        ['overcast',    64,    65,    'true',    'Play'        ],
-        ['sunny',        72,    95,    'false',    'Dont_play'    ],
-        ['sunny',        69,    70,    'false',    'Play'        ],
-        ['rain',        75,    80,    'false',    'Play'        ],
-        ['sunny',        75,    70,    'true',    'Play'        ],
-        ['overcast',    72,    90,    'true',    'Play'        ],
-        ['overcast',    81,    75,    'false',    'Play'        ],
-        ['rain',        71,    80,    'true',    'Dont_play'    ]
+        ['sunny',       85,    85,    'false',    'Dont_play'],
+        ['sunny',       80,    90,    'true',     'Dont_play'],
+        ['overcast',    83,    78,    'false',    'Play'],
+        ['rain',        70,    96,    'false',    'Play'],
+        ['rain',        68,    80,    'false',    'Play'],
+        ['rain',        65,    70,    'true',     'Dont_play'],
+        ['overcast',    64,    65,    'true',     'Play'],
+        ['sunny',       72,    95,    'false',    'Dont_play'],
+        ['sunny',       69,    70,    'false',    'Play'],
+        ['rain',        75,    80,    'false',    'Play'],
+        ['sunny',       75,    70,    'true',     'Play'],
+        ['overcast',    72,    90,    'true',     'Play'],
+        ['overcast',    81,    75,    'false',    'Play'],
+        ['rain',        71,    80,    'true',     'Dont_play']
     ];
 
     private $extraData = [
@@ -38,6 +38,7 @@ class DecisionTreeTest extends TestCase
         array_walk($input, function (&$v) {
             array_splice($v, 4, 1);
         });
+
         return [$input, $targets];
     }
 
@@ -54,6 +55,7 @@ class DecisionTreeTest extends TestCase
         $classifier->train($data, $targets);
         $this->assertEquals('Dont_play', $classifier->predict(['scorching', 95, 90, 'true']));
         $this->assertEquals('Play', $classifier->predict(['overcast', 60, 60, 'false']));
+
         return $classifier;
     }
 

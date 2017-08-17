@@ -13,8 +13,8 @@ class NaiveBayes implements Classifier
 {
     use Trainable, Predictable;
 
-    const CONTINUOS    = 1;
-    const NOMINAL    = 2;
+    const CONTINUOS = 1;
+    const NOMINAL = 2;
     const EPSILON = 1e-10;
 
     /**
@@ -25,7 +25,7 @@ class NaiveBayes implements Classifier
     /**
      * @var array
      */
-    private $mean= [];
+    private $mean = [];
 
     /**
      * @var array
@@ -80,13 +80,14 @@ class NaiveBayes implements Classifier
     /**
      * Calculates vital statistics for each label & feature. Stores these
      * values in private array in order to avoid repeated calculation
+     *
      * @param string $label
-     * @param array $samples
+     * @param array  $samples
      */
     private function calculateStatistics($label, $samples)
     {
         $this->std[$label] = array_fill(0, $this->featureCount, 0);
-        $this->mean[$label]= array_fill(0, $this->featureCount, 0);
+        $this->mean[$label] = array_fill(0, $this->featureCount, 0);
         $this->dataType[$label] = array_fill(0, $this->featureCount, self::CONTINUOS);
         $this->discreteProb[$label] = array_fill(0, $this->featureCount, self::CONTINUOS);
         for ($i = 0; $i < $this->featureCount; ++$i) {
@@ -128,10 +129,11 @@ class NaiveBayes implements Classifier
                 $this->discreteProb[$label][$feature][$value] == 0) {
                 return self::EPSILON;
             }
+
             return $this->discreteProb[$label][$feature][$value];
         }
         $std = $this->std[$label][$feature] ;
-        $mean= $this->mean[$label][$feature];
+        $mean = $this->mean[$label][$feature];
         // Calculate the probability density by use of normal/Gaussian distribution
         // Ref: https://en.wikipedia.org/wiki/Normal_distribution
         //
@@ -139,8 +141,9 @@ class NaiveBayes implements Classifier
         // some libraries adopt taking log of calculations such as
         // scikit-learn did.
         // (See : https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/naive_bayes.py)
-        $pdf  =  -0.5 * log(2.0 * pi() * $std * $std);
+        $pdf = -0.5 * log(2.0 * pi() * $std * $std);
         $pdf -= 0.5 * pow($value - $mean, 2) / ($std * $std);
+
         return $pdf;
     }
 
@@ -159,11 +162,13 @@ class NaiveBayes implements Classifier
                 $samples[] = $this->samples[$i];
             }
         }
+
         return $samples;
     }
 
     /**
      * @param array $sample
+     *
      * @return mixed
      */
     protected function predictSample(array $sample)
@@ -174,7 +179,7 @@ class NaiveBayes implements Classifier
         $predictions = [];
         foreach ($this->labels as $label) {
             $p = $this->p[$label];
-            for ($i = 0; $i<$this->featureCount; ++$i) {
+            for ($i = 0; $i < $this->featureCount; ++$i) {
                 $Plf = $this->sampleProbability($sample, $i, $label);
                 $p += $Plf;
             }
@@ -183,6 +188,7 @@ class NaiveBayes implements Classifier
 
         arsort($predictions, SORT_NUMERIC);
         reset($predictions);
+
         return key($predictions);
     }
 }

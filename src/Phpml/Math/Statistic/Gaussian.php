@@ -39,7 +39,8 @@ class Gaussian
         // Ref: https://en.wikipedia.org/wiki/Normal_distribution
         $std2 = $this->std ** 2;
         $mean = $this->mean;
-        return exp(- (($value - $mean) ** 2) / (2 * $std2)) / sqrt(2 * $std2 * pi());
+
+        return exp(-(($value - $mean) ** 2) / (2 * $std2)) / sqrt(2 * $std2 * pi());
     }
 
     /**
@@ -55,6 +56,7 @@ class Gaussian
     public static function distributionPdf(float $mean, float $std, float $value)
     {
         $normal = new self($mean, $std);
+
         return $normal->pdf($value);
     }
 }

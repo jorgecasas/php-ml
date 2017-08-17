@@ -144,7 +144,7 @@ class DecisionTree implements Classifier
         // otherwise group the records so that we can classify the leaf
         // in case maximum depth is reached
         $leftRecords = [];
-        $rightRecords= [];
+        $rightRecords = [];
         $remainingTargets = [];
         $prevRecord = null;
         $allSame = true;
@@ -162,7 +162,7 @@ class DecisionTree implements Classifier
             if ($split->evaluate($record)) {
                 $leftRecords[] = $recordNo;
             } else {
-                $rightRecords[]= $recordNo;
+                $rightRecords[] = $recordNo;
             }
 
             // Group remaining targets
@@ -183,7 +183,7 @@ class DecisionTree implements Classifier
                 $split->leftLeaf = $this->getSplitLeaf($leftRecords, $depth + 1);
             }
             if ($rightRecords) {
-                $split->rightLeaf= $this->getSplitLeaf($rightRecords, $depth + 1);
+                $split->rightLeaf = $this->getSplitLeaf($rightRecords, $depth + 1);
             }
         }
 

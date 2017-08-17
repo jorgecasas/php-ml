@@ -54,7 +54,7 @@ abstract class EigenTransformerBase
     {
         $eig = new EigenvalueDecomposition($matrix);
         $eigVals = $eig->getRealEigenvalues();
-        $eigVects= $eig->getEigenvectors();
+        $eigVects = $eig->getEigenvectors();
 
         $totalEigVal = array_sum($eigVals);
         // Sort eigenvalues in descending order

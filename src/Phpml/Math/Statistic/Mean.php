@@ -34,7 +34,7 @@ class Mean
         self::checkArrayLength($numbers);
 
         $count = count($numbers);
-        $middleIndex = (int)floor($count / 2);
+        $middleIndex = (int) floor($count / 2);
         sort($numbers, SORT_NUMERIC);
         $median = $numbers[$middleIndex];
 

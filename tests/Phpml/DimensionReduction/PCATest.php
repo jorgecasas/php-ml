@@ -47,7 +47,7 @@ class PCATest extends TestCase
         // same dimensionality with the original dataset
         foreach ($data as $i => $row) {
             $newRow = [[$transformed[$i]]];
-            $newRow2= $pca->transform($row);
+            $newRow2 = $pca->transform($row);
 
             array_map(function ($val1, $val2) use ($epsilon) {
                 $this->assertEquals(abs($val1), abs($val2), '', $epsilon);
