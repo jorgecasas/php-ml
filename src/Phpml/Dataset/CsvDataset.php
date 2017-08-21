@@ -18,10 +18,11 @@ class CsvDataset extends ArrayDataset
      * @param int    $features
      * @param bool   $headingRow
      * @param string $delimiter
+     * @param int    $maxLineLength
      *
      * @throws FileException
      */
-    public function __construct(string $filepath, int $features, bool $headingRow = true, string $delimiter = ',')
+    public function __construct(string $filepath, int $features, bool $headingRow = true, string $delimiter = ',', int $maxLineLength = 0)
     {
         if (!file_exists($filepath)) {
             throw FileException::missingFile(basename($filepath));
@@ -32,14 +33,14 @@ class CsvDataset extends ArrayDataset
         }
 
         if ($headingRow) {
-            $data = fgetcsv($handle, 1000, $delimiter);
+            $data = fgetcsv($handle, $maxLineLength, $delimiter);
             $this->columnNames = array_slice($data, 0, $features);
         } else {
             $this->columnNames = range(0, $features - 1);
         }
 
         $samples = $targets = [];
-        while (($data = fgetcsv($handle, 1000, $delimiter)) !== false) {
+        while (($data = fgetcsv($handle, $maxLineLength, $delimiter)) !== false) {
             $samples[] = array_slice($data, 0, $features);
             $targets[] = $data[$features];
         }

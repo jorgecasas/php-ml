@@ -36,4 +36,14 @@ class CsvDatasetTest extends TestCase
         $this->assertCount(11, $dataset->getSamples());
         $this->assertCount(11, $dataset->getTargets());
     }
+
+    public function testLongCsvDataset()
+    {
+        $filePath = dirname(__FILE__).'/Resources/longdataset.csv';
+
+        $dataset = new CsvDataset($filePath, 1000, false);
+
+        $this->assertCount(1000, $dataset->getSamples()[0]);
+        $this->assertEquals('label', $dataset->getTargets()[0]);
+    }
 }
