@@ -138,9 +138,11 @@ class DecisionTreeLeaf
             } else {
                 $col = "col_$this->columnIndex";
             }
-            if (!preg_match('/^[<>=]{1,2}/', $value)) {
+
+            if (!preg_match('/^[<>=]{1,2}/', strval($value))) {
                 $value = "=$value";
             }
+
             $value = "<b>$col $value</b><br>Gini: ".number_format($this->giniIndex, 2);
         }
 
