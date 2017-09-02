@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpml\SupportVectorMachine;
 
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\Helper\Trainable;
 
 class SupportVectorMachine
@@ -140,25 +141,29 @@ class SupportVectorMachine
     /**
      * @param string $binPath
      *
-     * @return $this
+     * @throws InvalidArgumentException
      */
     public function setBinPath(string $binPath)
     {
-        $this->binPath = $binPath;
+        $this->ensureDirectorySeparator($binPath);
+        $this->verifyBinPath($binPath);
 
-        return $this;
+        $this->binPath = $binPath;
     }
 
     /**
      * @param string $varPath
      *
-     * @return $this
+     * @throws InvalidArgumentException
      */
     public function setVarPath(string $varPath)
     {
-        $this->varPath = $varPath;
+        if (!is_writable($varPath)) {
+            throw InvalidArgumentException::pathNotWritable($varPath);
+        }
 
-        return $this;
+        $this->ensureDirectorySeparator($varPath);
+        $this->varPath = $varPath;
     }
 
     /**
@@ -269,5 +274,39 @@ class SupportVectorMachine
             escapeshellarg($trainingSetFileName),
             escapeshellarg($modelFileName)
         );
+    }
+
+    /**
+     * @param string $path
+     */
+    private function ensureDirectorySeparator(string &$path)
+    {
+        if (substr($path, -1) !== DIRECTORY_SEPARATOR) {
+            $path .= DIRECTORY_SEPARATOR;
+        }
+    }
+
+    /**
+     * @param string $path
+     *
+     * @throws InvalidArgumentException
+     */
+    private function verifyBinPath(string $path)
+    {
+        if (!is_dir($path)) {
+            throw InvalidArgumentException::pathNotFound($path);
+        }
+
+        $osExtension = $this->getOSExtension();
+        foreach (['svm-predict', 'svm-scale', 'svm-train'] as $filename) {
+            $filePath = $path.$filename.$osExtension;
+            if (!file_exists($filePath)) {
+                throw InvalidArgumentException::fileNotFound($filePath);
+            }
+
+            if (!is_executable($filePath)) {
+                throw InvalidArgumentException::fileNotExecutable($filePath);
+            }
+        }
     }
 }

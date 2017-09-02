@@ -39,7 +39,7 @@ class InvalidArgumentException extends \Exception
      */
     public static function arraySizeToSmall($minimumSize = 2)
     {
-        return new self(sprintf('The array must have at least %s elements', $minimumSize));
+        return new self(sprintf('The array must have at least %d elements', $minimumSize));
     }
 
     /**
@@ -73,7 +73,7 @@ class InvalidArgumentException extends \Exception
      */
     public static function invalidTarget($target)
     {
-        return new self('Target with value '.$target.' is not part of the accepted classes');
+        return new self(sprintf('Target with value "%s" is not part of the accepted classes', $target));
     }
 
     /**
@@ -83,7 +83,7 @@ class InvalidArgumentException extends \Exception
      */
     public static function invalidStopWordsLanguage(string $language)
     {
-        return new self(sprintf('Can\'t find %s language for StopWords', $language));
+        return new self(sprintf('Can\'t find "%s" language for StopWords', $language));
     }
 
     /**
@@ -110,8 +110,51 @@ class InvalidArgumentException extends \Exception
         return new self('Provide at least 2 different classes');
     }
 
+    /**
+     * @return InvalidArgumentException
+     */
     public static function inconsistentClasses()
     {
         return new self('The provided classes don\'t match the classes provided in the constructor');
+    }
+
+    /**
+     * @param string $file
+     *
+     * @return InvalidArgumentException
+     */
+    public static function fileNotFound(string $file)
+    {
+        return new self(sprintf('File "%s" not found', $file));
+    }
+
+    /**
+     * @param string $file
+     *
+     * @return InvalidArgumentException
+     */
+    public static function fileNotExecutable(string $file)
+    {
+        return new self(sprintf('File "%s" is not executable', $file));
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return InvalidArgumentException
+     */
+    public static function pathNotFound(string $path)
+    {
+        return new self(sprintf('The specified path "%s" does not exist', $path));
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return InvalidArgumentException
+     */
+    public static function pathNotWritable(string $path)
+    {
+        return new self(sprintf('The specified path "%s" is not writable', $path));
     }
 }

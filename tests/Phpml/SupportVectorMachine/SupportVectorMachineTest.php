@@ -80,4 +80,34 @@ SV
         $this->assertEquals('b', $predictions[1]);
         $this->assertEquals('c', $predictions[2]);
     }
+
+    /**
+     * @expectedException \Phpml\Exception\InvalidArgumentException
+     * @expectedExceptionMessage is not writable
+     */
+    public function testThrowExceptionWhenVarPathIsNotWritable()
+    {
+        $svm = new SupportVectorMachine(Type::C_SVC, Kernel::RBF);
+        $svm->setVarPath('var-path');
+    }
+
+    /**
+     * @expectedException \Phpml\Exception\InvalidArgumentException
+     * @expectedExceptionMessage does not exist
+     */
+    public function testThrowExceptionWhenBinPathDoesNotExist()
+    {
+        $svm = new SupportVectorMachine(Type::C_SVC, Kernel::RBF);
+        $svm->setBinPath('bin-path');
+    }
+
+    /**
+     * @expectedException \Phpml\Exception\InvalidArgumentException
+     * @expectedExceptionMessage not found
+     */
+    public function testThrowExceptionWhenFileIsNotFoundInBinPath()
+    {
+        $svm = new SupportVectorMachine(Type::C_SVC, Kernel::RBF);
+        $svm->setBinPath('var');
+    }
 }
