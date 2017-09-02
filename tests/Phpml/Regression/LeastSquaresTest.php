@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Regression;
+namespace tests\Phpml\Regression;
 
 use Phpml\Regression\LeastSquares;
 use Phpml\ModelManager;

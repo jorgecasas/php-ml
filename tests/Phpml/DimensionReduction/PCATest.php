@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\DimensionReduction;
+namespace tests\Phpml\DimensionReduction;
 
 use Phpml\DimensionReduction\PCA;
 use PHPUnit\Framework\TestCase;

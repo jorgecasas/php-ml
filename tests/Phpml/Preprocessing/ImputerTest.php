@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Preprocessing;
+namespace tests\Phpml\Preprocessing;
 
 use Phpml\Preprocessing\Imputer;
 use Phpml\Preprocessing\Imputer\Strategy\MeanStrategy;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Clustering;
+namespace tests\Phpml\Clustering;
 
 use Phpml\Clustering\DBSCAN;
 use PHPUnit\Framework\TestCase;

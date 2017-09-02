@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Classification\Linear;
+namespace tests\Phpml\Classification\Linear;
 
 use Phpml\Classification\Linear\Adaline;
 use Phpml\ModelManager;

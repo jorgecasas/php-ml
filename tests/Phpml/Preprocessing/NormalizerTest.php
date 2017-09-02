@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Preprocessing;
+namespace tests\Phpml\Preprocessing;
 
 use Phpml\Preprocessing\Normalizer;
 use PHPUnit\Framework\TestCase;

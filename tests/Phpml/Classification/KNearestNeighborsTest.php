@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Classification;
+namespace tests\Phpml\Classification;
 
 use Phpml\Classification\KNearestNeighbors;
 use Phpml\Math\Distance\Chebyshev;

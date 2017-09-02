@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Classification;
+namespace tests\Phpml\Classification;
 
 use Phpml\Association\Apriori;
 use Phpml\ModelManager;

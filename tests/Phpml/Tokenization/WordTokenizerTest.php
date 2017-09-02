@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Tokenization;
+namespace tests\Phpml\Tokenization;
 
 use Phpml\Tokenization\WordTokenizer;
 use PHPUnit\Framework\TestCase;

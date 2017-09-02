@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Math\Statistic;
+namespace tests\Phpml\Math\Statistic;
 
 use Phpml\Math\Statistic\Covariance;
 use Phpml\Math\Statistic\Mean;
