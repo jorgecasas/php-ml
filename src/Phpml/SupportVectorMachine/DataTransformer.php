@@ -57,7 +57,7 @@ class DataTransformer
         $numericLabels = self::numericLabels($labels);
         $results = [];
         foreach (explode(PHP_EOL, $rawPredictions) as $result) {
-            if (strlen($result) > 0) {
+            if (isset($result[0])) {
                 $results[] = array_search($result, $numericLabels);
             }
         }
