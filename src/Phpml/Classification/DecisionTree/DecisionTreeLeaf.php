@@ -81,7 +81,7 @@ class DecisionTreeLeaf
         if ($this->isContinuous) {
             $op = $this->operator;
             $value = $this->numericValue;
-            $recordField = strval($recordField);
+            $recordField = (string) $recordField;
             eval("\$result = $recordField $op $value;");
 
             return $result;
@@ -139,7 +139,7 @@ class DecisionTreeLeaf
                 $col = "col_$this->columnIndex";
             }
 
-            if (!preg_match('/^[<>=]{1,2}/', strval($value))) {
+            if (!preg_match('/^[<>=]{1,2}/', (string) $value)) {
                 $value = "=$value";
             }
 

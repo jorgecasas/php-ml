@@ -288,7 +288,7 @@ class LogisticRegression extends Adaline
     {
         $predicted = $this->predictSampleBinary($sample);
 
-        if (strval($predicted) == strval($label)) {
+        if ((string) $predicted == (string) $label) {
             $sample = $this->checkNormalizedSample($sample);
 
             return abs($this->output($sample) - 0.5);

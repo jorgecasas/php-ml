@@ -285,7 +285,7 @@ class DecisionStump extends WeightedClassifier
             }
 
             $target = $targets[$index];
-            if (strval($predicted) != strval($targets[$index])) {
+            if ((string) $predicted != (string) $targets[$index]) {
                 $wrong += $this->weights[$index];
             }
 
@@ -300,7 +300,7 @@ class DecisionStump extends WeightedClassifier
         foreach ($prob as $leaf => $counts) {
             $leafTotal = (float) array_sum($prob[$leaf]);
             foreach ($counts as $label => $count) {
-                if (strval($leaf) == strval($label)) {
+                if ((string) $leaf == (string) $label) {
                     $dist[$leaf] = $count / $leafTotal;
                 }
             }
@@ -323,7 +323,7 @@ class DecisionStump extends WeightedClassifier
     protected function predictProbability(array $sample, $label) : float
     {
         $predicted = $this->predictSampleBinary($sample);
-        if (strval($predicted) == strval($label)) {
+        if ((string) $predicted == (string) $label) {
             return $this->prob[$label];
         }
 

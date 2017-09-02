@@ -36,7 +36,8 @@ class EigenDecompositionTest extends TestCase
         // (We, for now, omit non-symmetric matrices whose eigenvalues can be complex numbers)
         $len = 3;
         $A = array_fill(0, $len, array_fill(0, $len, 0.0));
-        srand(intval(microtime(true) * 1000));
+        $seed = microtime(true) * 1000;
+        srand((int) $seed);
         for ($i = 0; $i < $len; ++$i) {
             for ($k = 0; $k < $len; ++$k) {
                 if ($i > $k) {

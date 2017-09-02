@@ -225,9 +225,9 @@ class DecisionTree implements Classifier
                 // will also be saved into the leaf for future access
                 if ($this->columnTypes[$i] == self::CONTINUOUS) {
                     $matches = [];
-                    preg_match("/^([<>=]{1,2})\s*(.*)/", strval($split->value), $matches);
+                    preg_match("/^([<>=]{1,2})\s*(.*)/", (string) $split->value, $matches);
                     $split->operator = $matches[1];
-                    $split->numericValue = floatval($matches[2]);
+                    $split->numericValue = (float) $matches[2];
                 }
 
                 $bestSplit = $split;
@@ -301,7 +301,7 @@ class DecisionTree implements Classifier
             $sum = array_sum(array_column($countMatrix, $i));
             if ($sum > 0) {
                 foreach ($this->labels as $label) {
-                    $part += pow($countMatrix[$label][$i] / floatval($sum), 2);
+                    $part += pow($countMatrix[$label][$i] / (float) $sum, 2);
                 }
             }
 

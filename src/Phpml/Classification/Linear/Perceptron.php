@@ -113,7 +113,7 @@ class Perceptron implements Classifier, IncrementalEstimator
         // Set all target values to either -1 or 1
         $this->labels = [1 => $labels[0], -1 => $labels[1]];
         foreach ($targets as $key => $target) {
-            $targets[$key] = strval($target) == strval($this->labels[1]) ? 1 : -1;
+            $targets[$key] = (string) $target == (string) $this->labels[1] ? 1 : -1;
         }
 
         // Set samples and feature count vars
@@ -275,7 +275,7 @@ class Perceptron implements Classifier, IncrementalEstimator
     {
         $predicted = $this->predictSampleBinary($sample);
 
-        if (strval($predicted) == strval($label)) {
+        if ((string) $predicted == (string) $label) {
             $sample = $this->checkNormalizedSample($sample);
 
             return abs($this->output($sample));
