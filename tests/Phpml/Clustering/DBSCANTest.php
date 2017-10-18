@@ -31,4 +31,17 @@ class DBSCANTest extends TestCase
 
         $this->assertEquals($clustered, $dbscan->cluster($samples));
     }
+
+    public function testDBSCANSamplesClusteringAssociative()
+    {
+        $samples = ['a' => [1, 1], 'b' => [9, 9], 'c' => [1, 2], 'd' => [9, 8], 'e' => [7, 7], 'f' => [8, 7]];
+        $clustered = [
+            ['a' => [1, 1], 'c' => [1, 2]],
+            ['b' => [9, 9], 'd' => [9, 8], 'e' => [7, 7], 'f' => [8, 7]],
+        ];
+
+        $dbscan = new DBSCAN($epsilon = 3, $minSamples = 2);
+
+        $this->assertEquals($clustered, $dbscan->cluster($samples));
+    }
 }

@@ -94,17 +94,19 @@ class DBSCAN implements Clusterer
     {
         $cluster = [];
 
+        $clusterMerge = [[]];
         foreach ($samples as $index => $sample) {
             if (!isset($visited[$index])) {
                 $visited[$index] = true;
                 $regionSamples = $this->getSamplesInRegion($sample, $samples);
                 if (count($regionSamples) > $this->minSamples) {
-                    $cluster = array_merge($regionSamples, $cluster);
+                    $clusterMerge[] = $regionSamples;
                 }
             }
 
-            $cluster[] = $sample;
+            $cluster[$index] = $sample;
         }
+        $cluster = \array_merge($cluster, ...$clusterMerge);
 
         return $cluster;
     }
