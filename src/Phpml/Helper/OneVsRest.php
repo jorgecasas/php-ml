@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Phpml\Helper;
 
+use Phpml\Classification\Classifier;
+
 trait OneVsRest
 {
     /**
@@ -100,7 +102,7 @@ trait OneVsRest
     /**
      * Returns an instance of the current class after cleaning up OneVsRest stuff.
      *
-     * @return \Phpml\Estimator
+     * @return Classifier|OneVsRest
      */
     protected function getClassifierCopy()
     {

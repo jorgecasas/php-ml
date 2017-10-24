@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Phpml\Classification\DecisionTree;
 
+use Phpml\Math\Comparison;
+
 class DecisionTreeLeaf
 {
     /**
@@ -79,12 +81,7 @@ class DecisionTreeLeaf
         $recordField = $record[$this->columnIndex];
 
         if ($this->isContinuous) {
-            $op = $this->operator;
-            $value = $this->numericValue;
-            $recordField = (string) $recordField;
-            eval("\$result = $recordField $op $value;");
-
-            return $result;
+            return Comparison::compare((string) $recordField, $this->numericValue, $this->operator);
         }
         
         return $recordField == $this->value;

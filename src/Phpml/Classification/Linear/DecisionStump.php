@@ -8,6 +8,7 @@ use Phpml\Helper\Predictable;
 use Phpml\Helper\OneVsRest;
 use Phpml\Classification\WeightedClassifier;
 use Phpml\Classification\DecisionTree;
+use Phpml\Math\Comparison;
 
 class DecisionStump extends WeightedClassifier
 {
@@ -237,29 +238,6 @@ class DecisionStump extends WeightedClassifier
     }
 
     /**
-     *
-     * @param mixed  $leftValue
-     * @param string $operator
-     * @param mixed  $rightValue
-     *
-     * @return boolean
-     */
-    protected function evaluate($leftValue, string $operator, $rightValue)
-    {
-        switch ($operator) {
-            case '>': return $leftValue > $rightValue;
-            case '>=': return $leftValue >= $rightValue;
-            case '<': return $leftValue < $rightValue;
-            case '<=': return $leftValue <= $rightValue;
-            case '=': return $leftValue === $rightValue;
-            case '!=':
-            case '<>': return $leftValue !== $rightValue;
-        }
-
-        return false;
-    }
-
-    /**
      * Calculates the ratio of wrong predictions based on the new threshold
      * value given as the parameter
      *
@@ -278,7 +256,7 @@ class DecisionStump extends WeightedClassifier
         $rightLabel = $this->binaryLabels[1];
 
         foreach ($values as $index => $value) {
-            if ($this->evaluate($value, $operator, $threshold)) {
+            if (Comparison::compare($value, $threshold, $operator)) {
                 $predicted = $leftLabel;
             } else {
                 $predicted = $rightLabel;
@@ -337,7 +315,7 @@ class DecisionStump extends WeightedClassifier
      */
     protected function predictSampleBinary(array $sample)
     {
-        if ($this->evaluate($sample[$this->column], $this->operator, $this->value)) {
+        if (Comparison::compare($sample[$this->column], $this->value, $this->operator)) {
             return $this->binaryLabels[0];
         }
 

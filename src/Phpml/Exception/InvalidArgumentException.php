@@ -157,4 +157,14 @@ class InvalidArgumentException extends \Exception
     {
         return new self(sprintf('The specified path "%s" is not writable', $path));
     }
+
+    /**
+     * @param string $operator
+     *
+     * @return InvalidArgumentException
+     */
+    public static function invalidOperator(string $operator)
+    {
+        return new self(sprintf('Invalid operator "%s" provided', $operator));
+    }
 }
