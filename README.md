@@ -2,11 +2,15 @@
 
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.0-8892BF.svg)](https://php.net/)
 [![Latest Stable Version](https://img.shields.io/packagist/v/php-ai/php-ml.svg)](https://packagist.org/packages/php-ai/php-ml)
-[![Build Status](https://scrutinizer-ci.com/g/php-ai/php-ml/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/php-ai/php-ml/build-status/develop)
+[![Build Status](https://scrutinizer-ci.com/g/php-ai/php-ml/badges/build.png?b=master)](https://scrutinizer-ci.com/g/php-ai/php-ml/build-status/master)
 [![Documentation Status](https://readthedocs.org/projects/php-ml/badge/?version=master)](http://php-ml.readthedocs.org/)
 [![Total Downloads](https://poser.pugx.org/php-ai/php-ml/downloads.svg)](https://packagist.org/packages/php-ai/php-ml)
 [![License](https://poser.pugx.org/php-ai/php-ml/license.svg)](https://packagist.org/packages/php-ai/php-ml)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/php-ai/php-ml/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/php-ai/php-ml/?branch=develop)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/php-ai/php-ml/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/php-ai/php-ml/?branch=master)
+
+<a href="http://www.yegor256.com/2016/10/23/award-2017.html">
+  <img src="http://www.yegor256.com/images/award/2017/winner-itcraftsmanpl.png"
+  style="width:203px;height:45px;"/></a>
 
 ![PHP-ML - Machine Learning library for PHP](docs/assets/php-ml-logo.png)
 
