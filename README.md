@@ -20,7 +20,7 @@ PHP-ML requires PHP >= 7.0.
 
 Simple example of classification:
 ```php
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 use Phpml\Classification\KNearestNeighbors;
 
