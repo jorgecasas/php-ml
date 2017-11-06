@@ -29,17 +29,11 @@ class Pipeline implements Estimator
         $this->estimator = $estimator;
     }
 
-    /**
-     * @param Transformer $transformer
-     */
     public function addTransformer(Transformer $transformer)
     {
         $this->transformers[] = $transformer;
     }
 
-    /**
-     * @param Estimator $estimator
-     */
     public function setEstimator(Estimator $estimator)
     {
         $this->estimator = $estimator;
@@ -48,15 +42,12 @@ class Pipeline implements Estimator
     /**
      * @return array|Transformer[]
      */
-    public function getTransformers()
+    public function getTransformers() : array
     {
         return $this->transformers;
     }
 
-    /**
-     * @return Estimator
-     */
-    public function getEstimator()
+    public function getEstimator(): Estimator
     {
         return $this->estimator;
     }

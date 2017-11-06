@@ -24,16 +24,12 @@ class Backpropagation
      */
     private $prevSigmas = null;
 
-    /**
-     * @param int $theta
-     */
     public function __construct(int $theta)
     {
         $this->theta = $theta;
     }
 
     /**
-     * @param array $layers
      * @param mixed $targetClass
      */
     public function backpropagate(array $layers, $targetClass)
@@ -59,15 +55,7 @@ class Backpropagation
         $this->prevSigmas = null;
     }
 
-    /**
-     * @param Neuron $neuron
-     * @param int    $targetClass
-     * @param int    $key
-     * @param bool   $lastLayer
-     *
-     * @return float
-     */
-    private function getSigma(Neuron $neuron, int $targetClass, int $key, bool $lastLayer): float
+    private function getSigma(Neuron $neuron, int $targetClass, int $key, bool $lastLayer) : float
     {
         $neuronOutput = $neuron->getOutput();
         $sigma = $neuronOutput * (1 - $neuronOutput);
@@ -87,12 +75,7 @@ class Backpropagation
         return $sigma;
     }
 
-    /**
-     * @param Neuron $neuron
-     *
-     * @return float
-     */
-    private function getPrevSigma(Neuron $neuron): float
+    private function getPrevSigma(Neuron $neuron) : float
     {
         $sigma = 0.0;
 

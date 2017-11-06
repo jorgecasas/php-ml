@@ -71,31 +71,22 @@ class DecisionTreeLeaf
      */
     public $level = 0;
 
-    /**
-     * @param array $record
-     *
-     * @return bool
-     */
-    public function evaluate($record)
+    public function evaluate(array $record) : bool
     {
         $recordField = $record[$this->columnIndex];
 
         if ($this->isContinuous) {
             return Comparison::compare((string) $recordField, $this->numericValue, $this->operator);
         }
-        
+
         return $recordField == $this->value;
     }
 
     /**
      * Returns Mean Decrease Impurity (MDI) in the node.
      * For terminal nodes, this value is equal to 0
-     *
-     * @param int $parentRecordCount
-     *
-     * @return float
      */
-    public function getNodeImpurityDecrease(int $parentRecordCount)
+    public function getNodeImpurityDecrease(int $parentRecordCount) : float
     {
         if ($this->isTerminal) {
             return 0.0;
@@ -119,12 +110,8 @@ class DecisionTreeLeaf
 
     /**
      * Returns HTML representation of the node including children nodes
-     *
-     * @param $columnNames
-     *
-     * @return string
      */
-    public function getHTML($columnNames = null)
+    public function getHTML($columnNames = null) : string
     {
         if ($this->isTerminal) {
             $value = "<b>$this->classValue</b>";
@@ -170,10 +157,8 @@ class DecisionTreeLeaf
 
     /**
      * HTML representation of the tree without column names
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString() : string
     {
         return $this->getHTML();
     }

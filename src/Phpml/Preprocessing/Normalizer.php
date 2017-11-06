@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Phpml\Preprocessing;
 
 use Phpml\Exception\NormalizerException;
-use Phpml\Math\Statistic\StandardDeviation;
 use Phpml\Math\Statistic\Mean;
+use Phpml\Math\Statistic\StandardDeviation;
 
 class Normalizer implements Preprocessor
 {
@@ -35,8 +35,6 @@ class Normalizer implements Preprocessor
     private $mean;
 
     /**
-     * @param int $norm
-     *
      * @throws NormalizerException
      */
     public function __construct(int $norm = self::NORM_L2)

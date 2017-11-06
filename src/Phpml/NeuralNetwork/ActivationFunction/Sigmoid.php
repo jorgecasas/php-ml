@@ -13,20 +13,15 @@ class Sigmoid implements ActivationFunction
      */
     private $beta;
 
-    /**
-     * @param float $beta
-     */
-    public function __construct($beta = 1.0)
+    public function __construct(float $beta = 1.0)
     {
         $this->beta = $beta;
     }
 
     /**
      * @param float|int $value
-     *
-     * @return float
      */
-    public function compute($value): float
+    public function compute($value) : float
     {
         return 1 / (1 + exp(-$this->beta * $value));
     }

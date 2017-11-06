@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Phpml\NeuralNetwork\Network;
 
 use Phpml\Estimator;
-use Phpml\IncrementalEstimator;
 use Phpml\Exception\InvalidArgumentException;
-use Phpml\NeuralNetwork\Training\Backpropagation;
+use Phpml\Helper\Predictable;
+use Phpml\IncrementalEstimator;
 use Phpml\NeuralNetwork\ActivationFunction;
 use Phpml\NeuralNetwork\Layer;
 use Phpml\NeuralNetwork\Node\Bias;
 use Phpml\NeuralNetwork\Node\Input;
 use Phpml\NeuralNetwork\Node\Neuron;
 use Phpml\NeuralNetwork\Node\Neuron\Synapse;
-use Phpml\Helper\Predictable;
+use Phpml\NeuralNetwork\Training\Backpropagation;
 
 abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator, IncrementalEstimator
 {
@@ -56,13 +56,6 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
     protected $backpropagation = null;
 
     /**
-     * @param int                     $inputLayerFeatures
-     * @param array                   $hiddenLayers
-     * @param array                   $classes
-     * @param int                     $iterations
-     * @param ActivationFunction|null $activationFunction
-     * @param int                     $theta
-     *
      * @throws InvalidArgumentException
      */
     public function __construct(int $inputLayerFeatures, array $hiddenLayers, array $classes, int $iterations = 10000, ActivationFunction $activationFunction = null, int $theta = 1)
@@ -85,9 +78,6 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
         $this->initNetwork();
     }
 
-    /**
-     * @return void
-     */
     private function initNetwork()
     {
         $this->addInputLayer($this->inputLayerFeatures);
@@ -100,10 +90,6 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
         $this->backpropagation = new Backpropagation($this->theta);
     }
 
-    /**
-     * @param array $samples
-     * @param array $targets
-     */
     public function train(array $samples, array $targets)
     {
         $this->reset();
@@ -112,10 +98,6 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
     }
 
     /**
-     * @param array $samples
-     * @param array $targets
-     * @param array $classes
-     *
      * @throws InvalidArgumentException
      */
     public function partialTrain(array $samples, array $targets, array $classes = [])
@@ -131,38 +113,25 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
     }
 
     /**
-     * @param array $sample
      * @param mixed $target
      */
     abstract protected function trainSample(array $sample, $target);
 
     /**
-     * @param array $sample
-     *
      * @return mixed
      */
     abstract protected function predictSample(array $sample);
 
-    /**
-     * @return void
-     */
     protected function reset()
     {
         $this->removeLayers();
     }
 
-    /**
-     * @param int $nodes
-     */
     private function addInputLayer(int $nodes)
     {
         $this->addLayer(new Layer($nodes, Input::class));
     }
 
-    /**
-     * @param array                   $layers
-     * @param ActivationFunction|null $activationFunction
-     */
     private function addNeuronLayers(array $layers, ActivationFunction $activationFunction = null)
     {
         foreach ($layers as $neurons) {
@@ -188,10 +157,6 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
         }
     }
 
-    /**
-     * @param Layer $nextLayer
-     * @param Layer $currentLayer
-     */
     private function generateLayerSynapses(Layer $nextLayer, Layer $currentLayer)
     {
         foreach ($nextLayer->getNodes() as $nextNeuron) {
@@ -201,10 +166,6 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
         }
     }
 
-    /**
-     * @param Layer  $currentLayer
-     * @param Neuron $nextNeuron
-     */
     private function generateNeuronSynapses(Layer $currentLayer, Neuron $nextNeuron)
     {
         foreach ($currentLayer->getNodes() as $currentNeuron) {
@@ -212,10 +173,6 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
         }
     }
 
-    /**
-     * @param array $samples
-     * @param array $targets
-     */
     private function trainSamples(array $samples, array $targets)
     {
         foreach ($targets as $key => $target) {

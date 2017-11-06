@@ -17,14 +17,7 @@ class GD extends StochasticGD
      */
     protected $sampleCount = null;
 
-    /**
-     * @param array    $samples
-     * @param array    $targets
-     * @param \Closure $gradientCb
-     *
-     * @return array
-     */
-    public function runOptimization(array $samples, array $targets, \Closure $gradientCb)
+    public function runOptimization(array $samples, array $targets, \Closure $gradientCb) : array
     {
         $this->samples = $samples;
         $this->targets = $targets;
@@ -57,12 +50,8 @@ class GD extends StochasticGD
     /**
      * Calculates gradient, cost function and penalty term for each sample
      * then returns them as an array of values
-     *
-     * @param array $theta
-     *
-     * @return array
      */
-    protected function gradient(array $theta)
+    protected function gradient(array $theta) : array
     {
         $costs = [];
         $gradient = [];
@@ -84,10 +73,6 @@ class GD extends StochasticGD
         return [$costs, $gradient, $totalPenalty];
     }
 
-    /**
-     * @param array $updates
-     * @param float $penalty
-     */
     protected function updateWeightsWithUpdates(array $updates, float $penalty)
     {
         // Updates all weights at once
@@ -110,8 +95,6 @@ class GD extends StochasticGD
 
     /**
      * Clears the optimizer internal vars after the optimization process.
-     *
-     * @return void
      */
     protected function clear()
     {

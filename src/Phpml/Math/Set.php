@@ -21,11 +21,6 @@ class Set implements \IteratorAggregate
 
     /**
      * Creates the union of A and B.
-     *
-     * @param Set $a
-     * @param Set $b
-     *
-     * @return Set
      */
     public static function union(Set $a, Set $b) : Set
     {
@@ -34,11 +29,6 @@ class Set implements \IteratorAggregate
 
     /**
      * Creates the intersection of A and B.
-     *
-     * @param Set $a
-     * @param Set $b
-     *
-     * @return Set
      */
     public static function intersection(Set $a, Set $b) : Set
     {
@@ -47,11 +37,6 @@ class Set implements \IteratorAggregate
 
     /**
      * Creates the difference of A and B.
-     *
-     * @param Set $a
-     * @param Set $b
-     *
-     * @return Set
      */
     public static function difference(Set $a, Set $b) : Set
     {
@@ -60,9 +45,6 @@ class Set implements \IteratorAggregate
 
     /**
      * Creates the Cartesian product of A and B.
-     *
-     * @param Set $a
-     * @param Set $b
      *
      * @return Set[]
      */
@@ -81,8 +63,6 @@ class Set implements \IteratorAggregate
 
     /**
      * Creates the power set of A.
-     *
-     * @param Set $a
      *
      * @return Set[]
      */
@@ -115,8 +95,6 @@ class Set implements \IteratorAggregate
 
     /**
      * @param string|int|float $element
-     *
-     * @return Set
      */
     public function add($element) : Set
     {
@@ -125,8 +103,6 @@ class Set implements \IteratorAggregate
 
     /**
      * @param string[]|int[]|float[] $elements
-     *
-     * @return Set
      */
     public function addAll(array $elements) : Set
     {
@@ -137,8 +113,6 @@ class Set implements \IteratorAggregate
 
     /**
      * @param string|int|float $element
-     *
-     * @return Set
      */
     public function remove($element) : Set
     {
@@ -147,8 +121,6 @@ class Set implements \IteratorAggregate
 
     /**
      * @param string[]|int[]|float[] $elements
-     *
-     * @return Set
      */
     public function removeAll(array $elements) : Set
     {
@@ -159,8 +131,6 @@ class Set implements \IteratorAggregate
 
     /**
      * @param string|int|float $element
-     *
-     * @return bool
      */
     public function contains($element) : bool
     {
@@ -169,8 +139,6 @@ class Set implements \IteratorAggregate
 
     /**
      * @param string[]|int[]|float[] $elements
-     *
-     * @return bool
      */
     public function containsAll(array $elements) : bool
     {
@@ -185,25 +153,16 @@ class Set implements \IteratorAggregate
         return $this->elements;
     }
 
-    /**
-     * @return \ArrayIterator
-     */
     public function getIterator() : \ArrayIterator
     {
         return new \ArrayIterator($this->elements);
     }
 
-    /**
-     * @return bool
-     */
     public function isEmpty() : bool
     {
         return $this->cardinality() == 0;
     }
 
-    /**
-     * @return int
-     */
     public function cardinality() : int
     {
         return count($this->elements);

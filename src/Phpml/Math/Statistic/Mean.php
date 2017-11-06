@@ -11,11 +11,9 @@ class Mean
     /**
      * @param array $numbers
      *
-     * @return float
-     *
      * @throws InvalidArgumentException
      */
-    public static function arithmetic(array $numbers)
+    public static function arithmetic(array $numbers) : float
     {
         self::checkArrayLength($numbers);
 

@@ -13,20 +13,15 @@ class PReLU implements ActivationFunction
      */
     private $beta;
 
-    /**
-     * @param float $beta
-     */
-    public function __construct($beta = 0.01)
+    public function __construct(float $beta = 0.01)
     {
         $this->beta = $beta;
     }
 
     /**
      * @param float|int $value
-     *
-     * @return float
      */
-    public function compute($value): float
+    public function compute($value) : float
     {
         return $value >= 0 ? $value : $this->beta * $value;
     }

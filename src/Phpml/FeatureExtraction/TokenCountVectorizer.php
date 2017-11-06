@@ -34,11 +34,6 @@ class TokenCountVectorizer implements Transformer
      */
     private $frequencies;
 
-    /**
-     * @param Tokenizer $tokenizer
-     * @param StopWords $stopWords
-     * @param float     $minDF
-     */
     public function __construct(Tokenizer $tokenizer, StopWords $stopWords = null, float $minDF = 0.0)
     {
         $this->tokenizer = $tokenizer;
@@ -49,17 +44,11 @@ class TokenCountVectorizer implements Transformer
         $this->frequencies = [];
     }
 
-    /**
-     * @param array $samples
-     */
     public function fit(array $samples)
     {
         $this->buildVocabulary($samples);
     }
 
-    /**
-     * @param array $samples
-     */
     public function transform(array &$samples)
     {
         foreach ($samples as &$sample) {
@@ -69,17 +58,11 @@ class TokenCountVectorizer implements Transformer
         $this->checkDocumentFrequency($samples);
     }
 
-    /**
-     * @return array
-     */
-    public function getVocabulary()
+    public function getVocabulary() : array
     {
         return array_flip($this->vocabulary);
     }
 
-    /**
-     * @param array $samples
-     */
     private function buildVocabulary(array &$samples)
     {
         foreach ($samples as $index => $sample) {
@@ -90,9 +73,6 @@ class TokenCountVectorizer implements Transformer
         }
     }
 
-    /**
-     * @param string $sample
-     */
     private function transformSample(string &$sample)
     {
         $counts = [];
@@ -122,8 +102,6 @@ class TokenCountVectorizer implements Transformer
     }
 
     /**
-     * @param string $token
-     *
      * @return int|bool
      */
     private function getTokenIndex(string $token)
@@ -135,9 +113,6 @@ class TokenCountVectorizer implements Transformer
         return $this->vocabulary[$token] ?? false;
     }
 
-    /**
-     * @param string $token
-     */
     private function addTokenToVocabulary(string $token)
     {
         if ($this->isStopWord($token)) {
@@ -149,19 +124,11 @@ class TokenCountVectorizer implements Transformer
         }
     }
 
-    /**
-     * @param string $token
-     *
-     * @return bool
-     */
     private function isStopWord(string $token): bool
     {
         return $this->stopWords && $this->stopWords->isStopWord($token);
     }
 
-    /**
-     * @param string $token
-     */
     private function updateFrequency(string $token)
     {
         if (!isset($this->frequencies[$token])) {
@@ -171,9 +138,6 @@ class TokenCountVectorizer implements Transformer
         ++$this->frequencies[$token];
     }
 
-    /**
-     * @param array $samples
-     */
     private function checkDocumentFrequency(array &$samples)
     {
         if ($this->minDF > 0) {
@@ -184,10 +148,6 @@ class TokenCountVectorizer implements Transformer
         }
     }
 
-    /**
-     * @param array $sample
-     * @param array $beyondMinimum
-     */
     private function resetBeyondMinimum(array &$sample, array $beyondMinimum)
     {
         foreach ($beyondMinimum as $index) {
@@ -195,12 +155,7 @@ class TokenCountVectorizer implements Transformer
         }
     }
 
-    /**
-     * @param int $samplesCount
-     *
-     * @return array
-     */
-    private function getBeyondMinimumIndexes(int $samplesCount)
+    private function getBeyondMinimumIndexes(int $samplesCount) : array
     {
         $indexes = [];
         foreach ($this->frequencies as $token => $frequency) {

@@ -47,7 +47,7 @@ class LDA extends EigenTransformerBase
      *
      * @throws \Exception
      */
-    public function __construct($totalVariance = null, $numFeatures = null)
+    public function __construct(float $totalVariance = null, int $numFeatures = null)
     {
         if ($totalVariance !== null && ($totalVariance < 0.1 || $totalVariance > 0.99)) {
             throw new \Exception('Total variance can be a value between 0.1 and 0.99');
@@ -69,11 +69,6 @@ class LDA extends EigenTransformerBase
 
     /**
      * Trains the algorithm to transform the given data to a lower dimensional space.
-     *
-     * @param array $data
-     * @param array $classes
-     *
-     * @return array
      */
     public function fit(array $data, array $classes) : array
     {
@@ -93,12 +88,8 @@ class LDA extends EigenTransformerBase
 
     /**
      * Returns unique labels in the dataset
-     *
-     * @param array $classes
-     *
-     * @return array
      */
-    protected function getLabels(array $classes): array
+    protected function getLabels(array $classes) : array
     {
         $counts = array_count_values($classes);
 
@@ -108,11 +99,6 @@ class LDA extends EigenTransformerBase
     /**
      * Calculates mean of each column for each class and returns
      * n by m matrix where n is number of labels and m is number of columns
-     *
-     * @param array $data
-     * @param array $classes
-     *
-     * @return array
      */
     protected function calculateMeans(array $data, array $classes) : array
     {
@@ -159,13 +145,8 @@ class LDA extends EigenTransformerBase
      * Returns in-class scatter matrix for each class, which
      * is a n by m matrix where n is number of classes and
      * m is number of columns
-     *
-     * @param array $data
-     * @param array $classes
-     *
-     * @return Matrix
      */
-    protected function calculateClassVar($data, $classes)
+    protected function calculateClassVar(array $data, array $classes) : Matrix
     {
         // s is an n (number of classes) by m (number of column) matrix
         $s = array_fill(0, count($data[0]), array_fill(0, count($data[0]), 0));
@@ -187,10 +168,8 @@ class LDA extends EigenTransformerBase
      * Returns between-class scatter matrix for each class, which
      * is an n by m matrix where n is number of classes and
      * m is number of columns
-     *
-     * @return Matrix
      */
-    protected function calculateClassCov()
+    protected function calculateClassCov() : Matrix
     {
         // s is an n (number of classes) by m (number of column) matrix
         $s = array_fill(0, count($this->overallMean), array_fill(0, count($this->overallMean), 0));
@@ -207,13 +186,8 @@ class LDA extends EigenTransformerBase
 
     /**
      * Returns the result of the calculation (x - m)T.(x - m)
-     *
-     * @param array $row
-     * @param array $means
-     *
-     * @return Matrix
      */
-    protected function calculateVar(array $row, array $means)
+    protected function calculateVar(array $row, array $means) : Matrix
     {
         $x = new Matrix($row, false);
         $m = new Matrix($means, false);
@@ -226,13 +200,9 @@ class LDA extends EigenTransformerBase
      * Transforms the given sample to a lower dimensional vector by using
      * the eigenVectors obtained in the last run of <code>fit</code>.
      *
-     * @param array $sample
-     *
-     * @return array
-     *
      * @throws \Exception
      */
-    public function transform(array $sample)
+    public function transform(array $sample) : array
     {
         if (!$this->fit) {
             throw new \Exception('LDA has not been fitted with respect to original dataset, please run LDA::fit() first');

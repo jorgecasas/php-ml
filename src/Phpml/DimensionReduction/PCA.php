@@ -32,7 +32,7 @@ class PCA extends EigenTransformerBase
      *
      * @throws \Exception
      */
-    public function __construct($totalVariance = null, $numFeatures = null)
+    public function __construct(float $totalVariance = null, int $numFeatures = null)
     {
         if ($totalVariance !== null && ($totalVariance < 0.1 || $totalVariance > 0.99)) {
             throw new \Exception('Total variance can be a value between 0.1 and 0.99');
@@ -57,12 +57,8 @@ class PCA extends EigenTransformerBase
      * of this data while preserving $totalVariance or $numFeatures. <br>
      * $data is an n-by-m matrix and returned array is
      * n-by-k matrix where k <= m
-     *
-     * @param array $data
-     *
-     * @return array
      */
-    public function fit(array $data)
+    public function fit(array $data) : array
     {
         $n = count($data[0]);
 
@@ -77,10 +73,6 @@ class PCA extends EigenTransformerBase
         return $this->reduce($data);
     }
 
-    /**
-     * @param array $data
-     * @param int   $n
-     */
     protected function calculateMeans(array $data, int $n)
     {
         // Calculate means for each dimension
@@ -94,13 +86,8 @@ class PCA extends EigenTransformerBase
     /**
      * Normalization of the data includes subtracting mean from
      * each dimension therefore dimensions will be centered to zero
-     *
-     * @param array $data
-     * @param int   $n
-     *
-     * @return array
      */
-    protected function normalize(array $data, int $n)
+    protected function normalize(array $data, int $n) : array
     {
         if (empty($this->means)) {
             $this->calculateMeans($data, $n);
@@ -120,13 +107,9 @@ class PCA extends EigenTransformerBase
      * Transforms the given sample to a lower dimensional vector by using
      * the eigenVectors obtained in the last run of <code>fit</code>.
      *
-     * @param array $sample
-     *
-     * @return array
-     *
      * @throws \Exception
      */
-    public function transform(array $sample)
+    public function transform(array $sample) : array
     {
         if (!$this->fit) {
             throw new \Exception('PCA has not been fitted with respect to original dataset, please run PCA::fit() first');

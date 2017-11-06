@@ -91,20 +91,6 @@ class SupportVectorMachine
      */
     private $targets = [];
 
-    /**
-     * @param int        $type
-     * @param int        $kernel
-     * @param float      $cost
-     * @param float      $nu
-     * @param int        $degree
-     * @param float|null $gamma
-     * @param float      $coef0
-     * @param float      $epsilon
-     * @param float      $tolerance
-     * @param int        $cacheSize
-     * @param bool       $shrinking
-     * @param bool       $probabilityEstimates
-     */
     public function __construct(
         int $type,
         int $kernel,
@@ -138,11 +124,6 @@ class SupportVectorMachine
         $this->varPath = $rootPath.'var'.DIRECTORY_SEPARATOR;
     }
 
-    /**
-     * @param string $binPath
-     *
-     * @throws InvalidArgumentException
-     */
     public function setBinPath(string $binPath)
     {
         $this->ensureDirectorySeparator($binPath);
@@ -151,11 +132,6 @@ class SupportVectorMachine
         $this->binPath = $binPath;
     }
 
-    /**
-     * @param string $varPath
-     *
-     * @throws InvalidArgumentException
-     */
     public function setVarPath(string $varPath)
     {
         if (!is_writable($varPath)) {
@@ -166,10 +142,6 @@ class SupportVectorMachine
         $this->varPath = $varPath;
     }
 
-    /**
-     * @param array $samples
-     * @param array $targets
-     */
     public function train(array $samples, array $targets)
     {
         $this->samples = array_merge($this->samples, $samples);
@@ -189,17 +161,12 @@ class SupportVectorMachine
         unlink($modelFileName);
     }
 
-    /**
-     * @return string
-     */
-    public function getModel()
+    public function getModel(): string
     {
         return $this->model;
     }
 
     /**
-     * @param array $samples
-     *
      * @return array
      */
     public function predict(array $samples)
@@ -232,10 +199,7 @@ class SupportVectorMachine
         return $predictions;
     }
 
-    /**
-     * @return string
-     */
-    private function getOSExtension()
+    private function getOSExtension(): string
     {
         $os = strtoupper(substr(PHP_OS, 0, 3));
         if ($os === 'WIN') {
@@ -247,12 +211,6 @@ class SupportVectorMachine
         return '';
     }
 
-    /**
-     * @param string $trainingSetFileName
-     * @param string $modelFileName
-     *
-     * @return string
-     */
     private function buildTrainCommand(string $trainingSetFileName, string $modelFileName): string
     {
         return sprintf(
@@ -276,9 +234,6 @@ class SupportVectorMachine
         );
     }
 
-    /**
-     * @param string $path
-     */
     private function ensureDirectorySeparator(string &$path)
     {
         if (substr($path, -1) !== DIRECTORY_SEPARATOR) {
@@ -286,11 +241,6 @@ class SupportVectorMachine
         }
     }
 
-    /**
-     * @param string $path
-     *
-     * @throws InvalidArgumentException
-     */
     private function verifyBinPath(string $path)
     {
         if (!is_dir($path)) {

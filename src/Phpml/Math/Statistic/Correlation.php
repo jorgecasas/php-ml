@@ -12,11 +12,9 @@ class Correlation
      * @param array|int[]|float[] $x
      * @param array|int[]|float[] $y
      *
-     * @return float
-     *
      * @throws InvalidArgumentException
      */
-    public static function pearson(array $x, array $y)
+    public static function pearson(array $x, array $y) : float
     {
         if (count($x) !== count($y)) {
             throw InvalidArgumentException::arraySizeNotMatch();

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace tests\Phpml\Regression;
 
+use Phpml\ModelManager;
 use Phpml\Regression\SVR;
 use Phpml\SupportVectorMachine\Kernel;
-use Phpml\ModelManager;
 use PHPUnit\Framework\TestCase;
 
 class SVRTest extends TestCase

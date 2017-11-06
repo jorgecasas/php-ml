@@ -6,22 +6,12 @@ namespace Phpml\Exception;
 
 class SerializeException extends \Exception
 {
-    /**
-     * @param string $filepath
-     *
-     * @return SerializeException
-     */
-    public static function cantUnserialize(string $filepath)
+    public static function cantUnserialize(string $filepath)  : SerializeException
     {
         return new self(sprintf('"%s" can not be unserialized.', $filepath));
     }
 
-    /**
-     * @param string $classname
-     *
-     * @return SerializeException
-     */
-    public static function cantSerialize(string $classname)
+    public static function cantSerialize(string $classname)  : SerializeException
     {
         return new self(sprintf('Class "%s" can not be serialized.', $classname));
     }

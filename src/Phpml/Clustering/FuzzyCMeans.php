@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Phpml\Clustering;
 
-use Phpml\Clustering\KMeans\Point;
 use Phpml\Clustering\KMeans\Cluster;
+use Phpml\Clustering\KMeans\Point;
 use Phpml\Clustering\KMeans\Space;
 use Phpml\Exception\InvalidArgumentException;
 use Phpml\Math\Distance\Euclidean;
@@ -58,11 +58,6 @@ class FuzzyCMeans implements Clusterer
     private $samples;
 
     /**
-     * @param int   $clustersNumber
-     * @param float $fuzziness
-     * @param float $epsilon
-     * @param int   $maxIterations
-     *
      * @throws InvalidArgumentException
      */
     public function __construct(int $clustersNumber, float $fuzziness = 2.0, float $epsilon = 1e-2, int $maxIterations = 100)
@@ -85,10 +80,6 @@ class FuzzyCMeans implements Clusterer
         $this->updateClusters();
     }
 
-    /**
-     * @param int $rows
-     * @param int $cols
-     */
     protected function generateRandomMembership(int $rows, int $cols)
     {
         $this->membership = [];
@@ -155,14 +146,7 @@ class FuzzyCMeans implements Clusterer
         }
     }
 
-    /**
-     *
-     * @param int $row
-     * @param int $col
-     *
-     * @return float
-     */
-    protected function getDistanceCalc(int $row, int $col)
+    protected function getDistanceCalc(int $row, int $col) : float
     {
         $sum = 0.0;
         $distance = new Euclidean();
@@ -204,20 +188,15 @@ class FuzzyCMeans implements Clusterer
         return $sum;
     }
 
-    /**
-     * @return array
-     */
-    public function getMembershipMatrix()
+    public function getMembershipMatrix() : array
     {
         return $this->membership;
     }
 
     /**
      * @param array|Point[] $samples
-     *
-     * @return array
      */
-    public function cluster(array $samples)
+    public function cluster(array $samples) : array
     {
         // Initialize variables, clusters and membership matrix
         $this->sampleCount = count($samples);

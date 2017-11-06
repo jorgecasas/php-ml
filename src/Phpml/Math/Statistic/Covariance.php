@@ -11,17 +11,9 @@ class Covariance
     /**
      * Calculates covariance from two given arrays, x and y, respectively
      *
-     * @param array $x
-     * @param array $y
-     * @param bool  $sample
-     * @param float $meanX
-     * @param float $meanY
-     *
-     * @return float
-     *
      * @throws InvalidArgumentException
      */
-    public static function fromXYArrays(array $x, array $y, $sample = true, float $meanX = null, float $meanY = null)
+    public static function fromXYArrays(array $x, array $y, bool $sample = true, float $meanX = null, float $meanY = null) : float
     {
         if (empty($x) || empty($y)) {
             throw InvalidArgumentException::arrayCantBeEmpty();
@@ -56,19 +48,10 @@ class Covariance
     /**
      * Calculates covariance of two dimensions, i and k in the given data.
      *
-     * @param array $data
-     * @param int   $i
-     * @param int   $k
-     * @param bool  $sample
-     * @param float $meanX
-     * @param float $meanY
-     *
-     * @return float
-     *
      * @throws InvalidArgumentException
      * @throws \Exception
      */
-    public static function fromDataset(array $data, int $i, int $k, bool $sample = true, float $meanX = null, float $meanY = null)
+    public static function fromDataset(array $data, int $i, int $k, bool $sample = true, float $meanX = null, float $meanY = null) : float
     {
         if (empty($data)) {
             throw InvalidArgumentException::arrayCantBeEmpty();
@@ -127,12 +110,9 @@ class Covariance
     /**
      * Returns the covariance matrix of n-dimensional data
      *
-     * @param array      $data
      * @param array|null $means
-     *
-     * @return array
      */
-    public static function covarianceMatrix(array $data, array $means = null)
+    public static function covarianceMatrix(array $data, array $means = null) : array
     {
         $n = count($data[0]);
 

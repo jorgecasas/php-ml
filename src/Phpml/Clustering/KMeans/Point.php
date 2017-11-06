@@ -18,30 +18,21 @@ class Point implements ArrayAccess
      */
     protected $coordinates;
 
-    /**
-     * @param array $coordinates
-     */
     public function __construct(array $coordinates)
     {
         $this->dimension = count($coordinates);
         $this->coordinates = $coordinates;
     }
 
-    /**
-     * @return array
-     */
-    public function toArray()
+    public function toArray() : array
     {
         return $this->coordinates;
     }
 
     /**
-     * @param Point $point
-     * @param bool  $precise
-     *
      * @return int|mixed
      */
-    public function getDistanceWith(self $point, $precise = true)
+    public function getDistanceWith(self $point, bool $precise = true)
     {
         $distance = 0;
         for ($n = 0; $n < $this->dimension; ++$n) {
@@ -53,8 +44,6 @@ class Point implements ArrayAccess
     }
 
     /**
-     * @param array $points
-     *
      * @return mixed
      */
     public function getClosest(array $points)
@@ -77,20 +66,15 @@ class Point implements ArrayAccess
         return $minPoint;
     }
 
-    /**
-     * @return array
-     */
-    public function getCoordinates()
+    public function getCoordinates() : array
     {
         return $this->coordinates;
     }
 
     /**
      * @param mixed $offset
-     *
-     * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->coordinates[$offset]);
     }

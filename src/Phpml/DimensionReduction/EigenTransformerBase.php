@@ -90,7 +90,7 @@ abstract class EigenTransformerBase
      *
      * @return array
      */
-    protected function reduce(array $data)
+    protected function reduce(array $data) : array
     {
         $m1 = new Matrix($data);
         $m2 = new Matrix($this->eigVectors);

@@ -22,12 +22,6 @@ class KMeans implements Clusterer
      */
     private $initialization;
 
-    /**
-     * @param int $clustersNumber
-     * @param int $initialization
-     *
-     * @throws InvalidArgumentException
-     */
     public function __construct(int $clustersNumber, int $initialization = self::INIT_KMEANS_PLUS_PLUS)
     {
         if ($clustersNumber <= 0) {
@@ -38,12 +32,7 @@ class KMeans implements Clusterer
         $this->initialization = $initialization;
     }
 
-    /**
-     * @param array $samples
-     *
-     * @return array
-     */
-    public function cluster(array $samples)
+    public function cluster(array $samples) : array
     {
         $space = new Space(count($samples[0]));
         foreach ($samples as $sample) {

@@ -28,42 +28,27 @@ class Synapse
         $this->weight = $weight ?: $this->generateRandomWeight();
     }
 
-    /**
-     * @return float
-     */
-    protected function generateRandomWeight(): float
+    protected function generateRandomWeight() : float
     {
         return 1 / random_int(5, 25) * (random_int(0, 1) ? -1 : 1);
     }
 
-    /**
-     * @return float
-     */
-    public function getOutput(): float
+    public function getOutput() : float
     {
         return $this->weight * $this->node->getOutput();
     }
 
-    /**
-     * @param float $delta
-     */
-    public function changeWeight($delta)
+    public function changeWeight(float $delta)
     {
         $this->weight += $delta;
     }
 
-    /**
-     * @return float
-     */
-    public function getWeight()
+    public function getWeight() : float
     {
         return $this->weight;
     }
 
-    /**
-     * @return Node
-     */
-    public function getNode()
+    public function getNode(): Node
     {
         return $this->node;
     }

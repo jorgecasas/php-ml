@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Phpml\Classification;
 
+use Phpml\Classification\DecisionTree\DecisionTreeLeaf;
 use Phpml\Exception\InvalidArgumentException;
 use Phpml\Helper\Predictable;
 use Phpml\Helper\Trainable;
 use Phpml\Math\Statistic\Mean;
-use Phpml\Classification\DecisionTree\DecisionTreeLeaf;
 
 class DecisionTree implements Classifier
 {
@@ -63,14 +63,10 @@ class DecisionTree implements Classifier
     private $featureImportances = null;
 
     /**
-     *
      * @var array
      */
     private $columnNames = null;
 
-    /**
-     * @param int $maxDepth
-     */
     public function __construct(int $maxDepth = 10)
     {
         $this->maxDepth = $maxDepth;
@@ -129,8 +125,6 @@ class DecisionTree implements Classifier
     /**
      * @param array $records
      * @param int   $depth
-     *
-     * @return DecisionTreeLeaf
      */
     protected function getSplitLeaf(array $records, int $depth = 0) : DecisionTreeLeaf
     {
@@ -190,11 +184,6 @@ class DecisionTree implements Classifier
         return $split;
     }
 
-    /**
-     * @param array $records
-     *
-     * @return DecisionTreeLeaf
-     */
     protected function getBestSplit(array $records) : DecisionTreeLeaf
     {
         $targets = array_intersect_key($this->targets, array_flip($records));
@@ -277,10 +266,6 @@ class DecisionTree implements Classifier
 
     /**
      * @param mixed $baseValue
-     * @param array $colValues
-     * @param array $targets
-     *
-     * @return float
      */
     public function getGiniIndex($baseValue, array $colValues, array $targets) : float
     {
@@ -342,8 +327,6 @@ class DecisionTree implements Classifier
 
     /**
      * @param array $columnValues
-     *
-     * @return bool
      */
     protected static function isCategoricalColumn(array $columnValues) : bool
     {
@@ -376,8 +359,6 @@ class DecisionTree implements Classifier
      * otherwise the given value will be used as a maximum for number of columns
      * randomly selected for each split operation.
      *
-     * @param int $numFeatures
-     *
      * @return $this
      *
      * @throws InvalidArgumentException
@@ -395,8 +376,6 @@ class DecisionTree implements Classifier
 
     /**
      * Used to set predefined features to consider while deciding which column to use for a split
-     *
-     * @param array $selectedFeatures
      */
     protected function setSelectedFeatures(array $selectedFeatures)
     {
@@ -406,8 +385,6 @@ class DecisionTree implements Classifier
     /**
      * A string array to represent columns. Useful when HTML output or
      * column importances are desired to be inspected.
-     *
-     * @param array $names
      *
      * @return $this
      *
@@ -424,10 +401,7 @@ class DecisionTree implements Classifier
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getHtml()
+    public function getHtml() : string
     {
         return $this->tree->getHTML($this->columnNames);
     }
@@ -436,10 +410,8 @@ class DecisionTree implements Classifier
      * This will return an array including an importance value for
      * each column in the given dataset. The importance values are
      * normalized and their total makes 1.<br/>
-     *
-     * @return array
      */
-    public function getFeatureImportances()
+    public function getFeatureImportances() : array
     {
         if ($this->featureImportances !== null) {
             return $this->featureImportances;
@@ -473,11 +445,6 @@ class DecisionTree implements Classifier
     /**
      * Collects and returns an array of internal nodes that use the given
      * column as a split criterion
-     *
-     * @param int              $column
-     * @param DecisionTreeLeaf $node
-     *
-     * @return array
      */
     protected function getSplitNodesByColumn(int $column, DecisionTreeLeaf $node) : array
     {
@@ -506,8 +473,6 @@ class DecisionTree implements Classifier
     }
 
     /**
-     * @param array $sample
-     *
      * @return mixed
      */
     protected function predictSample(array $sample)

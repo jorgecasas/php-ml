@@ -31,10 +31,6 @@ class ClassificationReport
      */
     private $average = [];
 
-    /**
-     * @param array $actualLabels
-     * @param array $predictedLabels
-     */
     public function __construct(array $actualLabels, array $predictedLabels)
     {
         $truePositive = $falsePositive = $falseNegative = $this->support = self::getLabelIndexedArray($actualLabels, $predictedLabels);
@@ -55,51 +51,31 @@ class ClassificationReport
         $this->computeAverage();
     }
 
-    /**
-     * @return array
-     */
-    public function getPrecision()
+    public function getPrecision() : array
     {
         return $this->precision;
     }
 
-    /**
-     * @return array
-     */
-    public function getRecall()
+    public function getRecall() : array
     {
         return $this->recall;
     }
 
-    /**
-     * @return array
-     */
-    public function getF1score()
+    public function getF1score() : array
     {
         return $this->f1score;
     }
 
-    /**
-     * @return array
-     */
-    public function getSupport()
+    public function getSupport() : array
     {
         return $this->support;
     }
 
-    /**
-     * @return array
-     */
-    public function getAverage()
+    public function getAverage() : array
     {
         return $this->average;
     }
 
-    /**
-     * @param array $truePositive
-     * @param array $falsePositive
-     * @param array $falseNegative
-     */
     private function computeMetrics(array $truePositive, array $falsePositive, array $falseNegative)
     {
         foreach ($truePositive as $label => $tp) {
@@ -122,9 +98,6 @@ class ClassificationReport
     }
 
     /**
-     * @param int $truePositive
-     * @param int $falsePositive
-     *
      * @return float|string
      */
     private function computePrecision(int $truePositive, int $falsePositive)
@@ -137,9 +110,6 @@ class ClassificationReport
     }
 
     /**
-     * @param int $truePositive
-     * @param int $falseNegative
-     *
      * @return float|string
      */
     private function computeRecall(int $truePositive, int $falseNegative)
@@ -151,13 +121,7 @@ class ClassificationReport
         return $truePositive / $divider;
     }
 
-    /**
-     * @param float $precision
-     * @param float $recall
-     *
-     * @return float
-     */
-    private function computeF1Score(float $precision, float $recall): float
+    private function computeF1Score(float $precision, float $recall) : float
     {
         if (0 == ($divider = $precision + $recall)) {
             return 0.0;
@@ -172,7 +136,7 @@ class ClassificationReport
      *
      * @return array
      */
-    private static function getLabelIndexedArray(array $actualLabels, array $predictedLabels): array
+    private static function getLabelIndexedArray(array $actualLabels, array $predictedLabels) : array
     {
         $labels = array_values(array_unique(array_merge($actualLabels, $predictedLabels)));
         sort($labels);

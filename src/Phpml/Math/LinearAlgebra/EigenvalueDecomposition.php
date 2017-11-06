@@ -835,7 +835,6 @@ class EigenvalueDecomposition
     /**
      * Return the eigenvector matrix
      *
-     *
      * @return array
      */
     public function getEigenvectors()

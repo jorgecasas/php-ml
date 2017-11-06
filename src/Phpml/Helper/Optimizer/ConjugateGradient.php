@@ -20,11 +20,10 @@ class ConjugateGradient extends GD
     /**
      * @param array    $samples
      * @param array    $targets
-     * @param \Closure $gradientCb
      *
      * @return array
      */
-    public function runOptimization(array $samples, array $targets, \Closure $gradientCb)
+    public function runOptimization(array $samples, array $targets, \Closure $gradientCb) : array
     {
         $this->samples = $samples;
         $this->targets = $targets;
@@ -65,12 +64,8 @@ class ConjugateGradient extends GD
     /**
      * Executes the callback function for the problem and returns
      * sum of the gradient for all samples & targets.
-     *
-     * @param array $theta
-     *
-     * @return array
      */
-    protected function gradient(array $theta)
+    protected function gradient(array $theta) : array
     {
         list(, $gradient) = parent::gradient($theta);
 
@@ -79,12 +74,8 @@ class ConjugateGradient extends GD
 
     /**
      * Returns the value of f(x) for given solution
-     *
-     * @param array $theta
-     *
-     * @return float
      */
-    protected function cost(array $theta)
+    protected function cost(array $theta) : float
     {
         list($cost) = parent::gradient($theta);
 
@@ -104,12 +95,8 @@ class ConjugateGradient extends GD
      *  b) Probe a larger alpha (0.01) and calculate cost function
      *		b-1) If cost function decreases, continue enlarging alpha
      *		b-2) If cost function increases, take the midpoint and try again
-     *
-     * @param float $d
-     *
-     * @return float
      */
-    protected function getAlpha(float $d)
+    protected function getAlpha(float $d) : float
     {
         $small = 0.0001 * $d;
         $large = 0.01 * $d;
@@ -153,13 +140,8 @@ class ConjugateGradient extends GD
      * gradient direction.
      *
      * θ(k+1) = θ(k) + α.d
-     *
-     * @param float $alpha
-     * @param array $d
-     *
-     * @return array
      */
-    protected function getNewTheta(float $alpha, array $d)
+    protected function getNewTheta(float $alpha, array $d) : array
     {
         $theta = $this->theta;
 
@@ -187,12 +169,8 @@ class ConjugateGradient extends GD
      *
      * See:
      *  R. Fletcher and C. M. Reeves, "Function minimization by conjugate gradients", Comput. J. 7 (1964), 149–154.
-     *
-     * @param array $newTheta
-     *
-     * @return float
      */
-    protected function getBeta(array $newTheta)
+    protected function getBeta(array $newTheta) : float
     {
         $dNew = array_sum($this->gradient($newTheta));
         $dOld = array_sum($this->gradient($this->theta)) + 1e-100;
@@ -204,14 +182,8 @@ class ConjugateGradient extends GD
      * Calculates the new conjugate direction
      *
      * d(k+1) =–∇f(x(k+1)) + β(k).d(k)
-     *
-     * @param array $theta
-     * @param float $beta
-     * @param array $d
-     *
-     * @return array
      */
-    protected function getNewDirection(array $theta, float $beta, array $d)
+    protected function getNewDirection(array $theta, float $beta, array $d) : array
     {
         $grad = $this->gradient($theta);
 
@@ -227,13 +199,8 @@ class mp
 {
     /**
      * Element-wise <b>multiplication</b> of two vectors of the same size
-     *
-     * @param array $m1
-     * @param array $m2
-     *
-     * @return array
      */
-    public static function mul(array $m1, array $m2)
+    public static function mul(array $m1, array $m2) : array
     {
         $res = [];
         foreach ($m1 as $i => $val) {
@@ -245,13 +212,8 @@ class mp
 
     /**
      * Element-wise <b>division</b> of two vectors of the same size
-     *
-     * @param array $m1
-     * @param array $m2
-     *
-     * @return array
      */
-    public static function div(array $m1, array $m2)
+    public static function div(array $m1, array $m2) : array
     {
         $res = [];
         foreach ($m1 as $i => $val) {
@@ -263,14 +225,8 @@ class mp
 
     /**
      * Element-wise <b>addition</b> of two vectors of the same size
-     *
-     * @param array $m1
-     * @param array $m2
-     * @param int   $mag
-     *
-     * @return array
      */
-    public static function add(array $m1, array $m2, int $mag = 1)
+    public static function add(array $m1, array $m2, int $mag = 1) : array
     {
         $res = [];
         foreach ($m1 as $i => $val) {
@@ -282,26 +238,16 @@ class mp
 
     /**
      * Element-wise <b>subtraction</b> of two vectors of the same size
-     *
-     * @param array $m1
-     * @param array $m2
-     *
-     * @return array
      */
-    public static function sub(array $m1, array $m2)
+    public static function sub(array $m1, array $m2) : array
     {
         return self::add($m1, $m2, -1);
     }
 
     /**
      * Element-wise <b>multiplication</b> of a vector with a scalar
-     *
-     * @param array $m1
-     * @param float $m2
-     *
-     * @return array
      */
-    public static function muls(array $m1, float $m2)
+    public static function muls(array $m1, float $m2) : array
     {
         $res = [];
         foreach ($m1 as $val) {
@@ -313,13 +259,8 @@ class mp
 
     /**
      * Element-wise <b>division</b> of a vector with a scalar
-     *
-     * @param array $m1
-     * @param float $m2
-     *
-     * @return array
      */
-    public static function divs(array $m1, float $m2)
+    public static function divs(array $m1, float $m2) : array
     {
         $res = [];
         foreach ($m1 as $val) {
@@ -331,14 +272,8 @@ class mp
 
     /**
      * Element-wise <b>addition</b> of a vector with a scalar
-     *
-     * @param array $m1
-     * @param float $m2
-     * @param int   $mag
-     *
-     * @return array
      */
-    public static function adds(array $m1, float $m2, int $mag = 1)
+    public static function adds(array $m1, float $m2, int $mag = 1) : array
     {
         $res = [];
         foreach ($m1 as $val) {
@@ -350,13 +285,8 @@ class mp
 
     /**
      * Element-wise <b>subtraction</b> of a vector with a scalar
-     *
-     * @param array $m1
-     * @param float $m2
-     *
-     * @return array
      */
-    public static function subs(array $m1, float $m2)
+    public static function subs(array $m1, float $m2) : array
     {
         return self::adds($m1, $m2, -1);
     }

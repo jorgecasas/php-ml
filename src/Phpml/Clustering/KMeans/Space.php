@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Phpml\Clustering\KMeans;
 
+use InvalidArgumentException;
+use LogicException;
 use Phpml\Clustering\KMeans;
 use SplObjectStorage;
-use LogicException;
-use InvalidArgumentException;
 
 class Space extends SplObjectStorage
 {
@@ -16,9 +16,6 @@ class Space extends SplObjectStorage
      */
     protected $dimension;
 
-    /**
-     * @param $dimension
-     */
     public function __construct($dimension)
     {
         if ($dimension < 1) {
@@ -28,10 +25,7 @@ class Space extends SplObjectStorage
         $this->dimension = $dimension;
     }
 
-    /**
-     * @return array
-     */
-    public function toArray()
+    public function toArray() : array
     {
         $points = [];
         foreach ($this as $point) {
@@ -41,12 +35,7 @@ class Space extends SplObjectStorage
         return ['points' => $points];
     }
 
-    /**
-     * @param array $coordinates
-     *
-     * @return Point
-     */
-    public function newPoint(array $coordinates)
+    public function newPoint(array $coordinates) : Point
     {
         if (count($coordinates) != $this->dimension) {
             throw new LogicException('('.implode(',', $coordinates).') is not a point of this space');
@@ -56,7 +45,6 @@ class Space extends SplObjectStorage
     }
 
     /**
-     * @param array $coordinates
      * @param null  $data
      */
     public function addPoint(array $coordinates, $data = null)
@@ -77,10 +65,7 @@ class Space extends SplObjectStorage
         parent::attach($point, $data);
     }
 
-    /**
-     * @return int
-     */
-    public function getDimension()
+    public function getDimension() : int
     {
         return $this->dimension;
     }
@@ -107,13 +92,7 @@ class Space extends SplObjectStorage
         return [$min, $max];
     }
 
-    /**
-     * @param Point $min
-     * @param Point $max
-     *
-     * @return Point
-     */
-    public function getRandomPoint(Point $min, Point $max)
+    public function getRandomPoint(Point $min, Point $max) : Point
     {
         $point = $this->newPoint(array_fill(0, $this->dimension, null));
 
@@ -125,12 +104,9 @@ class Space extends SplObjectStorage
     }
 
     /**
-     * @param int $clustersNumber
-     * @param int $initMethod
-     *
      * @return array|Cluster[]
      */
-    public function cluster(int $clustersNumber, int $initMethod = KMeans::INIT_RANDOM)
+    public function cluster(int $clustersNumber, int $initMethod = KMeans::INIT_RANDOM) : array
     {
         $clusters = $this->initializeClusters($clustersNumber, $initMethod);
 
@@ -141,12 +117,9 @@ class Space extends SplObjectStorage
     }
 
     /**
-     * @param $clustersNumber
-     * @param $initMethod
-     *
      * @return array|Cluster[]
      */
-    protected function initializeClusters(int $clustersNumber, int $initMethod)
+    protected function initializeClusters(int $clustersNumber, int $initMethod) : array
     {
         switch ($initMethod) {
             case KMeans::INIT_RANDOM:
@@ -166,12 +139,7 @@ class Space extends SplObjectStorage
         return $clusters;
     }
 
-    /**
-     * @param $clusters
-     *
-     * @return bool
-     */
-    protected function iterate($clusters)
+    protected function iterate($clusters) : bool
     {
         $convergence = true;
 
@@ -209,12 +177,7 @@ class Space extends SplObjectStorage
         return $convergence;
     }
 
-    /**
-     * @param int $clustersNumber
-     *
-     * @return array
-     */
-    private function initializeRandomClusters(int $clustersNumber)
+    private function initializeRandomClusters(int $clustersNumber) : array
     {
         $clusters = [];
         list($min, $max) = $this->getBoundaries();
@@ -226,12 +189,7 @@ class Space extends SplObjectStorage
         return $clusters;
     }
 
-    /**
-     * @param int $clustersNumber
-     *
-     * @return array
-     */
-    protected function initializeKMPPClusters(int $clustersNumber)
+    protected function initializeKMPPClusters(int $clustersNumber) : array
     {
         $clusters = [];
         $this->rewind();

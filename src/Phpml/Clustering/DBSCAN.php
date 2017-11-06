@@ -24,12 +24,7 @@ class DBSCAN implements Clusterer
      */
     private $distanceMetric;
 
-    /**
-     * @param float    $epsilon
-     * @param int      $minSamples
-     * @param Distance $distanceMetric
-     */
-    public function __construct($epsilon = 0.5, $minSamples = 3, Distance $distanceMetric = null)
+    public function __construct(float $epsilon = 0.5, int $minSamples = 3, Distance $distanceMetric = null)
     {
         if (null === $distanceMetric) {
             $distanceMetric = new Euclidean();
@@ -40,12 +35,7 @@ class DBSCAN implements Clusterer
         $this->distanceMetric = $distanceMetric;
     }
 
-    /**
-     * @param array $samples
-     *
-     * @return array
-     */
-    public function cluster(array $samples)
+    public function cluster(array $samples) : array
     {
         $clusters = [];
         $visited = [];
@@ -65,13 +55,7 @@ class DBSCAN implements Clusterer
         return $clusters;
     }
 
-    /**
-     * @param array $localSample
-     * @param array $samples
-     *
-     * @return array
-     */
-    private function getSamplesInRegion($localSample, $samples)
+    private function getSamplesInRegion(array $localSample, array $samples) : array
     {
         $region = [];
 
@@ -84,13 +68,7 @@ class DBSCAN implements Clusterer
         return $region;
     }
 
-    /**
-     * @param array $samples
-     * @param array $visited
-     *
-     * @return array
-     */
-    private function expandCluster($samples, &$visited)
+    private function expandCluster(array $samples, array &$visited) : array
     {
         $cluster = [];
 

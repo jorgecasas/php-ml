@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Phpml\Classification\Linear;
 
-use Phpml\Helper\Predictable;
-use Phpml\Helper\OneVsRest;
-use Phpml\Classification\WeightedClassifier;
 use Phpml\Classification\DecisionTree;
+use Phpml\Classification\WeightedClassifier;
+use Phpml\Helper\OneVsRest;
+use Phpml\Helper\Predictable;
 use Phpml\Math\Comparison;
 
 class DecisionStump extends WeightedClassifier
@@ -77,8 +77,6 @@ class DecisionStump extends WeightedClassifier
      * If columnIndex is given, then the stump tries to produce a decision node
      * on this column, otherwise in cases given the value of -1, the stump itself
      * decides which column to take for the decision (Default DecisionTree behaviour)
-     *
-     * @param int $columnIndex
      */
     public function __construct(int $columnIndex = self::AUTO_SELECT)
     {
@@ -86,10 +84,6 @@ class DecisionStump extends WeightedClassifier
     }
 
     /**
-     * @param array $samples
-     * @param array $targets
-     * @param array $labels
-     *
      * @throws \Exception
      */
     protected function trainBinary(array $samples, array $targets, array $labels)
@@ -151,8 +145,6 @@ class DecisionStump extends WeightedClassifier
      * values in the column. Given <i>$count</i> value determines how many split
      * points to be probed. The more split counts, the better performance but
      * worse processing time (Default value is 10.0)
-     *
-     * @param float $count
      */
     public function setNumericalSplitCount(float $count)
     {
@@ -161,14 +153,8 @@ class DecisionStump extends WeightedClassifier
 
     /**
      * Determines best split point for the given column
-     *
-     * @param array $samples
-     * @param array $targets
-     * @param int   $col
-     *
-     * @return array
      */
-    protected function getBestNumericalSplit(array $samples, array $targets, int $col)
+    protected function getBestNumericalSplit(array $samples, array $targets, int $col) : array
     {
         $values = array_column($samples, $col);
         // Trying all possible points may be accomplished in two general ways:
@@ -207,13 +193,6 @@ class DecisionStump extends WeightedClassifier
         return $split;
     }
 
-    /**
-     * @param array $samples
-     * @param array $targets
-     * @param int   $col
-     *
-     * @return array
-     */
     protected function getBestNominalSplit(array $samples, array $targets, int $col) : array
     {
         $values = array_column($samples, $col);
@@ -240,13 +219,6 @@ class DecisionStump extends WeightedClassifier
     /**
      * Calculates the ratio of wrong predictions based on the new threshold
      * value given as the parameter
-     *
-     * @param array  $targets
-     * @param float  $threshold
-     * @param string $operator
-     * @param array  $values
-     *
-     * @return array
      */
     protected function calculateErrorRate(array $targets, float $threshold, string $operator, array $values) : array
     {
@@ -293,10 +265,7 @@ class DecisionStump extends WeightedClassifier
      * Probability of a sample is calculated as the proportion of the label
      * within the labels of the training samples in the decision node
      *
-     * @param array $sample
      * @param mixed $label
-     *
-     * @return float
      */
     protected function predictProbability(array $sample, $label) : float
     {
@@ -309,8 +278,6 @@ class DecisionStump extends WeightedClassifier
     }
 
     /**
-     * @param array $sample
-     *
      * @return mixed
      */
     protected function predictSampleBinary(array $sample)
@@ -322,17 +289,11 @@ class DecisionStump extends WeightedClassifier
         return $this->binaryLabels[1];
     }
 
-    /**
-     * @return void
-     */
     protected function resetBinary()
     {
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString() : string
     {
         return "IF $this->column $this->operator $this->value ".
             'THEN '.$this->binaryLabels[0].' '.

@@ -57,10 +57,6 @@ class NaiveBayes implements Classifier
      */
     private $labels = [];
 
-    /**
-     * @param array $samples
-     * @param array $targets
-     */
     public function train(array $samples, array $targets)
     {
         $this->samples = array_merge($this->samples, $samples);
@@ -80,11 +76,8 @@ class NaiveBayes implements Classifier
     /**
      * Calculates vital statistics for each label & feature. Stores these
      * values in private array in order to avoid repeated calculation
-     *
-     * @param string $label
-     * @param array  $samples
      */
-    private function calculateStatistics($label, $samples)
+    private function calculateStatistics(string $label, array $samples)
     {
         $this->std[$label] = array_fill(0, $this->featureCount, 0);
         $this->mean[$label] = array_fill(0, $this->featureCount, 0);
@@ -114,14 +107,8 @@ class NaiveBayes implements Classifier
 
     /**
      * Calculates the probability P(label|sample_n)
-     *
-     * @param array  $sample
-     * @param int    $feature
-     * @param string $label
-     *
-     * @return float
      */
-    private function sampleProbability($sample, $feature, $label)
+    private function sampleProbability(array $sample, int $feature, string $label) : float
     {
         $value = $sample[$feature];
         if ($this->dataType[$label][$feature] == self::NOMINAL) {
@@ -149,12 +136,8 @@ class NaiveBayes implements Classifier
 
     /**
      * Return samples belonging to specific label
-     *
-     * @param string $label
-     *
-     * @return array
      */
-    private function getSamplesByLabel($label)
+    private function getSamplesByLabel(string $label) : array
     {
         $samples = [];
         for ($i = 0; $i < $this->sampleCount; ++$i) {
@@ -167,8 +150,6 @@ class NaiveBayes implements Classifier
     }
 
     /**
-     * @param array $sample
-     *
      * @return mixed
      */
     protected function predictSample(array $sample)

@@ -10,17 +10,6 @@ use Phpml\SupportVectorMachine\Type;
 
 class SVR extends SupportVectorMachine implements Regression
 {
-    /**
-     * @param int        $kernel
-     * @param int        $degree
-     * @param float      $epsilon
-     * @param float      $cost
-     * @param float|null $gamma
-     * @param float      $coef0
-     * @param float      $tolerance
-     * @param int        $cacheSize
-     * @param bool       $shrinking
-     */
     public function __construct(
         int $kernel = Kernel::RBF,
         int $degree = 3,

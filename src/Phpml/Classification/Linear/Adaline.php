@@ -32,11 +32,6 @@ class Adaline extends Perceptron
      * If normalizeInputs is set to true, then every input given to the algorithm will be standardized
      * by use of standard deviation and mean calculation
      *
-     * @param float $learningRate
-     * @param int   $maxIterations
-     * @param bool  $normalizeInputs
-     * @param int   $trainingType
-     *
      * @throws \Exception
      */
     public function __construct(
@@ -57,8 +52,6 @@ class Adaline extends Perceptron
     /**
      * Adapts the weights with respect to given samples and targets
      * by use of gradient descent learning rule
-     *
-     * @param array $samples
      * @param array $targets
      */
     protected function runTraining(array $samples, array $targets)

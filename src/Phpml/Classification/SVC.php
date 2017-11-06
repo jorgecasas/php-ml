@@ -10,17 +10,6 @@ use Phpml\SupportVectorMachine\Type;
 
 class SVC extends SupportVectorMachine implements Classifier
 {
-    /**
-     * @param int        $kernel
-     * @param float      $cost
-     * @param int        $degree
-     * @param float|null $gamma
-     * @param float      $coef0
-     * @param float      $tolerance
-     * @param int        $cacheSize
-     * @param bool       $shrinking
-     * @param bool       $probabilityEstimates
-     */
     public function __construct(
         int $kernel = Kernel::LINEAR,
         float $cost = 1.0,

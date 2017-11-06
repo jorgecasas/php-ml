@@ -10,13 +10,10 @@ class StandardDeviation
 {
     /**
      * @param array|float[] $a
-     * @param bool          $sample
-     *
-     * @return float
      *
      * @throws InvalidArgumentException
      */
-    public static function population(array $a, $sample = true)
+    public static function population(array $a, bool $sample = true) : float
     {
         if (empty($a)) {
             throw InvalidArgumentException::arrayCantBeEmpty();

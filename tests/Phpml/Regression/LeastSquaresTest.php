@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace tests\Phpml\Regression;
 
-use Phpml\Regression\LeastSquares;
 use Phpml\ModelManager;
+use Phpml\Regression\LeastSquares;
 use PHPUnit\Framework\TestCase;
 
 class LeastSquaresTest extends TestCase

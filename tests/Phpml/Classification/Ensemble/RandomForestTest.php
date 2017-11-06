@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace tests\Phpml\Classification\Ensemble;
 
-use Phpml\Classification\Ensemble\RandomForest;
 use Phpml\Classification\DecisionTree;
+use Phpml\Classification\Ensemble\RandomForest;
 use Phpml\Classification\NaiveBayes;
 
 class RandomForestTest extends BaggingTest

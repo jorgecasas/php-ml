@@ -22,8 +22,6 @@ class RandomForest extends Bagging
      * Initializes RandomForest with the given number of trees. More trees
      * may increase the prediction performance while it will also substantially
      * increase the processing time and the required memory
-     *
-     * @param int $numClassifier
      */
     public function __construct(int $numClassifier = 50)
     {
@@ -65,9 +63,6 @@ class RandomForest extends Bagging
     /**
      * RandomForest algorithm is usable *only* with DecisionTree
      *
-     * @param string $classifier
-     * @param array  $classifierOptions
-     *
      * @return $this
      *
      * @throws \Exception
@@ -85,10 +80,8 @@ class RandomForest extends Bagging
      * This will return an array including an importance value for
      * each column in the given dataset. Importance values for a column
      * is the average importance of that column in all trees in the forest
-     *
-     * @return array
      */
-    public function getFeatureImportances()
+    public function getFeatureImportances() : array
     {
         // Traverse each tree and sum importance of the columns
         $sum = [];
@@ -119,8 +112,6 @@ class RandomForest extends Bagging
     /**
      * A string array to represent the columns is given. They are useful
      * when trying to print some information about the trees such as feature importances
-     *
-     * @param array $names
      *
      * @return $this
      */

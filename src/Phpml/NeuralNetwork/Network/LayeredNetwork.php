@@ -16,9 +16,6 @@ abstract class LayeredNetwork implements Network
      */
     protected $layers;
 
-    /**
-     * @param Layer $layer
-     */
     public function addLayer(Layer $layer)
     {
         $this->layers[] = $layer;
@@ -27,22 +24,16 @@ abstract class LayeredNetwork implements Network
     /**
      * @return Layer[]
      */
-    public function getLayers(): array
+    public function getLayers() : array
     {
         return $this->layers;
     }
 
-    /**
-     * @return void
-     */
     public function removeLayers()
     {
         unset($this->layers);
     }
 
-    /**
-     * @return Layer
-     */
     public function getOutputLayer(): Layer
     {
         return $this->layers[count($this->layers) - 1];
@@ -51,7 +42,7 @@ abstract class LayeredNetwork implements Network
     /**
      * @return array
      */
-    public function getOutput(): array
+    public function getOutput() : array
     {
         $result = [];
         foreach ($this->getOutputLayer()->getNodes() as $neuron) {

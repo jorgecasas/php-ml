@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace tests\Phpml\DimensionReduction;
 
-use Phpml\DimensionReduction\LDA;
 use Phpml\Dataset\Demo\IrisDataset;
+use Phpml\DimensionReduction\LDA;
 use PHPUnit\Framework\TestCase;
 
 class LDATest extends TestCase

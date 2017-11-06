@@ -13,10 +13,8 @@ class MLPClassifier extends MultilayerPerceptron implements Classifier
      * @param mixed $target
      *
      * @throws InvalidArgumentException
-     *
-     * @return int
      */
-    public function getTargetClass($target): int
+    public function getTargetClass($target) : int
     {
         if (!in_array($target, $this->classes)) {
             throw InvalidArgumentException::invalidTarget($target);
@@ -26,8 +24,6 @@ class MLPClassifier extends MultilayerPerceptron implements Classifier
     }
 
     /**
-     * @param array $sample
-     *
      * @return mixed
      */
     protected function predictSample(array $sample)
@@ -47,7 +43,6 @@ class MLPClassifier extends MultilayerPerceptron implements Classifier
     }
 
     /**
-     * @param array $sample
      * @param mixed $target
      */
     protected function trainSample(array $sample, $target)

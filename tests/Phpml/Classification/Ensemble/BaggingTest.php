@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace tests\Phpml\Classification\Ensemble;
 
-use Phpml\Classification\Ensemble\Bagging;
 use Phpml\Classification\DecisionTree;
+use Phpml\Classification\Ensemble\Bagging;
 use Phpml\Classification\NaiveBayes;
 use Phpml\ModelManager;
 use PHPUnit\Framework\TestCase;

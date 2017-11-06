@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Phpml\Clustering\KMeans;
 
-use IteratorAggregate;
 use Countable;
-use SplObjectStorage;
+use IteratorAggregate;
 use LogicException;
+use SplObjectStorage;
 
 class Cluster extends Point implements IteratorAggregate, Countable
 {
@@ -21,10 +21,6 @@ class Cluster extends Point implements IteratorAggregate, Countable
      */
     protected $points;
 
-    /**
-     * @param Space $space
-     * @param array $coordinates
-     */
     public function __construct(Space $space, array $coordinates)
     {
         parent::__construct($coordinates);
@@ -32,10 +28,7 @@ class Cluster extends Point implements IteratorAggregate, Countable
         $this->points = new SplObjectStorage();
     }
 
-    /**
-     * @return array
-     */
-    public function getPoints()
+    public function getPoints() : array
     {
         $points = [];
         foreach ($this->points as $point) {
@@ -45,10 +38,7 @@ class Cluster extends Point implements IteratorAggregate, Countable
         return $points;
     }
 
-    /**
-     * @return array
-     */
-    public function toArray()
+    public function toArray() : array
     {
         return [
             'centroid' => parent::toArray(),
@@ -56,14 +46,7 @@ class Cluster extends Point implements IteratorAggregate, Countable
         ];
     }
 
-    /**
-     * @param Point $point
-     *
-     * @return Point
-     *
-     * @throws \LogicException
-     */
-    public function attach(Point $point)
+    public function attach(Point $point) : Point
     {
         if ($point instanceof self) {
             throw new LogicException('cannot attach a cluster to another');
@@ -74,29 +57,18 @@ class Cluster extends Point implements IteratorAggregate, Countable
         return $point;
     }
 
-    /**
-     * @param Point $point
-     *
-     * @return Point
-     */
-    public function detach(Point $point)
+    public function detach(Point $point) : Point
     {
         $this->points->detach($point);
 
         return $point;
     }
 
-    /**
-     * @param SplObjectStorage $points
-     */
     public function attachAll(SplObjectStorage $points)
     {
         $this->points->addAll($points);
     }
 
-    /**
-     * @param SplObjectStorage $points
-     */
     public function detachAll(SplObjectStorage $points)
     {
         $this->points->removeAll($points);
@@ -136,10 +108,7 @@ class Cluster extends Point implements IteratorAggregate, Countable
     {
         return count($this->points);
     }
-    
-    /**
-    * @param array $newCoordinates
-    */
+
     public function setCoordinates(array $newCoordinates)
     {
         $this->coordinates = $newCoordinates;

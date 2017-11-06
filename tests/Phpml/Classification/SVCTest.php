@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace tests\Phpml\Classification;
 
 use Phpml\Classification\SVC;
-use Phpml\SupportVectorMachine\Kernel;
 use Phpml\ModelManager;
+use Phpml\SupportVectorMachine\Kernel;
 use PHPUnit\Framework\TestCase;
 
 class SVCTest extends TestCase

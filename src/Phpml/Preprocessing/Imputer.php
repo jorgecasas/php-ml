@@ -81,7 +81,7 @@ class Imputer implements Preprocessor
      *
      * @return array
      */
-    private function getAxis(int $column, array $currentSample): array
+    private function getAxis(int $column, array $currentSample) : array
     {
         if (self::AXIS_ROW === $this->axis) {
             return array_diff($currentSample, [$this->missingValue]);

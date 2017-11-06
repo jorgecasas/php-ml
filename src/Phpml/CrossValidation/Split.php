@@ -29,13 +29,6 @@ abstract class Split
      */
     protected $testLabels = [];
 
-    /**
-     * @param Dataset $dataset
-     * @param float   $testSize
-     * @param int     $seed
-     *
-     * @throws InvalidArgumentException
-     */
     public function __construct(Dataset $dataset, float $testSize = 0.3, int $seed = null)
     {
         if (0 >= $testSize || 1 <= $testSize) {
@@ -48,41 +41,26 @@ abstract class Split
 
     abstract protected function splitDataset(Dataset $dataset, float $testSize);
 
-    /**
-     * @return array
-     */
-    public function getTrainSamples()
+    public function getTrainSamples() : array
     {
         return $this->trainSamples;
     }
 
-    /**
-     * @return array
-     */
-    public function getTestSamples()
+    public function getTestSamples() : array
     {
         return $this->testSamples;
     }
 
-    /**
-     * @return array
-     */
-    public function getTrainLabels()
+    public function getTrainLabels() : array
     {
         return $this->trainLabels;
     }
 
-    /**
-     * @return array
-     */
-    public function getTestLabels()
+    public function getTestLabels() : array
     {
         return $this->testLabels;
     }
 
-    /**
-     * @param int|null $seed
-     */
     protected function seedGenerator(int $seed = null)
     {
         if (null === $seed) {

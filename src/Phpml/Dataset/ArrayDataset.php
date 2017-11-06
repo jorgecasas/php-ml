@@ -37,7 +37,7 @@ class ArrayDataset implements Dataset
     /**
      * @return array
      */
-    public function getSamples(): array
+    public function getSamples() : array
     {
         return $this->samples;
     }
@@ -45,7 +45,7 @@ class ArrayDataset implements Dataset
     /**
      * @return array
      */
-    public function getTargets(): array
+    public function getTargets() : array
     {
         return $this->targets;
     }

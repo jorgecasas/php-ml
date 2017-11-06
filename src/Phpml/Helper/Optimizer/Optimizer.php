@@ -22,8 +22,6 @@ abstract class Optimizer
 
     /**
      * Inits a new instance of Optimizer for the given number of dimensions
-     *
-     * @param int $dimensions
      */
     public function __construct(int $dimensions)
     {
@@ -38,8 +36,6 @@ abstract class Optimizer
 
     /**
      * Sets the weights manually
-     *
-     * @param array $theta
      *
      * @return $this
      *
@@ -59,10 +55,6 @@ abstract class Optimizer
     /**
      * Executes the optimization with the given samples & targets
      * and returns the weights
-     *
-     * @param array    $samples
-     * @param array    $targets
-     * @param \Closure $gradientCb
      */
     abstract public function runOptimization(array $samples, array $targets, \Closure $gradientCb);
 }

@@ -76,8 +76,6 @@ class StochasticGD extends Optimizer
 
     /**
      * Initializes the SGD optimizer for the given number of dimensions
-     *
-     * @param int $dimensions
      */
     public function __construct(int $dimensions)
     {
@@ -94,8 +92,6 @@ class StochasticGD extends Optimizer
      * If change in the theta is less than given value then the
      * algorithm will stop training
      *
-     * @param float $threshold
-     *
      * @return $this
      */
     public function setChangeThreshold(float $threshold = 1e-5)
@@ -109,8 +105,6 @@ class StochasticGD extends Optimizer
      * Enable/Disable early stopping by checking at each iteration
      * whether changes in theta or cost value are not large enough
      *
-     * @param bool $enable
-     *
      * @return $this
      */
     public function setEarlyStop(bool $enable = true)
@@ -121,8 +115,6 @@ class StochasticGD extends Optimizer
     }
 
     /**
-     * @param float $learningRate
-     *
      * @return $this
      */
     public function setLearningRate(float $learningRate)
@@ -133,8 +125,6 @@ class StochasticGD extends Optimizer
     }
 
     /**
-     * @param int $maxIterations
-     *
      * @return $this
      */
     public function setMaxIterations(int $maxIterations)
@@ -150,14 +140,8 @@ class StochasticGD extends Optimizer
      *
      * The cost function to minimize and the gradient of the function are to be
      * handled by the callback function provided as the third parameter of the method.
-     *
-     * @param array    $samples
-     * @param array    $targets
-     * @param \Closure $gradientCb
-     *
-     * @return array
      */
-    public function runOptimization(array $samples, array $targets, \Closure $gradientCb)
+    public function runOptimization(array $samples, array $targets, \Closure $gradientCb) : array
     {
         $this->samples = $samples;
         $this->targets = $targets;
@@ -197,10 +181,7 @@ class StochasticGD extends Optimizer
         return $this->theta = $bestTheta;
     }
 
-    /**
-     * @return float
-     */
-    protected function updateTheta()
+    protected function updateTheta() : float
     {
         $jValue = 0.0;
         $theta = $this->theta;
@@ -231,12 +212,8 @@ class StochasticGD extends Optimizer
     /**
      * Checks if the optimization is not effective enough and can be stopped
      * in case large enough changes in the solution do not happen
-     *
-     * @param array $oldTheta
-     *
-     * @return boolean
      */
-    protected function earlyStop($oldTheta)
+    protected function earlyStop(array $oldTheta): bool
     {
         // Check for early stop: No change larger than threshold (default 1e-5)
         $diff = array_map(
@@ -263,18 +240,14 @@ class StochasticGD extends Optimizer
     /**
      * Returns the list of cost values for each iteration executed in
      * last run of the optimization
-     *
-     * @return array
      */
-    public function getCostValues()
+    public function getCostValues() : array
     {
         return $this->costValues;
     }
 
     /**
      * Clears the optimizer internal vars after the optimization process.
-     *
-     * @return void
      */
     protected function clear()
     {

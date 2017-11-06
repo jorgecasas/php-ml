@@ -59,12 +59,6 @@ class LogisticRegression extends Adaline
      *
      * Penalty (Regularization term) can be 'L2' or empty string to cancel penalty term
      *
-     * @param int    $maxIterations
-     * @param bool   $normalizeInputs
-     * @param int    $trainingType
-     * @param string $cost
-     * @param string $penalty
-     *
      * @throws \Exception
      */
     public function __construct(
@@ -102,8 +96,6 @@ class LogisticRegression extends Adaline
     /**
      * Sets the learning rate if gradient descent algorithm is
      * selected for training
-     *
-     * @param float $learningRate
      */
     public function setLearningRate(float $learningRate)
     {
@@ -113,8 +105,6 @@ class LogisticRegression extends Adaline
     /**
      * Lambda (λ) parameter of regularization term. If 0 is given,
      * then the regularization term is cancelled
-     *
-     * @param float $lambda
      */
     public function setLambda(float $lambda)
     {
@@ -124,9 +114,6 @@ class LogisticRegression extends Adaline
     /**
      * Adapts the weights with respect to given samples and targets
      * by use of selected solver
-     *
-     * @param array $samples
-     * @param array $targets
      *
      * @throws \Exception
      */
@@ -154,7 +141,6 @@ class LogisticRegression extends Adaline
      *
      * @param array    $samples
      * @param array    $targets
-     * @param \Closure $gradientFunc
      */
     protected function runConjugateGradient(array $samples, array $targets, \Closure $gradientFunc)
     {
@@ -170,11 +156,9 @@ class LogisticRegression extends Adaline
     /**
      * Returns the appropriate callback function for the selected cost function
      *
-     * @return \Closure
-     *
      * @throws \Exception
      */
-    protected function getCostFunction()
+    protected function getCostFunction() : \Closure
     {
         $penalty = 0;
         if ($this->penalty == 'L2') {
@@ -244,8 +228,6 @@ class LogisticRegression extends Adaline
     /**
      * Returns the output of the network, a float value between 0.0 and 1.0
      *
-     * @param array $sample
-     *
      * @return float
      */
     protected function output(array $sample)
@@ -257,12 +239,8 @@ class LogisticRegression extends Adaline
 
     /**
      * Returns the class value (either -1 or 1) for the given input
-     *
-     * @param array $sample
-     *
-     * @return int
      */
-    protected function outputClass(array $sample)
+    protected function outputClass(array $sample) : int
     {
         $output = $this->output($sample);
 
@@ -278,20 +256,17 @@ class LogisticRegression extends Adaline
      *
      * The probability is simply taken as the distance of the sample
      * to the decision plane.
-     *
-     * @param array $sample
+
      * @param mixed $label
-     *
-     * @return float
      */
-    protected function predictProbability(array $sample, $label)
+    protected function predictProbability(array $sample, $label) : float
     {
         $predicted = $this->predictSampleBinary($sample);
 
         if ((string) $predicted == (string) $label) {
             $sample = $this->checkNormalizedSample($sample);
 
-            return abs($this->output($sample) - 0.5);
+            return (float) abs($this->output($sample) - 0.5);
         }
 
         return 0.0;

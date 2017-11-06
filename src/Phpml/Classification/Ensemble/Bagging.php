@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Phpml\Classification\Ensemble;
 
-use Phpml\Helper\Predictable;
-use Phpml\Helper\Trainable;
 use Phpml\Classification\Classifier;
 use Phpml\Classification\DecisionTree;
+use Phpml\Helper\Predictable;
+use Phpml\Helper\Trainable;
 
 class Bagging implements Classifier
 {
@@ -62,8 +62,6 @@ class Bagging implements Classifier
      * Creates an ensemble classifier with given number of base classifiers
      * Default number of base classifiers is 50.
      * The more number of base classifiers, the better performance but at the cost of procesing time
-     *
-     * @param int $numClassifier
      */
     public function __construct(int $numClassifier = 50)
     {
@@ -74,8 +72,6 @@ class Bagging implements Classifier
      * This method determines the ratio of samples used to create the 'bootstrap' subset,
      * e.g., random samples drawn from the original dataset with replacement (allow repeats),
      * to train each base classifier.
-     *
-     * @param float $ratio
      *
      * @return $this
      *
@@ -100,9 +96,6 @@ class Bagging implements Classifier
      * given in the order they are in the constructor of the classifier and parameter
      * names are neglected.
      *
-     * @param string $classifier
-     * @param array  $classifierOptions
-     *
      * @return $this
      */
     public function setClassifer(string $classifier, array $classifierOptions = [])
@@ -113,10 +106,6 @@ class Bagging implements Classifier
         return $this;
     }
 
-    /**
-     * @param array $samples
-     * @param array $targets
-     */
     public function train(array $samples, array $targets)
     {
         $this->samples = array_merge($this->samples, $samples);
@@ -134,12 +123,7 @@ class Bagging implements Classifier
         }
     }
 
-    /**
-     * @param int $index
-     *
-     * @return array
-     */
-    protected function getRandomSubset(int $index)
+    protected function getRandomSubset(int $index) : array
     {
         $samples = [];
         $targets = [];
@@ -154,10 +138,7 @@ class Bagging implements Classifier
         return [$samples, $targets];
     }
 
-    /**
-     * @return array
-     */
-    protected function initClassifiers()
+    protected function initClassifiers() : array
     {
         $classifiers = [];
         for ($i = 0; $i < $this->numClassifier; ++$i) {
@@ -185,8 +166,6 @@ class Bagging implements Classifier
     }
 
     /**
-     * @param array $sample
-     *
      * @return mixed
      */
     protected function predictSample(array $sample)

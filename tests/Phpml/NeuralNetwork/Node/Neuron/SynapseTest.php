@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace tests\Phpml\NeuralNetwork\Node\Neuron;
 
-use Phpml\NeuralNetwork\Node\Neuron\Synapse;
 use Phpml\NeuralNetwork\Node\Neuron;
+use Phpml\NeuralNetwork\Node\Neuron\Synapse;
 use PHPUnit\Framework\TestCase;
 
 class SynapseTest extends TestCase

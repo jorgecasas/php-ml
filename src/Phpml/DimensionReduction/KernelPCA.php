@@ -44,14 +44,13 @@ class KernelPCA extends PCA
      * will initialize the algorithm with an RBF kernel having the gamma parameter as 15,0. <br>
      * This transformation will return the same number of rows with only <i>2</i> columns.
      *
-     * @param int   $kernel
      * @param float $totalVariance Total variance to be preserved if numFeatures is not given
      * @param int   $numFeatures   Number of columns to be returned
      * @param float $gamma         Gamma parameter is used with RBF and Sigmoid kernels
      *
      * @throws \Exception
      */
-    public function __construct(int $kernel = self::KERNEL_RBF, $totalVariance = null, $numFeatures = null, $gamma = null)
+    public function __construct(int $kernel = self::KERNEL_RBF, float $totalVariance = null, int $numFeatures = null, float $gamma = null)
     {
         $availableKernels = [self::KERNEL_RBF, self::KERNEL_SIGMOID, self::KERNEL_LAPLACIAN, self::KERNEL_LINEAR];
         if (!in_array($kernel, $availableKernels)) {
@@ -69,12 +68,8 @@ class KernelPCA extends PCA
      * of this data while preserving $totalVariance or $numFeatures. <br>
      * $data is an n-by-m matrix and returned array is
      * n-by-k matrix where k <= m
-     *
-     * @param array $data
-     *
-     * @return array
      */
-    public function fit(array $data)
+    public function fit(array $data) : array
     {
         $numRows = count($data);
         $this->data = $data;
@@ -96,13 +91,8 @@ class KernelPCA extends PCA
     /**
      * Calculates similarity matrix by use of selected kernel function<br>
      * An n-by-m matrix is given and an n-by-n matrix is returned
-     *
-     * @param array $data
-     * @param int   $numRows
-     *
-     * @return array
      */
-    protected function calculateKernelMatrix(array $data, int $numRows)
+    protected function calculateKernelMatrix(array $data, int $numRows) : array
     {
         $kernelFunc = $this->getKernel();
 
@@ -125,13 +115,8 @@ class KernelPCA extends PCA
      * conversion:
      *
      * K′ = K − N.K −  K.N + N.K.N where N is n-by-n matrix filled with 1/n
-     *
-     * @param array $matrix
-     * @param int   $n
-     *
-     * @return array
      */
-    protected function centerMatrix(array $matrix, int $n)
+    protected function centerMatrix(array $matrix, int $n) : array
     {
         $N = array_fill(0, $n, array_fill(0, $n, 1.0 / $n));
         $N = new Matrix($N, false);
@@ -153,11 +138,9 @@ class KernelPCA extends PCA
     /**
      * Returns the callable kernel function
      *
-     * @return \Closure
-     *
      * @throws \Exception
      */
-    protected function getKernel()
+    protected function getKernel(): \Closure
     {
         switch ($this->kernel) {
             case self::KERNEL_LINEAR:
@@ -194,12 +177,7 @@ class KernelPCA extends PCA
         }
     }
 
-    /**
-     * @param array $sample
-     *
-     * @return array
-     */
-    protected function getDistancePairs(array $sample)
+    protected function getDistancePairs(array $sample) : array
     {
         $kernel = $this->getKernel();
 
@@ -211,12 +189,7 @@ class KernelPCA extends PCA
         return $pairs;
     }
 
-    /**
-     * @param array $pairs
-     *
-     * @return array
-     */
-    protected function projectSample(array $pairs)
+    protected function projectSample(array $pairs) : array
     {
         // Normalize eigenvectors by eig = eigVectors / eigValues
         $func = function ($eigVal, $eigVect) {
@@ -235,13 +208,9 @@ class KernelPCA extends PCA
      * Transforms the given sample to a lower dimensional vector by using
      * the variables obtained during the last run of <code>fit</code>.
      *
-     * @param array $sample
-     *
-     * @return array
-     *
      * @throws \Exception
      */
-    public function transform(array $sample)
+    public function transform(array $sample) : array
     {
         if (!$this->fit) {
             throw new \Exception('KernelPCA has not been fitted with respect to original dataset, please run KernelPCA::fit() first');

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Phpml\Classification\Ensemble;
 
+use Phpml\Classification\Classifier;
 use Phpml\Classification\Linear\DecisionStump;
 use Phpml\Classification\WeightedClassifier;
-use Phpml\Math\Statistic\Mean;
-use Phpml\Math\Statistic\StandardDeviation;
-use Phpml\Classification\Classifier;
 use Phpml\Helper\Predictable;
 use Phpml\Helper\Trainable;
+use Phpml\Math\Statistic\Mean;
+use Phpml\Math\Statistic\StandardDeviation;
 
 class AdaBoost implements Classifier
 {
@@ -75,8 +75,6 @@ class AdaBoost implements Classifier
      * ADAptive BOOSTing (AdaBoost) is an ensemble algorithm to
      * improve classification performance of 'weak' classifiers such as
      * DecisionStump (default base classifier of AdaBoost).
-     *
-     * @param int $maxIterations
      */
     public function __construct(int $maxIterations = 50)
     {
@@ -85,9 +83,6 @@ class AdaBoost implements Classifier
 
     /**
      * Sets the base classifier that will be used for boosting (default = DecisionStump)
-     *
-     * @param string $baseClassifier
-     * @param array  $classifierOptions
      */
     public function setBaseClassifier(string $baseClassifier = DecisionStump::class, array $classifierOptions = [])
     {
@@ -96,9 +91,6 @@ class AdaBoost implements Classifier
     }
 
     /**
-     * @param array $samples
-     * @param array $targets
-     *
      * @throws \Exception
      */
     public function train(array $samples, array $targets)
@@ -143,10 +135,8 @@ class AdaBoost implements Classifier
     /**
      * Returns the classifier with the lowest error rate with the
      * consideration of current sample weights
-     *
-     * @return Classifier
      */
-    protected function getBestClassifier()
+    protected function getBestClassifier() : Classifier
     {
         $ref = new \ReflectionClass($this->baseClassifier);
         if ($this->classifierOptions) {
@@ -169,10 +159,8 @@ class AdaBoost implements Classifier
     /**
      * Resamples the dataset in accordance with the weights and
      * returns the new dataset
-     *
-     * @return array
      */
-    protected function resample()
+    protected function resample() : array
     {
         $weights = $this->weights;
         $std = StandardDeviation::population($weights);
@@ -198,12 +186,8 @@ class AdaBoost implements Classifier
 
     /**
      * Evaluates the classifier and returns the classification error rate
-     *
-     * @param Classifier $classifier
-     *
-     * @return float
      */
-    protected function evaluateClassifier(Classifier $classifier)
+    protected function evaluateClassifier(Classifier $classifier) : float
     {
         $total = (float) array_sum($this->weights);
         $wrong = 0;
@@ -219,12 +203,8 @@ class AdaBoost implements Classifier
 
     /**
      * Calculates alpha of a classifier
-     *
-     * @param float $errorRate
-     *
-     * @return float
      */
-    protected function calculateAlpha(float $errorRate)
+    protected function calculateAlpha(float $errorRate) : float
     {
         if ($errorRate == 0) {
             $errorRate = 1e-10;
@@ -235,9 +215,6 @@ class AdaBoost implements Classifier
 
     /**
      * Updates the sample weights
-     *
-     * @param Classifier $classifier
-     * @param float      $alpha
      */
     protected function updateWeights(Classifier $classifier, float $alpha)
     {
@@ -256,8 +233,6 @@ class AdaBoost implements Classifier
     }
 
     /**
-     * @param array $sample
-     *
      * @return mixed
      */
     public function predictSample(array $sample)

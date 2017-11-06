@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace tests\Phpml\Classification;
 
 use Phpml\Classification\MLPClassifier;
-use Phpml\NeuralNetwork\Node\Neuron;
 use Phpml\ModelManager;
+use Phpml\NeuralNetwork\Node\Neuron;
 use PHPUnit\Framework\TestCase;
 
 class MLPClassifierTest extends TestCase
@@ -194,7 +194,7 @@ class MLPClassifierTest extends TestCase
      *
      * @return array
      */
-    private function getSynapsesNodes(array $synapses): array
+    private function getSynapsesNodes(array $synapses) : array
     {
         $nodes = [];
         foreach ($synapses as $synapse) {

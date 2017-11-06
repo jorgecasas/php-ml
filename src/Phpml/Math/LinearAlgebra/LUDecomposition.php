@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 /**
- *	@package JAMA
+ * @package JAMA
  *
- *	For an m-by-n matrix A with m >= n, the LU decomposition is an m-by-n
- *	unit lower triangular matrix L, an n-by-n upper triangular matrix U,
- *	and a permutation vector piv of length m so that A(piv,:) = L*U.
- *	If m < n, then L is m-by-m and U is m-by-n.
+ * For an m-by-n matrix A with m >= n, the LU decomposition is an m-by-n
+ * unit lower triangular matrix L, an n-by-n upper triangular matrix U,
+ * and a permutation vector piv of length m so that A(piv,:) = L*U.
+ * If m < n, then L is m-by-m and U is m-by-n.
  *
- *	The LU decompostion with pivoting always exists, even if the matrix is
- *	singular, so the constructor will never fail. The primary use of the
- *	LU decomposition is in the solution of square systems of simultaneous
- *	linear equations. This will fail if isNonsingular() returns false.
+ * The LU decompostion with pivoting always exists, even if the matrix is
+ * singular, so the constructor will never fail. The primary use of the
+ * LU decomposition is in the solution of square systems of simultaneous
+ * linear equations. This will fail if isNonsingular() returns false.
  *
- *	@author Paul Meagher
- *	@author Bartosz Matosiuk
- *	@author Michael Bommarito
+ * @author Paul Meagher
+ * @author Bartosz Matosiuk
+ * @author Michael Bommarito
  *
- *	@version 1.1
+ * @version 1.1
  *
- *	@license PHP v3.0
+ * @license PHP v3.0
  *
  *  Slightly changed to adapt the original code to PHP-ML library
  *  @date 2017/04/24
@@ -30,43 +30,43 @@ declare(strict_types=1);
 
 namespace Phpml\Math\LinearAlgebra;
 
-use Phpml\Math\Matrix;
 use Phpml\Exception\MatrixException;
+use Phpml\Math\Matrix;
 
 class LUDecomposition
 {
     /**
-     *	Decomposition storage
+     * Decomposition storage
      *
-     *	@var array
+     * @var array
      */
     private $LU = [];
 
     /**
-     *	Row dimension.
+     * Row dimension.
      *
-     *	@var int
+     * @var int
      */
     private $m;
 
     /**
-     *	Column dimension.
+     * Column dimension.
      *
-     *	@var int
+     * @var int
      */
     private $n;
 
     /**
-     *	Pivot sign.
+     * Pivot sign.
      *
-     *	@var int
+     * @var int
      */
     private $pivsign;
 
     /**
-     *	Internal storage of pivot vector.
+     * Internal storage of pivot vector.
      *
-     *	@var array
+     * @var array
      */
     private $piv = [];
 
@@ -142,7 +142,7 @@ class LUDecomposition
      *
      * @return Matrix Lower triangular factor
      */
-    public function getL()
+    public function getL() : Matrix
     {
         $L = [];
         for ($i = 0; $i < $this->m; ++$i) {
@@ -165,7 +165,7 @@ class LUDecomposition
      *
      * @return Matrix Upper triangular factor
      */
-    public function getU()
+    public function getU() : Matrix
     {
         $U = [];
         for ($i = 0; $i < $this->n; ++$i) {
@@ -186,7 +186,7 @@ class LUDecomposition
      *
      * @return array Pivot vector
      */
-    public function getPivot()
+    public function getPivot() : array
     {
         return $this->piv;
     }
@@ -247,7 +247,7 @@ class LUDecomposition
      *
      * @throws MatrixException
      */
-    public function solve(Matrix $B)
+    public function solve(Matrix $B) : array
     {
         if ($B->getRows() != $this->m) {
             throw MatrixException::notSquareMatrix();
@@ -283,15 +283,7 @@ class LUDecomposition
         return $X;
     }
 
-    /**
-     * @param array $matrix
-     * @param array $RL
-     * @param int   $j0
-     * @param int   $jF
-     *
-     * @return array
-     */
-    protected function getSubMatrix(array $matrix, array $RL, int $j0, int $jF)
+    protected function getSubMatrix(array $matrix, array $RL, int $j0, int $jF) : array
     {
         $m = count($RL);
         $n = $jF - $j0;

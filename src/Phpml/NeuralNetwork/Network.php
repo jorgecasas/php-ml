@@ -16,15 +16,12 @@ interface Network
     /**
      * @return array
      */
-    public function getOutput(): array;
+    public function getOutput() : array;
 
-    /**
-     * @param Layer $layer
-     */
     public function addLayer(Layer $layer);
 
     /**
      * @return Layer[]
      */
-    public function getLayers(): array;
+    public function getLayers() : array;
 }

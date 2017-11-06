@@ -94,7 +94,7 @@ class CustomDistance implements Distance
      *
      * @return float
      */
-    public function distance(array $a, array $b): float
+    public function distance(array $a, array $b) : float
     {
         $distance = [];
         $count = count($a);

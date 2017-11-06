@@ -49,9 +49,6 @@ class Apriori implements Associator
 
     /**
      * Apriori constructor.
-     *
-     * @param float $support
-     * @param float $confidence
      */
     public function __construct(float $support = 0.0, float $confidence = 0.0)
     {
@@ -261,8 +258,6 @@ class Apriori implements Associator
      *
      * @param mixed[] $set
      * @param mixed[] $subset
-     *
-     * @return float
      */
     private function confidence(array $set, array $subset) : float
     {
@@ -276,8 +271,6 @@ class Apriori implements Associator
      * @see \Phpml\Association\Apriori::samples
      *
      * @param mixed[] $sample
-     *
-     * @return float
      */
     private function support(array $sample) : float
     {
@@ -290,8 +283,6 @@ class Apriori implements Associator
      * @see \Phpml\Association\Apriori::samples
      *
      * @param mixed[] $sample
-     *
-     * @return int
      */
     private function frequency(array $sample) : int
     {
@@ -307,8 +298,6 @@ class Apriori implements Associator
      *
      * @param mixed[][] $system
      * @param mixed[]   $set
-     *
-     * @return bool
      */
     private function contains(array $system, array $set) : bool
     {
@@ -322,8 +311,6 @@ class Apriori implements Associator
      *
      * @param mixed[] $set
      * @param mixed[] $subset
-     *
-     * @return bool
      */
     private function subset(array $set, array $subset) : bool
     {
@@ -335,8 +322,6 @@ class Apriori implements Associator
      *
      * @param mixed[] $set1
      * @param mixed[] $set2
-     *
-     * @return bool
      */
     private function equals(array $set1, array $set2) : bool
     {

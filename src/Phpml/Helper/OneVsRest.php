@@ -27,9 +27,6 @@ trait OneVsRest
 
     /**
      * Train a binary classifier in the OvR style
-     *
-     * @param array $samples
-     * @param array $targets
      */
     public function train(array $samples, array $targets)
     {
@@ -39,13 +36,6 @@ trait OneVsRest
         $this->trainBylabel($samples, $targets);
     }
 
-    /**
-     * @param array $samples
-     * @param array $targets
-     * @param array $allLabels All training set labels
-     *
-     * @return void
-     */
     protected function trainByLabel(array $samples, array $targets, array $allLabels = [])
     {
         // Overwrites the current value if it exist. $allLabels must be provided for each partialTrain run.
@@ -122,12 +112,11 @@ trait OneVsRest
      * $targets is not passed by reference nor contains objects so this method
      * changes will not affect the caller $targets array.
      *
-     * @param array $targets
      * @param mixed $label
      *
      * @return array Binarized targets and target's labels
      */
-    private function binarizeTargets($targets, $label)
+    private function binarizeTargets(array $targets, $label) : array
     {
         $notLabel = "not_$label";
         foreach ($targets as $key => $target) {
@@ -140,8 +129,6 @@ trait OneVsRest
     }
 
     /**
-     * @param array $sample
-     *
      * @return mixed
      */
     protected function predictSample(array $sample)
@@ -163,10 +150,6 @@ trait OneVsRest
 
     /**
      * Each classifier should implement this method instead of train(samples, targets)
-     *
-     * @param array $samples
-     * @param array $targets
-     * @param array $labels
      */
     abstract protected function trainBinary(array $samples, array $targets, array $labels);
 
@@ -181,17 +164,12 @@ trait OneVsRest
      * Each classifier that make use of OvR approach should be able to
      * return a probability for a sample to belong to the given label.
      *
-     * @param array  $sample
-     * @param string $label
-     *
      * @return mixed
      */
     abstract protected function predictProbability(array $sample, string $label);
 
     /**
      * Each classifier should implement this method instead of predictSample()
-     *
-     * @param array $sample
      *
      * @return mixed
      */

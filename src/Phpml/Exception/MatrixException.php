@@ -6,26 +6,17 @@ namespace Phpml\Exception;
 
 class MatrixException extends \Exception
 {
-    /**
-     * @return MatrixException
-     */
-    public static function notSquareMatrix()
+    public static function notSquareMatrix() : MatrixException
     {
         return new self('Matrix is not square matrix');
     }
 
-    /**
-     * @return MatrixException
-     */
-    public static function columnOutOfRange()
+    public static function columnOutOfRange() : MatrixException
     {
         return new self('Column out of range');
     }
 
-    /**
-     * @return MatrixException
-     */
-    public static function singularMatrix()
+    public static function singularMatrix() : MatrixException
     {
         return new self('Matrix is singular');
     }

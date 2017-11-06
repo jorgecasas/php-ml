@@ -14,12 +14,6 @@ class CsvDataset extends ArrayDataset
     protected $columnNames;
 
     /**
-     * @param string $filepath
-     * @param int    $features
-     * @param bool   $headingRow
-     * @param string $delimiter
-     * @param int    $maxLineLength
-     *
      * @throws FileException
      */
     public function __construct(string $filepath, int $features, bool $headingRow = true, string $delimiter = ',', int $maxLineLength = 0)
@@ -50,10 +44,7 @@ class CsvDataset extends ArrayDataset
         parent::__construct($samples, $targets);
     }
 
-    /**
-     * @return array
-     */
-    public function getColumnNames()
+    public function getColumnNames() : array
     {
         return $this->columnNames;
     }
