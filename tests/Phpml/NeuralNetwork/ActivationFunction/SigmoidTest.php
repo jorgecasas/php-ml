@@ -10,10 +10,6 @@ use PHPUnit\Framework\TestCase;
 class SigmoidTest extends TestCase
 {
     /**
-     * @param $beta
-     * @param $expected
-     * @param $value
-     *
      * @dataProvider sigmoidProvider
      */
     public function testSigmoidActivationFunction($beta, $expected, $value)

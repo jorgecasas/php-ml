@@ -10,9 +10,6 @@ use PHPUnit\Framework\TestCase;
 class GaussianTest extends TestCase
 {
     /**
-     * @param $expected
-     * @param $value
-     *
      * @dataProvider gaussianProvider
      */
     public function testGaussianActivationFunction($expected, $value)

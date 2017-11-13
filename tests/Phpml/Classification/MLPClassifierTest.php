@@ -189,11 +189,6 @@ class MLPClassifierTest extends TestCase
         new MLPClassifier(2, [2], [0]);
     }
 
-    /**
-     * @param array $synapses
-     *
-     * @return array
-     */
     private function getSynapsesNodes(array $synapses) : array
     {
         $nodes = [];

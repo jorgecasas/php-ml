@@ -9,10 +9,6 @@ use Phpml\Exception\InvalidArgumentException;
 class Accuracy
 {
     /**
-     * @param array $actualLabels
-     * @param array $predictedLabels
-     * @param bool  $normalize
-     *
      * @return float|int
      *
      * @throws InvalidArgumentException

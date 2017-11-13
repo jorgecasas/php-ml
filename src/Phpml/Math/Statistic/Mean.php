@@ -9,8 +9,6 @@ use Phpml\Exception\InvalidArgumentException;
 class Mean
 {
     /**
-     * @param array $numbers
-     *
      * @throws InvalidArgumentException
      */
     public static function arithmetic(array $numbers) : float
@@ -21,8 +19,6 @@ class Mean
     }
 
     /**
-     * @param array $numbers
-     *
      * @return float|mixed
      *
      * @throws InvalidArgumentException
@@ -44,8 +40,6 @@ class Mean
     }
 
     /**
-     * @param array $numbers
-     *
      * @return mixed
      *
      * @throws InvalidArgumentException
@@ -60,8 +54,6 @@ class Mean
     }
 
     /**
-     * @param array $array
-     *
      * @throws InvalidArgumentException
      */
     private static function checkArrayLength(array $array)

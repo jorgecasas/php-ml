@@ -52,7 +52,6 @@ class Adaline extends Perceptron
     /**
      * Adapts the weights with respect to given samples and targets
      * by use of gradient descent learning rule
-     * @param array $targets
      */
     protected function runTraining(array $samples, array $targets)
     {

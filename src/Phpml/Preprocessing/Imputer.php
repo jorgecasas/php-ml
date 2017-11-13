@@ -33,8 +33,6 @@ class Imputer implements Preprocessor
 
     /**
      * @param mixed      $missingValue
-     * @param Strategy   $strategy
-     * @param int        $axis
      * @param array|null $samples
      */
     public function __construct($missingValue, Strategy $strategy, int $axis = self::AXIS_COLUMN, array $samples = [])
@@ -45,17 +43,11 @@ class Imputer implements Preprocessor
         $this->samples = $samples;
     }
 
-    /**
-     * @param array $samples
-     */
     public function fit(array $samples)
     {
         $this->samples = $samples;
     }
 
-    /**
-     * @param array $samples
-     */
     public function transform(array &$samples)
     {
         foreach ($samples as &$sample) {
@@ -63,9 +55,6 @@ class Imputer implements Preprocessor
         }
     }
 
-    /**
-     * @param array $sample
-     */
     private function preprocessSample(array &$sample)
     {
         foreach ($sample as $column => &$value) {
@@ -75,12 +64,6 @@ class Imputer implements Preprocessor
         }
     }
 
-    /**
-     * @param int   $column
-     * @param array $currentSample
-     *
-     * @return array
-     */
     private function getAxis(int $column, array $currentSample) : array
     {
         if (self::AXIS_ROW === $this->axis) {

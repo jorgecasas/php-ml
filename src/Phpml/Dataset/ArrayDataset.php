@@ -19,9 +19,6 @@ class ArrayDataset implements Dataset
     protected $targets = [];
 
     /**
-     * @param array $samples
-     * @param array $targets
-     *
      * @throws InvalidArgumentException
      */
     public function __construct(array $samples, array $targets)
@@ -34,17 +31,11 @@ class ArrayDataset implements Dataset
         $this->targets = $targets;
     }
 
-    /**
-     * @return array
-     */
     public function getSamples() : array
     {
         return $this->samples;
     }
 
-    /**
-     * @return array
-     */
     public function getTargets() : array
     {
         return $this->targets;

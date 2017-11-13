@@ -6,13 +6,6 @@ namespace Phpml\Metric;
 
 class ConfusionMatrix
 {
-    /**
-     * @param array $actualLabels
-     * @param array $predictedLabels
-     * @param array $labels
-     *
-     * @return array
-     */
     public static function compute(array $actualLabels, array $predictedLabels, array $labels = null) : array
     {
         $labels = $labels ? array_flip($labels) : self::getUniqueLabels($actualLabels);
@@ -38,11 +31,6 @@ class ConfusionMatrix
         return $matrix;
     }
 
-    /**
-     * @param array $labels
-     *
-     * @return array
-     */
     private static function generateMatrixWithZeros(array $labels) : array
     {
         $count = count($labels);
@@ -55,11 +43,6 @@ class ConfusionMatrix
         return $matrix;
     }
 
-    /**
-     * @param array $labels
-     *
-     * @return array
-     */
     private static function getUniqueLabels(array $labels) : array
     {
         $labels = array_values(array_unique($labels));

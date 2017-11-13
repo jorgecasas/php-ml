@@ -10,10 +10,6 @@ use PHPUnit\Framework\TestCase;
 class HyperboliTangentTest extends TestCase
 {
     /**
-     * @param $beta
-     * @param $expected
-     * @param $value
-     *
      * @dataProvider tanhProvider
      */
     public function testHyperbolicTangentActivationFunction($beta, $expected, $value)

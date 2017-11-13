@@ -17,12 +17,6 @@ namespace Phpml\Helper\Optimizer;
  */
 class ConjugateGradient extends GD
 {
-    /**
-     * @param array    $samples
-     * @param array    $targets
-     *
-     * @return array
-     */
     public function runOptimization(array $samples, array $targets, \Closure $gradientCb) : array
     {
         $this->samples = $samples;

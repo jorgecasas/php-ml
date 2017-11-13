@@ -18,7 +18,6 @@ class Pipeline implements Estimator
 
     /**
      * @param array|Transformer[] $transformers
-     * @param Estimator           $estimator
      */
     public function __construct(array $transformers, Estimator $estimator)
     {
@@ -52,10 +51,6 @@ class Pipeline implements Estimator
         return $this->estimator;
     }
 
-    /**
-     * @param array $samples
-     * @param array $targets
-     */
     public function train(array $samples, array $targets)
     {
         foreach ($this->transformers as $transformer) {
@@ -67,8 +62,6 @@ class Pipeline implements Estimator
     }
 
     /**
-     * @param array $samples
-     *
      * @return mixed
      */
     public function predict(array $samples)
@@ -78,9 +71,6 @@ class Pipeline implements Estimator
         return $this->estimator->predict($samples);
     }
 
-    /**
-     * @param array $samples
-     */
     private function transformSamples(array &$samples)
     {
         foreach ($this->transformers as $transformer) {

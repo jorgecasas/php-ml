@@ -10,9 +10,6 @@ use PHPUnit\Framework\TestCase;
 class BinaryStepTest extends TestCase
 {
     /**
-     * @param $expected
-     * @param $value
-     *
      * @dataProvider binaryStepProvider
      */
     public function testBinaryStepActivationFunction($expected, $value)

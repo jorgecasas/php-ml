@@ -130,12 +130,6 @@ class ClassificationReport
         return 2.0 * (($precision * $recall) / $divider);
     }
 
-    /**
-     * @param array $actualLabels
-     * @param array $predictedLabels
-     *
-     * @return array
-     */
     private static function getLabelIndexedArray(array $actualLabels, array $predictedLabels) : array
     {
         $labels = array_values(array_unique(array_merge($actualLabels, $predictedLabels)));

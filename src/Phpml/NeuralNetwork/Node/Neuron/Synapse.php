@@ -19,7 +19,6 @@ class Synapse
     protected $node;
 
     /**
-     * @param Node       $node
      * @param float|null $weight
      */
     public function __construct(Node $node, float $weight = null)

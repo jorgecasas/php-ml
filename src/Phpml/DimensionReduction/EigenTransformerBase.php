@@ -47,8 +47,6 @@ abstract class EigenTransformerBase
      * Calculates eigenValues and eigenVectors of the given matrix. Returns
      * top eigenVectors along with the largest eigenValues. The total explained variance
      * of these eigenVectors will be no less than desired $totalVariance value
-     *
-     * @param array $matrix
      */
     protected function eigenDecomposition(array $matrix)
     {
@@ -85,10 +83,6 @@ abstract class EigenTransformerBase
 
     /**
      * Returns the reduced data
-     *
-     * @param array $data
-     *
-     * @return array
      */
     protected function reduce(array $data) : array
     {

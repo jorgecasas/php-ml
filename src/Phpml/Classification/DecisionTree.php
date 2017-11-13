@@ -72,10 +72,6 @@ class DecisionTree implements Classifier
         $this->maxDepth = $maxDepth;
     }
 
-    /**
-     * @param array $samples
-     * @param array $targets
-     */
     public function train(array $samples, array $targets)
     {
         $this->samples = array_merge($this->samples, $samples);
@@ -104,11 +100,6 @@ class DecisionTree implements Classifier
         }
     }
 
-    /**
-     * @param array $samples
-     *
-     * @return array
-     */
     public static function getColumnTypes(array $samples) : array
     {
         $types = [];
@@ -122,10 +113,6 @@ class DecisionTree implements Classifier
         return $types;
     }
 
-    /**
-     * @param array $records
-     * @param int   $depth
-     */
     protected function getSplitLeaf(array $records, int $depth = 0) : DecisionTreeLeaf
     {
         $split = $this->getBestSplit($records);
@@ -239,8 +226,6 @@ class DecisionTree implements Classifier
      *
      * If any of above methods were not called beforehand, then all features
      * are returned by default.
-     *
-     * @return array
      */
     protected function getSelectedFeatures() : array
     {
@@ -296,11 +281,6 @@ class DecisionTree implements Classifier
         return array_sum($giniParts) / count($colValues);
     }
 
-    /**
-     * @param array $samples
-     *
-     * @return array
-     */
     protected function preprocess(array $samples) : array
     {
         // Detect and convert continuous data column values into
@@ -325,9 +305,6 @@ class DecisionTree implements Classifier
         return array_map(null, ...$columns);
     }
 
-    /**
-     * @param array $columnValues
-     */
     protected static function isCategoricalColumn(array $columnValues) : bool
     {
         $count = count($columnValues);

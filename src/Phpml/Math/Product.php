@@ -7,9 +7,6 @@ namespace Phpml\Math;
 class Product
 {
     /**
-     * @param array $a
-     * @param array $b
-     *
      * @return mixed
      */
     public static function scalar(array $a, array $b)

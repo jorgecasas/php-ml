@@ -261,7 +261,6 @@ class MatrixTest extends TestCase
         $matrix1 = [[1, 1], [2, 2]];
         $matrix2 = [[3, 3], [3, 3], [3, 3]];
         $dot = [6, 12];
-        
         $this->assertEquals($dot, Matrix::dot($matrix2, $matrix1));
     }
 }

@@ -39,9 +39,6 @@ abstract class LayeredNetwork implements Network
         return $this->layers[count($this->layers) - 1];
     }
 
-    /**
-     * @return array
-     */
     public function getOutput() : array
     {
         $result = [];

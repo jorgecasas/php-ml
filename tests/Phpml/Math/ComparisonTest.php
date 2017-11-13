@@ -12,8 +12,6 @@ class ComparisonTest extends TestCase
     /**
      * @param mixed  $a
      * @param mixed  $b
-     * @param string $operator
-     * @param bool   $expected
      *
      * @dataProvider provideData
      */

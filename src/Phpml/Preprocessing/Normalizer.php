@@ -46,9 +46,6 @@ class Normalizer implements Preprocessor
         $this->norm = $norm;
     }
 
-    /**
-     * @param array $samples
-     */
     public function fit(array $samples)
     {
         if ($this->fitted) {
@@ -67,9 +64,6 @@ class Normalizer implements Preprocessor
         $this->fitted = true;
     }
 
-    /**
-     * @param array $samples
-     */
     public function transform(array &$samples)
     {
         $methods = [
@@ -86,9 +80,6 @@ class Normalizer implements Preprocessor
         }
     }
 
-    /**
-     * @param array $sample
-     */
     private function normalizeL1(array &$sample)
     {
         $norm1 = 0;
@@ -106,9 +97,6 @@ class Normalizer implements Preprocessor
         }
     }
 
-    /**
-     * @param array $sample
-     */
     private function normalizeL2(array &$sample)
     {
         $norm2 = 0;
@@ -126,9 +114,6 @@ class Normalizer implements Preprocessor
         }
     }
 
-    /**
-     * @param array $sample
-     */
     private function normalizeSTD(array &$sample)
     {
         foreach ($sample as $i => $val) {

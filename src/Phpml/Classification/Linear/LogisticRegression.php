@@ -138,9 +138,6 @@ class LogisticRegression extends Adaline
 
     /**
      * Executes Conjugate Gradient method to optimize the weights of the LogReg model
-     *
-     * @param array    $samples
-     * @param array    $targets
      */
     protected function runConjugateGradient(array $samples, array $targets, \Closure $gradientFunc)
     {

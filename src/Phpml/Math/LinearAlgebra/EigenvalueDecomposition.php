@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 /**
- *
  *	Class to obtain eigenvalues and eigenvectors of a real matrix.
  *
  *	If A is symmetric, then A = V*D*V' where the eigenvalue matrix D
@@ -88,8 +87,6 @@ class EigenvalueDecomposition
 
     /**
      *	Constructor: Check for symmetry, then construct the eigenvalue decomposition
-     *
-     * @param array $Arg
      */
     public function __construct(array $Arg)
     {

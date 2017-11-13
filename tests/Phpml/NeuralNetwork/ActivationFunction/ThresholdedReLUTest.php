@@ -10,10 +10,6 @@ use PHPUnit\Framework\TestCase;
 class ThresholdedReLUTest extends TestCase
 {
     /**
-     * @param $theta
-     * @param $expected
-     * @param $value
-     *
      * @dataProvider thresholdProvider
      */
     public function testThresholdedReLUActivationFunction($theta, $expected, $value)

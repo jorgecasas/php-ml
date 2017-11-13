@@ -10,10 +10,6 @@ use PHPUnit\Framework\TestCase;
 class PReLUTest extends TestCase
 {
     /**
-     * @param $beta
-     * @param $expected
-     * @param $value
-     *
      * @dataProvider preluProvider
      */
     public function testPReLUActivationFunction($beta, $expected, $value)

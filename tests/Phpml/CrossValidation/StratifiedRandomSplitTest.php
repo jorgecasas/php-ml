@@ -46,12 +46,6 @@ class StratifiedRandomSplitTest extends TestCase
         $this->assertEquals(1, $this->countSamplesByTarget($split->getTestLabels(), 2));
     }
 
-    /**
-     * @param $splitTargets
-     * @param $countTarget
-     *
-     * @return int
-     */
     private function countSamplesByTarget($splitTargets, $countTarget): int
     {
         $count = 0;
