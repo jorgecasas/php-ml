@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class PerceptronTest extends TestCase
 {
-    public function testPredictSingleSample()
+    public function testPredictSingleSample(): void
     {
         // AND problem
         $samples = [[0, 0], [1, 0], [0, 1], [1, 1], [0.6, 0.6]];
@@ -67,7 +67,7 @@ class PerceptronTest extends TestCase
         $this->assertEquals(1, $classifier->predict([3.0, 9.5]));
     }
 
-    public function testSaveAndRestore()
+    public function testSaveAndRestore(): void
     {
         // Instantinate new Percetron trained for OR problem
         $samples = [[0, 0], [1, 0], [0, 1], [1, 1]];

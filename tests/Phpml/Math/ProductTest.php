@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ProductTest extends TestCase
 {
-    public function testScalarProduct()
+    public function testScalarProduct(): void
     {
         $this->assertEquals(10, Product::scalar([2, 3], [-1, 4]));
         $this->assertEquals(-0.1, Product::scalar([1, 4, 1], [-2, 0.5, -0.1]));

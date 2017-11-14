@@ -14,7 +14,7 @@ class ChebyshevTest extends TestCase
      */
     private $distanceMetric;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->distanceMetric = new Chebyshev();
     }
@@ -22,7 +22,7 @@ class ChebyshevTest extends TestCase
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
-    public function testThrowExceptionOnInvalidArguments()
+    public function testThrowExceptionOnInvalidArguments(): void
     {
         $a = [0, 1, 2];
         $b = [0, 2];
@@ -30,7 +30,7 @@ class ChebyshevTest extends TestCase
         $this->distanceMetric->distance($a, $b);
     }
 
-    public function testCalculateDistanceForOneDimension()
+    public function testCalculateDistanceForOneDimension(): void
     {
         $a = [4];
         $b = [2];
@@ -41,7 +41,7 @@ class ChebyshevTest extends TestCase
         $this->assertEquals($expectedDistance, $actualDistance);
     }
 
-    public function testCalculateDistanceForTwoDimensions()
+    public function testCalculateDistanceForTwoDimensions(): void
     {
         $a = [4, 6];
         $b = [2, 5];
@@ -52,7 +52,7 @@ class ChebyshevTest extends TestCase
         $this->assertEquals($expectedDistance, $actualDistance);
     }
 
-    public function testCalculateDistanceForThreeDimensions()
+    public function testCalculateDistanceForThreeDimensions(): void
     {
         $a = [6, 10, 3];
         $b = [2, 5, 5];

@@ -12,12 +12,12 @@ class ArrayDatasetTest extends TestCase
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
-    public function testThrowExceptionOnInvalidArgumentsSize()
+    public function testThrowExceptionOnInvalidArgumentsSize(): void
     {
         new ArrayDataset([0, 1], [0]);
     }
 
-    public function testArrayDataset()
+    public function testArrayDataset(): void
     {
         $dataset = new ArrayDataset(
             $samples = [[1], [2], [3], [4]],

@@ -8,8 +8,8 @@ use Phpml\Preprocessing\Imputer\Strategy;
 
 class Imputer implements Preprocessor
 {
-    const AXIS_COLUMN = 0;
-    const AXIS_ROW = 1;
+    public const AXIS_COLUMN = 0;
+    public const AXIS_ROW = 1;
 
     /**
      * @var mixed
@@ -43,19 +43,19 @@ class Imputer implements Preprocessor
         $this->samples = $samples;
     }
 
-    public function fit(array $samples)
+    public function fit(array $samples): void
     {
         $this->samples = $samples;
     }
 
-    public function transform(array &$samples)
+    public function transform(array &$samples): void
     {
         foreach ($samples as &$sample) {
             $this->preprocessSample($sample);
         }
     }
 
-    private function preprocessSample(array &$sample)
+    private function preprocessSample(array &$sample): void
     {
         foreach ($sample as $column => &$value) {
             if ($value === $this->missingValue) {

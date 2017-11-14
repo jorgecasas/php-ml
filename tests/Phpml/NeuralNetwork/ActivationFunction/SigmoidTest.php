@@ -12,7 +12,7 @@ class SigmoidTest extends TestCase
     /**
      * @dataProvider sigmoidProvider
      */
-    public function testSigmoidActivationFunction($beta, $expected, $value)
+    public function testSigmoidActivationFunction($beta, $expected, $value): void
     {
         $sigmoid = new Sigmoid($beta);
 

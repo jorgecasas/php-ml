@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class NaiveBayesTest extends TestCase
 {
-    public function testPredictSingleSample()
+    public function testPredictSingleSample(): void
     {
         $samples = [[5, 1, 1], [1, 5, 1], [1, 1, 5]];
         $labels = ['a', 'b', 'c'];
@@ -23,7 +23,7 @@ class NaiveBayesTest extends TestCase
         $this->assertEquals('c', $classifier->predict([1, 1, 6]));
     }
 
-    public function testPredictArrayOfSamples()
+    public function testPredictArrayOfSamples(): void
     {
         $trainSamples = [[5, 1, 1], [1, 5, 1], [1, 1, 5]];
         $trainLabels = ['a', 'b', 'c'];
@@ -47,7 +47,7 @@ class NaiveBayesTest extends TestCase
         $this->assertEquals($testLabels, $classifier->predict($testSamples));
     }
 
-    public function testSaveAndRestore()
+    public function testSaveAndRestore(): void
     {
         $trainSamples = [[5, 1, 1], [1, 5, 1], [1, 1, 5]];
         $trainLabels = ['a', 'b', 'c'];

@@ -31,7 +31,7 @@ class GD extends StochasticGD
             $theta = $this->theta;
 
             // Calculate update terms for each sample
-            list($errors, $updates, $totalPenalty) = $this->gradient($theta);
+            [$errors, $updates, $totalPenalty] = $this->gradient($theta);
 
             $this->updateWeightsWithUpdates($updates, $totalPenalty);
 
@@ -61,7 +61,7 @@ class GD extends StochasticGD
             $target = $this->targets[$index];
 
             $result = ($this->gradientCb)($theta, $sample, $target);
-            list($cost, $grad, $penalty) = array_pad($result, 3, 0);
+            [$cost, $grad, $penalty] = array_pad($result, 3, 0);
 
             $costs[] = $cost;
             $gradient[] = $grad;
@@ -73,7 +73,7 @@ class GD extends StochasticGD
         return [$costs, $gradient, $totalPenalty];
     }
 
-    protected function updateWeightsWithUpdates(array $updates, float $penalty)
+    protected function updateWeightsWithUpdates(array $updates, float $penalty): void
     {
         // Updates all weights at once
         for ($i = 0; $i <= $this->dimensions; ++$i) {
@@ -96,7 +96,7 @@ class GD extends StochasticGD
     /**
      * Clears the optimizer internal vars after the optimization process.
      */
-    protected function clear()
+    protected function clear(): void
     {
         $this->sampleCount = null;
         parent::clear();

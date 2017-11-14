@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class GlassDatasetTest extends TestCase
 {
-    public function testLoadingWineDataset()
+    public function testLoadingWineDataset(): void
     {
         $glass = new GlassDataset();
 

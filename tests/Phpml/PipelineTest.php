@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class PipelineTest extends TestCase
 {
-    public function testPipelineConstruction()
+    public function testPipelineConstruction(): void
     {
         $transformers = [
             new TfIdfTransformer(),
@@ -30,7 +30,7 @@ class PipelineTest extends TestCase
         $this->assertEquals($estimator, $pipeline->getEstimator());
     }
 
-    public function testPipelineEstimatorSetter()
+    public function testPipelineEstimatorSetter(): void
     {
         $pipeline = new Pipeline([new TfIdfTransformer()], new SVC());
 
@@ -40,7 +40,7 @@ class PipelineTest extends TestCase
         $this->assertEquals($estimator, $pipeline->getEstimator());
     }
 
-    public function testPipelineWorkflow()
+    public function testPipelineWorkflow(): void
     {
         $transformers = [
             new Imputer(null, new MostFrequentStrategy()),
@@ -68,7 +68,7 @@ class PipelineTest extends TestCase
         $this->assertEquals(4, $predicted[0]);
     }
 
-    public function testPipelineTransformers()
+    public function testPipelineTransformers(): void
     {
         $transformers = [
             new TokenCountVectorizer(new WordTokenizer()),

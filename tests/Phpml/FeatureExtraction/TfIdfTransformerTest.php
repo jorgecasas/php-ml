@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class TfIdfTransformerTest extends TestCase
 {
-    public function testTfIdfTransformation()
+    public function testTfIdfTransformation(): void
     {
         // https://en.wikipedia.org/wiki/Tf-idf
 

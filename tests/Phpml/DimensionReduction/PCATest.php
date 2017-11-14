@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class PCATest extends TestCase
 {
-    public function testPCA()
+    public function testPCA(): void
     {
         // Acceptable error
         $epsilon = 0.001;
@@ -39,7 +39,7 @@ class PCATest extends TestCase
         // Due to the fact that the sign of values can be flipped
         // during the calculation of eigenValues, we have to compare
         // absolute value of the values
-        array_map(function ($val1, $val2) use ($epsilon) {
+        array_map(function ($val1, $val2) use ($epsilon): void {
             $this->assertEquals(abs($val1), abs($val2), '', $epsilon);
         }, $transformed, $reducedData);
 
@@ -49,7 +49,7 @@ class PCATest extends TestCase
             $newRow = [[$transformed[$i]]];
             $newRow2 = $pca->transform($row);
 
-            array_map(function ($val1, $val2) use ($epsilon) {
+            array_map(function ($val1, $val2) use ($epsilon): void {
                 $this->assertEquals(abs($val1), abs($val2), '', $epsilon);
             }, $newRow, $newRow2);
         }

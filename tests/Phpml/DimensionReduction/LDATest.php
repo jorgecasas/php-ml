@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class LDATest extends TestCase
 {
-    public function testLDA()
+    public function testLDA(): void
     {
         // Acceptable error
         $epsilon = 0.001;
@@ -43,7 +43,7 @@ class LDATest extends TestCase
         $control = array_merge($control, array_slice($transformed, 0, 3));
         $control = array_merge($control, array_slice($transformed, -3));
 
-        $check = function ($row1, $row2) use ($epsilon) {
+        $check = function ($row1, $row2) use ($epsilon): void {
             // Due to the fact that the sign of values can be flipped
             // during the calculation of eigenValues, we have to compare
             // absolute value of the values

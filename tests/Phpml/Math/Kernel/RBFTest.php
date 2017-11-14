@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class RBFTest extends TestCase
 {
-    public function testComputeRBFKernelFunction()
+    public function testComputeRBFKernelFunction(): void
     {
         $rbf = new RBF($gamma = 0.001);
 

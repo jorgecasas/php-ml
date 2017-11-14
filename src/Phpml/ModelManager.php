@@ -9,7 +9,7 @@ use Phpml\Exception\SerializeException;
 
 class ModelManager
 {
-    public function saveToFile(Estimator $estimator, string $filepath)
+    public function saveToFile(Estimator $estimator, string $filepath): void
     {
         if (!is_writable(dirname($filepath))) {
             throw FileException::cantSaveFile(basename($filepath));

@@ -12,7 +12,7 @@ class ThresholdedReLUTest extends TestCase
     /**
      * @dataProvider thresholdProvider
      */
-    public function testThresholdedReLUActivationFunction($theta, $expected, $value)
+    public function testThresholdedReLUActivationFunction($theta, $expected, $value): void
     {
         $thresholdedReLU = new ThresholdedReLU($theta);
 

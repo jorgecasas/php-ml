@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class KMeansTest extends TestCase
 {
-    public function testKMeansSamplesClustering()
+    public function testKMeansSamplesClustering(): void
     {
         $samples = [[1, 1], [8, 7], [1, 2], [7, 8], [2, 1], [8, 9]];
 
@@ -26,7 +26,7 @@ class KMeansTest extends TestCase
         $this->assertCount(0, $samples);
     }
 
-    public function testKMeansInitializationMethods()
+    public function testKMeansInitializationMethods(): void
     {
         $samples = [
             [180, 155], [186, 159], [119, 185], [141, 147], [157, 158],
@@ -53,7 +53,7 @@ class KMeansTest extends TestCase
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
-    public function testThrowExceptionOnInvalidClusterNumber()
+    public function testThrowExceptionOnInvalidClusterNumber(): void
     {
         new KMeans(0);
     }

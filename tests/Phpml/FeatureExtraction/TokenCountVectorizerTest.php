@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class TokenCountVectorizerTest extends TestCase
 {
-    public function testTransformationWithWhitespaceTokenizer()
+    public function testTransformationWithWhitespaceTokenizer(): void
     {
         $samples = [
             'Lorem ipsum dolor sit amet dolor',
@@ -47,7 +47,7 @@ class TokenCountVectorizerTest extends TestCase
         $this->assertSame($tokensCounts, $samples);
     }
 
-    public function testTransformationWithMinimumDocumentTokenCountFrequency()
+    public function testTransformationWithMinimumDocumentTokenCountFrequency(): void
     {
         // word at least in half samples
         $samples = [
@@ -100,7 +100,7 @@ class TokenCountVectorizerTest extends TestCase
         $this->assertSame($tokensCounts, $samples);
     }
 
-    public function testTransformationWithStopWords()
+    public function testTransformationWithStopWords(): void
     {
         $samples = [
             'Lorem ipsum dolor sit amet dolor',

@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ConfusionMatrixTest extends TestCase
 {
-    public function testComputeConfusionMatrixOnNumericLabels()
+    public function testComputeConfusionMatrixOnNumericLabels(): void
     {
         $actualLabels = [2, 0, 2, 2, 0, 1];
         $predictedLabels = [0, 0, 2, 2, 0, 2];
@@ -23,7 +23,7 @@ class ConfusionMatrixTest extends TestCase
         $this->assertEquals($confusionMatrix, ConfusionMatrix::compute($actualLabels, $predictedLabels));
     }
 
-    public function testComputeConfusionMatrixOnStringLabels()
+    public function testComputeConfusionMatrixOnStringLabels(): void
     {
         $actualLabels = ['cat', 'ant', 'cat', 'cat', 'ant', 'bird'];
         $predictedLabels = ['ant', 'ant', 'cat', 'cat', 'ant', 'cat'];
@@ -37,7 +37,7 @@ class ConfusionMatrixTest extends TestCase
         $this->assertEquals($confusionMatrix, ConfusionMatrix::compute($actualLabels, $predictedLabels));
     }
 
-    public function testComputeConfusionMatrixOnLabelsWithSubset()
+    public function testComputeConfusionMatrixOnLabelsWithSubset(): void
     {
         $actualLabels = ['cat', 'ant', 'cat', 'cat', 'ant', 'bird'];
         $predictedLabels = ['ant', 'ant', 'cat', 'cat', 'ant', 'cat'];

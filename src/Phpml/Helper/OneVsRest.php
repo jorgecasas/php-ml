@@ -28,7 +28,7 @@ trait OneVsRest
     /**
      * Train a binary classifier in the OvR style
      */
-    public function train(array $samples, array $targets)
+    public function train(array $samples, array $targets): void
     {
         // Clears previous stuff.
         $this->reset();
@@ -36,7 +36,7 @@ trait OneVsRest
         $this->trainBylabel($samples, $targets);
     }
 
-    protected function trainByLabel(array $samples, array $targets, array $allLabels = [])
+    protected function trainByLabel(array $samples, array $targets, array $allLabels = []): void
     {
         // Overwrites the current value if it exist. $allLabels must be provided for each partialTrain run.
         if (!empty($allLabels)) {
@@ -63,7 +63,7 @@ trait OneVsRest
                     $this->classifiers[$label] = $this->getClassifierCopy();
                 }
 
-                list($binarizedTargets, $classifierLabels) = $this->binarizeTargets($targets, $label);
+                [$binarizedTargets, $classifierLabels] = $this->binarizeTargets($targets, $label);
                 $this->classifiers[$label]->trainBinary($samples, $binarizedTargets, $classifierLabels);
             }
         }
@@ -80,7 +80,7 @@ trait OneVsRest
     /**
      * Resets the classifier and the vars internally used by OneVsRest to create multiple classifiers.
      */
-    public function reset()
+    public function reset(): void
     {
         $this->classifiers = [];
         $this->allLabels = [];
@@ -158,7 +158,7 @@ trait OneVsRest
      *
      * @return void
      */
-    abstract protected function resetBinary();
+    abstract protected function resetBinary(): void;
 
     /**
      * Each classifier that make use of OvR approach should be able to

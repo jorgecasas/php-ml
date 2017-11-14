@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class WineDatasetTest extends TestCase
 {
-    public function testLoadingWineDataset()
+    public function testLoadingWineDataset(): void
     {
         $wine = new WineDataset();
 

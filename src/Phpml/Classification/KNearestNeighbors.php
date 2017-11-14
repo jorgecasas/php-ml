@@ -26,7 +26,7 @@ class KNearestNeighbors implements Classifier
     /**
      * @param Distance|null $distanceMetric (if null then Euclidean distance as default)
      */
-    public function __construct(int $k = 3, Distance $distanceMetric = null)
+    public function __construct(int $k = 3, ?Distance $distanceMetric = null)
     {
         if (null === $distanceMetric) {
             $distanceMetric = new Euclidean();

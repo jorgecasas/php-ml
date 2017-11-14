@@ -12,7 +12,7 @@ class GaussianTest extends TestCase
     /**
      * @dataProvider gaussianProvider
      */
-    public function testGaussianActivationFunction($expected, $value)
+    public function testGaussianActivationFunction($expected, $value): void
     {
         $gaussian = new Gaussian();
 

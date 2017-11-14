@@ -5,9 +5,6 @@ matrix:
 
   include:
     - os: linux
-      php: '7.0'
-
-    - os: linux
       php: '7.1'
 
     - os: linux
@@ -18,7 +15,7 @@ matrix:
       language: generic
       env:
         - _OSX=10.11
-        - _PHP: php70
+        - _PHP: php71
 
 before_install:
   - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then /usr/bin/env bash tools/prepare_osx_env.sh ; fi

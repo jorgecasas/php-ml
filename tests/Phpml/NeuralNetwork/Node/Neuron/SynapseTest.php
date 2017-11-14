@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class SynapseTest extends TestCase
 {
-    public function testSynapseInitialization()
+    public function testSynapseInitialization(): void
     {
         $node = $this->getNodeMock($nodeOutput = 0.5);
 
@@ -25,7 +25,7 @@ class SynapseTest extends TestCase
         $this->assertInternalType('float', $synapse->getWeight());
     }
 
-    public function testSynapseWeightChange()
+    public function testSynapseWeightChange(): void
     {
         $node = $this->getNodeMock();
         $synapse = new Synapse($node, $weight = 0.75);

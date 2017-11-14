@@ -32,7 +32,7 @@ class Backpropagation
     /**
      * @param mixed $targetClass
      */
-    public function backpropagate(array $layers, $targetClass)
+    public function backpropagate(array $layers, $targetClass): void
     {
         $layersNumber = count($layers);
 

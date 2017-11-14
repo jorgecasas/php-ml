@@ -28,12 +28,12 @@ class Pipeline implements Estimator
         $this->estimator = $estimator;
     }
 
-    public function addTransformer(Transformer $transformer)
+    public function addTransformer(Transformer $transformer): void
     {
         $this->transformers[] = $transformer;
     }
 
-    public function setEstimator(Estimator $estimator)
+    public function setEstimator(Estimator $estimator): void
     {
         $this->estimator = $estimator;
     }
@@ -51,7 +51,7 @@ class Pipeline implements Estimator
         return $this->estimator;
     }
 
-    public function train(array $samples, array $targets)
+    public function train(array $samples, array $targets): void
     {
         foreach ($this->transformers as $transformer) {
             $transformer->fit($samples);
@@ -71,7 +71,7 @@ class Pipeline implements Estimator
         return $this->estimator->predict($samples);
     }
 
-    private function transformSamples(array &$samples)
+    private function transformSamples(array &$samples): void
     {
         foreach ($this->transformers as $transformer) {
             $transformer->transform($samples);

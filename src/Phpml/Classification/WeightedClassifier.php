@@ -14,7 +14,7 @@ abstract class WeightedClassifier implements Classifier
     /**
      * Sets the array including a weight for each sample
      */
-    public function setSampleWeights(array $weights)
+    public function setSampleWeights(array $weights): void
     {
         $this->weights = $weights;
     }

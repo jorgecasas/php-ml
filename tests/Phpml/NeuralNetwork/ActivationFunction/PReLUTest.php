@@ -12,7 +12,7 @@ class PReLUTest extends TestCase
     /**
      * @dataProvider preluProvider
      */
-    public function testPReLUActivationFunction($beta, $expected, $value)
+    public function testPReLUActivationFunction($beta, $expected, $value): void
     {
         $prelu = new PReLU($beta);
 

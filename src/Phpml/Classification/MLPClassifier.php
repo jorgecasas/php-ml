@@ -45,7 +45,7 @@ class MLPClassifier extends MultilayerPerceptron implements Classifier
     /**
      * @param mixed $target
      */
-    protected function trainSample(array $sample, $target)
+    protected function trainSample(array $sample, $target): void
     {
 
         // Feed-forward.

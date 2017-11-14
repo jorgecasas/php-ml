@@ -12,7 +12,7 @@ class BinaryStepTest extends TestCase
     /**
      * @dataProvider binaryStepProvider
      */
-    public function testBinaryStepActivationFunction($expected, $value)
+    public function testBinaryStepActivationFunction($expected, $value): void
     {
         $binaryStep = new BinaryStep();
 

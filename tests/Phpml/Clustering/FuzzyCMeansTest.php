@@ -25,7 +25,7 @@ class FuzzyCMeansTest extends TestCase
         return $fcm;
     }
 
-    public function testMembershipMatrix()
+    public function testMembershipMatrix(): void
     {
         $fcm = $this->testFCMSamplesClustering();
         $clusterCount = 2;

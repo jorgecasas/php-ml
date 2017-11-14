@@ -42,7 +42,7 @@ class AdaBoostTest extends TestCase
         return $classifier;
     }
 
-    public function testSaveAndRestore()
+    public function testSaveAndRestore(): void
     {
         // Instantinate new Percetron trained for OR problem
         $samples = [[0, 0], [1, 0], [0, 1], [1, 1]];

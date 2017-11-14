@@ -12,12 +12,12 @@ class FilesDatasetTest extends TestCase
     /**
      * @expectedException \Phpml\Exception\DatasetException
      */
-    public function testThrowExceptionOnMissingRootFolder()
+    public function testThrowExceptionOnMissingRootFolder(): void
     {
         new FilesDataset('some/not/existed/path');
     }
 
-    public function testLoadFilesDatasetWithBBCData()
+    public function testLoadFilesDatasetWithBBCData(): void
     {
         $rootPath = dirname(__FILE__).'/Resources/bbc';
 

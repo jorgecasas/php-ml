@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class MLPClassifierTest extends TestCase
 {
-    public function testMLPClassifierLayersInitialization()
+    public function testMLPClassifierLayersInitialization(): void
     {
         $mlp = new MLPClassifier(2, [2], [0, 1]);
 
@@ -32,7 +32,7 @@ class MLPClassifierTest extends TestCase
         $this->assertContainsOnly(Neuron::class, $layers[2]->getNodes());
     }
 
-    public function testSynapsesGeneration()
+    public function testSynapsesGeneration(): void
     {
         $mlp = new MLPClassifier(2, [2], [0, 1]);
         $layers = $mlp->getLayers();
@@ -50,7 +50,7 @@ class MLPClassifierTest extends TestCase
         }
     }
 
-    public function testBackpropagationLearning()
+    public function testBackpropagationLearning(): void
     {
         // Single layer 2 classes.
         $network = new MLPClassifier(2, [2], ['a', 'b']);
@@ -65,7 +65,7 @@ class MLPClassifierTest extends TestCase
         $this->assertEquals('b', $network->predict([0, 0]));
     }
 
-    public function testBackpropagationTrainingReset()
+    public function testBackpropagationTrainingReset(): void
     {
         // Single layer 2 classes.
         $network = new MLPClassifier(2, [2], ['a', 'b'], 1000);
@@ -86,7 +86,7 @@ class MLPClassifierTest extends TestCase
         $this->assertEquals('a', $network->predict([0, 1]));
     }
 
-    public function testBackpropagationPartialTraining()
+    public function testBackpropagationPartialTraining(): void
     {
         // Single layer 2 classes.
         $network = new MLPClassifier(2, [2], ['a', 'b'], 1000);
@@ -109,7 +109,7 @@ class MLPClassifierTest extends TestCase
         $this->assertEquals('b', $network->predict([0, 0]));
     }
 
-    public function testBackpropagationLearningMultilayer()
+    public function testBackpropagationLearningMultilayer(): void
     {
         // Multi-layer 2 classes.
         $network = new MLPClassifier(5, [3, 2], ['a', 'b']);
@@ -124,7 +124,7 @@ class MLPClassifierTest extends TestCase
         $this->assertEquals('b', $network->predict([0, 0, 0, 0, 0]));
     }
 
-    public function testBackpropagationLearningMulticlass()
+    public function testBackpropagationLearningMulticlass(): void
     {
         // Multi-layer more than 2 classes.
         $network = new MLPClassifier(5, [3, 2], ['a', 'b', 4]);
@@ -140,7 +140,7 @@ class MLPClassifierTest extends TestCase
         $this->assertEquals(4, $network->predict([0, 0, 0, 0, 0]));
     }
 
-    public function testSaveAndRestore()
+    public function testSaveAndRestore(): void
     {
         // Instantinate new Percetron trained for OR problem
         $samples = [[0, 0], [1, 0], [0, 1], [1, 1]];
@@ -163,7 +163,7 @@ class MLPClassifierTest extends TestCase
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
-    public function testThrowExceptionOnInvalidLayersNumber()
+    public function testThrowExceptionOnInvalidLayersNumber(): void
     {
         new MLPClassifier(2, [], [0, 1]);
     }
@@ -171,7 +171,7 @@ class MLPClassifierTest extends TestCase
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
-    public function testThrowExceptionOnInvalidPartialTrainingClasses()
+    public function testThrowExceptionOnInvalidPartialTrainingClasses(): void
     {
         $classifier = new MLPClassifier(2, [2], [0, 1]);
         $classifier->partialTrain(
@@ -184,7 +184,7 @@ class MLPClassifierTest extends TestCase
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
-    public function testThrowExceptionOnInvalidClassesNumber()
+    public function testThrowExceptionOnInvalidClassesNumber(): void
     {
         new MLPClassifier(2, [2], [0]);
     }

@@ -9,7 +9,7 @@ use Phpml\Dataset\Dataset;
 
 class StratifiedRandomSplit extends RandomSplit
 {
-    protected function splitDataset(Dataset $dataset, float $testSize)
+    protected function splitDataset(Dataset $dataset, float $testSize): void
     {
         $datasets = $this->splitByTarget($dataset);
 

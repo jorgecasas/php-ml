@@ -12,12 +12,12 @@ class NormalizerTest extends TestCase
     /**
      * @expectedException \Phpml\Exception\NormalizerException
      */
-    public function testThrowExceptionOnInvalidNorm()
+    public function testThrowExceptionOnInvalidNorm(): void
     {
         new Normalizer(99);
     }
 
-    public function testNormalizeSamplesWithL2Norm()
+    public function testNormalizeSamplesWithL2Norm(): void
     {
         $samples = [
             [1, -1, 2],
@@ -37,7 +37,7 @@ class NormalizerTest extends TestCase
         $this->assertEquals($normalized, $samples, '', $delta = 0.01);
     }
 
-    public function testNormalizeSamplesWithL1Norm()
+    public function testNormalizeSamplesWithL1Norm(): void
     {
         $samples = [
             [1, -1, 2],
@@ -57,7 +57,7 @@ class NormalizerTest extends TestCase
         $this->assertEquals($normalized, $samples, '', $delta = 0.01);
     }
 
-    public function testFitNotChangeNormalizerBehavior()
+    public function testFitNotChangeNormalizerBehavior(): void
     {
         $samples = [
             [1, -1, 2],
@@ -81,7 +81,7 @@ class NormalizerTest extends TestCase
         $this->assertEquals($normalized, $samples, '', $delta = 0.01);
     }
 
-    public function testL1NormWithZeroSumCondition()
+    public function testL1NormWithZeroSumCondition(): void
     {
         $samples = [
             [0, 0, 0],
@@ -101,7 +101,7 @@ class NormalizerTest extends TestCase
         $this->assertEquals($normalized, $samples, '', $delta = 0.01);
     }
 
-    public function testStandardNorm()
+    public function testStandardNorm(): void
     {
         // Generate 10 random vectors of length 3
         $samples = [];

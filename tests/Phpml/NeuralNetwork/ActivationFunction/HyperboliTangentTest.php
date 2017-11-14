@@ -12,7 +12,7 @@ class HyperboliTangentTest extends TestCase
     /**
      * @dataProvider tanhProvider
      */
-    public function testHyperbolicTangentActivationFunction($beta, $expected, $value)
+    public function testHyperbolicTangentActivationFunction($beta, $expected, $value): void
     {
         $tanh = new HyperbolicTangent($beta);
 

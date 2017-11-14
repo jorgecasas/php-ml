@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class WordTokenizerTest extends TestCase
 {
-    public function testTokenizationOnAscii()
+    public function testTokenizationOnAscii(): void
     {
         $tokenizer = new WordTokenizer();
 
@@ -24,7 +24,7 @@ class WordTokenizerTest extends TestCase
         $this->assertEquals($tokens, $tokenizer->tokenize($text));
     }
 
-    public function testTokenizationOnUtf8()
+    public function testTokenizationOnUtf8(): void
     {
         $tokenizer = new WordTokenizer();
 

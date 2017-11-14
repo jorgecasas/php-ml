@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class CorrelationTest extends TestCase
 {
-    public function testPearsonCorrelation()
+    public function testPearsonCorrelation(): void
     {
         //http://www.stat.wmich.edu/s216/book/node126.html
         $delta = 0.001;
@@ -32,7 +32,7 @@ class CorrelationTest extends TestCase
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
-    public function testThrowExceptionOnInvalidArgumentsForPearsonCorrelation()
+    public function testThrowExceptionOnInvalidArgumentsForPearsonCorrelation(): void
     {
         Correlation::pearson([1, 2, 4], [3, 5]);
     }

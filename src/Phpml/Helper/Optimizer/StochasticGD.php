@@ -191,7 +191,7 @@ class StochasticGD extends Optimizer
 
             $result = ($this->gradientCb)($theta, $sample, $target);
 
-            list($error, $gradient, $penalty) = array_pad($result, 3, 0);
+            [$error, $gradient, $penalty] = array_pad($result, 3, 0);
 
             // Update bias
             $this->theta[0] -= $this->learningRate * $gradient;
@@ -249,7 +249,7 @@ class StochasticGD extends Optimizer
     /**
      * Clears the optimizer internal vars after the optimization process.
      */
-    protected function clear()
+    protected function clear(): void
     {
         $this->samples = [];
         $this->targets = [];

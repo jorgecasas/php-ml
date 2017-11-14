@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class InputTest extends TestCase
 {
-    public function testInputInitialization()
+    public function testInputInitialization(): void
     {
         $input = new Input();
         $this->assertEquals(0.0, $input->getOutput());
@@ -18,7 +18,7 @@ class InputTest extends TestCase
         $this->assertEquals($value, $input->getOutput());
     }
 
-    public function testSetInput()
+    public function testSetInput(): void
     {
         $input = new Input();
         $input->setInput($value = 6.9);

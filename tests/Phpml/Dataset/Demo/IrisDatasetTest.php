@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class IrisDatasetTest extends TestCase
 {
-    public function testLoadingIrisDataset()
+    public function testLoadingIrisDataset(): void
     {
         $iris = new IrisDataset();
 

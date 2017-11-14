@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class DataTransformerTest extends TestCase
 {
-    public function testTransformDatasetToTrainingSet()
+    public function testTransformDatasetToTrainingSet(): void
     {
         $samples = [[1, 1], [2, 1], [3, 2], [4, 5]];
         $labels = ['a', 'a', 'b', 'b'];
@@ -24,7 +24,7 @@ class DataTransformerTest extends TestCase
         $this->assertEquals($trainingSet, DataTransformer::trainingSet($samples, $labels));
     }
 
-    public function testTransformSamplesToTestSet()
+    public function testTransformSamplesToTestSet(): void
     {
         $samples = [[1, 1], [2, 1], [3, 2], [4, 5]];
 

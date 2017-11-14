@@ -93,7 +93,7 @@ class Point implements ArrayAccess
      * @param mixed $offset
      * @param mixed $value
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->coordinates[$offset] = $value;
     }
@@ -101,7 +101,7 @@ class Point implements ArrayAccess
     /**
      * @param mixed $offset
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->coordinates[$offset]);
     }

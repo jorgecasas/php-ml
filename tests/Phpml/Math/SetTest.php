@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class SetTest extends TestCase
 {
-    public function testUnion()
+    public function testUnion(): void
     {
         $union = Set::union(new Set([3, 1]), new Set([3, 2, 2]));
 
@@ -18,7 +18,7 @@ class SetTest extends TestCase
         $this->assertEquals(3, $union->cardinality());
     }
 
-    public function testIntersection()
+    public function testIntersection(): void
     {
         $intersection = Set::intersection(new Set(['C', 'A']), new Set(['B', 'C']));
 
@@ -27,7 +27,7 @@ class SetTest extends TestCase
         $this->assertEquals(1, $intersection->cardinality());
     }
 
-    public function testDifference()
+    public function testDifference(): void
     {
         $difference = Set::difference(new Set(['C', 'A', 'B']), new Set(['A']));
 
@@ -36,7 +36,7 @@ class SetTest extends TestCase
         $this->assertEquals(2, $difference->cardinality());
     }
 
-    public function testPower()
+    public function testPower(): void
     {
         $power = Set::power(new Set(['A', 'B']));
 
@@ -45,7 +45,7 @@ class SetTest extends TestCase
         $this->assertCount(4, $power);
     }
 
-    public function testCartesian()
+    public function testCartesian(): void
     {
         $cartesian = Set::cartesian(new Set(['A']), new Set([1, 2]));
 
@@ -54,7 +54,7 @@ class SetTest extends TestCase
         $this->assertCount(2, $cartesian);
     }
 
-    public function testContains()
+    public function testContains(): void
     {
         $set = new Set(['B', 'A', 2, 1]);
 
@@ -65,21 +65,21 @@ class SetTest extends TestCase
         $this->assertFalse($set->containsAll(['A', 'B', 'C']));
     }
 
-    public function testRemove()
+    public function testRemove(): void
     {
         $set = new Set(['B', 'A', 2, 1]);
 
         $this->assertEquals((new Set([1, 2, 2, 2, 'B']))->toArray(), $set->remove('A')->toArray());
     }
 
-    public function testAdd()
+    public function testAdd(): void
     {
         $set = new Set(['B', 'A', 2, 1]);
         $set->addAll(['foo', 'bar']);
         $this->assertEquals(6, $set->cardinality());
     }
 
-    public function testEmpty()
+    public function testEmpty(): void
     {
         $set = new Set([1, 2]);
         $set->removeAll([2, 1]);
@@ -87,7 +87,7 @@ class SetTest extends TestCase
         $this->assertTrue($set->isEmpty());
     }
 
-    public function testToArray()
+    public function testToArray(): void
     {
         $set = new Set([1, 2, 2, 3, 'A', false, '', 1.1, -1, -10, 'B']);
 

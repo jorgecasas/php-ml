@@ -23,7 +23,7 @@ class RandomForestTest extends BaggingTest
         return [DecisionTree::class => ['depth' => 5]];
     }
 
-    public function testOtherBaseClassifier()
+    public function testOtherBaseClassifier(): void
     {
         try {
             $classifier = new RandomForest();

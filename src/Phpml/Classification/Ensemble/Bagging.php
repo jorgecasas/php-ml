@@ -106,7 +106,7 @@ class Bagging implements Classifier
         return $this;
     }
 
-    public function train(array $samples, array $targets)
+    public function train(array $samples, array $targets): void
     {
         $this->samples = array_merge($this->samples, $samples);
         $this->targets = array_merge($this->targets, $targets);
@@ -117,7 +117,7 @@ class Bagging implements Classifier
         $this->classifiers = $this->initClassifiers();
         $index = 0;
         foreach ($this->classifiers as $classifier) {
-            list($samples, $targets) = $this->getRandomSubset($index);
+            [$samples, $targets] = $this->getRandomSubset($index);
             $classifier->train($samples, $targets);
             ++$index;
         }

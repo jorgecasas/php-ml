@@ -9,8 +9,8 @@ use Phpml\Exception\InvalidArgumentException;
 
 class KMeans implements Clusterer
 {
-    const INIT_RANDOM = 1;
-    const INIT_KMEANS_PLUS_PLUS = 2;
+    public const INIT_RANDOM = 1;
+    public const INIT_KMEANS_PLUS_PLUS = 2;
 
     /**
      * @var int

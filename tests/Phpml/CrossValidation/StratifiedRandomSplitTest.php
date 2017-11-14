@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class StratifiedRandomSplitTest extends TestCase
 {
-    public function testDatasetStratifiedRandomSplitWithEvenDistribution()
+    public function testDatasetStratifiedRandomSplitWithEvenDistribution(): void
     {
         $dataset = new ArrayDataset(
             $samples = [[1], [2], [3], [4], [5], [6], [7], [8]],
@@ -28,7 +28,7 @@ class StratifiedRandomSplitTest extends TestCase
         $this->assertEquals(1, $this->countSamplesByTarget($split->getTestLabels(), 'b'));
     }
 
-    public function testDatasetStratifiedRandomSplitWithEvenDistributionAndNumericTargets()
+    public function testDatasetStratifiedRandomSplitWithEvenDistributionAndNumericTargets(): void
     {
         $dataset = new ArrayDataset(
             $samples = [[1], [2], [3], [4], [5], [6], [7], [8]],

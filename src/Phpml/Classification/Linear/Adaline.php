@@ -9,12 +9,12 @@ class Adaline extends Perceptron
     /**
      * Batch training is the default Adaline training algorithm
      */
-    const BATCH_TRAINING = 1;
+    public const BATCH_TRAINING = 1;
 
     /**
      * Online training: Stochastic gradient descent learning
      */
-    const ONLINE_TRAINING = 2;
+    public const ONLINE_TRAINING = 2;
 
     /**
      * Training type may be either 'Batch' or 'Online' learning

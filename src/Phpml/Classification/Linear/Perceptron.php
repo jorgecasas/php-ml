@@ -88,12 +88,12 @@ class Perceptron implements Classifier, IncrementalEstimator
         $this->maxIterations = $maxIterations;
     }
 
-    public function partialTrain(array $samples, array $targets, array $labels = [])
+    public function partialTrain(array $samples, array $targets, array $labels = []): void
     {
         $this->trainByLabel($samples, $targets, $labels);
     }
 
-    public function trainBinary(array $samples, array $targets, array $labels)
+    public function trainBinary(array $samples, array $targets, array $labels): void
     {
         if ($this->normalizer) {
             $this->normalizer->transform($samples);
@@ -111,7 +111,7 @@ class Perceptron implements Classifier, IncrementalEstimator
         $this->runTraining($samples, $targets);
     }
 
-    protected function resetBinary()
+    protected function resetBinary(): void
     {
         $this->labels = [];
         $this->optimizer = null;
@@ -148,6 +148,8 @@ class Perceptron implements Classifier, IncrementalEstimator
     /**
      * Trains the perceptron model with Stochastic Gradient Descent optimization
      * to get the correct set of weights
+     *
+     * @return void|mixed
      */
     protected function runTraining(array $samples, array $targets)
     {
@@ -169,7 +171,7 @@ class Perceptron implements Classifier, IncrementalEstimator
      * Executes a Gradient Descent algorithm for
      * the given cost function
      */
-    protected function runGradientDescent(array $samples, array $targets, \Closure $gradientFunc, bool $isBatch = false)
+    protected function runGradientDescent(array $samples, array $targets, \Closure $gradientFunc, bool $isBatch = false): void
     {
         $class = $isBatch ? GD::class : StochasticGD::class;
 

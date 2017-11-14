@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class LeastSquaresTest extends TestCase
 {
-    public function testPredictSingleFeatureSamples()
+    public function testPredictSingleFeatureSamples(): void
     {
         $delta = 0.01;
 
@@ -37,7 +37,7 @@ class LeastSquaresTest extends TestCase
         $this->assertEquals(278.66, $regression->predict([153260]), '', $delta);
     }
 
-    public function testPredictSingleFeatureSamplesWithMatrixTargets()
+    public function testPredictSingleFeatureSamplesWithMatrixTargets(): void
     {
         $delta = 0.01;
 
@@ -51,7 +51,7 @@ class LeastSquaresTest extends TestCase
         $this->assertEquals(4.06, $regression->predict([64]), '', $delta);
     }
 
-    public function testPredictMultiFeaturesSamples()
+    public function testPredictMultiFeaturesSamples(): void
     {
         $delta = 0.01;
 
@@ -68,7 +68,7 @@ class LeastSquaresTest extends TestCase
         $this->assertEquals(5711.40, $regression->predict([60000, 2000]), '', $delta);
     }
 
-    public function testSaveAndRestore()
+    public function testSaveAndRestore(): void
     {
         //https://www.easycalculation.com/analytical/learn-least-square-regression.php
         $samples = [[60], [61], [62], [63], [65]];

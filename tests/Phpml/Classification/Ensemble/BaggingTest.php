@@ -36,7 +36,7 @@ class BaggingTest extends TestCase
 
     public function testPredictSingleSample()
     {
-        list($data, $targets) = $this->getData($this->data);
+        [$data, $targets] = $this->getData($this->data);
         $classifier = $this->getClassifier();
         // Testing with default options
         $classifier->train($data, $targets);
@@ -44,7 +44,7 @@ class BaggingTest extends TestCase
         $this->assertEquals('Play', $classifier->predict(['overcast', 60, 60, 'false']));
         $this->assertEquals('Dont_play', $classifier->predict(['rain', 60, 60, 'true']));
 
-        list($data, $targets) = $this->getData($this->extraData);
+        [$data, $targets] = $this->getData($this->extraData);
         $classifier->train($data, $targets);
         $this->assertEquals('Dont_play', $classifier->predict(['scorching', 95, 90, 'true']));
         $this->assertEquals('Play', $classifier->predict(['overcast', 60, 60, 'false']));
@@ -52,9 +52,9 @@ class BaggingTest extends TestCase
         return $classifier;
     }
 
-    public function testSaveAndRestore()
+    public function testSaveAndRestore(): void
     {
-        list($data, $targets) = $this->getData($this->data);
+        [$data, $targets] = $this->getData($this->data);
         $classifier = $this->getClassifier(5);
         $classifier->train($data, $targets);
 
@@ -71,9 +71,9 @@ class BaggingTest extends TestCase
         $this->assertEquals($predicted, $restoredClassifier->predict($testSamples));
     }
 
-    public function testBaseClassifiers()
+    public function testBaseClassifiers(): void
     {
-        list($data, $targets) = $this->getData($this->data);
+        [$data, $targets] = $this->getData($this->data);
         $baseClassifiers = $this->getAvailableBaseClassifiers();
 
         foreach ($baseClassifiers as $base => $params) {
@@ -119,7 +119,7 @@ class BaggingTest extends TestCase
         }
         shuffle($populated);
         $targets = array_column($populated, 4);
-        array_walk($populated, function (&$v) {
+        array_walk($populated, function (&$v): void {
             array_splice($v, 4, 1);
         });
 

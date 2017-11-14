@@ -17,7 +17,7 @@ class Layer
     /**
      * @throws InvalidArgumentException
      */
-    public function __construct(int $nodesNumber = 0, string $nodeClass = Neuron::class, ActivationFunction $activationFunction = null)
+    public function __construct(int $nodesNumber = 0, string $nodeClass = Neuron::class, ?ActivationFunction $activationFunction = null)
     {
         if (!in_array(Node::class, class_implements($nodeClass))) {
             throw InvalidArgumentException::invalidLayerNodeClass();
@@ -33,7 +33,7 @@ class Layer
      *
      * @return Neuron
      */
-    private function createNode(string $nodeClass, ActivationFunction $activationFunction = null)
+    private function createNode(string $nodeClass, ?ActivationFunction $activationFunction = null)
     {
         if (Neuron::class == $nodeClass) {
             return new Neuron($activationFunction);
@@ -42,7 +42,7 @@ class Layer
         return new $nodeClass();
     }
 
-    public function addNode(Node $node)
+    public function addNode(Node $node): void
     {
         $this->nodes[] = $node;
     }

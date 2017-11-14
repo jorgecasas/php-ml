@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class GaussianTest extends TestCase
 {
-    public function testPdf()
+    public function testPdf(): void
     {
         $std = 1.0;
         $mean = 0.0;

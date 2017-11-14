@@ -84,7 +84,7 @@ class AdaBoost implements Classifier
     /**
      * Sets the base classifier that will be used for boosting (default = DecisionStump)
      */
-    public function setBaseClassifier(string $baseClassifier = DecisionStump::class, array $classifierOptions = [])
+    public function setBaseClassifier(string $baseClassifier = DecisionStump::class, array $classifierOptions = []): void
     {
         $this->baseClassifier = $baseClassifier;
         $this->classifierOptions = $classifierOptions;
@@ -93,7 +93,7 @@ class AdaBoost implements Classifier
     /**
      * @throws \Exception
      */
-    public function train(array $samples, array $targets)
+    public function train(array $samples, array $targets): void
     {
         // Initialize usual variables
         $this->labels = array_keys(array_count_values($targets));
@@ -149,7 +149,7 @@ class AdaBoost implements Classifier
             $classifier->setSampleWeights($this->weights);
             $classifier->train($this->samples, $this->targets);
         } else {
-            list($samples, $targets) = $this->resample();
+            [$samples, $targets] = $this->resample();
             $classifier->train($samples, $targets);
         }
 
@@ -216,7 +216,7 @@ class AdaBoost implements Classifier
     /**
      * Updates the sample weights
      */
-    protected function updateWeights(Classifier $classifier, float $alpha)
+    protected function updateWeights(Classifier $classifier, float $alpha): void
     {
         $sumOfWeights = array_sum($this->weights);
         $weightsT1 = [];

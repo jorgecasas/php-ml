@@ -14,8 +14,8 @@ class DecisionTree implements Classifier
 {
     use Trainable, Predictable;
 
-    const CONTINUOUS = 1;
-    const NOMINAL = 2;
+    public const CONTINUOUS = 1;
+    public const NOMINAL = 2;
 
     /**
      * @var array
@@ -72,7 +72,7 @@ class DecisionTree implements Classifier
         $this->maxDepth = $maxDepth;
     }
 
-    public function train(array $samples, array $targets)
+    public function train(array $samples, array $targets): void
     {
         $this->samples = array_merge($this->samples, $samples);
         $this->targets = array_merge($this->targets, $targets);
@@ -354,7 +354,7 @@ class DecisionTree implements Classifier
     /**
      * Used to set predefined features to consider while deciding which column to use for a split
      */
-    protected function setSelectedFeatures(array $selectedFeatures)
+    protected function setSelectedFeatures(array $selectedFeatures): void
     {
         $this->selectedFeatures = $selectedFeatures;
     }

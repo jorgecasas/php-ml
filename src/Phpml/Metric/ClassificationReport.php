@@ -76,7 +76,7 @@ class ClassificationReport
         return $this->average;
     }
 
-    private function computeMetrics(array $truePositive, array $falsePositive, array $falseNegative)
+    private function computeMetrics(array $truePositive, array $falsePositive, array $falseNegative): void
     {
         foreach ($truePositive as $label => $tp) {
             $this->precision[$label] = $this->computePrecision($tp, $falsePositive[$label]);
@@ -85,7 +85,7 @@ class ClassificationReport
         }
     }
 
-    private function computeAverage()
+    private function computeAverage(): void
     {
         foreach (['precision', 'recall', 'f1score'] as $metric) {
             $values = array_filter($this->{$metric});

@@ -61,7 +61,7 @@ class ConjugateGradient extends GD
      */
     protected function gradient(array $theta) : array
     {
-        list(, $gradient) = parent::gradient($theta);
+        [, $gradient] = parent::gradient($theta);
 
         return $gradient;
     }
@@ -71,7 +71,7 @@ class ConjugateGradient extends GD
      */
     protected function cost(array $theta) : float
     {
-        list($cost) = parent::gradient($theta);
+        [$cost] = parent::gradient($theta);
 
         return array_sum($cost) / $this->sampleCount;
     }

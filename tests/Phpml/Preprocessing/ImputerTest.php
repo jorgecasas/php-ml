@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class ImputerTest extends TestCase
 {
-    public function testComplementsMissingValuesWithMeanStrategyOnColumnAxis()
+    public function testComplementsMissingValuesWithMeanStrategyOnColumnAxis(): void
     {
         $data = [
             [1, null, 3, 4],
@@ -34,7 +34,7 @@ class ImputerTest extends TestCase
         $this->assertEquals($imputeData, $data, '', $delta = 0.01);
     }
 
-    public function testComplementsMissingValuesWithMeanStrategyOnRowAxis()
+    public function testComplementsMissingValuesWithMeanStrategyOnRowAxis(): void
     {
         $data = [
             [1, null, 3, 4],
@@ -56,7 +56,7 @@ class ImputerTest extends TestCase
         $this->assertEquals($imputeData, $data, '', $delta = 0.01);
     }
 
-    public function testComplementsMissingValuesWithMediaStrategyOnColumnAxis()
+    public function testComplementsMissingValuesWithMediaStrategyOnColumnAxis(): void
     {
         $data = [
             [1, null, 3, 4],
@@ -78,7 +78,7 @@ class ImputerTest extends TestCase
         $this->assertEquals($imputeData, $data, '', $delta = 0.01);
     }
 
-    public function testComplementsMissingValuesWithMediaStrategyOnRowAxis()
+    public function testComplementsMissingValuesWithMediaStrategyOnRowAxis(): void
     {
         $data = [
             [1, null, 3, 4],
@@ -100,7 +100,7 @@ class ImputerTest extends TestCase
         $this->assertEquals($imputeData, $data, '', $delta = 0.01);
     }
 
-    public function testComplementsMissingValuesWithMostFrequentStrategyOnColumnAxis()
+    public function testComplementsMissingValuesWithMostFrequentStrategyOnColumnAxis(): void
     {
         $data = [
             [1, null, 3, 4],
@@ -124,7 +124,7 @@ class ImputerTest extends TestCase
         $this->assertEquals($imputeData, $data);
     }
 
-    public function testComplementsMissingValuesWithMostFrequentStrategyOnRowAxis()
+    public function testComplementsMissingValuesWithMostFrequentStrategyOnRowAxis(): void
     {
         $data = [
             [1, null, 3, 4, 3],
@@ -148,7 +148,7 @@ class ImputerTest extends TestCase
         $this->assertEquals($imputeData, $data);
     }
 
-    public function testImputerWorksOnFitSamples()
+    public function testImputerWorksOnFitSamples(): void
     {
         $trainData = [
             [1, 3, 4],

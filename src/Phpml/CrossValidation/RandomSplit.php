@@ -8,7 +8,7 @@ use Phpml\Dataset\Dataset;
 
 class RandomSplit extends Split
 {
-    protected function splitDataset(Dataset $dataset, float $testSize)
+    protected function splitDataset(Dataset $dataset, float $testSize): void
     {
         $samples = $dataset->getSamples();
         $labels = $dataset->getTargets();

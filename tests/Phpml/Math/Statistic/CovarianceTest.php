@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class CovarianceTest extends TestCase
 {
-    public function testSimpleCovariance()
+    public function testSimpleCovariance(): void
     {
         // Acceptable error
         $epsilon = 0.001;

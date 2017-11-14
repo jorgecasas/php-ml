@@ -13,7 +13,7 @@ class RandomSplitTest extends TestCase
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
-    public function testThrowExceptionOnToSmallTestSize()
+    public function testThrowExceptionOnToSmallTestSize(): void
     {
         new RandomSplit(new ArrayDataset([], []), 0);
     }
@@ -21,12 +21,12 @@ class RandomSplitTest extends TestCase
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
-    public function testThrowExceptionOnToBigTestSize()
+    public function testThrowExceptionOnToBigTestSize(): void
     {
         new RandomSplit(new ArrayDataset([], []), 1);
     }
 
-    public function testDatasetRandomSplitWithoutSeed()
+    public function testDatasetRandomSplitWithoutSeed(): void
     {
         $dataset = new ArrayDataset(
             $samples = [[1], [2], [3], [4]],
@@ -44,7 +44,7 @@ class RandomSplitTest extends TestCase
         $this->assertCount(3, $randomSplit2->getTrainSamples());
     }
 
-    public function testDatasetRandomSplitWithSameSeed()
+    public function testDatasetRandomSplitWithSameSeed(): void
     {
         $dataset = new ArrayDataset(
             $samples = [[1], [2], [3], [4], [5], [6], [7], [8]],
@@ -62,7 +62,7 @@ class RandomSplitTest extends TestCase
         $this->assertEquals($randomSplit1->getTrainSamples(), $randomSplit2->getTrainSamples());
     }
 
-    public function testDatasetRandomSplitWithDifferentSeed()
+    public function testDatasetRandomSplitWithDifferentSeed(): void
     {
         $dataset = new ArrayDataset(
             $samples = [[1], [2], [3], [4], [5], [6], [7], [8]],
@@ -78,7 +78,7 @@ class RandomSplitTest extends TestCase
         $this->assertNotEquals($randomSplit1->getTrainSamples(), $randomSplit2->getTrainSamples());
     }
 
-    public function testRandomSplitCorrectSampleAndLabelPosition()
+    public function testRandomSplitCorrectSampleAndLabelPosition(): void
     {
         $dataset = new ArrayDataset(
             $samples = [[1], [2], [3], [4]],

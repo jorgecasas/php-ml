@@ -16,7 +16,7 @@ class AccuracyTest extends TestCase
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
-    public function testThrowExceptionOnInvalidArguments()
+    public function testThrowExceptionOnInvalidArguments(): void
     {
         $actualLabels = ['a', 'b', 'a', 'b'];
         $predictedLabels = ['a', 'a'];
@@ -24,7 +24,7 @@ class AccuracyTest extends TestCase
         Accuracy::score($actualLabels, $predictedLabels);
     }
 
-    public function testCalculateNormalizedScore()
+    public function testCalculateNormalizedScore(): void
     {
         $actualLabels = ['a', 'b', 'a', 'b'];
         $predictedLabels = ['a', 'a', 'b', 'b'];
@@ -32,7 +32,7 @@ class AccuracyTest extends TestCase
         $this->assertEquals(0.5, Accuracy::score($actualLabels, $predictedLabels));
     }
 
-    public function testCalculateNotNormalizedScore()
+    public function testCalculateNotNormalizedScore(): void
     {
         $actualLabels = ['a', 'b', 'a', 'b'];
         $predictedLabels = ['a', 'b', 'b', 'b'];
@@ -40,7 +40,7 @@ class AccuracyTest extends TestCase
         $this->assertEquals(3, Accuracy::score($actualLabels, $predictedLabels, false));
     }
 
-    public function testAccuracyOnDemoDataset()
+    public function testAccuracyOnDemoDataset(): void
     {
         $dataset = new RandomSplit(new IrisDataset(), 0.5, 123);
 

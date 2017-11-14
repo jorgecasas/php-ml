@@ -71,7 +71,7 @@ class FuzzyCMeans implements Clusterer
         $this->maxIterations = $maxIterations;
     }
 
-    protected function initClusters()
+    protected function initClusters(): void
     {
         // Membership array is a matrix of cluster number by sample counts
         // We initilize the membership array with random values
@@ -80,7 +80,7 @@ class FuzzyCMeans implements Clusterer
         $this->updateClusters();
     }
 
-    protected function generateRandomMembership(int $rows, int $cols)
+    protected function generateRandomMembership(int $rows, int $cols): void
     {
         $this->membership = [];
         for ($i = 0; $i < $rows; ++$i) {
@@ -98,7 +98,7 @@ class FuzzyCMeans implements Clusterer
         }
     }
 
-    protected function updateClusters()
+    protected function updateClusters(): void
     {
         $dim = $this->space->getDimension();
         if (!$this->clusters) {
@@ -136,7 +136,7 @@ class FuzzyCMeans implements Clusterer
         return $sum;
     }
 
-    protected function updateMembershipMatrix()
+    protected function updateMembershipMatrix(): void
     {
         for ($i = 0; $i < $this->clustersNumber; ++$i) {
             for ($k = 0; $k < $this->sampleCount; ++$k) {

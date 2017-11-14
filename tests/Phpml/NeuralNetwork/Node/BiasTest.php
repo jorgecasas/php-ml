@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class BiasTest extends TestCase
 {
-    public function testBiasOutput()
+    public function testBiasOutput(): void
     {
         $bias = new Bias();
 

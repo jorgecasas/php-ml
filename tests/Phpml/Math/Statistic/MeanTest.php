@@ -12,12 +12,12 @@ class MeanTest extends TestCase
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
-    public function testArithmeticThrowExceptionOnEmptyArray()
+    public function testArithmeticThrowExceptionOnEmptyArray(): void
     {
         Mean::arithmetic([]);
     }
 
-    public function testArithmeticMean()
+    public function testArithmeticMean(): void
     {
         $delta = 0.01;
         $this->assertEquals(3.5, Mean::arithmetic([2, 5]), '', $delta);
@@ -28,19 +28,19 @@ class MeanTest extends TestCase
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
-    public function testMedianThrowExceptionOnEmptyArray()
+    public function testMedianThrowExceptionOnEmptyArray(): void
     {
         Mean::median([]);
     }
 
-    public function testMedianOnOddLengthArray()
+    public function testMedianOnOddLengthArray(): void
     {
         $numbers = [5, 2, 6, 1, 3];
 
         $this->assertEquals(3, Mean::median($numbers));
     }
 
-    public function testMedianOnEvenLengthArray()
+    public function testMedianOnEvenLengthArray(): void
     {
         $numbers = [5, 2, 6, 1, 3, 4];
 
@@ -50,12 +50,12 @@ class MeanTest extends TestCase
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
-    public function testModeThrowExceptionOnEmptyArray()
+    public function testModeThrowExceptionOnEmptyArray(): void
     {
         Mean::mode([]);
     }
 
-    public function testModeOnArray()
+    public function testModeOnArray(): void
     {
         $numbers = [5, 2, 6, 1, 3, 4, 6, 6, 5];
 

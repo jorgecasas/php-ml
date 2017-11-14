@@ -47,7 +47,7 @@ class Space extends SplObjectStorage
     /**
      * @param null  $data
      */
-    public function addPoint(array $coordinates, $data = null)
+    public function addPoint(array $coordinates, $data = null): void
     {
         $this->attach($this->newPoint($coordinates), $data);
     }
@@ -56,7 +56,7 @@ class Space extends SplObjectStorage
      * @param Point $point
      * @param null  $data
      */
-    public function attach($point, $data = null)
+    public function attach($point, $data = null): void
     {
         if (!$point instanceof Point) {
             throw new InvalidArgumentException('can only attach points to spaces');
@@ -180,7 +180,7 @@ class Space extends SplObjectStorage
     private function initializeRandomClusters(int $clustersNumber) : array
     {
         $clusters = [];
-        list($min, $max) = $this->getBoundaries();
+        [$min, $max] = $this->getBoundaries();
 
         for ($n = 0; $n < $clustersNumber; ++$n) {
             $clusters[] = new Cluster($this, $this->getRandomPoint($min, $max)->getCoordinates());

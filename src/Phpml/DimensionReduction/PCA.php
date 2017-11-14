@@ -32,7 +32,7 @@ class PCA extends EigenTransformerBase
      *
      * @throws \Exception
      */
-    public function __construct(float $totalVariance = null, int $numFeatures = null)
+    public function __construct(?float $totalVariance = null, ?int $numFeatures = null)
     {
         if ($totalVariance !== null && ($totalVariance < 0.1 || $totalVariance > 0.99)) {
             throw new \Exception('Total variance can be a value between 0.1 and 0.99');
@@ -73,7 +73,7 @@ class PCA extends EigenTransformerBase
         return $this->reduce($data);
     }
 
-    protected function calculateMeans(array $data, int $n)
+    protected function calculateMeans(array $data, int $n): void
     {
         // Calculate means for each dimension
         $this->means = [];

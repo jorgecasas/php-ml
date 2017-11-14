@@ -16,7 +16,7 @@ abstract class LayeredNetwork implements Network
      */
     protected $layers;
 
-    public function addLayer(Layer $layer)
+    public function addLayer(Layer $layer): void
     {
         $this->layers[] = $layer;
     }
@@ -29,7 +29,7 @@ abstract class LayeredNetwork implements Network
         return $this->layers;
     }
 
-    public function removeLayers()
+    public function removeLayers(): void
     {
         unset($this->layers);
     }

@@ -48,7 +48,7 @@ abstract class EigenTransformerBase
      * top eigenVectors along with the largest eigenValues. The total explained variance
      * of these eigenVectors will be no less than desired $totalVariance value
      */
-    protected function eigenDecomposition(array $matrix)
+    protected function eigenDecomposition(array $matrix): void
     {
         $eig = new EigenvalueDecomposition($matrix);
         $eigVals = $eig->getRealEigenvalues();

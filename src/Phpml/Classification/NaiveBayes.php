@@ -13,9 +13,9 @@ class NaiveBayes implements Classifier
 {
     use Trainable, Predictable;
 
-    const CONTINUOS = 1;
-    const NOMINAL = 2;
-    const EPSILON = 1e-10;
+    public const CONTINUOS = 1;
+    public const NOMINAL = 2;
+    public const EPSILON = 1e-10;
 
     /**
      * @var array
@@ -57,7 +57,7 @@ class NaiveBayes implements Classifier
      */
     private $labels = [];
 
-    public function train(array $samples, array $targets)
+    public function train(array $samples, array $targets): void
     {
         $this->samples = array_merge($this->samples, $samples);
         $this->targets = array_merge($this->targets, $targets);
@@ -77,7 +77,7 @@ class NaiveBayes implements Classifier
      * Calculates vital statistics for each label & feature. Stores these
      * values in private array in order to avoid repeated calculation
      */
-    private function calculateStatistics(string $label, array $samples)
+    private function calculateStatistics(string $label, array $samples): void
     {
         $this->std[$label] = array_fill(0, $this->featureCount, 0);
         $this->mean[$label] = array_fill(0, $this->featureCount, 0);

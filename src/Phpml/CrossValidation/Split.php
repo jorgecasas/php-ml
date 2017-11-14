@@ -29,7 +29,7 @@ abstract class Split
      */
     protected $testLabels = [];
 
-    public function __construct(Dataset $dataset, float $testSize = 0.3, int $seed = null)
+    public function __construct(Dataset $dataset, float $testSize = 0.3, ?int $seed = null)
     {
         if (0 >= $testSize || 1 <= $testSize) {
             throw InvalidArgumentException::percentNotInRange('testSize');
@@ -61,7 +61,7 @@ abstract class Split
         return $this->testLabels;
     }
 
-    protected function seedGenerator(int $seed = null)
+    protected function seedGenerator(?int $seed = null): void
     {
         if (null === $seed) {
             mt_srand();

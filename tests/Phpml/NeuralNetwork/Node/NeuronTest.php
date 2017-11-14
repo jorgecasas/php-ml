@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class NeuronTest extends TestCase
 {
-    public function testNeuronInitialization()
+    public function testNeuronInitialization(): void
     {
         $neuron = new Neuron();
 
@@ -19,7 +19,7 @@ class NeuronTest extends TestCase
         $this->assertEquals(0.5, $neuron->getOutput());
     }
 
-    public function testNeuronActivationFunction()
+    public function testNeuronActivationFunction(): void
     {
         $activationFunction = $this->getMockBuilder(BinaryStep::class)->getMock();
         $activationFunction->method('compute')->with(0)->willReturn($output = 0.69);
@@ -29,7 +29,7 @@ class NeuronTest extends TestCase
         $this->assertEquals($output, $neuron->getOutput());
     }
 
-    public function testNeuronWithSynapse()
+    public function testNeuronWithSynapse(): void
     {
         $neuron = new Neuron();
         $neuron->addSynapse($synapse = $this->getSynapseMock());
@@ -38,7 +38,7 @@ class NeuronTest extends TestCase
         $this->assertEquals(0.88, $neuron->getOutput(), '', 0.01);
     }
 
-    public function testNeuronRefresh()
+    public function testNeuronRefresh(): void
     {
         $neuron = new Neuron();
         $neuron->getOutput();

@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class SupportVectorMachineTest extends TestCase
 {
-    public function testTrainCSVCModelWithLinearKernel()
+    public function testTrainCSVCModelWithLinearKernel(): void
     {
         $samples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
         $labels = ['a', 'a', 'a', 'b', 'b', 'b'];
@@ -35,7 +35,7 @@ SV
         $this->assertEquals($model, $svm->getModel());
     }
 
-    public function testPredictSampleWithLinearKernel()
+    public function testPredictSampleWithLinearKernel(): void
     {
         $samples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
         $labels = ['a', 'a', 'a', 'b', 'b', 'b'];
@@ -54,7 +54,7 @@ SV
         $this->assertEquals('b', $predictions[2]);
     }
 
-    public function testPredictSampleFromMultipleClassWithRbfKernel()
+    public function testPredictSampleFromMultipleClassWithRbfKernel(): void
     {
         $samples = [
             [1, 3], [1, 4], [1, 4],
@@ -85,7 +85,7 @@ SV
      * @expectedException \Phpml\Exception\InvalidArgumentException
      * @expectedExceptionMessage is not writable
      */
-    public function testThrowExceptionWhenVarPathIsNotWritable()
+    public function testThrowExceptionWhenVarPathIsNotWritable(): void
     {
         $svm = new SupportVectorMachine(Type::C_SVC, Kernel::RBF);
         $svm->setVarPath('var-path');
@@ -95,7 +95,7 @@ SV
      * @expectedException \Phpml\Exception\InvalidArgumentException
      * @expectedExceptionMessage does not exist
      */
-    public function testThrowExceptionWhenBinPathDoesNotExist()
+    public function testThrowExceptionWhenBinPathDoesNotExist(): void
     {
         $svm = new SupportVectorMachine(Type::C_SVC, Kernel::RBF);
         $svm->setBinPath('bin-path');
@@ -105,7 +105,7 @@ SV
      * @expectedException \Phpml\Exception\InvalidArgumentException
      * @expectedExceptionMessage not found
      */
-    public function testThrowExceptionWhenFileIsNotFoundInBinPath()
+    public function testThrowExceptionWhenFileIsNotFoundInBinPath(): void
     {
         $svm = new SupportVectorMachine(Type::C_SVC, Kernel::RBF);
         $svm->setBinPath('var');

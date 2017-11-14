@@ -97,7 +97,7 @@ class SupportVectorMachine
         float $cost = 1.0,
         float $nu = 0.5,
         int $degree = 3,
-        float $gamma = null,
+        ?float $gamma = null,
         float $coef0 = 0.0,
         float $epsilon = 0.1,
         float $tolerance = 0.001,
@@ -124,7 +124,7 @@ class SupportVectorMachine
         $this->varPath = $rootPath.'var'.DIRECTORY_SEPARATOR;
     }
 
-    public function setBinPath(string $binPath)
+    public function setBinPath(string $binPath): void
     {
         $this->ensureDirectorySeparator($binPath);
         $this->verifyBinPath($binPath);
@@ -132,7 +132,7 @@ class SupportVectorMachine
         $this->binPath = $binPath;
     }
 
-    public function setVarPath(string $varPath)
+    public function setVarPath(string $varPath): void
     {
         if (!is_writable($varPath)) {
             throw InvalidArgumentException::pathNotWritable($varPath);
@@ -142,7 +142,7 @@ class SupportVectorMachine
         $this->varPath = $varPath;
     }
 
-    public function train(array $samples, array $targets)
+    public function train(array $samples, array $targets): void
     {
         $this->samples = array_merge($this->samples, $samples);
         $this->targets = array_merge($this->targets, $targets);
@@ -234,14 +234,14 @@ class SupportVectorMachine
         );
     }
 
-    private function ensureDirectorySeparator(string &$path)
+    private function ensureDirectorySeparator(string &$path): void
     {
         if (substr($path, -1) !== DIRECTORY_SEPARATOR) {
             $path .= DIRECTORY_SEPARATOR;
         }
     }
 
-    private function verifyBinPath(string $path)
+    private function verifyBinPath(string $path): void
     {
         if (!is_dir($path)) {
             throw InvalidArgumentException::pathNotFound($path);

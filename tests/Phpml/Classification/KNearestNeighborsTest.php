@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class KNearestNeighborsTest extends TestCase
 {
-    public function testPredictSingleSampleWithDefaultK()
+    public function testPredictSingleSampleWithDefaultK(): void
     {
         $samples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
         $labels = ['a', 'a', 'a', 'b', 'b', 'b'];
@@ -30,7 +30,7 @@ class KNearestNeighborsTest extends TestCase
         $this->assertEquals('a', $classifier->predict([3, 10]));
     }
 
-    public function testPredictArrayOfSamples()
+    public function testPredictArrayOfSamples(): void
     {
         $trainSamples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
         $trainLabels = ['a', 'a', 'a', 'b', 'b', 'b'];
@@ -45,7 +45,7 @@ class KNearestNeighborsTest extends TestCase
         $this->assertEquals($testLabels, $predicted);
     }
 
-    public function testPredictArrayOfSamplesUsingChebyshevDistanceMetric()
+    public function testPredictArrayOfSamplesUsingChebyshevDistanceMetric(): void
     {
         $trainSamples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
         $trainLabels = ['a', 'a', 'a', 'b', 'b', 'b'];
@@ -60,7 +60,7 @@ class KNearestNeighborsTest extends TestCase
         $this->assertEquals($testLabels, $predicted);
     }
 
-    public function testSaveAndRestore()
+    public function testSaveAndRestore(): void
     {
         $trainSamples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
         $trainLabels = ['a', 'a', 'a', 'b', 'b', 'b'];

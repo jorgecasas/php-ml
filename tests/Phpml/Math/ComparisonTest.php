@@ -15,7 +15,7 @@ class ComparisonTest extends TestCase
      *
      * @dataProvider provideData
      */
-    public function testResult($a, $b, string $operator, bool $expected)
+    public function testResult($a, $b, string $operator, bool $expected): void
     {
         $result = Comparison::compare($a, $b, $operator);
 
@@ -26,7 +26,7 @@ class ComparisonTest extends TestCase
     * @expectedException \Phpml\Exception\InvalidArgumentException
     * @expectedExceptionMessage Invalid operator "~=" provided
     */
-    public function testThrowExceptionWhenOperatorIsInvalid()
+    public function testThrowExceptionWhenOperatorIsInvalid(): void
     {
         Comparison::compare(1, 1, '~=');
     }

@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class EigenDecompositionTest extends TestCase
 {
-    public function testSymmetricMatrixEigenPairs()
+    public function testSymmetricMatrixEigenPairs(): void
     {
         // Acceptable error
         $epsilon = 0.001;

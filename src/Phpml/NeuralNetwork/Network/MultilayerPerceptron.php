@@ -58,7 +58,7 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
     /**
      * @throws InvalidArgumentException
      */
-    public function __construct(int $inputLayerFeatures, array $hiddenLayers, array $classes, int $iterations = 10000, ActivationFunction $activationFunction = null, int $theta = 1)
+    public function __construct(int $inputLayerFeatures, array $hiddenLayers, array $classes, int $iterations = 10000, ?ActivationFunction $activationFunction = null, int $theta = 1)
     {
         if (empty($hiddenLayers)) {
             throw InvalidArgumentException::invalidLayersNumber();
@@ -78,7 +78,7 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
         $this->initNetwork();
     }
 
-    private function initNetwork()
+    private function initNetwork(): void
     {
         $this->addInputLayer($this->inputLayerFeatures);
         $this->addNeuronLayers($this->hiddenLayers, $this->activationFunction);
@@ -90,7 +90,7 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
         $this->backpropagation = new Backpropagation($this->theta);
     }
 
-    public function train(array $samples, array $targets)
+    public function train(array $samples, array $targets): void
     {
         $this->reset();
         $this->initNetwork();
@@ -100,7 +100,7 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
     /**
      * @throws InvalidArgumentException
      */
-    public function partialTrain(array $samples, array $targets, array $classes = [])
+    public function partialTrain(array $samples, array $targets, array $classes = []): void
     {
         if (!empty($classes) && array_values($classes) !== $this->classes) {
             // We require the list of classes in the constructor.
@@ -122,24 +122,24 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
      */
     abstract protected function predictSample(array $sample);
 
-    protected function reset()
+    protected function reset(): void
     {
         $this->removeLayers();
     }
 
-    private function addInputLayer(int $nodes)
+    private function addInputLayer(int $nodes): void
     {
         $this->addLayer(new Layer($nodes, Input::class));
     }
 
-    private function addNeuronLayers(array $layers, ActivationFunction $activationFunction = null)
+    private function addNeuronLayers(array $layers, ?ActivationFunction $activationFunction = null): void
     {
         foreach ($layers as $neurons) {
             $this->addLayer(new Layer($neurons, Neuron::class, $activationFunction));
         }
     }
 
-    private function generateSynapses()
+    private function generateSynapses(): void
     {
         $layersNumber = count($this->layers) - 1;
         for ($i = 0; $i < $layersNumber; ++$i) {
@@ -149,7 +149,7 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
         }
     }
 
-    private function addBiasNodes()
+    private function addBiasNodes(): void
     {
         $biasLayers = count($this->layers) - 1;
         for ($i = 0; $i < $biasLayers; ++$i) {
@@ -157,7 +157,7 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
         }
     }
 
-    private function generateLayerSynapses(Layer $nextLayer, Layer $currentLayer)
+    private function generateLayerSynapses(Layer $nextLayer, Layer $currentLayer): void
     {
         foreach ($nextLayer->getNodes() as $nextNeuron) {
             if ($nextNeuron instanceof Neuron) {
@@ -166,14 +166,14 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
         }
     }
 
-    private function generateNeuronSynapses(Layer $currentLayer, Neuron $nextNeuron)
+    private function generateNeuronSynapses(Layer $currentLayer, Neuron $nextNeuron): void
     {
         foreach ($currentLayer->getNodes() as $currentNeuron) {
             $nextNeuron->addSynapse(new Synapse($currentNeuron));
         }
     }
 
-    private function trainSamples(array $samples, array $targets)
+    private function trainSamples(array $samples, array $targets): void
     {
         foreach ($targets as $key => $target) {
             $this->trainSample($samples[$key], $target);

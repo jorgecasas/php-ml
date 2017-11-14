@@ -17,14 +17,14 @@ class FilesDataset extends ArrayDataset
         $this->scanRootPath($rootPath);
     }
 
-    private function scanRootPath(string $rootPath)
+    private function scanRootPath(string $rootPath): void
     {
         foreach (glob($rootPath.DIRECTORY_SEPARATOR.'*', GLOB_ONLYDIR) as $dir) {
             $this->scanDir($dir);
         }
     }
 
-    private function scanDir(string $dir)
+    private function scanDir(string $dir): void
     {
         $target = basename($dir);
 

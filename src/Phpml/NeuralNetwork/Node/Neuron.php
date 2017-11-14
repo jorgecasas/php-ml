@@ -25,14 +25,14 @@ class Neuron implements Node
      */
     protected $output;
 
-    public function __construct(ActivationFunction $activationFunction = null)
+    public function __construct(?ActivationFunction $activationFunction = null)
     {
         $this->activationFunction = $activationFunction ?: new ActivationFunction\Sigmoid();
         $this->synapses = [];
         $this->output = 0;
     }
 
-    public function addSynapse(Synapse $synapse)
+    public function addSynapse(Synapse $synapse): void
     {
         $this->synapses[] = $synapse;
     }
@@ -59,7 +59,7 @@ class Neuron implements Node
         return $this->output;
     }
 
-    public function reset()
+    public function reset(): void
     {
         $this->output = 0;
     }

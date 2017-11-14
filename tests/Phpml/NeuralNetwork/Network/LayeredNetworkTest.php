@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class LayeredNetworkTest extends TestCase
 {
-    public function testLayersSettersAndGetters()
+    public function testLayersSettersAndGetters(): void
     {
         $network = $this->getLayeredNetworkMock();
 
@@ -21,7 +21,7 @@ class LayeredNetworkTest extends TestCase
         $this->assertEquals([$layer1, $layer2], $network->getLayers());
     }
 
-    public function testGetLastLayerAsOutputLayer()
+    public function testGetLastLayerAsOutputLayer(): void
     {
         $network = $this->getLayeredNetworkMock();
         $network->addLayer($layer1 = new Layer());
@@ -32,7 +32,7 @@ class LayeredNetworkTest extends TestCase
         $this->assertEquals($layer2, $network->getOutputLayer());
     }
 
-    public function testSetInputAndGetOutput()
+    public function testSetInputAndGetOutput(): void
     {
         $network = $this->getLayeredNetworkMock();
         $network->addLayer(new Layer(2, Input::class));

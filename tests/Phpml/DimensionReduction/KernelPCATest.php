@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class KernelPCATest extends TestCase
 {
-    public function testKernelPCA()
+    public function testKernelPCA(): void
     {
         // Acceptable error
         $epsilon = 0.001;
@@ -37,7 +37,7 @@ class KernelPCATest extends TestCase
         // Due to the fact that the sign of values can be flipped
         // during the calculation of eigenValues, we have to compare
         // absolute value of the values
-        array_map(function ($val1, $val2) use ($epsilon) {
+        array_map(function ($val1, $val2) use ($epsilon): void {
             $this->assertEquals(abs($val1), abs($val2), '', $epsilon);
         }, $transformed, $reducedData);
 

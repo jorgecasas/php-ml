@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class DecisionTreeLeafTest extends TestCase
 {
-    public function testHTMLOutput()
+    public function testHTMLOutput(): void
     {
         $leaf = new DecisionTreeLeaf();
         $leaf->value = 1;

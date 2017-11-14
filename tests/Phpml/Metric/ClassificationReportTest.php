@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ClassificationReportTest extends TestCase
 {
-    public function testClassificationReportGenerateWithStringLabels()
+    public function testClassificationReportGenerateWithStringLabels(): void
     {
         $labels = ['cat', 'ant', 'bird', 'bird', 'bird'];
         $predicted = ['cat', 'cat', 'bird', 'bird', 'ant'];
@@ -29,7 +29,7 @@ class ClassificationReportTest extends TestCase
         $this->assertEquals($average, $report->getAverage(), '', 0.01);
     }
 
-    public function testClassificationReportGenerateWithNumericLabels()
+    public function testClassificationReportGenerateWithNumericLabels(): void
     {
         $labels = [0, 1, 2, 2, 2];
         $predicted = [0, 0, 2, 2, 1];
@@ -49,7 +49,7 @@ class ClassificationReportTest extends TestCase
         $this->assertEquals($average, $report->getAverage(), '', 0.01);
     }
 
-    public function testPreventDivideByZeroWhenTruePositiveAndFalsePositiveSumEqualsZero()
+    public function testPreventDivideByZeroWhenTruePositiveAndFalsePositiveSumEqualsZero(): void
     {
         $labels = [1, 2];
         $predicted = [2, 2];
@@ -59,7 +59,7 @@ class ClassificationReportTest extends TestCase
         $this->assertEquals([1 => 0.0, 2 => 0.5], $report->getPrecision(), '', 0.01);
     }
 
-    public function testPreventDivideByZeroWhenTruePositiveAndFalseNegativeSumEqualsZero()
+    public function testPreventDivideByZeroWhenTruePositiveAndFalseNegativeSumEqualsZero(): void
     {
         $labels = [2, 2, 1];
         $predicted = [2, 2, 3];
@@ -69,7 +69,7 @@ class ClassificationReportTest extends TestCase
         $this->assertEquals([1 => 0.0, 2 => 1, 3 => 0], $report->getPrecision(), '', 0.01);
     }
 
-    public function testPreventDividedByZeroWhenPredictedLabelsAllNotMatch()
+    public function testPreventDividedByZeroWhenPredictedLabelsAllNotMatch(): void
     {
         $labels = [1, 2, 3, 4, 5];
         $predicted = [2, 3, 4, 5, 6];

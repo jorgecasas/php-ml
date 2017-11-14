@@ -64,17 +64,17 @@ class Cluster extends Point implements IteratorAggregate, Countable
         return $point;
     }
 
-    public function attachAll(SplObjectStorage $points)
+    public function attachAll(SplObjectStorage $points): void
     {
         $this->points->addAll($points);
     }
 
-    public function detachAll(SplObjectStorage $points)
+    public function detachAll(SplObjectStorage $points): void
     {
         $this->points->removeAll($points);
     }
 
-    public function updateCentroid()
+    public function updateCentroid(): void
     {
         if (!$count = count($this->points)) {
             return;
@@ -109,7 +109,7 @@ class Cluster extends Point implements IteratorAggregate, Countable
         return count($this->points);
     }
 
-    public function setCoordinates(array $newCoordinates)
+    public function setCoordinates(array $newCoordinates): void
     {
         $this->coordinates = $newCoordinates;
     }

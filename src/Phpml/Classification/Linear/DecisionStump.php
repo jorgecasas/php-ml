@@ -14,7 +14,7 @@ class DecisionStump extends WeightedClassifier
 {
     use Predictable, OneVsRest;
 
-    const AUTO_SELECT = -1;
+    public const AUTO_SELECT = -1;
 
     /**
      * @var int
@@ -86,7 +86,7 @@ class DecisionStump extends WeightedClassifier
     /**
      * @throws \Exception
      */
-    protected function trainBinary(array $samples, array $targets, array $labels)
+    protected function trainBinary(array $samples, array $targets, array $labels): void
     {
         $this->binaryLabels = $labels;
         $this->featureCount = count($samples[0]);
@@ -146,7 +146,7 @@ class DecisionStump extends WeightedClassifier
      * points to be probed. The more split counts, the better performance but
      * worse processing time (Default value is 10.0)
      */
-    public function setNumericalSplitCount(float $count)
+    public function setNumericalSplitCount(float $count): void
     {
         $this->numSplitCount = $count;
     }
@@ -171,7 +171,7 @@ class DecisionStump extends WeightedClassifier
             // Before trying all possible split points, let's first try
             // the average value for the cut point
             $threshold = array_sum($values) / (float) count($values);
-            list($errorRate, $prob) = $this->calculateErrorRate($targets, $threshold, $operator, $values);
+            [$errorRate, $prob] = $this->calculateErrorRate($targets, $threshold, $operator, $values);
             if ($split == null || $errorRate < $split['trainingErrorRate']) {
                 $split = ['value' => $threshold, 'operator' => $operator,
                         'prob' => $prob, 'column' => $col,
@@ -181,7 +181,7 @@ class DecisionStump extends WeightedClassifier
             // Try other possible points one by one
             for ($step = $minValue; $step <= $maxValue; $step += $stepSize) {
                 $threshold = (float) $step;
-                list($errorRate, $prob) = $this->calculateErrorRate($targets, $threshold, $operator, $values);
+                [$errorRate, $prob] = $this->calculateErrorRate($targets, $threshold, $operator, $values);
                 if ($errorRate < $split['trainingErrorRate']) {
                     $split = ['value' => $threshold, 'operator' => $operator,
                         'prob' => $prob, 'column' => $col,
@@ -203,7 +203,7 @@ class DecisionStump extends WeightedClassifier
 
         foreach (['=', '!='] as $operator) {
             foreach ($distinctVals as $val) {
-                list($errorRate, $prob) = $this->calculateErrorRate($targets, $val, $operator, $values);
+                [$errorRate, $prob] = $this->calculateErrorRate($targets, $val, $operator, $values);
 
                 if ($split == null || $split['trainingErrorRate'] < $errorRate) {
                     $split = ['value' => $val, 'operator' => $operator,
@@ -289,7 +289,7 @@ class DecisionStump extends WeightedClassifier
         return $this->binaryLabels[1];
     }
 
-    protected function resetBinary()
+    protected function resetBinary(): void
     {
     }
 

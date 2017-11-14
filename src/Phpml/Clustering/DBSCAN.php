@@ -24,7 +24,7 @@ class DBSCAN implements Clusterer
      */
     private $distanceMetric;
 
-    public function __construct(float $epsilon = 0.5, int $minSamples = 3, Distance $distanceMetric = null)
+    public function __construct(float $epsilon = 0.5, int $minSamples = 3, ?Distance $distanceMetric = null)
     {
         if (null === $distanceMetric) {
             $distanceMetric = new Euclidean();

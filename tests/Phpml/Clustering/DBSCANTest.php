@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class DBSCANTest extends TestCase
 {
-    public function testDBSCANSamplesClustering()
+    public function testDBSCANSamplesClustering(): void
     {
         $samples = [[1, 1], [8, 7], [1, 2], [7, 8], [2, 1], [8, 9]];
         $clustered = [
@@ -32,7 +32,7 @@ class DBSCANTest extends TestCase
         $this->assertEquals($clustered, $dbscan->cluster($samples));
     }
 
-    public function testDBSCANSamplesClusteringAssociative()
+    public function testDBSCANSamplesClusteringAssociative(): void
     {
         $samples = ['a' => [1, 1], 'b' => [9, 9], 'c' => [1, 2], 'd' => [9, 8], 'e' => [7, 7], 'f' => [8, 7]];
         $clustered = [

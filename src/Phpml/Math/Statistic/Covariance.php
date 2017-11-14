@@ -13,7 +13,7 @@ class Covariance
      *
      * @throws InvalidArgumentException
      */
-    public static function fromXYArrays(array $x, array $y, bool $sample = true, float $meanX = null, float $meanY = null) : float
+    public static function fromXYArrays(array $x, array $y, bool $sample = true, ?float $meanX = null, ?float $meanY = null) : float
     {
         if (empty($x) || empty($y)) {
             throw InvalidArgumentException::arrayCantBeEmpty();
@@ -51,7 +51,7 @@ class Covariance
      * @throws InvalidArgumentException
      * @throws \Exception
      */
-    public static function fromDataset(array $data, int $i, int $k, bool $sample = true, float $meanX = null, float $meanY = null) : float
+    public static function fromDataset(array $data, int $i, int $k, bool $sample = true, ?float $meanX = null, ?float $meanY = null) : float
     {
         if (empty($data)) {
             throw InvalidArgumentException::arrayCantBeEmpty();
@@ -112,7 +112,7 @@ class Covariance
      *
      * @param array|null $means
      */
-    public static function covarianceMatrix(array $data, array $means = null) : array
+    public static function covarianceMatrix(array $data, ?array $means = null) : array
     {
         $n = count($data[0]);
 

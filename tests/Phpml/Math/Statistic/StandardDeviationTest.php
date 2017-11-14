@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class StandardDeviationTest extends TestCase
 {
-    public function testStandardDeviationOfPopulationSample()
+    public function testStandardDeviationOfPopulationSample(): void
     {
         //https://pl.wikipedia.org/wiki/Odchylenie_standardowe
         $delta = 0.001;
@@ -28,7 +28,7 @@ class StandardDeviationTest extends TestCase
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
-    public function testThrowExceptionOnEmptyArrayIfNotSample()
+    public function testThrowExceptionOnEmptyArrayIfNotSample(): void
     {
         StandardDeviation::population([], false);
     }
@@ -36,7 +36,7 @@ class StandardDeviationTest extends TestCase
     /**
      * @expectedException \Phpml\Exception\InvalidArgumentException
      */
-    public function testThrowExceptionOnToSmallArray()
+    public function testThrowExceptionOnToSmallArray(): void
     {
         StandardDeviation::population([1]);
     }

@@ -11,13 +11,13 @@ class Apriori implements Associator
 {
     use Trainable, Predictable;
 
-    const ARRAY_KEY_ANTECEDENT = 'antecedent';
+    public const ARRAY_KEY_ANTECEDENT = 'antecedent';
 
-    const ARRAY_KEY_CONFIDENCE = 'confidence';
+    public const ARRAY_KEY_CONFIDENCE = 'confidence';
 
-    const ARRAY_KEY_CONSEQUENT = 'consequent';
+    public const ARRAY_KEY_CONSEQUENT = 'consequent';
 
-    const ARRAY_KEY_SUPPORT = 'support';
+    public const ARRAY_KEY_SUPPORT = 'support';
 
     /**
      * Minimum relative probability of frequent transactions.
@@ -116,7 +116,7 @@ class Apriori implements Associator
     /**
      * Generate rules for each k-length frequent item set.
      */
-    private function generateAllRules()
+    private function generateAllRules(): void
     {
         for ($k = 2; !empty($this->large[$k]); ++$k) {
             foreach ($this->large[$k] as $frequent) {
@@ -130,7 +130,7 @@ class Apriori implements Associator
      *
      * @param mixed[] $frequent
      */
-    private function generateRules(array $frequent)
+    private function generateRules(array $frequent): void
     {
         foreach ($this->antecedents($frequent) as $antecedent) {
             if ($this->confidence <= ($confidence = $this->confidence($frequent, $antecedent))) {

@@ -35,7 +35,7 @@ class DecisionTreeTest extends TestCase
     private function getData($input)
     {
         $targets = array_column($input, 4);
-        array_walk($input, function (&$v) {
+        array_walk($input, function (&$v): void {
             array_splice($v, 4, 1);
         });
 
@@ -44,14 +44,14 @@ class DecisionTreeTest extends TestCase
 
     public function testPredictSingleSample()
     {
-        list($data, $targets) = $this->getData($this->data);
+        [$data, $targets] = $this->getData($this->data);
         $classifier = new DecisionTree(5);
         $classifier->train($data, $targets);
         $this->assertEquals('Dont_play', $classifier->predict(['sunny', 78, 72, 'false']));
         $this->assertEquals('Play', $classifier->predict(['overcast', 60, 60, 'false']));
         $this->assertEquals('Dont_play', $classifier->predict(['rain', 60, 60, 'true']));
 
-        list($data, $targets) = $this->getData($this->extraData);
+        [$data, $targets] = $this->getData($this->extraData);
         $classifier->train($data, $targets);
         $this->assertEquals('Dont_play', $classifier->predict(['scorching', 95, 90, 'true']));
         $this->assertEquals('Play', $classifier->predict(['overcast', 60, 60, 'false']));
@@ -59,9 +59,9 @@ class DecisionTreeTest extends TestCase
         return $classifier;
     }
 
-    public function testSaveAndRestore()
+    public function testSaveAndRestore(): void
     {
-        list($data, $targets) = $this->getData($this->data);
+        [$data, $targets] = $this->getData($this->data);
         $classifier = new DecisionTree(5);
         $classifier->train($data, $targets);
 
@@ -78,9 +78,9 @@ class DecisionTreeTest extends TestCase
         $this->assertEquals($predicted, $restoredClassifier->predict($testSamples));
     }
 
-    public function testTreeDepth()
+    public function testTreeDepth(): void
     {
-        list($data, $targets) = $this->getData($this->data);
+        [$data, $targets] = $this->getData($this->data);
         $classifier = new DecisionTree(5);
         $classifier->train($data, $targets);
         $this->assertTrue(5 >= $classifier->actualDepth);

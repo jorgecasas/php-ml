@@ -11,17 +11,17 @@ class LogisticRegression extends Adaline
     /**
      * Batch training: Gradient descent algorithm (default)
      */
-    const BATCH_TRAINING = 1;
+    public const BATCH_TRAINING = 1;
 
     /**
      * Online training: Stochastic gradient descent learning
      */
-    const ONLINE_TRAINING = 2;
+    public const ONLINE_TRAINING = 2;
 
     /**
      * Conjugate Batch: Conjugate Gradient algorithm
      */
-    const CONJUGATE_GRAD_TRAINING = 3;
+    public const CONJUGATE_GRAD_TRAINING = 3;
 
     /**
      * Cost function to optimize: 'log' and 'sse' are supported <br>
@@ -97,7 +97,7 @@ class LogisticRegression extends Adaline
      * Sets the learning rate if gradient descent algorithm is
      * selected for training
      */
-    public function setLearningRate(float $learningRate)
+    public function setLearningRate(float $learningRate): void
     {
         $this->learningRate = $learningRate;
     }
@@ -106,7 +106,7 @@ class LogisticRegression extends Adaline
      * Lambda (λ) parameter of regularization term. If 0 is given,
      * then the regularization term is cancelled
      */
-    public function setLambda(float $lambda)
+    public function setLambda(float $lambda): void
     {
         $this->lambda = $lambda;
     }
@@ -139,7 +139,7 @@ class LogisticRegression extends Adaline
     /**
      * Executes Conjugate Gradient method to optimize the weights of the LogReg model
      */
-    protected function runConjugateGradient(array $samples, array $targets, \Closure $gradientFunc)
+    protected function runConjugateGradient(array $samples, array $targets, \Closure $gradientFunc): void
     {
         if (empty($this->optimizer)) {
             $this->optimizer = (new ConjugateGradient($this->featureCount))

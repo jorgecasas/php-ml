@@ -30,7 +30,7 @@ class LeastSquares implements Regression
      */
     private $coefficients;
 
-    public function train(array $samples, array $targets)
+    public function train(array $samples, array $targets): void
     {
         $this->samples = array_merge($this->samples, $samples);
         $this->targets = array_merge($this->targets, $targets);
@@ -64,7 +64,7 @@ class LeastSquares implements Regression
     /**
      * coefficient(b) = (X'X)-1X'Y.
      */
-    private function computeCoefficients()
+    private function computeCoefficients(): void
     {
         $samplesMatrix = $this->getSamplesMatrix();
         $targetsMatrix = $this->getTargetsMatrix();

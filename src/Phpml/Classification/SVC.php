@@ -14,7 +14,7 @@ class SVC extends SupportVectorMachine implements Classifier
         int $kernel = Kernel::LINEAR,
         float $cost = 1.0,
         int $degree = 3,
-        float $gamma = null,
+        ?float $gamma = null,
         float $coef0 = 0.0,
         float $tolerance = 0.001,
         int $cacheSize = 100,

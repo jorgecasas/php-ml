@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class ModelManagerTest extends TestCase
 {
-    public function testSaveAndRestore()
+    public function testSaveAndRestore(): void
     {
         $filename = uniqid();
         $filepath = sys_get_temp_dir().DIRECTORY_SEPARATOR.$filename;
@@ -26,7 +26,7 @@ class ModelManagerTest extends TestCase
     /**
      * @expectedException \Phpml\Exception\FileException
      */
-    public function testRestoreWrongFile()
+    public function testRestoreWrongFile(): void
     {
         $filepath = sys_get_temp_dir().DIRECTORY_SEPARATOR.'unexisting';
         $modelManager = new ModelManager();

@@ -12,12 +12,12 @@ class CsvDatasetTest extends TestCase
     /**
      * @expectedException \Phpml\Exception\FileException
      */
-    public function testThrowExceptionOnMissingFile()
+    public function testThrowExceptionOnMissingFile(): void
     {
         new CsvDataset('missingFile', 3);
     }
 
-    public function testSampleCsvDatasetWithHeaderRow()
+    public function testSampleCsvDatasetWithHeaderRow(): void
     {
         $filePath = dirname(__FILE__).'/Resources/dataset.csv';
 
@@ -27,7 +27,7 @@ class CsvDatasetTest extends TestCase
         $this->assertCount(10, $dataset->getTargets());
     }
 
-    public function testSampleCsvDatasetWithoutHeaderRow()
+    public function testSampleCsvDatasetWithoutHeaderRow(): void
     {
         $filePath = dirname(__FILE__).'/Resources/dataset.csv';
 
@@ -37,7 +37,7 @@ class CsvDatasetTest extends TestCase
         $this->assertCount(11, $dataset->getTargets());
     }
 
-    public function testLongCsvDataset()
+    public function testLongCsvDataset(): void
     {
         $filePath = dirname(__FILE__).'/Resources/longdataset.csv';
 

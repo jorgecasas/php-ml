@@ -10,9 +10,9 @@ use Phpml\Math\Statistic\StandardDeviation;
 
 class Normalizer implements Preprocessor
 {
-    const NORM_L1 = 1;
-    const NORM_L2 = 2;
-    const NORM_STD = 3;
+    public const NORM_L1 = 1;
+    public const NORM_L2 = 2;
+    public const NORM_STD = 3;
 
     /**
      * @var int
@@ -46,7 +46,7 @@ class Normalizer implements Preprocessor
         $this->norm = $norm;
     }
 
-    public function fit(array $samples)
+    public function fit(array $samples): void
     {
         if ($this->fitted) {
             return;
@@ -64,7 +64,7 @@ class Normalizer implements Preprocessor
         $this->fitted = true;
     }
 
-    public function transform(array &$samples)
+    public function transform(array &$samples): void
     {
         $methods = [
             self::NORM_L1 => 'normalizeL1',
@@ -80,7 +80,7 @@ class Normalizer implements Preprocessor
         }
     }
 
-    private function normalizeL1(array &$sample)
+    private function normalizeL1(array &$sample): void
     {
         $norm1 = 0;
         foreach ($sample as $feature) {
@@ -97,7 +97,7 @@ class Normalizer implements Preprocessor
         }
     }
 
-    private function normalizeL2(array &$sample)
+    private function normalizeL2(array &$sample): void
     {
         $norm2 = 0;
         foreach ($sample as $feature) {
@@ -114,7 +114,7 @@ class Normalizer implements Preprocessor
         }
     }
 
-    private function normalizeSTD(array &$sample)
+    private function normalizeSTD(array &$sample): void
     {
         foreach ($sample as $i => $val) {
             if ($this->std[$i] != 0) {

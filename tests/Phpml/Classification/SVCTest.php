@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class SVCTest extends TestCase
 {
-    public function testPredictSingleSampleWithLinearKernel()
+    public function testPredictSingleSampleWithLinearKernel(): void
     {
         $samples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
         $labels = ['a', 'a', 'a', 'b', 'b', 'b'];
@@ -30,7 +30,7 @@ class SVCTest extends TestCase
         $this->assertEquals('a', $classifier->predict([3, 10]));
     }
 
-    public function testPredictArrayOfSamplesWithLinearKernel()
+    public function testPredictArrayOfSamplesWithLinearKernel(): void
     {
         $trainSamples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
         $trainLabels = ['a', 'a', 'a', 'b', 'b', 'b'];
@@ -45,7 +45,7 @@ class SVCTest extends TestCase
         $this->assertEquals($testLabels, $predictions);
     }
 
-    public function testSaveAndRestore()
+    public function testSaveAndRestore(): void
     {
         $trainSamples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
         $trainLabels = ['a', 'a', 'a', 'b', 'b', 'b'];

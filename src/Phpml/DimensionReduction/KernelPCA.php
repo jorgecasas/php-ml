@@ -10,10 +10,10 @@ use Phpml\Math\Matrix;
 
 class KernelPCA extends PCA
 {
-    const KERNEL_RBF = 1;
-    const KERNEL_SIGMOID = 2;
-    const KERNEL_LAPLACIAN = 3;
-    const KERNEL_LINEAR = 4;
+    public const KERNEL_RBF = 1;
+    public const KERNEL_SIGMOID = 2;
+    public const KERNEL_LAPLACIAN = 3;
+    public const KERNEL_LINEAR = 4;
 
     /**
      * Selected kernel function
@@ -50,7 +50,7 @@ class KernelPCA extends PCA
      *
      * @throws \Exception
      */
-    public function __construct(int $kernel = self::KERNEL_RBF, float $totalVariance = null, int $numFeatures = null, float $gamma = null)
+    public function __construct(int $kernel = self::KERNEL_RBF, ?float $totalVariance = null, ?int $numFeatures = null, ?float $gamma = null)
     {
         $availableKernels = [self::KERNEL_RBF, self::KERNEL_SIGMOID, self::KERNEL_LAPLACIAN, self::KERNEL_LINEAR];
         if (!in_array($kernel, $availableKernels)) {

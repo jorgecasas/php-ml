@@ -23,7 +23,7 @@ class Input implements Node
         return $this->input;
     }
 
-    public function setInput(float $input)
+    public function setInput(float $input): void
     {
         $this->input = $input;
     }

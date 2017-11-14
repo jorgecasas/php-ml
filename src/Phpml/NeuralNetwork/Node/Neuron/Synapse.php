@@ -21,7 +21,7 @@ class Synapse
     /**
      * @param float|null $weight
      */
-    public function __construct(Node $node, float $weight = null)
+    public function __construct(Node $node, ?float $weight = null)
     {
         $this->node = $node;
         $this->weight = $weight ?: $this->generateRandomWeight();
@@ -37,7 +37,7 @@ class Synapse
         return $this->weight * $this->node->getOutput();
     }
 
-    public function changeWeight(float $delta)
+    public function changeWeight(float $delta): void
     {
         $this->weight += $delta;
     }
