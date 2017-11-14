@@ -3,6 +3,32 @@ CHANGELOG
 
 This changelog references the relevant changes done in PHP-ML library.
 
+* 0.5.0 (2017-11-14)
+    * general [php] Upgrade to PHP 7.1 (#150)
+    * general [coding standard] fix imports order and drop unused docs typehints
+    * feature [NeuralNetwork] Add PReLU activation function (#128)
+    * feature [NeuralNetwork] Add ThresholdedReLU activation function (#129)
+    * feature [Dataset] Support CSV with long lines (#119)
+    * feature [NeuralNetwork] Neural networks partial training and persistency (#91)
+    * feature Add french stopwords (#92)
+    * feature New methods: setBinPath, setVarPath in SupportVectorMachine (#73)
+    * feature Linear Discrimant Analysis (LDA) (#82)
+    * feature Linear algebra operations, Dimensionality reduction and some other minor changes (#81)
+    * feature Partial training base (#78)
+    * feature Add delimiter option for CsvDataset (#66)
+    * feature LogisticRegression classifier & Optimization methods (#63)
+    * feature Additional training for SVR (#59)
+    * optimization Comparison - replace eval (#130)
+    * optimization Use C-style casts (#124)
+    * optimization Speed up DataTransformer (#122)
+    * bug DBSCAN fix for associative keys and array_merge performance optimization (#139)
+    * bug Ensure user-provided SupportVectorMachine paths are valid (#126)
+    * bug [DecisionTree] Fix string cast #120 (#121)
+    * bug fix invalid typehint for subs method (#110)
+    * bug Fix samples transformation in Pipeline training (#94)
+    * bug Fix division by 0 error during normalization (#83)
+    * bug Fix wrong docs references (#79)
+
 * 0.4.0 (2017-02-23)
     * feature [Classification] - Ensemble Classifiers : Bagging and RandomForest by Mustafa Karabulut
     * feature [Classification] - RandomForest::getFeatureImportances() method by Mustafa Karabulut
