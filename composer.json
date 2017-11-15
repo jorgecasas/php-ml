@@ -21,7 +21,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^6.0",
-        "friendsofphp/php-cs-fixer": "^2.4"
+        "friendsofphp/php-cs-fixer": "^2.4",
+        "php-coveralls/php-coveralls": "^1.0"
     },
     "config": {
         "bin-dir": "bin"

@@ -6,9 +6,11 @@ matrix:
   include:
     - os: linux
       php: '7.1'
+      env: DISABLE_XDEBUG="true"
 
     - os: linux
       php: '7.2'
+      env: PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"
 
     - os: osx
       osx_image: xcode7.3
@@ -18,12 +20,19 @@ matrix:
         - _PHP: php71
 
 before_install:
-  - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then /usr/bin/env bash tools/prepare_osx_env.sh ; fi
+  - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then /usr/bin/env bash bin/prepare_osx_env.sh ; fi
+  - if [[ DISABLE_XDEBUG == "true" ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
-  - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then /usr/bin/env bash tools/handle_brew_pkg.sh "${_PHP}" ; fi
+  - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then /usr/bin/env bash bin/handle_brew_pkg.sh "${_PHP}" ; fi
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install --dev --no-interaction --ignore-platform-reqs
 
 script:
-  - bin/phpunit
+  - bin/phpunit $PHPUNIT_FLAGS
+
+after_success:
+  - |
+    if [[ $PHPUNIT_FLAGS != "" ]]; then
+      php bin/coveralls -v
+    fi
