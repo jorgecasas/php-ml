@@ -18,13 +18,8 @@ class Manhattan implements Distance
             throw InvalidArgumentException::arraySizeNotMatch();
         }
 
-        $distance = 0;
-        $count = count($a);
-
-        for ($i = 0; $i < $count; ++$i) {
-            $distance += abs($a[$i] - $b[$i]);
-        }
-
-        return $distance;
+        return array_sum(array_map(function ($m, $n) {
+            return abs($m - $n);
+        }, $a, $b));
     }
 }
