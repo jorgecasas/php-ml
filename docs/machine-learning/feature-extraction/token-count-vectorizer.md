@@ -26,13 +26,18 @@ $samples = [
 ];
 
 $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer());
-$vectorizer->transform($samples)
-// return $vector = [
+
+// Build the dictionary.
+$vectorizer->fit($samples);
+
+// Transform the provided text samples into a vectorized list.
+$vectorizer->transform($samples);
+// return $samples = [
 //    [0 => 1, 1 => 1, 2 => 2, 3 => 1, 4 => 1],
 //    [5 => 1, 6 => 1, 1 => 1, 2 => 1],
 //    [5 => 1, 7 => 2, 8 => 1, 9 => 1],
 //];
-        
+
 ```
 
 ### Vocabulary
