@@ -8,7 +8,7 @@ A multilayer perceptron (MLP) is a feedforward artificial neural network model t
 * $hiddenLayers (array) - array with the hidden layers configuration, each value represent number of neurons in each layers
 * $classes (array) - array with the different training set classes (array keys are ignored)
 * $iterations (int) - number of training iterations
-* $theta (int) - network theta parameter
+* $learningRate (float) - the learning rate
 * $activationFunction (ActivationFunction) - neuron activation function
 
 ```

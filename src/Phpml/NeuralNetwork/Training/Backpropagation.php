@@ -10,9 +10,9 @@ use Phpml\NeuralNetwork\Training\Backpropagation\Sigma;
 class Backpropagation
 {
     /**
-     * @var int
+     * @var float
      */
-    private $theta;
+    private $learningRate;
 
     /**
      * @var array
@@ -24,9 +24,9 @@ class Backpropagation
      */
     private $prevSigmas = null;
 
-    public function __construct(int $theta)
+    public function __construct(float $learningRate)
     {
-        $this->theta = $theta;
+        $this->learningRate = $learningRate;
     }
 
     /**
@@ -43,7 +43,7 @@ class Backpropagation
                 if ($neuron instanceof Neuron) {
                     $sigma = $this->getSigma($neuron, $targetClass, $key, $i == $layersNumber);
                     foreach ($neuron->getSynapses() as $synapse) {
-                        $synapse->changeWeight($this->theta * $sigma * $synapse->getNode()->getOutput());
+                        $synapse->changeWeight($this->learningRate * $sigma * $synapse->getNode()->getOutput());
                     }
                 }
             }

@@ -46,9 +46,9 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
     protected $activationFunction;
 
     /**
-     * @var int
+     * @var float
      */
-    private $theta;
+    private $learningRate;
 
     /**
      * @var Backpropagation
@@ -58,7 +58,7 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
     /**
      * @throws InvalidArgumentException
      */
-    public function __construct(int $inputLayerFeatures, array $hiddenLayers, array $classes, int $iterations = 10000, ?ActivationFunction $activationFunction = null, int $theta = 1)
+    public function __construct(int $inputLayerFeatures, array $hiddenLayers, array $classes, int $iterations = 10000, ?ActivationFunction $activationFunction = null, float $learningRate = 1)
     {
         if (empty($hiddenLayers)) {
             throw InvalidArgumentException::invalidLayersNumber();
@@ -73,7 +73,7 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
         $this->inputLayerFeatures = $inputLayerFeatures;
         $this->hiddenLayers = $hiddenLayers;
         $this->activationFunction = $activationFunction;
-        $this->theta = $theta;
+        $this->learningRate = $learningRate;
 
         $this->initNetwork();
     }
@@ -87,7 +87,7 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
         $this->addBiasNodes();
         $this->generateSynapses();
 
-        $this->backpropagation = new Backpropagation($this->theta);
+        $this->backpropagation = new Backpropagation($this->learningRate);
     }
 
     public function train(array $samples, array $targets): void
