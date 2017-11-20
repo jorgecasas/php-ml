@@ -112,16 +112,16 @@ class MLPClassifierTest extends TestCase
     public function testBackpropagationLearningMultilayer(): void
     {
         // Multi-layer 2 classes.
-        $network = new MLPClassifier(5, [3, 2], ['a', 'b']);
+        $network = new MLPClassifier(5, [3, 2], ['a', 'b', 'c']);
         $network->train(
             [[1, 0, 0, 0, 0], [0, 1, 1, 0, 0], [1, 1, 1, 1, 1], [0, 0, 0, 0, 0]],
-            ['a', 'b', 'a', 'b']
+            ['a', 'b', 'a', 'c']
         );
 
         $this->assertEquals('a', $network->predict([1, 0, 0, 0, 0]));
         $this->assertEquals('b', $network->predict([0, 1, 1, 0, 0]));
         $this->assertEquals('a', $network->predict([1, 1, 1, 1, 1]));
-        $this->assertEquals('b', $network->predict([0, 0, 0, 0, 0]));
+        $this->assertEquals('c', $network->predict([0, 0, 0, 0, 0]));
     }
 
     public function testBackpropagationLearningMulticlass(): void
