@@ -19,10 +19,7 @@ class BinaryStepTest extends TestCase
         $this->assertEquals($expected, $binaryStep->compute($value));
     }
 
-    /**
-     * @return array
-     */
-    public function binaryStepProvider()
+    public function binaryStepProvider(): array
     {
         return [
             [1, 1],

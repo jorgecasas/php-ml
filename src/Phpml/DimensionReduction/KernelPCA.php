@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Phpml\DimensionReduction;
 
+use Closure;
+use Exception;
 use Phpml\Math\Distance\Euclidean;
 use Phpml\Math\Distance\Manhattan;
 use Phpml\Math\Matrix;
@@ -11,8 +13,11 @@ use Phpml\Math\Matrix;
 class KernelPCA extends PCA
 {
     public const KERNEL_RBF = 1;
+
     public const KERNEL_SIGMOID = 2;
+
     public const KERNEL_LAPLACIAN = 3;
+
     public const KERNEL_LINEAR = 4;
 
     /**
@@ -34,7 +39,7 @@ class KernelPCA extends PCA
      *
      * @var array
      */
-    protected $data;
+    protected $data = [];
 
     /**
      * Kernel principal component analysis (KernelPCA) is an extension of PCA using
@@ -54,7 +59,7 @@ class KernelPCA extends PCA
     {
         $availableKernels = [self::KERNEL_RBF, self::KERNEL_SIGMOID, self::KERNEL_LAPLACIAN, self::KERNEL_LINEAR];
         if (!in_array($kernel, $availableKernels)) {
-            throw new \Exception('KernelPCA can be initialized with the following kernels only: Linear, RBF, Sigmoid and Laplacian');
+            throw new Exception('KernelPCA can be initialized with the following kernels only: Linear, RBF, Sigmoid and Laplacian');
         }
 
         parent::__construct($totalVariance, $numFeatures);
@@ -69,7 +74,7 @@ class KernelPCA extends PCA
      * $data is an n-by-m matrix and returned array is
      * n-by-k matrix where k <= m
      */
-    public function fit(array $data) : array
+    public function fit(array $data): array
     {
         $numRows = count($data);
         $this->data = $data;
@@ -89,10 +94,31 @@ class KernelPCA extends PCA
     }
 
     /**
+     * Transforms the given sample to a lower dimensional vector by using
+     * the variables obtained during the last run of <code>fit</code>.
+     *
+     * @throws \Exception
+     */
+    public function transform(array $sample): array
+    {
+        if (!$this->fit) {
+            throw new Exception('KernelPCA has not been fitted with respect to original dataset, please run KernelPCA::fit() first');
+        }
+
+        if (is_array($sample[0])) {
+            throw new Exception('KernelPCA::transform() accepts only one-dimensional arrays');
+        }
+
+        $pairs = $this->getDistancePairs($sample);
+
+        return $this->projectSample($pairs);
+    }
+
+    /**
      * Calculates similarity matrix by use of selected kernel function<br>
      * An n-by-m matrix is given and an n-by-n matrix is returned
      */
-    protected function calculateKernelMatrix(array $data, int $numRows) : array
+    protected function calculateKernelMatrix(array $data, int $numRows): array
     {
         $kernelFunc = $this->getKernel();
 
@@ -116,7 +142,7 @@ class KernelPCA extends PCA
      *
      * K′ = K − N.K −  K.N + N.K.N where N is n-by-n matrix filled with 1/n
      */
-    protected function centerMatrix(array $matrix, int $n) : array
+    protected function centerMatrix(array $matrix, int $n): array
     {
         $N = array_fill(0, $n, array_fill(0, $n, 1.0 / $n));
         $N = new Matrix($N, false);
@@ -140,7 +166,7 @@ class KernelPCA extends PCA
      *
      * @throws \Exception
      */
-    protected function getKernel(): \Closure
+    protected function getKernel(): Closure
     {
         switch ($this->kernel) {
             case self::KERNEL_LINEAR:
@@ -173,11 +199,11 @@ class KernelPCA extends PCA
                 };
 
             default:
-                throw new \Exception(sprintf('KernelPCA initialized with invalid kernel: %d', $this->kernel));
+                throw new Exception(sprintf('KernelPCA initialized with invalid kernel: %d', $this->kernel));
         }
     }
 
-    protected function getDistancePairs(array $sample) : array
+    protected function getDistancePairs(array $sample): array
     {
         $kernel = $this->getKernel();
 
@@ -189,7 +215,7 @@ class KernelPCA extends PCA
         return $pairs;
     }
 
-    protected function projectSample(array $pairs) : array
+    protected function projectSample(array $pairs): array
     {
         // Normalize eigenvectors by eig = eigVectors / eigValues
         $func = function ($eigVal, $eigVect) {
@@ -202,26 +228,5 @@ class KernelPCA extends PCA
 
         // return k.dot(eig)
         return Matrix::dot($pairs, $eig);
-    }
-
-    /**
-     * Transforms the given sample to a lower dimensional vector by using
-     * the variables obtained during the last run of <code>fit</code>.
-     *
-     * @throws \Exception
-     */
-    public function transform(array $sample) : array
-    {
-        if (!$this->fit) {
-            throw new \Exception('KernelPCA has not been fitted with respect to original dataset, please run KernelPCA::fit() first');
-        }
-
-        if (is_array($sample[0])) {
-            throw new \Exception('KernelPCA::transform() accepts only one-dimensional arrays');
-        }
-
-        $pairs = $this->getDistancePairs($sample);
-
-        return $this->projectSample($pairs);
     }
 }

@@ -10,6 +10,7 @@ use Phpml\Exception\InvalidArgumentException;
 class KMeans implements Clusterer
 {
     public const INIT_RANDOM = 1;
+
     public const INIT_KMEANS_PLUS_PLUS = 2;
 
     /**
@@ -32,7 +33,7 @@ class KMeans implements Clusterer
         $this->initialization = $initialization;
     }
 
-    public function cluster(array $samples) : array
+    public function cluster(array $samples): array
     {
         $space = new Space(count($samples[0]));
         foreach ($samples as $sample) {

@@ -109,8 +109,9 @@ class NormalizerTest extends TestCase
         for ($i = 0; $i < 10; ++$i) {
             $sample = array_fill(0, 3, 0);
             for ($k = 0; $k < 3; ++$k) {
-                $sample[$k] = rand(1, 100);
+                $sample[$k] = random_int(1, 100);
             }
+
             // Last feature's value shared across samples.
             $sample[] = 1;
 

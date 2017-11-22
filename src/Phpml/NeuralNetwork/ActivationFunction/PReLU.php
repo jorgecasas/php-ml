@@ -21,7 +21,7 @@ class PReLU implements ActivationFunction
     /**
      * @param float|int $value
      */
-    public function compute($value) : float
+    public function compute($value): float
     {
         return $value >= 0 ? $value : $this->beta * $value;
     }

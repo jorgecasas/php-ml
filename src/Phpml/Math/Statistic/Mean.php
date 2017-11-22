@@ -11,7 +11,7 @@ class Mean
     /**
      * @throws InvalidArgumentException
      */
-    public static function arithmetic(array $numbers) : float
+    public static function arithmetic(array $numbers): float
     {
         self::checkArrayLength($numbers);
 
@@ -32,7 +32,7 @@ class Mean
         sort($numbers, SORT_NUMERIC);
         $median = $numbers[$middleIndex];
 
-        if (0 === $count % 2) {
+        if ($count % 2 === 0) {
             $median = ($median + $numbers[$middleIndex - 1]) / 2;
         }
 

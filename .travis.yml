@@ -6,7 +6,7 @@ matrix:
   include:
     - os: linux
       php: '7.1'
-      env: DISABLE_XDEBUG="true"
+      env: DISABLE_XDEBUG="true" STATIC_ANALYSIS="true"
 
     - os: linux
       php: '7.2'
@@ -21,7 +21,7 @@ matrix:
 
 before_install:
   - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then /usr/bin/env bash bin/prepare_osx_env.sh ; fi
-  - if [[ DISABLE_XDEBUG == "true" ]]; then phpenv config-rm xdebug.ini; fi
+  - if [[ $DISABLE_XDEBUG == "true" ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
   - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then /usr/bin/env bash bin/handle_brew_pkg.sh "${_PHP}" ; fi
@@ -29,10 +29,12 @@ install:
   - php composer.phar install --dev --no-interaction --ignore-platform-reqs
 
 script:
-  - bin/phpunit $PHPUNIT_FLAGS
+  - vendor/bin/phpunit $PHPUNIT_FLAGS
+  - if [[ $STATIC_ANALYSIS != "" ]]; then vendor/bin/ecs check src tests; fi
 
 after_success:
   - |
     if [[ $PHPUNIT_FLAGS != "" ]]; then
-      php bin/coveralls -v
+      wget https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar;
+      php coveralls.phar --verbose;
     fi

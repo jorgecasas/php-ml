@@ -44,10 +44,7 @@ class LayeredNetworkTest extends TestCase
         $this->assertEquals([0.5], $network->getOutput());
     }
 
-    /**
-     * @return LayeredNetwork
-     */
-    private function getLayeredNetworkMock()
+    private function getLayeredNetworkMock(): LayeredNetwork
     {
         return $this->getMockForAbstractClass(LayeredNetwork::class);
     }

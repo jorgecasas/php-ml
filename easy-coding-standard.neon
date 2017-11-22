@@ -1,0 +1,39 @@
+includes:
+    - vendor/symplify/easy-coding-standard/config/psr2.neon
+    - vendor/symplify/easy-coding-standard/config/php70.neon
+    - vendor/symplify/easy-coding-standard/config/clean-code.neon
+    - vendor/symplify/easy-coding-standard/config/common/array.neon
+    - vendor/symplify/easy-coding-standard/config/common/docblock.neon
+    - vendor/symplify/easy-coding-standard/config/common/namespaces.neon
+    - vendor/symplify/easy-coding-standard/config/common/control-structures.neon
+
+    # many errors, need help
+    #- vendor/symplify/easy-coding-standard/config/common/strict.neon
+
+checkers:
+    - Symplify\CodingStandard\Fixer\Import\ImportNamespacedNameFixer
+    - Symplify\CodingStandard\Fixer\Php\ClassStringToClassConstantFixer
+    - Symplify\CodingStandard\Fixer\Property\ArrayPropertyDefaultValueFixer
+    - Symplify\CodingStandard\Fixer\ClassNotation\PropertyAndConstantSeparationFixer
+    - Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer
+
+parameters:
+    exclude_checkers:
+        # from strict.neon
+        - PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer
+    skip:
+        PhpCsFixer\Fixer\Alias\RandomApiMigrationFixer:
+            # random_int() breaks code
+            - src/Phpml/CrossValidation/RandomSplit.php
+        SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff:
+            # magic calls
+            - src/Phpml/Preprocessing/Normalizer.php
+
+    skip_codes:
+        # missing typehints
+        - SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingParameterTypeHint
+        - SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingTraversableParameterTypeHintSpecification
+        - SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingReturnTypeHint
+        - SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingTraversableReturnTypeHintSpecification
+        - SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingPropertyTypeHint
+        - SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingTraversablePropertyTypeHintSpecification

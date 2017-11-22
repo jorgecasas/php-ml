@@ -11,7 +11,7 @@ class CsvDataset extends ArrayDataset
     /**
      * @var array
      */
-    protected $columnNames;
+    protected $columnNames = [];
 
     /**
      * @throws FileException
@@ -22,7 +22,8 @@ class CsvDataset extends ArrayDataset
             throw FileException::missingFile(basename($filepath));
         }
 
-        if (false === $handle = fopen($filepath, 'rb')) {
+        $handle = fopen($filepath, 'rb');
+        if ($handle === false) {
             throw FileException::cantOpenFile(basename($filepath));
         }
 
@@ -44,7 +45,7 @@ class CsvDataset extends ArrayDataset
         parent::__construct($samples, $targets);
     }
 
-    public function getColumnNames() : array
+    public function getColumnNames(): array
     {
         return $this->columnNames;
     }

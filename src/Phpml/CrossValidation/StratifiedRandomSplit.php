@@ -21,7 +21,7 @@ class StratifiedRandomSplit extends RandomSplit
     /**
      * @return Dataset[]|array
      */
-    private function splitByTarget(Dataset $dataset) : array
+    private function splitByTarget(Dataset $dataset): array
     {
         $targets = $dataset->getTargets();
         $samples = $dataset->getSamples();
@@ -38,7 +38,7 @@ class StratifiedRandomSplit extends RandomSplit
         return $datasets;
     }
 
-    private function createDatasets(array $uniqueTargets, array $split) : array
+    private function createDatasets(array $uniqueTargets, array $split): array
     {
         $datasets = [];
         foreach ($uniqueTargets as $target) {

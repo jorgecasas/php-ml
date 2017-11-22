@@ -22,7 +22,7 @@ class Minkowski implements Distance
     /**
      * @throws InvalidArgumentException
      */
-    public function distance(array $a, array $b) : float
+    public function distance(array $a, array $b): float
     {
         if (count($a) !== count($b)) {
             throw InvalidArgumentException::arraySizeNotMatch();

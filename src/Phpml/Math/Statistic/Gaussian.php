@@ -41,7 +41,7 @@ class Gaussian
      * Returns probability density value of the given <i>$value</i> based on
      * given standard deviation and the mean
      */
-    public static function distributionPdf(float $mean, float $std, float $value) : float
+    public static function distributionPdf(float $mean, float $std, float $value): float
     {
         $normal = new self($mean, $std);
 

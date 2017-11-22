@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpml\Clustering;
 
+use array_merge;
 use Phpml\Math\Distance;
 use Phpml\Math\Distance\Euclidean;
 
@@ -26,7 +27,7 @@ class DBSCAN implements Clusterer
 
     public function __construct(float $epsilon = 0.5, int $minSamples = 3, ?Distance $distanceMetric = null)
     {
-        if (null === $distanceMetric) {
+        if ($distanceMetric === null) {
             $distanceMetric = new Euclidean();
         }
 
@@ -35,7 +36,7 @@ class DBSCAN implements Clusterer
         $this->distanceMetric = $distanceMetric;
     }
 
-    public function cluster(array $samples) : array
+    public function cluster(array $samples): array
     {
         $clusters = [];
         $visited = [];
@@ -44,6 +45,7 @@ class DBSCAN implements Clusterer
             if (isset($visited[$index])) {
                 continue;
             }
+
             $visited[$index] = true;
 
             $regionSamples = $this->getSamplesInRegion($sample, $samples);
@@ -55,7 +57,7 @@ class DBSCAN implements Clusterer
         return $clusters;
     }
 
-    private function getSamplesInRegion(array $localSample, array $samples) : array
+    private function getSamplesInRegion(array $localSample, array $samples): array
     {
         $region = [];
 
@@ -68,7 +70,7 @@ class DBSCAN implements Clusterer
         return $region;
     }
 
-    private function expandCluster(array $samples, array &$visited) : array
+    private function expandCluster(array $samples, array &$visited): array
     {
         $cluster = [];
 
@@ -84,7 +86,8 @@ class DBSCAN implements Clusterer
 
             $cluster[$index] = $sample;
         }
-        $cluster = \array_merge($cluster, ...$clusterMerge);
+
+        $cluster = array_merge($cluster, ...$clusterMerge);
 
         return $cluster;
     }

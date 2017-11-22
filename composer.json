@@ -12,8 +12,8 @@
         }
     ],
     "autoload": {
-        "psr-0": {
-            "Phpml": "src/"
+        "psr-4": {
+            "Phpml\\": "src/Phpml"
         }
     },
     "require": {
@@ -22,9 +22,8 @@
     "require-dev": {
         "phpunit/phpunit": "^6.0",
         "friendsofphp/php-cs-fixer": "^2.4",
-        "php-coveralls/php-coveralls": "^1.0"
-    },
-    "config": {
-        "bin-dir": "bin"
+        "symplify/easy-coding-standard": "dev-master as 2.5",
+        "symplify/coding-standard": "dev-master as 2.5",
+        "symplify/package-builder": "dev-master#3604bea as 2.5"
     }
 }

@@ -25,7 +25,7 @@ class Space extends SplObjectStorage
         $this->dimension = $dimension;
     }
 
-    public function toArray() : array
+    public function toArray(): array
     {
         $points = [];
         foreach ($this as $point) {
@@ -35,7 +35,7 @@ class Space extends SplObjectStorage
         return ['points' => $points];
     }
 
-    public function newPoint(array $coordinates) : Point
+    public function newPoint(array $coordinates): Point
     {
         if (count($coordinates) != $this->dimension) {
             throw new LogicException('('.implode(',', $coordinates).') is not a point of this space');
@@ -65,7 +65,7 @@ class Space extends SplObjectStorage
         parent::attach($point, $data);
     }
 
-    public function getDimension() : int
+    public function getDimension(): int
     {
         return $this->dimension;
     }
@@ -92,7 +92,7 @@ class Space extends SplObjectStorage
         return [$min, $max];
     }
 
-    public function getRandomPoint(Point $min, Point $max) : Point
+    public function getRandomPoint(Point $min, Point $max): Point
     {
         $point = $this->newPoint(array_fill(0, $this->dimension, null));
 
@@ -106,7 +106,7 @@ class Space extends SplObjectStorage
     /**
      * @return array|Cluster[]
      */
-    public function cluster(int $clustersNumber, int $initMethod = KMeans::INIT_RANDOM) : array
+    public function cluster(int $clustersNumber, int $initMethod = KMeans::INIT_RANDOM): array
     {
         $clusters = $this->initializeClusters($clustersNumber, $initMethod);
 
@@ -119,7 +119,7 @@ class Space extends SplObjectStorage
     /**
      * @return array|Cluster[]
      */
-    protected function initializeClusters(int $clustersNumber, int $initMethod) : array
+    protected function initializeClusters(int $clustersNumber, int $initMethod): array
     {
         switch ($initMethod) {
             case KMeans::INIT_RANDOM:
@@ -139,7 +139,7 @@ class Space extends SplObjectStorage
         return $clusters;
     }
 
-    protected function iterate($clusters) : bool
+    protected function iterate($clusters): bool
     {
         $convergence = true;
 
@@ -177,19 +177,7 @@ class Space extends SplObjectStorage
         return $convergence;
     }
 
-    private function initializeRandomClusters(int $clustersNumber) : array
-    {
-        $clusters = [];
-        [$min, $max] = $this->getBoundaries();
-
-        for ($n = 0; $n < $clustersNumber; ++$n) {
-            $clusters[] = new Cluster($this, $this->getRandomPoint($min, $max)->getCoordinates());
-        }
-
-        return $clusters;
-    }
-
-    protected function initializeKMPPClusters(int $clustersNumber) : array
+    protected function initializeKMPPClusters(int $clustersNumber): array
     {
         $clusters = [];
         $this->rewind();
@@ -214,6 +202,18 @@ class Space extends SplObjectStorage
                 $clusters[] = new Cluster($this, $point->getCoordinates());
                 break;
             }
+        }
+
+        return $clusters;
+    }
+
+    private function initializeRandomClusters(int $clustersNumber): array
+    {
+        $clusters = [];
+        [$min, $max] = $this->getBoundaries();
+
+        for ($n = 0; $n < $clustersNumber; ++$n) {
+            $clusters[] = new Cluster($this, $this->getRandomPoint($min, $max)->getCoordinates());
         }
 
         return $clusters;

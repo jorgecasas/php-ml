@@ -239,12 +239,12 @@ class MatrixTest extends TestCase
     {
         $array = [
             [1, 1, 1],
-            [2, 2, 2]
+            [2, 2, 2],
         ];
         $transposed = [
             [1, 2],
             [1, 2],
-            [1, 2]
+            [1, 2],
         ];
 
         $this->assertEquals($transposed, Matrix::transposeArray($array));

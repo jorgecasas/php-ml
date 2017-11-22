@@ -19,10 +19,7 @@ class PReLUTest extends TestCase
         $this->assertEquals($expected, $prelu->compute($value), '', 0.001);
     }
 
-    /**
-     * @return array
-     */
-    public function preluProvider()
+    public function preluProvider(): array
     {
         return [
             [0.01, 0.367, 0.367],

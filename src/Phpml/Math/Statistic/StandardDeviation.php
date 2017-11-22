@@ -13,7 +13,7 @@ class StandardDeviation
      *
      * @throws InvalidArgumentException
      */
-    public static function population(array $a, bool $sample = true) : float
+    public static function population(array $a, bool $sample = true): float
     {
         if (empty($a)) {
             throw InvalidArgumentException::arrayCantBeEmpty();

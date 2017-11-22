@@ -26,7 +26,7 @@ class ModelManager
         }
     }
 
-    public function restoreFromFile(string $filepath) : Estimator
+    public function restoreFromFile(string $filepath): Estimator
     {
         if (!file_exists($filepath) || !is_readable($filepath)) {
             throw FileException::cantOpenFile(basename($filepath));

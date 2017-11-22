@@ -34,10 +34,25 @@ class DBSCANTest extends TestCase
 
     public function testDBSCANSamplesClusteringAssociative(): void
     {
-        $samples = ['a' => [1, 1], 'b' => [9, 9], 'c' => [1, 2], 'd' => [9, 8], 'e' => [7, 7], 'f' => [8, 7]];
+        $samples = [
+            'a' => [1, 1],
+            'b' => [9, 9],
+            'c' => [1, 2],
+            'd' => [9, 8],
+            'e' => [7, 7],
+            'f' => [8, 7],
+        ];
         $clustered = [
-            ['a' => [1, 1], 'c' => [1, 2]],
-            ['b' => [9, 9], 'd' => [9, 8], 'e' => [7, 7], 'f' => [8, 7]],
+            [
+                'a' => [1, 1],
+                'c' => [1, 2],
+            ],
+            [
+                'b' => [9, 9],
+                'd' => [9, 8],
+                'e' => [7, 7],
+                'f' => [8, 7],
+            ],
         ];
 
         $dbscan = new DBSCAN($epsilon = 3, $minSamples = 2);

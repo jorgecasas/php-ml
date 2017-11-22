@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Phpml\Classification\Linear;
 
+use Closure;
+use Exception;
 use Phpml\Helper\Optimizer\ConjugateGradient;
 
 class LogisticRegression extends Adaline
@@ -70,18 +72,18 @@ class LogisticRegression extends Adaline
     ) {
         $trainingTypes = range(self::BATCH_TRAINING, self::CONJUGATE_GRAD_TRAINING);
         if (!in_array($trainingType, $trainingTypes)) {
-            throw new \Exception('Logistic regression can only be trained with '.
+            throw new Exception('Logistic regression can only be trained with '.
                 'batch (gradient descent), online (stochastic gradient descent) '.
                 'or conjugate batch (conjugate gradients) algorithms');
         }
 
         if (!in_array($cost, ['log', 'sse'])) {
-            throw new \Exception("Logistic regression cost function can be one of the following: \n".
+            throw new Exception("Logistic regression cost function can be one of the following: \n".
                 "'log' for log-likelihood and 'sse' for sum of squared errors");
         }
 
         if ($penalty != '' && strtoupper($penalty) !== 'L2') {
-            throw new \Exception("Logistic regression supports only 'L2' regularization");
+            throw new Exception("Logistic regression supports only 'L2' regularization");
         }
 
         $this->learningRate = 0.001;
@@ -132,14 +134,14 @@ class LogisticRegression extends Adaline
                 return $this->runConjugateGradient($samples, $targets, $callback);
 
             default:
-                throw new \Exception('Logistic regression has invalid training type: %s.', $this->trainingType);
+                throw new Exception('Logistic regression has invalid training type: %s.', $this->trainingType);
         }
     }
 
     /**
      * Executes Conjugate Gradient method to optimize the weights of the LogReg model
      */
-    protected function runConjugateGradient(array $samples, array $targets, \Closure $gradientFunc): void
+    protected function runConjugateGradient(array $samples, array $targets, Closure $gradientFunc): void
     {
         if (empty($this->optimizer)) {
             $this->optimizer = (new ConjugateGradient($this->featureCount))
@@ -155,7 +157,7 @@ class LogisticRegression extends Adaline
      *
      * @throws \Exception
      */
-    protected function getCostFunction() : \Closure
+    protected function getCostFunction(): Closure
     {
         $penalty = 0;
         if ($this->penalty == 'L2') {
@@ -183,9 +185,11 @@ class LogisticRegression extends Adaline
                     if ($hX == 1) {
                         $hX = 1 - 1e-10;
                     }
+
                     if ($hX == 0) {
                         $hX = 1e-10;
                     }
+
                     $error = -$y * log($hX) - (1 - $y) * log(1 - $hX);
                     $gradient = $hX - $y;
 
@@ -218,16 +222,14 @@ class LogisticRegression extends Adaline
                 return $callback;
 
             default:
-                throw new \Exception(sprintf('Logistic regression has invalid cost function: %s.', $this->costFunction));
+                throw new Exception(sprintf('Logistic regression has invalid cost function: %s.', $this->costFunction));
         }
     }
 
     /**
      * Returns the output of the network, a float value between 0.0 and 1.0
-     *
-     * @return float
      */
-    protected function output(array $sample)
+    protected function output(array $sample): float
     {
         $sum = parent::output($sample);
 
@@ -237,7 +239,7 @@ class LogisticRegression extends Adaline
     /**
      * Returns the class value (either -1 or 1) for the given input
      */
-    protected function outputClass(array $sample) : int
+    protected function outputClass(array $sample): int
     {
         $output = $this->output($sample);
 
@@ -253,10 +255,10 @@ class LogisticRegression extends Adaline
      *
      * The probability is simply taken as the distance of the sample
      * to the decision plane.
-
+     *
      * @param mixed $label
      */
-    protected function predictProbability(array $sample, $label) : float
+    protected function predictProbability(array $sample, $label): float
     {
         $predicted = $this->predictSampleBinary($sample);
 

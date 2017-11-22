@@ -19,16 +19,13 @@ class ThresholdedReLUTest extends TestCase
         $this->assertEquals($expected, $thresholdedReLU->compute($value));
     }
 
-    /**
-     * @return array
-     */
-    public function thresholdProvider()
+    public function thresholdProvider(): array
     {
         return [
             [1.0, 0, 1.0],
             [0.5, 3.75, 3.75],
             [0.0, 0.5, 0.5],
-            [0.9, 0, 0.1]
+            [0.9, 0, 0.1],
         ];
     }
 }

@@ -30,7 +30,7 @@ class FuzzyCMeans implements Clusterer
     /**
      * @var array|float[][]
      */
-    private $membership;
+    private $membership = [];
 
     /**
      * @var float
@@ -55,7 +55,7 @@ class FuzzyCMeans implements Clusterer
     /**
      * @var array
      */
-    private $samples;
+    private $samples = [];
 
     /**
      * @throws InvalidArgumentException
@@ -65,10 +65,61 @@ class FuzzyCMeans implements Clusterer
         if ($clustersNumber <= 0) {
             throw InvalidArgumentException::invalidClustersNumber();
         }
+
         $this->clustersNumber = $clustersNumber;
         $this->fuzziness = $fuzziness;
         $this->epsilon = $epsilon;
         $this->maxIterations = $maxIterations;
+    }
+
+    public function getMembershipMatrix(): array
+    {
+        return $this->membership;
+    }
+
+    /**
+     * @param array|Point[] $samples
+     */
+    public function cluster(array $samples): array
+    {
+        // Initialize variables, clusters and membership matrix
+        $this->sampleCount = count($samples);
+        $this->samples = &$samples;
+        $this->space = new Space(count($samples[0]));
+        $this->initClusters();
+
+        // Our goal is minimizing the objective value while
+        // executing the clustering steps at a maximum number of iterations
+        $lastObjective = 0.0;
+        $iterations = 0;
+        do {
+            // Update the membership matrix and cluster centers, respectively
+            $this->updateMembershipMatrix();
+            $this->updateClusters();
+
+            // Calculate the new value of the objective function
+            $objectiveVal = $this->getObjective();
+            $difference = abs($lastObjective - $objectiveVal);
+            $lastObjective = $objectiveVal;
+        } while ($difference > $this->epsilon && $iterations++ <= $this->maxIterations);
+
+        // Attach (hard cluster) each data point to the nearest cluster
+        for ($k = 0; $k < $this->sampleCount; ++$k) {
+            $column = array_column($this->membership, $k);
+            arsort($column);
+            reset($column);
+            $i = key($column);
+            $cluster = $this->clusters[$i];
+            $cluster->attach(new Point($this->samples[$k]));
+        }
+
+        // Return grouped samples
+        $grouped = [];
+        foreach ($this->clusters as $cluster) {
+            $grouped[] = $cluster->getPoints();
+        }
+
+        return $grouped;
     }
 
     protected function initClusters(): void
@@ -87,7 +138,7 @@ class FuzzyCMeans implements Clusterer
             $row = [];
             $total = 0.0;
             for ($k = 0; $k < $cols; ++$k) {
-                $val = rand(1, 5) / 10.0;
+                $val = random_int(1, 5) / 10.0;
                 $row[] = $val;
                 $total += $val;
             }
@@ -146,13 +197,13 @@ class FuzzyCMeans implements Clusterer
         }
     }
 
-    protected function getDistanceCalc(int $row, int $col) : float
+    protected function getDistanceCalc(int $row, int $col): float
     {
         $sum = 0.0;
         $distance = new Euclidean();
         $dist1 = $distance->distance(
-                $this->clusters[$row]->getCoordinates(),
-                $this->samples[$col]
+            $this->clusters[$row]->getCoordinates(),
+            $this->samples[$col]
         );
 
         for ($j = 0; $j < $this->clustersNumber; ++$j) {
@@ -186,55 +237,5 @@ class FuzzyCMeans implements Clusterer
         }
 
         return $sum;
-    }
-
-    public function getMembershipMatrix() : array
-    {
-        return $this->membership;
-    }
-
-    /**
-     * @param array|Point[] $samples
-     */
-    public function cluster(array $samples) : array
-    {
-        // Initialize variables, clusters and membership matrix
-        $this->sampleCount = count($samples);
-        $this->samples = &$samples;
-        $this->space = new Space(count($samples[0]));
-        $this->initClusters();
-
-        // Our goal is minimizing the objective value while
-        // executing the clustering steps at a maximum number of iterations
-        $lastObjective = 0.0;
-        $iterations = 0;
-        do {
-            // Update the membership matrix and cluster centers, respectively
-            $this->updateMembershipMatrix();
-            $this->updateClusters();
-
-            // Calculate the new value of the objective function
-            $objectiveVal = $this->getObjective();
-            $difference = abs($lastObjective - $objectiveVal);
-            $lastObjective = $objectiveVal;
-        } while ($difference > $this->epsilon && $iterations++ <= $this->maxIterations);
-
-        // Attach (hard cluster) each data point to the nearest cluster
-        for ($k = 0; $k < $this->sampleCount; ++$k) {
-            $column = array_column($this->membership, $k);
-            arsort($column);
-            reset($column);
-            $i = key($column);
-            $cluster = $this->clusters[$i];
-            $cluster->attach(new Point($this->samples[$k]));
-        }
-
-        // Return grouped samples
-        $grouped = [];
-        foreach ($this->clusters as $cluster) {
-            $grouped[] = $cluster->getPoints();
-        }
-
-        return $grouped;
     }
 }

@@ -19,10 +19,7 @@ class SigmoidTest extends TestCase
         $this->assertEquals($expected, $sigmoid->compute($value), '', 0.001);
     }
 
-    /**
-     * @return array
-     */
-    public function sigmoidProvider()
+    public function sigmoidProvider(): array
     {
         return [
             [1.0, 1, 7.25],

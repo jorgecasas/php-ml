@@ -14,7 +14,9 @@ class NaiveBayes implements Classifier
     use Trainable, Predictable;
 
     public const CONTINUOS = 1;
+
     public const NOMINAL = 2;
+
     public const EPSILON = 1e-10;
 
     /**
@@ -74,6 +76,31 @@ class NaiveBayes implements Classifier
     }
 
     /**
+     * @return mixed
+     */
+    protected function predictSample(array $sample)
+    {
+        // Use NaiveBayes assumption for each label using:
+        //	P(label|features) = P(label) * P(feature0|label) * P(feature1|label) .... P(featureN|label)
+        // Then compare probability for each class to determine which label is most likely
+        $predictions = [];
+        foreach ($this->labels as $label) {
+            $p = $this->p[$label];
+            for ($i = 0; $i < $this->featureCount; ++$i) {
+                $Plf = $this->sampleProbability($sample, $i, $label);
+                $p += $Plf;
+            }
+
+            $predictions[$label] = $p;
+        }
+
+        arsort($predictions, SORT_NUMERIC);
+        reset($predictions);
+
+        return key($predictions);
+    }
+
+    /**
      * Calculates vital statistics for each label & feature. Stores these
      * values in private array in order to avoid repeated calculation
      */
@@ -108,7 +135,7 @@ class NaiveBayes implements Classifier
     /**
      * Calculates the probability P(label|sample_n)
      */
-    private function sampleProbability(array $sample, int $feature, string $label) : float
+    private function sampleProbability(array $sample, int $feature, string $label): float
     {
         $value = $sample[$feature];
         if ($this->dataType[$label][$feature] == self::NOMINAL) {
@@ -119,6 +146,7 @@ class NaiveBayes implements Classifier
 
             return $this->discreteProb[$label][$feature][$value];
         }
+
         $std = $this->std[$label][$feature] ;
         $mean = $this->mean[$label][$feature];
         // Calculate the probability density by use of normal/Gaussian distribution
@@ -137,7 +165,7 @@ class NaiveBayes implements Classifier
     /**
      * Return samples belonging to specific label
      */
-    private function getSamplesByLabel(string $label) : array
+    private function getSamplesByLabel(string $label): array
     {
         $samples = [];
         for ($i = 0; $i < $this->sampleCount; ++$i) {
@@ -147,29 +175,5 @@ class NaiveBayes implements Classifier
         }
 
         return $samples;
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function predictSample(array $sample)
-    {
-        // Use NaiveBayes assumption for each label using:
-        //	P(label|features) = P(label) * P(feature0|label) * P(feature1|label) .... P(featureN|label)
-        // Then compare probability for each class to determine which label is most likely
-        $predictions = [];
-        foreach ($this->labels as $label) {
-            $p = $this->p[$label];
-            for ($i = 0; $i < $this->featureCount; ++$i) {
-                $Plf = $this->sampleProbability($sample, $i, $label);
-                $p += $Plf;
-            }
-            $predictions[$label] = $p;
-        }
-
-        arsort($predictions, SORT_NUMERIC);
-        reset($predictions);
-
-        return key($predictions);
     }
 }

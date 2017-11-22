@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpml\Classification\Ensemble;
 
+use Exception;
 use Phpml\Classification\Classifier;
 use Phpml\Classification\Linear\DecisionStump;
 use Phpml\Classification\WeightedClassifier;
@@ -11,6 +12,7 @@ use Phpml\Helper\Predictable;
 use Phpml\Helper\Trainable;
 use Phpml\Math\Statistic\Mean;
 use Phpml\Math\Statistic\StandardDeviation;
+use ReflectionClass;
 
 class AdaBoost implements Classifier
 {
@@ -98,11 +100,14 @@ class AdaBoost implements Classifier
         // Initialize usual variables
         $this->labels = array_keys(array_count_values($targets));
         if (count($this->labels) != 2) {
-            throw new \Exception('AdaBoost is a binary classifier and can classify between two classes only');
+            throw new Exception('AdaBoost is a binary classifier and can classify between two classes only');
         }
 
         // Set all target values to either -1 or 1
-        $this->labels = [1 => $this->labels[0], -1 => $this->labels[1]];
+        $this->labels = [
+            1 => $this->labels[0],
+            -1 => $this->labels[1],
+        ];
         foreach ($targets as $target) {
             $this->targets[] = $target == $this->labels[1] ? 1 : -1;
         }
@@ -133,12 +138,26 @@ class AdaBoost implements Classifier
     }
 
     /**
+     * @return mixed
+     */
+    public function predictSample(array $sample)
+    {
+        $sum = 0;
+        foreach ($this->alpha as $index => $alpha) {
+            $h = $this->classifiers[$index]->predict($sample);
+            $sum += $h * $alpha;
+        }
+
+        return $this->labels[$sum > 0 ? 1 : -1];
+    }
+
+    /**
      * Returns the classifier with the lowest error rate with the
      * consideration of current sample weights
      */
-    protected function getBestClassifier() : Classifier
+    protected function getBestClassifier(): Classifier
     {
-        $ref = new \ReflectionClass($this->baseClassifier);
+        $ref = new ReflectionClass($this->baseClassifier);
         if ($this->classifierOptions) {
             $classifier = $ref->newInstanceArgs($this->classifierOptions);
         } else {
@@ -160,7 +179,7 @@ class AdaBoost implements Classifier
      * Resamples the dataset in accordance with the weights and
      * returns the new dataset
      */
-    protected function resample() : array
+    protected function resample(): array
     {
         $weights = $this->weights;
         $std = StandardDeviation::population($weights);
@@ -173,9 +192,10 @@ class AdaBoost implements Classifier
         foreach ($weights as $index => $weight) {
             $z = (int) round(($weight - $mean) / $std) - $minZ + 1;
             for ($i = 0; $i < $z; ++$i) {
-                if (rand(0, 1) == 0) {
+                if (random_int(0, 1) == 0) {
                     continue;
                 }
+
                 $samples[] = $this->samples[$index];
                 $targets[] = $this->targets[$index];
             }
@@ -187,7 +207,7 @@ class AdaBoost implements Classifier
     /**
      * Evaluates the classifier and returns the classification error rate
      */
-    protected function evaluateClassifier(Classifier $classifier) : float
+    protected function evaluateClassifier(Classifier $classifier): float
     {
         $total = (float) array_sum($this->weights);
         $wrong = 0;
@@ -204,7 +224,7 @@ class AdaBoost implements Classifier
     /**
      * Calculates alpha of a classifier
      */
-    protected function calculateAlpha(float $errorRate) : float
+    protected function calculateAlpha(float $errorRate): float
     {
         if ($errorRate == 0) {
             $errorRate = 1e-10;
@@ -230,19 +250,5 @@ class AdaBoost implements Classifier
         }
 
         $this->weights = $weightsT1;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function predictSample(array $sample)
-    {
-        $sum = 0;
-        foreach ($this->alpha as $index => $alpha) {
-            $h = $this->classifiers[$index]->predict($sample);
-            $sum += $h * $alpha;
-        }
-
-        return $this->labels[$sum > 0 ? 1 : -1];
     }
 }

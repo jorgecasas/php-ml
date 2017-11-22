@@ -81,7 +81,7 @@ class LeastSquaresTest extends TestCase
         $testSamples = [[9300], [10565], [15000]];
         $predicted = $regression->predict($testSamples);
 
-        $filename = 'least-squares-test-'.rand(100, 999).'-'.uniqid();
+        $filename = 'least-squares-test-'.random_int(100, 999).'-'.uniqid();
         $filepath = tempnam(sys_get_temp_dir(), $filename);
         $modelManager = new ModelManager();
         $modelManager->saveToFile($regression, $filepath);

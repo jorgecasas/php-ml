@@ -1,8 +1,4 @@
 /vendor/
 humbuglog.*
-/bin/phpunit
-.coverage
 .php_cs.cache
-/bin/php-cs-fixer
-/bin/coveralls
 /build

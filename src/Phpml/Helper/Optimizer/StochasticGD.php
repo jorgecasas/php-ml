@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Phpml\Helper\Optimizer;
 
+use Closure;
+
 /**
  * Stochastic Gradient Descent optimization method
  * to find a solution for the equation A.ϴ = y where
@@ -66,6 +68,7 @@ class StochasticGD extends Optimizer
      * @var bool
      */
     protected $enableEarlyStop = true;
+
     /**
      * List of values obtained by evaluating the cost function at each iteration
      * of the algorithm
@@ -141,7 +144,7 @@ class StochasticGD extends Optimizer
      * The cost function to minimize and the gradient of the function are to be
      * handled by the callback function provided as the third parameter of the method.
      */
-    public function runOptimization(array $samples, array $targets, \Closure $gradientCb) : array
+    public function runOptimization(array $samples, array $targets, Closure $gradientCb): array
     {
         $this->samples = $samples;
         $this->targets = $targets;
@@ -181,7 +184,16 @@ class StochasticGD extends Optimizer
         return $this->theta = $bestTheta;
     }
 
-    protected function updateTheta() : float
+    /**
+     * Returns the list of cost values for each iteration executed in
+     * last run of the optimization
+     */
+    public function getCostValues(): array
+    {
+        return $this->costValues;
+    }
+
+    protected function updateTheta(): float
     {
         $jValue = 0.0;
         $theta = $this->theta;
@@ -235,15 +247,6 @@ class StochasticGD extends Optimizer
         }
 
         return false;
-    }
-
-    /**
-     * Returns the list of cost values for each iteration executed in
-     * last run of the optimization
-     */
-    public function getCostValues() : array
-    {
-        return $this->costValues;
     }
 
     /**

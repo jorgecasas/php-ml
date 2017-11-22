@@ -29,12 +29,12 @@ class Sigma
         return $this->neuron;
     }
 
-    public function getSigma() : float
+    public function getSigma(): float
     {
         return $this->sigma;
     }
 
-    public function getSigmaForNeuron(Neuron $neuron) : float
+    public function getSigmaForNeuron(Neuron $neuron): float
     {
         $sigma = 0.0;
 

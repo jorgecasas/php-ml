@@ -28,7 +28,7 @@ class LeastSquares implements Regression
     /**
      * @var array
      */
-    private $coefficients;
+    private $coefficients = [];
 
     public function train(array $samples, array $targets): void
     {
@@ -51,12 +51,12 @@ class LeastSquares implements Regression
         return $result;
     }
 
-    public function getCoefficients() : array
+    public function getCoefficients(): array
     {
         return $this->coefficients;
     }
 
-    public function getIntercept() : float
+    public function getIntercept(): float
     {
         return $this->intercept;
     }
@@ -79,7 +79,7 @@ class LeastSquares implements Regression
     /**
      * Add one dimension for intercept calculation.
      */
-    private function getSamplesMatrix() : Matrix
+    private function getSamplesMatrix(): Matrix
     {
         $samples = [];
         foreach ($this->samples as $sample) {
@@ -90,7 +90,7 @@ class LeastSquares implements Regression
         return new Matrix($samples);
     }
 
-    private function getTargetsMatrix() : Matrix
+    private function getTargetsMatrix(): Matrix
     {
         if (is_array($this->targets[0])) {
             return new Matrix($this->targets);

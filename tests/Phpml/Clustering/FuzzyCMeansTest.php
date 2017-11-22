@@ -20,6 +20,7 @@ class FuzzyCMeansTest extends TestCase
                 unset($samples[$index]);
             }
         }
+
         $this->assertCount(0, $samples);
 
         return $fcm;
@@ -35,6 +36,7 @@ class FuzzyCMeansTest extends TestCase
         foreach ($matrix as $row) {
             $this->assertCount($sampleCount, $row);
         }
+
         // Transpose of the matrix
         array_unshift($matrix, null);
         $matrix = call_user_func_array('array_map', $matrix);

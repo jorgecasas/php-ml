@@ -21,7 +21,7 @@ class Sigmoid implements ActivationFunction
     /**
      * @param float|int $value
      */
-    public function compute($value) : float
+    public function compute($value): float
     {
         return 1 / (1 + exp(-$this->beta * $value));
     }

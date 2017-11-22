@@ -28,7 +28,7 @@ class Cluster extends Point implements IteratorAggregate, Countable
         $this->points = new SplObjectStorage();
     }
 
-    public function getPoints() : array
+    public function getPoints(): array
     {
         $points = [];
         foreach ($this->points as $point) {
@@ -38,7 +38,7 @@ class Cluster extends Point implements IteratorAggregate, Countable
         return $points;
     }
 
-    public function toArray() : array
+    public function toArray(): array
     {
         return [
             'centroid' => parent::toArray(),
@@ -46,7 +46,7 @@ class Cluster extends Point implements IteratorAggregate, Countable
         ];
     }
 
-    public function attach(Point $point) : Point
+    public function attach(Point $point): Point
     {
         if ($point instanceof self) {
             throw new LogicException('cannot attach a cluster to another');
@@ -57,7 +57,7 @@ class Cluster extends Point implements IteratorAggregate, Countable
         return $point;
     }
 
-    public function detach(Point $point) : Point
+    public function detach(Point $point): Point
     {
         $this->points->detach($point);
 
@@ -76,7 +76,8 @@ class Cluster extends Point implements IteratorAggregate, Countable
 
     public function updateCentroid(): void
     {
-        if (!$count = count($this->points)) {
+        $count = count($this->points);
+        if (!$count) {
             return;
         }
 

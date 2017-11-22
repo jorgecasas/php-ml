@@ -19,7 +19,7 @@ class EigenDecompositionTest extends TestCase
         // http://www.cs.otago.ac.nz/cosc453/student_tutorials/principal_components.pdf
         $matrix = [
             [0.616555556, 0.615444444],
-            [0.614444444, 0.716555556]
+            [0.614444444, 0.716555556],
         ];
         $knownEigvalues = [0.0490833989, 1.28402771];
         $knownEigvectors = [[-0.735178656, 0.677873399], [-0.677873399, -0.735178656]];
@@ -43,7 +43,7 @@ class EigenDecompositionTest extends TestCase
                 if ($i > $k) {
                     $A[$i][$k] = $A[$k][$i];
                 } else {
-                    $A[$i][$k] = rand(0, 10);
+                    $A[$i][$k] = random_int(0, 10);
                 }
             }
         }

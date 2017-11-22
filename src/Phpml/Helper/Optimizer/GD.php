@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Phpml\Helper\Optimizer;
 
+use Closure;
+
 /**
  * Batch version of Gradient Descent to optimize the weights
  * of a classifier given samples, targets and the objective function to minimize
@@ -17,7 +19,7 @@ class GD extends StochasticGD
      */
     protected $sampleCount = null;
 
-    public function runOptimization(array $samples, array $targets, \Closure $gradientCb) : array
+    public function runOptimization(array $samples, array $targets, Closure $gradientCb): array
     {
         $this->samples = $samples;
         $this->targets = $targets;
@@ -51,7 +53,7 @@ class GD extends StochasticGD
      * Calculates gradient, cost function and penalty term for each sample
      * then returns them as an array of values
      */
-    protected function gradient(array $theta) : array
+    protected function gradient(array $theta): array
     {
         $costs = [];
         $gradient = [];

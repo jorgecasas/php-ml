@@ -6,5 +6,5 @@ namespace Phpml\Tokenization;
 
 interface Tokenizer
 {
-    public function tokenize(string $text) : array;
+    public function tokenize(string $text): array;
 }

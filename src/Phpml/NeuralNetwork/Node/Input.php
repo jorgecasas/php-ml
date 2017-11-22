@@ -18,7 +18,7 @@ class Input implements Node
         $this->input = $input;
     }
 
-    public function getOutput() : float
+    public function getOutput(): float
     {
         return $this->input;
     }

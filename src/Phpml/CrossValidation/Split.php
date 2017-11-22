@@ -31,39 +31,40 @@ abstract class Split
 
     public function __construct(Dataset $dataset, float $testSize = 0.3, ?int $seed = null)
     {
-        if (0 >= $testSize || 1 <= $testSize) {
+        if ($testSize <= 0 || $testSize >= 1) {
             throw InvalidArgumentException::percentNotInRange('testSize');
         }
+
         $this->seedGenerator($seed);
 
         $this->splitDataset($dataset, $testSize);
     }
 
-    abstract protected function splitDataset(Dataset $dataset, float $testSize);
-
-    public function getTrainSamples() : array
+    public function getTrainSamples(): array
     {
         return $this->trainSamples;
     }
 
-    public function getTestSamples() : array
+    public function getTestSamples(): array
     {
         return $this->testSamples;
     }
 
-    public function getTrainLabels() : array
+    public function getTrainLabels(): array
     {
         return $this->trainLabels;
     }
 
-    public function getTestLabels() : array
+    public function getTestLabels(): array
     {
         return $this->testLabels;
     }
 
+    abstract protected function splitDataset(Dataset $dataset, float $testSize);
+
     protected function seedGenerator(?int $seed = null): void
     {
-        if (null === $seed) {
+        if ($seed === null) {
             mt_srand();
         } else {
             mt_srand($seed);

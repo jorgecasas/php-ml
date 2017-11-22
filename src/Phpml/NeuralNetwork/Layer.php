@@ -28,20 +28,6 @@ class Layer
         }
     }
 
-    /**
-     * @param ActivationFunction|null $activationFunction
-     *
-     * @return Neuron
-     */
-    private function createNode(string $nodeClass, ?ActivationFunction $activationFunction = null)
-    {
-        if (Neuron::class == $nodeClass) {
-            return new Neuron($activationFunction);
-        }
-
-        return new $nodeClass();
-    }
-
     public function addNode(Node $node): void
     {
         $this->nodes[] = $node;
@@ -50,8 +36,20 @@ class Layer
     /**
      * @return Node[]
      */
-    public function getNodes() : array
+    public function getNodes(): array
     {
         return $this->nodes;
+    }
+
+    /**
+     * @return Neuron
+     */
+    private function createNode(string $nodeClass, ?ActivationFunction $activationFunction = null): Node
+    {
+        if ($nodeClass == Neuron::class) {
+            return new Neuron($activationFunction);
+        }
+
+        return new $nodeClass();
     }
 }

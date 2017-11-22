@@ -72,7 +72,7 @@ class PipelineTest extends TestCase
     {
         $transformers = [
             new TokenCountVectorizer(new WordTokenizer()),
-            new TfIdfTransformer()
+            new TfIdfTransformer(),
         ];
 
         $estimator = new SVC();

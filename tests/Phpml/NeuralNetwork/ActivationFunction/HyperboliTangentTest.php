@@ -19,10 +19,7 @@ class HyperboliTangentTest extends TestCase
         $this->assertEquals($expected, $tanh->compute($value), '', 0.001);
     }
 
-    /**
-     * @return array
-     */
-    public function tanhProvider()
+    public function tanhProvider(): array
     {
         return [
             [1.0, 0.761, 1],

@@ -19,10 +19,7 @@ class GaussianTest extends TestCase
         $this->assertEquals($expected, $gaussian->compute($value), '', 0.001);
     }
 
-    /**
-     * @return array
-     */
-    public function gaussianProvider()
+    public function gaussianProvider(): array
     {
         return [
             [0.367, 1],

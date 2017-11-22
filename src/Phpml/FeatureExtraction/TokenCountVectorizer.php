@@ -27,21 +27,18 @@ class TokenCountVectorizer implements Transformer
     /**
      * @var array
      */
-    private $vocabulary;
+    private $vocabulary = [];
 
     /**
      * @var array
      */
-    private $frequencies;
+    private $frequencies = [];
 
     public function __construct(Tokenizer $tokenizer, ?StopWords $stopWords = null, float $minDF = 0.0)
     {
         $this->tokenizer = $tokenizer;
         $this->stopWords = $stopWords;
         $this->minDF = $minDF;
-
-        $this->vocabulary = [];
-        $this->frequencies = [];
     }
 
     public function fit(array $samples): void
@@ -58,7 +55,7 @@ class TokenCountVectorizer implements Transformer
         $this->checkDocumentFrequency($samples);
     }
 
-    public function getVocabulary() : array
+    public function getVocabulary(): array
     {
         return array_flip($this->vocabulary);
     }
@@ -80,7 +77,7 @@ class TokenCountVectorizer implements Transformer
 
         foreach ($tokens as $token) {
             $index = $this->getTokenIndex($token);
-            if (false !== $index) {
+            if ($index !== false) {
                 $this->updateFrequency($token);
                 if (!isset($counts[$index])) {
                     $counts[$index] = 0;
@@ -155,7 +152,7 @@ class TokenCountVectorizer implements Transformer
         }
     }
 
-    private function getBeyondMinimumIndexes(int $samplesCount) : array
+    private function getBeyondMinimumIndexes(int $samplesCount): array
     {
         $indexes = [];
         foreach ($this->frequencies as $token => $frequency) {

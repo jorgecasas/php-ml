@@ -23,6 +23,7 @@ class KMeansTest extends TestCase
                 unset($samples[$index]);
             }
         }
+
         $this->assertCount(0, $samples);
     }
 

@@ -11,7 +11,9 @@ use Phpml\Math\Statistic\StandardDeviation;
 class Normalizer implements Preprocessor
 {
     public const NORM_L1 = 1;
+
     public const NORM_L2 = 2;
+
     public const NORM_STD = 3;
 
     /**
@@ -27,12 +29,12 @@ class Normalizer implements Preprocessor
     /**
      * @var array
      */
-    private $std;
+    private $std = [];
 
     /**
      * @var array
      */
-    private $mean;
+    private $mean = [];
 
     /**
      * @throws NormalizerException
@@ -69,7 +71,7 @@ class Normalizer implements Preprocessor
         $methods = [
             self::NORM_L1 => 'normalizeL1',
             self::NORM_L2 => 'normalizeL2',
-            self::NORM_STD => 'normalizeSTD'
+            self::NORM_STD => 'normalizeSTD',
         ];
         $method = $methods[$this->norm];
 
@@ -87,7 +89,7 @@ class Normalizer implements Preprocessor
             $norm1 += abs($feature);
         }
 
-        if (0 == $norm1) {
+        if ($norm1 == 0) {
             $count = count($sample);
             $sample = array_fill(0, $count, 1.0 / $count);
         } else {
@@ -103,9 +105,10 @@ class Normalizer implements Preprocessor
         foreach ($sample as $feature) {
             $norm2 += $feature * $feature;
         }
+
         $norm2 = sqrt((float) $norm2);
 
-        if (0 == $norm2) {
+        if ($norm2 == 0) {
             $sample = array_fill(0, count($sample), 1);
         } else {
             foreach ($sample as &$feature) {

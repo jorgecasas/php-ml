@@ -11,19 +11,19 @@ class StopWords
     /**
      * @var array
      */
-    protected $stopWords;
+    protected $stopWords = [];
 
     public function __construct(array $stopWords)
     {
         $this->stopWords = array_fill_keys($stopWords, true);
     }
 
-    public function isStopWord(string $token) : bool
+    public function isStopWord(string $token): bool
     {
         return isset($this->stopWords[$token]);
     }
 
-    public static function factory(string $language = 'English') : StopWords
+    public static function factory(string $language = 'English'): self
     {
         $className = __NAMESPACE__."\\StopWords\\$language";
 

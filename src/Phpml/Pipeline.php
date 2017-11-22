@@ -9,7 +9,7 @@ class Pipeline implements Estimator
     /**
      * @var array|Transformer[]
      */
-    private $transformers;
+    private $transformers = [];
 
     /**
      * @var Estimator
@@ -41,7 +41,7 @@ class Pipeline implements Estimator
     /**
      * @return array|Transformer[]
      */
-    public function getTransformers() : array
+    public function getTransformers(): array
     {
         return $this->transformers;
     }

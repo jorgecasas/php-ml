@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpml\DimensionReduction;
 
+use Exception;
 use Phpml\Math\Statistic\Covariance;
 use Phpml\Math\Statistic\Mean;
 
@@ -35,18 +36,21 @@ class PCA extends EigenTransformerBase
     public function __construct(?float $totalVariance = null, ?int $numFeatures = null)
     {
         if ($totalVariance !== null && ($totalVariance < 0.1 || $totalVariance > 0.99)) {
-            throw new \Exception('Total variance can be a value between 0.1 and 0.99');
+            throw new Exception('Total variance can be a value between 0.1 and 0.99');
         }
+
         if ($numFeatures !== null && $numFeatures <= 0) {
-            throw new \Exception('Number of features to be preserved should be greater than 0');
+            throw new Exception('Number of features to be preserved should be greater than 0');
         }
+
         if ($totalVariance !== null && $numFeatures !== null) {
-            throw new \Exception('Either totalVariance or numFeatures should be specified in order to run the algorithm');
+            throw new Exception('Either totalVariance or numFeatures should be specified in order to run the algorithm');
         }
 
         if ($numFeatures !== null) {
             $this->numFeatures = $numFeatures;
         }
+
         if ($totalVariance !== null) {
             $this->totalVariance = $totalVariance;
         }
@@ -58,7 +62,7 @@ class PCA extends EigenTransformerBase
      * $data is an n-by-m matrix and returned array is
      * n-by-k matrix where k <= m
      */
-    public function fit(array $data) : array
+    public function fit(array $data): array
     {
         $n = count($data[0]);
 
@@ -71,6 +75,27 @@ class PCA extends EigenTransformerBase
         $this->fit = true;
 
         return $this->reduce($data);
+    }
+
+    /**
+     * Transforms the given sample to a lower dimensional vector by using
+     * the eigenVectors obtained in the last run of <code>fit</code>.
+     *
+     * @throws \Exception
+     */
+    public function transform(array $sample): array
+    {
+        if (!$this->fit) {
+            throw new Exception('PCA has not been fitted with respect to original dataset, please run PCA::fit() first');
+        }
+
+        if (!is_array($sample[0])) {
+            $sample = [$sample];
+        }
+
+        $sample = $this->normalize($sample, count($sample[0]));
+
+        return $this->reduce($sample);
     }
 
     protected function calculateMeans(array $data, int $n): void
@@ -87,7 +112,7 @@ class PCA extends EigenTransformerBase
      * Normalization of the data includes subtracting mean from
      * each dimension therefore dimensions will be centered to zero
      */
-    protected function normalize(array $data, int $n) : array
+    protected function normalize(array $data, int $n): array
     {
         if (empty($this->means)) {
             $this->calculateMeans($data, $n);
@@ -101,26 +126,5 @@ class PCA extends EigenTransformerBase
         }
 
         return $data;
-    }
-
-    /**
-     * Transforms the given sample to a lower dimensional vector by using
-     * the eigenVectors obtained in the last run of <code>fit</code>.
-     *
-     * @throws \Exception
-     */
-    public function transform(array $sample) : array
-    {
-        if (!$this->fit) {
-            throw new \Exception('PCA has not been fitted with respect to original dataset, please run PCA::fit() first');
-        }
-
-        if (!is_array($sample[0])) {
-            $sample = [$sample];
-        }
-
-        $sample = $this->normalize($sample, count($sample[0]));
-
-        return $this->reduce($sample);
     }
 }

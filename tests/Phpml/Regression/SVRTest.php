@@ -48,7 +48,7 @@ class SVRTest extends TestCase
         $testSamples = [64];
         $predicted = $regression->predict($testSamples);
 
-        $filename = 'svr-test'.rand(100, 999).'-'.uniqid();
+        $filename = 'svr-test'.random_int(100, 999).'-'.uniqid();
         $filepath = tempnam(sys_get_temp_dir(), $filename);
         $modelManager = new ModelManager();
         $modelManager->saveToFile($regression, $filepath);

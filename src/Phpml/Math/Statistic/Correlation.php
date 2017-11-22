@@ -14,7 +14,7 @@ class Correlation
      *
      * @throws InvalidArgumentException
      */
-    public static function pearson(array $x, array $y) : float
+    public static function pearson(array $x, array $y): float
     {
         if (count($x) !== count($y)) {
             throw InvalidArgumentException::arraySizeNotMatch();

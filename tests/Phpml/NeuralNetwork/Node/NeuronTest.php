@@ -8,6 +8,7 @@ use Phpml\NeuralNetwork\ActivationFunction\BinaryStep;
 use Phpml\NeuralNetwork\Node\Neuron;
 use Phpml\NeuralNetwork\Node\Neuron\Synapse;
 use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_MockObject_MockObject;
 
 class NeuronTest extends TestCase
 {
@@ -52,11 +53,9 @@ class NeuronTest extends TestCase
     }
 
     /**
-     * @param int $output
-     *
-     * @return Synapse|\PHPUnit_Framework_MockObject_MockObject
+     * @return Synapse|PHPUnit_Framework_MockObject_MockObject
      */
-    private function getSynapseMock($output = 2)
+    private function getSynapseMock(int $output = 2)
     {
         $synapse = $this->getMockBuilder(Synapse::class)->disableOriginalConstructor()->getMock();
         $synapse->method('getOutput')->willReturn($output);

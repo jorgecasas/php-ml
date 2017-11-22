@@ -47,6 +47,7 @@ class Backpropagation
                     }
                 }
             }
+
             $this->prevSigmas = $this->sigmas;
         }
 
@@ -55,7 +56,7 @@ class Backpropagation
         $this->prevSigmas = null;
     }
 
-    private function getSigma(Neuron $neuron, int $targetClass, int $key, bool $lastLayer) : float
+    private function getSigma(Neuron $neuron, int $targetClass, int $key, bool $lastLayer): float
     {
         $neuronOutput = $neuron->getOutput();
         $sigma = $neuronOutput * (1 - $neuronOutput);
@@ -65,6 +66,7 @@ class Backpropagation
             if ($targetClass === $key) {
                 $value = 1;
             }
+
             $sigma *= ($value - $neuronOutput);
         } else {
             $sigma *= $this->getPrevSigma($neuron);
@@ -75,7 +77,7 @@ class Backpropagation
         return $sigma;
     }
 
-    private function getPrevSigma(Neuron $neuron) : float
+    private function getPrevSigma(Neuron $neuron): float
     {
         $sigma = 0.0;
 

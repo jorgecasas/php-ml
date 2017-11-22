@@ -26,7 +26,7 @@ class BaggingTest extends TestCase
         ['sunny',       75,    70,    'true',     'Play'],
         ['overcast',    72,    90,    'true',     'Play'],
         ['overcast',    81,    75,    'false',    'Play'],
-        ['rain',        71,    80,    'true',     'Dont_play']
+        ['rain',        71,    80,    'true',     'Dont_play'],
     ];
 
     private $extraData = [
@@ -61,7 +61,7 @@ class BaggingTest extends TestCase
         $testSamples = [['sunny', 78, 72, 'false'], ['overcast', 60, 60, 'false']];
         $predicted = $classifier->predict($testSamples);
 
-        $filename = 'bagging-test-'.rand(100, 999).'-'.uniqid();
+        $filename = 'bagging-test-'.random_int(100, 999).'-'.uniqid();
         $filepath = tempnam(sys_get_temp_dir(), $filename);
         $modelManager = new ModelManager();
         $modelManager->saveToFile($classifier, $filepath);
@@ -105,7 +105,7 @@ class BaggingTest extends TestCase
     {
         return [
             DecisionTree::class => ['depth' => 5],
-            NaiveBayes::class => []
+            NaiveBayes::class => [],
         ];
     }
 
@@ -117,6 +117,7 @@ class BaggingTest extends TestCase
         for ($i = 0; $i < 20; ++$i) {
             $populated = array_merge($populated, $input);
         }
+
         shuffle($populated);
         $targets = array_column($populated, 4);
         array_walk($populated, function (&$v): void {

@@ -9,6 +9,7 @@ use Phpml\Preprocessing\Imputer\Strategy;
 class Imputer implements Preprocessor
 {
     public const AXIS_COLUMN = 0;
+
     public const AXIS_ROW = 1;
 
     /**
@@ -64,9 +65,9 @@ class Imputer implements Preprocessor
         }
     }
 
-    private function getAxis(int $column, array $currentSample) : array
+    private function getAxis(int $column, array $currentSample): array
     {
-        if (self::AXIS_ROW === $this->axis) {
+        if ($this->axis === self::AXIS_ROW) {
             return array_diff($currentSample, [$this->missingValue]);
         }
 

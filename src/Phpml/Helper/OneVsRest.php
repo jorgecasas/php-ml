@@ -36,6 +36,18 @@ trait OneVsRest
         $this->trainBylabel($samples, $targets);
     }
 
+    /**
+     * Resets the classifier and the vars internally used by OneVsRest to create multiple classifiers.
+     */
+    public function reset(): void
+    {
+        $this->classifiers = [];
+        $this->allLabels = [];
+        $this->costValues = [];
+
+        $this->resetBinary();
+    }
+
     protected function trainByLabel(array $samples, array $targets, array $allLabels = []): void
     {
         // Overwrites the current value if it exist. $allLabels must be provided for each partialTrain run.
@@ -44,6 +56,7 @@ trait OneVsRest
         } else {
             $this->allLabels = array_keys(array_count_values($targets));
         }
+
         sort($this->allLabels, SORT_STRING);
 
         // If there are only two targets, then there is no need to perform OvR
@@ -78,18 +91,6 @@ trait OneVsRest
     }
 
     /**
-     * Resets the classifier and the vars internally used by OneVsRest to create multiple classifiers.
-     */
-    public function reset(): void
-    {
-        $this->classifiers = [];
-        $this->allLabels = [];
-        $this->costValues = [];
-
-        $this->resetBinary();
-    }
-
-    /**
      * Returns an instance of the current class after cleaning up OneVsRest stuff.
      *
      * @return Classifier|OneVsRest
@@ -103,29 +104,6 @@ trait OneVsRest
         $classifier->reset();
 
         return $classifier;
-    }
-
-    /**
-     * Groups all targets into two groups: Targets equal to
-     * the given label and the others
-     *
-     * $targets is not passed by reference nor contains objects so this method
-     * changes will not affect the caller $targets array.
-     *
-     * @param mixed $label
-     *
-     * @return array Binarized targets and target's labels
-     */
-    private function binarizeTargets(array $targets, $label) : array
-    {
-        $notLabel = "not_$label";
-        foreach ($targets as $key => $target) {
-            $targets[$key] = $target == $label ? $label : $notLabel;
-        }
-
-        $labels = [$label, $notLabel];
-
-        return [$targets, $labels];
     }
 
     /**
@@ -155,8 +133,6 @@ trait OneVsRest
 
     /**
      * To be overwritten by OneVsRest classifiers.
-     *
-     * @return void
      */
     abstract protected function resetBinary(): void;
 
@@ -174,4 +150,27 @@ trait OneVsRest
      * @return mixed
      */
     abstract protected function predictSampleBinary(array $sample);
+
+    /**
+     * Groups all targets into two groups: Targets equal to
+     * the given label and the others
+     *
+     * $targets is not passed by reference nor contains objects so this method
+     * changes will not affect the caller $targets array.
+     *
+     * @param mixed $label
+     *
+     * @return array Binarized targets and target's labels
+     */
+    private function binarizeTargets(array $targets, $label): array
+    {
+        $notLabel = "not_$label";
+        foreach ($targets as $key => $target) {
+            $targets[$key] = $target == $label ? $label : $notLabel;
+        }
+
+        $labels = [$label, $notLabel];
+
+        return [$targets, $labels];
+    }
 }

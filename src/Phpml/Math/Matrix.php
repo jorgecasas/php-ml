@@ -13,7 +13,7 @@ class Matrix
     /**
      * @var array
      */
-    private $matrix;
+    private $matrix = [];
 
     /**
      * @var int
@@ -56,7 +56,7 @@ class Matrix
         $this->matrix = $matrix;
     }
 
-    public static function fromFlatArray(array $array) : Matrix
+    public static function fromFlatArray(array $array): self
     {
         $matrix = [];
         foreach ($array as $value) {
@@ -66,12 +66,12 @@ class Matrix
         return new self($matrix);
     }
 
-    public function toArray() : array
+    public function toArray(): array
     {
         return $this->matrix;
     }
 
-    public function toScalar() : float
+    public function toScalar(): float
     {
         return $this->matrix[0][0];
     }
@@ -89,7 +89,7 @@ class Matrix
     /**
      * @throws MatrixException
      */
-    public function getColumnValues($column) : array
+    public function getColumnValues($column): array
     {
         if ($column >= $this->columns) {
             throw MatrixException::columnOutOfRange();
@@ -123,7 +123,7 @@ class Matrix
         return $this->columns === $this->rows;
     }
 
-    public function transpose() : Matrix
+    public function transpose(): self
     {
         if ($this->rows == 1) {
             $matrix = array_map(function ($el) {
@@ -136,7 +136,7 @@ class Matrix
         return new self($matrix, false);
     }
 
-    public function multiply(Matrix $matrix) : Matrix
+    public function multiply(self $matrix): self
     {
         if ($this->columns != $matrix->getRows()) {
             throw InvalidArgumentException::inconsistentMatrixSupplied();
@@ -157,7 +157,7 @@ class Matrix
         return new self($product, false);
     }
 
-    public function divideByScalar($value) : Matrix
+    public function divideByScalar($value): self
     {
         $newMatrix = [];
         for ($i = 0; $i < $this->rows; ++$i) {
@@ -169,7 +169,7 @@ class Matrix
         return new self($newMatrix, false);
     }
 
-    public function multiplyByScalar($value) : Matrix
+    public function multiplyByScalar($value): self
     {
         $newMatrix = [];
         for ($i = 0; $i < $this->rows; ++$i) {
@@ -184,7 +184,7 @@ class Matrix
     /**
      * Element-wise addition of the matrix with another one
      */
-    public function add(Matrix $other) : Matrix
+    public function add(self $other): self
     {
         return $this->_add($other);
     }
@@ -192,15 +192,74 @@ class Matrix
     /**
      * Element-wise subtracting of another matrix from this one
      */
-    public function subtract(Matrix $other) : Matrix
+    public function subtract(self $other): self
     {
         return $this->_add($other, -1);
+    }
+
+    public function inverse(): self
+    {
+        if (!$this->isSquare()) {
+            throw MatrixException::notSquareMatrix();
+        }
+
+        $LU = new LUDecomposition($this);
+        $identity = $this->getIdentity();
+        $inverse = $LU->solve($identity);
+
+        return new self($inverse, false);
+    }
+
+    public function crossOut(int $row, int $column): self
+    {
+        $newMatrix = [];
+        $r = 0;
+        for ($i = 0; $i < $this->rows; ++$i) {
+            $c = 0;
+            if ($row != $i) {
+                for ($j = 0; $j < $this->columns; ++$j) {
+                    if ($column != $j) {
+                        $newMatrix[$r][$c] = $this->matrix[$i][$j];
+                        ++$c;
+                    }
+                }
+
+                ++$r;
+            }
+        }
+
+        return new self($newMatrix, false);
+    }
+
+    public function isSingular(): bool
+    {
+        return $this->getDeterminant() == 0;
+    }
+
+    /**
+     * Returns the transpose of given array
+     */
+    public static function transposeArray(array $array): array
+    {
+        return (new self($array, false))->transpose()->toArray();
+    }
+
+    /**
+     * Returns the dot product of two arrays<br>
+     * Matrix::dot(x, y) ==> x.y'
+     */
+    public static function dot(array $array1, array $array2): array
+    {
+        $m1 = new self($array1, false);
+        $m2 = new self($array2, false);
+
+        return $m1->multiply($m2->transpose())->toArray()[0];
     }
 
     /**
      * Element-wise addition or substraction depending on the given sign parameter
      */
-    protected function _add(Matrix $other, int $sign = 1) : Matrix
+    protected function _add(self $other, int $sign = 1): self
     {
         $a1 = $this->toArray();
         $a2 = $other->toArray();
@@ -215,23 +274,10 @@ class Matrix
         return new self($newMatrix, false);
     }
 
-    public function inverse() : Matrix
-    {
-        if (!$this->isSquare()) {
-            throw MatrixException::notSquareMatrix();
-        }
-
-        $LU = new LUDecomposition($this);
-        $identity = $this->getIdentity();
-        $inverse = $LU->solve($identity);
-
-        return new self($inverse, false);
-    }
-
     /**
      * Returns diagonal identity matrix of the same size of this matrix
      */
-    protected function getIdentity() : Matrix
+    protected function getIdentity(): self
     {
         $array = array_fill(0, $this->rows, array_fill(0, $this->columns, 0));
         for ($i = 0; $i < $this->rows; ++$i) {
@@ -239,50 +285,5 @@ class Matrix
         }
 
         return new self($array, false);
-    }
-
-    public function crossOut(int $row, int $column) : Matrix
-    {
-        $newMatrix = [];
-        $r = 0;
-        for ($i = 0; $i < $this->rows; ++$i) {
-            $c = 0;
-            if ($row != $i) {
-                for ($j = 0; $j < $this->columns; ++$j) {
-                    if ($column != $j) {
-                        $newMatrix[$r][$c] = $this->matrix[$i][$j];
-                        ++$c;
-                    }
-                }
-                ++$r;
-            }
-        }
-
-        return new self($newMatrix, false);
-    }
-
-    public function isSingular() : bool
-    {
-        return 0 == $this->getDeterminant();
-    }
-
-    /**
-     * Returns the transpose of given array
-     */
-    public static function transposeArray(array $array) : array
-    {
-        return (new self($array, false))->transpose()->toArray();
-    }
-
-    /**
-     * Returns the dot product of two arrays<br>
-     * Matrix::dot(x, y) ==> x.y'
-     */
-    public static function dot(array $array1, array $array2) : array
-    {
-        $m1 = new self($array1, false);
-        $m2 = new self($array2, false);
-
-        return $m1->multiply($m2->transpose())->toArray()[0];
     }
 }

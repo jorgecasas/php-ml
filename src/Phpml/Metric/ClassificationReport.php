@@ -51,27 +51,27 @@ class ClassificationReport
         $this->computeAverage();
     }
 
-    public function getPrecision() : array
+    public function getPrecision(): array
     {
         return $this->precision;
     }
 
-    public function getRecall() : array
+    public function getRecall(): array
     {
         return $this->recall;
     }
 
-    public function getF1score() : array
+    public function getF1score(): array
     {
         return $this->f1score;
     }
 
-    public function getSupport() : array
+    public function getSupport(): array
     {
         return $this->support;
     }
 
-    public function getAverage() : array
+    public function getAverage(): array
     {
         return $this->average;
     }
@@ -93,6 +93,7 @@ class ClassificationReport
                 $this->average[$metric] = 0.0;
                 continue;
             }
+
             $this->average[$metric] = array_sum($values) / count($values);
         }
     }
@@ -102,7 +103,8 @@ class ClassificationReport
      */
     private function computePrecision(int $truePositive, int $falsePositive)
     {
-        if (0 == ($divider = $truePositive + $falsePositive)) {
+        $divider = $truePositive + $falsePositive;
+        if ($divider == 0) {
             return 0.0;
         }
 
@@ -114,23 +116,25 @@ class ClassificationReport
      */
     private function computeRecall(int $truePositive, int $falseNegative)
     {
-        if (0 == ($divider = $truePositive + $falseNegative)) {
+        $divider = $truePositive + $falseNegative;
+        if ($divider == 0) {
             return 0.0;
         }
 
         return $truePositive / $divider;
     }
 
-    private function computeF1Score(float $precision, float $recall) : float
+    private function computeF1Score(float $precision, float $recall): float
     {
-        if (0 == ($divider = $precision + $recall)) {
+        $divider = $precision + $recall;
+        if ($divider == 0) {
             return 0.0;
         }
 
         return 2.0 * (($precision * $recall) / $divider);
     }
 
-    private static function getLabelIndexedArray(array $actualLabels, array $predictedLabels) : array
+    private static function getLabelIndexedArray(array $actualLabels, array $predictedLabels): array
     {
         $labels = array_values(array_unique(array_merge($actualLabels, $predictedLabels)));
         sort($labels);

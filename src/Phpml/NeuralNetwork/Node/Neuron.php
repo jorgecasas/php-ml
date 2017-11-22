@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Phpml\NeuralNetwork\Node;
 
 use Phpml\NeuralNetwork\ActivationFunction;
+use Phpml\NeuralNetwork\ActivationFunction\Sigmoid;
 use Phpml\NeuralNetwork\Node;
 use Phpml\NeuralNetwork\Node\Neuron\Synapse;
 
@@ -13,7 +14,7 @@ class Neuron implements Node
     /**
      * @var Synapse[]
      */
-    protected $synapses;
+    protected $synapses = [];
 
     /**
      * @var ActivationFunction
@@ -27,7 +28,7 @@ class Neuron implements Node
 
     public function __construct(?ActivationFunction $activationFunction = null)
     {
-        $this->activationFunction = $activationFunction ?: new ActivationFunction\Sigmoid();
+        $this->activationFunction = $activationFunction ?: new Sigmoid();
         $this->synapses = [];
         $this->output = 0;
     }
@@ -45,9 +46,9 @@ class Neuron implements Node
         return $this->synapses;
     }
 
-    public function getOutput() : float
+    public function getOutput(): float
     {
-        if (0 === $this->output) {
+        if ($this->output === 0) {
             $sum = 0;
             foreach ($this->synapses as $synapse) {
                 $sum += $synapse->getOutput();

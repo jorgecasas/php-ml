@@ -6,5 +6,5 @@ namespace Phpml\NeuralNetwork;
 
 interface Node
 {
-    public function getOutput() : float;
+    public function getOutput(): float;
 }

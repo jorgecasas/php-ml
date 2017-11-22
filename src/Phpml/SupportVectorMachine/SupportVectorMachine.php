@@ -167,7 +167,7 @@ class SupportVectorMachine
     }
 
     /**
-     * @return array
+     * @return array|string
      */
     public function predict(array $samples)
     {

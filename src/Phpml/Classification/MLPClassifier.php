@@ -14,7 +14,7 @@ class MLPClassifier extends MultilayerPerceptron implements Classifier
      *
      * @throws InvalidArgumentException
      */
-    public function getTargetClass($target) : int
+    public function getTargetClass($target): int
     {
         if (!in_array($target, $this->classes)) {
             throw InvalidArgumentException::invalidTarget($target);

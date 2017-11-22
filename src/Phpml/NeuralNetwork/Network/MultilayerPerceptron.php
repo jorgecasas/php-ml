@@ -21,24 +21,9 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
     use Predictable;
 
     /**
-     * @var int
-     */
-    private $inputLayerFeatures;
-
-    /**
-     * @var array
-     */
-    private $hiddenLayers;
-
-    /**
      * @var array
      */
     protected $classes = [];
-
-    /**
-     * @var int
-     */
-    private $iterations;
 
     /**
      * @var ActivationFunction
@@ -46,14 +31,24 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
     protected $activationFunction;
 
     /**
-     * @var float
-     */
-    private $learningRate;
-
-    /**
      * @var Backpropagation
      */
     protected $backpropagation = null;
+
+    /**
+     * @var int
+     */
+    private $inputLayerFeatures;
+
+    /**
+     * @var array
+     */
+    private $hiddenLayers = [];
+
+    /**
+     * @var float
+     */
+    private $learningRate;
 
     /**
      * @throws InvalidArgumentException
@@ -76,18 +71,6 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
         $this->learningRate = $learningRate;
 
         $this->initNetwork();
-    }
-
-    private function initNetwork(): void
-    {
-        $this->addInputLayer($this->inputLayerFeatures);
-        $this->addNeuronLayers($this->hiddenLayers, $this->activationFunction);
-        $this->addNeuronLayers([count($this->classes)], $this->activationFunction);
-
-        $this->addBiasNodes();
-        $this->generateSynapses();
-
-        $this->backpropagation = new Backpropagation($this->learningRate);
     }
 
     public function train(array $samples, array $targets): void
@@ -125,6 +108,18 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
     protected function reset(): void
     {
         $this->removeLayers();
+    }
+
+    private function initNetwork(): void
+    {
+        $this->addInputLayer($this->inputLayerFeatures);
+        $this->addNeuronLayers($this->hiddenLayers, $this->activationFunction);
+        $this->addNeuronLayers([count($this->classes)], $this->activationFunction);
+
+        $this->addBiasNodes();
+        $this->generateSynapses();
+
+        $this->backpropagation = new Backpropagation($this->learningRate);
     }
 
     private function addInputLayer(int $nodes): void

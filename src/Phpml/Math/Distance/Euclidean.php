@@ -12,7 +12,7 @@ class Euclidean implements Distance
     /**
      * @throws InvalidArgumentException
      */
-    public function distance(array $a, array $b) : float
+    public function distance(array $a, array $b): float
     {
         if (count($a) !== count($b)) {
             throw InvalidArgumentException::arraySizeNotMatch();
@@ -30,7 +30,7 @@ class Euclidean implements Distance
     /**
      * Square of Euclidean distance
      */
-    public function sqDistance(array $a, array $b) : float
+    public function sqDistance(array $a, array $b): float
     {
         return $this->distance($a, $b) ** 2;
     }

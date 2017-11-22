@@ -34,7 +34,7 @@ class DataTransformer
         return $set;
     }
 
-    public static function predictions(string $rawPredictions, array $labels) : array
+    public static function predictions(string $rawPredictions, array $labels): array
     {
         $numericLabels = self::numericLabels($labels);
         $results = [];
@@ -47,7 +47,7 @@ class DataTransformer
         return $results;
     }
 
-    public static function numericLabels(array $labels) : array
+    public static function numericLabels(array $labels): array
     {
         $numericLabels = [];
         foreach ($labels as $label) {

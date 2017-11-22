@@ -150,7 +150,7 @@ class MLPClassifierTest extends TestCase
         $testSamples = [[0, 0], [1, 0], [0, 1], [1, 1]];
         $predicted = $classifier->predict($testSamples);
 
-        $filename = 'perceptron-test-'.rand(100, 999).'-'.uniqid();
+        $filename = 'perceptron-test-'.random_int(100, 999).'-'.uniqid();
         $filepath = tempnam(sys_get_temp_dir(), $filename);
         $modelManager = new ModelManager();
         $modelManager->saveToFile($classifier, $filepath);
@@ -189,7 +189,7 @@ class MLPClassifierTest extends TestCase
         new MLPClassifier(2, [2], [0]);
     }
 
-    private function getSynapsesNodes(array $synapses) : array
+    private function getSynapsesNodes(array $synapses): array
     {
         $nodes = [];
         foreach ($synapses as $synapse) {

@@ -52,7 +52,7 @@ class AdaBoostTest extends TestCase
         $testSamples = [[0, 1], [1, 1], [0.2, 0.1]];
         $predicted = $classifier->predict($testSamples);
 
-        $filename = 'adaboost-test-'.rand(100, 999).'-'.uniqid();
+        $filename = 'adaboost-test-'.random_int(100, 999).'-'.uniqid();
         $filepath = tempnam(sys_get_temp_dir(), $filename);
         $modelManager = new ModelManager();
         $modelManager->saveToFile($classifier, $filepath);

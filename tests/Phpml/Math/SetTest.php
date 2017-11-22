@@ -13,7 +13,7 @@ class SetTest extends TestCase
     {
         $union = Set::union(new Set([3, 1]), new Set([3, 2, 2]));
 
-        $this->assertInstanceOf('\Phpml\Math\Set', $union);
+        $this->assertInstanceOf(Set::class, $union);
         $this->assertEquals(new Set([1, 2, 3]), $union);
         $this->assertEquals(3, $union->cardinality());
     }
@@ -22,7 +22,7 @@ class SetTest extends TestCase
     {
         $intersection = Set::intersection(new Set(['C', 'A']), new Set(['B', 'C']));
 
-        $this->assertInstanceOf('\Phpml\Math\Set', $intersection);
+        $this->assertInstanceOf(Set::class, $intersection);
         $this->assertEquals(new Set(['C']), $intersection);
         $this->assertEquals(1, $intersection->cardinality());
     }
@@ -31,7 +31,7 @@ class SetTest extends TestCase
     {
         $difference = Set::difference(new Set(['C', 'A', 'B']), new Set(['A']));
 
-        $this->assertInstanceOf('\Phpml\Math\Set', $difference);
+        $this->assertInstanceOf(Set::class, $difference);
         $this->assertEquals(new Set(['B', 'C']), $difference);
         $this->assertEquals(2, $difference->cardinality());
     }

@@ -9,5 +9,5 @@ interface ActivationFunction
     /**
      * @param float|int $value
      */
-    public function compute($value) : float;
+    public function compute($value): float;
 }

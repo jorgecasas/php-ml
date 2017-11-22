@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Phpml\Classification\Ensemble;
 
+use Exception;
+use Phpml\Classification\Classifier;
 use Phpml\Classification\DecisionTree;
 
 class RandomForest extends Bagging
@@ -48,11 +50,11 @@ class RandomForest extends Bagging
     public function setFeatureSubsetRatio($ratio)
     {
         if (is_float($ratio) && ($ratio < 0.1 || $ratio > 1.0)) {
-            throw new \Exception('When a float given, feature subset ratio should be between 0.1 and 1.0');
+            throw new Exception('When a float given, feature subset ratio should be between 0.1 and 1.0');
         }
 
         if (is_string($ratio) && $ratio != 'sqrt' && $ratio != 'log') {
-            throw new \Exception("When a string given, feature subset ratio can only be 'sqrt' or 'log' ");
+            throw new Exception("When a string given, feature subset ratio can only be 'sqrt' or 'log' ");
         }
 
         $this->featureSubsetRatio = $ratio;
@@ -70,7 +72,7 @@ class RandomForest extends Bagging
     public function setClassifer(string $classifier, array $classifierOptions = [])
     {
         if ($classifier != DecisionTree::class) {
-            throw new \Exception('RandomForest can only use DecisionTree as base classifier');
+            throw new Exception('RandomForest can only use DecisionTree as base classifier');
         }
 
         return parent::setClassifer($classifier, $classifierOptions);
@@ -81,7 +83,7 @@ class RandomForest extends Bagging
      * each column in the given dataset. Importance values for a column
      * is the average importance of that column in all trees in the forest
      */
-    public function getFeatureImportances() : array
+    public function getFeatureImportances(): array
     {
         // Traverse each tree and sum importance of the columns
         $sum = [];
@@ -127,7 +129,7 @@ class RandomForest extends Bagging
      *
      * @return DecisionTree
      */
-    protected function initSingleClassifier($classifier)
+    protected function initSingleClassifier(Classifier $classifier): Classifier
     {
         if (is_float($this->featureSubsetRatio)) {
             $featureCount = (int) ($this->featureSubsetRatio * $this->featureCount);

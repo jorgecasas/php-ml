@@ -27,12 +27,7 @@ class Synapse
         $this->weight = $weight ?: $this->generateRandomWeight();
     }
 
-    protected function generateRandomWeight() : float
-    {
-        return 1 / random_int(5, 25) * (random_int(0, 1) ? -1 : 1);
-    }
-
-    public function getOutput() : float
+    public function getOutput(): float
     {
         return $this->weight * $this->node->getOutput();
     }
@@ -42,7 +37,7 @@ class Synapse
         $this->weight += $delta;
     }
 
-    public function getWeight() : float
+    public function getWeight(): float
     {
         return $this->weight;
     }
@@ -50,5 +45,10 @@ class Synapse
     public function getNode(): Node
     {
         return $this->node;
+    }
+
+    protected function generateRandomWeight(): float
+    {
+        return 1 / random_int(5, 25) * (random_int(0, 1) ? -1 : 1);
     }
 }

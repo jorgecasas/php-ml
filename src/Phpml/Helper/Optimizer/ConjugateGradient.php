@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Phpml\Helper\Optimizer;
 
+use Closure;
+
 /**
  * Conjugate Gradient method to solve a non-linear f(x) with respect to unknown x
  * See https://en.wikipedia.org/wiki/Nonlinear_conjugate_gradient_method)
@@ -17,7 +19,7 @@ namespace Phpml\Helper\Optimizer;
  */
 class ConjugateGradient extends GD
 {
-    public function runOptimization(array $samples, array $targets, \Closure $gradientCb) : array
+    public function runOptimization(array $samples, array $targets, Closure $gradientCb): array
     {
         $this->samples = $samples;
         $this->targets = $targets;
@@ -25,7 +27,7 @@ class ConjugateGradient extends GD
         $this->sampleCount = count($samples);
         $this->costValues = [];
 
-        $d = mp::muls($this->gradient($this->theta), -1);
+        $d = MP::muls($this->gradient($this->theta), -1);
 
         for ($i = 0; $i < $this->maxIterations; ++$i) {
             // Obtain α that minimizes f(θ + α.d)
@@ -59,7 +61,7 @@ class ConjugateGradient extends GD
      * Executes the callback function for the problem and returns
      * sum of the gradient for all samples & targets.
      */
-    protected function gradient(array $theta) : array
+    protected function gradient(array $theta): array
     {
         [, $gradient] = parent::gradient($theta);
 
@@ -69,7 +71,7 @@ class ConjugateGradient extends GD
     /**
      * Returns the value of f(x) for given solution
      */
-    protected function cost(array $theta) : float
+    protected function cost(array $theta): float
     {
         [$cost] = parent::gradient($theta);
 
@@ -90,14 +92,14 @@ class ConjugateGradient extends GD
      *		b-1) If cost function decreases, continue enlarging alpha
      *		b-2) If cost function increases, take the midpoint and try again
      */
-    protected function getAlpha(float $d) : float
+    protected function getAlpha(float $d): float
     {
         $small = 0.0001 * $d;
         $large = 0.01 * $d;
 
         // Obtain θ + α.d for two initial values, x0 and x1
-        $x0 = mp::adds($this->theta, $small);
-        $x1 = mp::adds($this->theta, $large);
+        $x0 = MP::adds($this->theta, $small);
+        $x1 = MP::adds($this->theta, $large);
 
         $epsilon = 0.0001;
         $iteration = 0;
@@ -113,9 +115,9 @@ class ConjugateGradient extends GD
 
             if ($fx1 < $fx0) {
                 $x0 = $x1;
-                $x1 = mp::adds($x1, 0.01); // Enlarge second
+                $x1 = MP::adds($x1, 0.01); // Enlarge second
             } else {
-                $x1 = mp::divs(mp::add($x1, $x0), 2.0);
+                $x1 = MP::divs(MP::add($x1, $x0), 2.0);
             } // Get to the midpoint
 
             $error = $fx1 / $this->dimensions;
@@ -135,7 +137,7 @@ class ConjugateGradient extends GD
      *
      * θ(k+1) = θ(k) + α.d
      */
-    protected function getNewTheta(float $alpha, array $d) : array
+    protected function getNewTheta(float $alpha, array $d): array
     {
         $theta = $this->theta;
 
@@ -164,7 +166,7 @@ class ConjugateGradient extends GD
      * See:
      *  R. Fletcher and C. M. Reeves, "Function minimization by conjugate gradients", Comput. J. 7 (1964), 149–154.
      */
-    protected function getBeta(array $newTheta) : float
+    protected function getBeta(array $newTheta): float
     {
         $dNew = array_sum($this->gradient($newTheta));
         $dOld = array_sum($this->gradient($this->theta)) + 1e-100;
@@ -177,11 +179,11 @@ class ConjugateGradient extends GD
      *
      * d(k+1) =–∇f(x(k+1)) + β(k).d(k)
      */
-    protected function getNewDirection(array $theta, float $beta, array $d) : array
+    protected function getNewDirection(array $theta, float $beta, array $d): array
     {
         $grad = $this->gradient($theta);
 
-        return mp::add(mp::muls($grad, -1), mp::muls($d, $beta));
+        return MP::add(MP::muls($grad, -1), MP::muls($d, $beta));
     }
 }
 
@@ -189,12 +191,12 @@ class ConjugateGradient extends GD
  * Handles element-wise vector operations between vector-vector
  * and vector-scalar variables
  */
-class mp
+class MP
 {
     /**
      * Element-wise <b>multiplication</b> of two vectors of the same size
      */
-    public static function mul(array $m1, array $m2) : array
+    public static function mul(array $m1, array $m2): array
     {
         $res = [];
         foreach ($m1 as $i => $val) {
@@ -207,7 +209,7 @@ class mp
     /**
      * Element-wise <b>division</b> of two vectors of the same size
      */
-    public static function div(array $m1, array $m2) : array
+    public static function div(array $m1, array $m2): array
     {
         $res = [];
         foreach ($m1 as $i => $val) {
@@ -220,7 +222,7 @@ class mp
     /**
      * Element-wise <b>addition</b> of two vectors of the same size
      */
-    public static function add(array $m1, array $m2, int $mag = 1) : array
+    public static function add(array $m1, array $m2, int $mag = 1): array
     {
         $res = [];
         foreach ($m1 as $i => $val) {
@@ -233,7 +235,7 @@ class mp
     /**
      * Element-wise <b>subtraction</b> of two vectors of the same size
      */
-    public static function sub(array $m1, array $m2) : array
+    public static function sub(array $m1, array $m2): array
     {
         return self::add($m1, $m2, -1);
     }
@@ -241,7 +243,7 @@ class mp
     /**
      * Element-wise <b>multiplication</b> of a vector with a scalar
      */
-    public static function muls(array $m1, float $m2) : array
+    public static function muls(array $m1, float $m2): array
     {
         $res = [];
         foreach ($m1 as $val) {
@@ -254,7 +256,7 @@ class mp
     /**
      * Element-wise <b>division</b> of a vector with a scalar
      */
-    public static function divs(array $m1, float $m2) : array
+    public static function divs(array $m1, float $m2): array
     {
         $res = [];
         foreach ($m1 as $val) {
@@ -267,7 +269,7 @@ class mp
     /**
      * Element-wise <b>addition</b> of a vector with a scalar
      */
-    public static function adds(array $m1, float $m2, int $mag = 1) : array
+    public static function adds(array $m1, float $m2, int $mag = 1): array
     {
         $res = [];
         foreach ($m1 as $val) {
@@ -280,7 +282,7 @@ class mp
     /**
      * Element-wise <b>subtraction</b> of a vector with a scalar
      */
-    public static function subs(array $m1, float $m2) : array
+    public static function subs(array $m1, float $m2): array
     {
         return self::adds($m1, $m2, -1);
     }

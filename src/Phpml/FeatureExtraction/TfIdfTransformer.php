@@ -11,7 +11,7 @@ class TfIdfTransformer implements Transformer
     /**
      * @var array
      */
-    private $idf;
+    private $idf = [];
 
     public function __construct(?array $samples = null)
     {

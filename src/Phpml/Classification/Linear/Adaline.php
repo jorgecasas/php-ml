@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Phpml\Classification\Linear;
 
+use Exception;
+
 class Adaline extends Perceptron
 {
     /**
@@ -41,7 +43,7 @@ class Adaline extends Perceptron
         int $trainingType = self::BATCH_TRAINING
     ) {
         if (!in_array($trainingType, [self::BATCH_TRAINING, self::ONLINE_TRAINING])) {
-            throw new \Exception('Adaline can only be trained with batch and online/stochastic gradient descent algorithm');
+            throw new Exception('Adaline can only be trained with batch and online/stochastic gradient descent algorithm');
         }
 
         $this->trainingType = $trainingType;

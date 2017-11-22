@@ -16,7 +16,7 @@ class Point implements ArrayAccess
     /**
      * @var array
      */
-    protected $coordinates;
+    protected $coordinates = [];
 
     public function __construct(array $coordinates)
     {
@@ -24,7 +24,7 @@ class Point implements ArrayAccess
         $this->coordinates = $coordinates;
     }
 
-    public function toArray() : array
+    public function toArray(): array
     {
         return $this->coordinates;
     }
@@ -66,7 +66,7 @@ class Point implements ArrayAccess
         return $minPoint;
     }
 
-    public function getCoordinates() : array
+    public function getCoordinates(): array
     {
         return $this->coordinates;
     }

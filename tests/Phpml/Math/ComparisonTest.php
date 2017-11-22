@@ -23,18 +23,15 @@ class ComparisonTest extends TestCase
     }
 
     /**
-    * @expectedException \Phpml\Exception\InvalidArgumentException
-    * @expectedExceptionMessage Invalid operator "~=" provided
-    */
+     * @expectedException \Phpml\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Invalid operator "~=" provided
+     */
     public function testThrowExceptionWhenOperatorIsInvalid(): void
     {
         Comparison::compare(1, 1, '~=');
     }
 
-    /**
-     * @return array
-     */
-    public function provideData()
+    public function provideData(): array
     {
         return [
             // Greater

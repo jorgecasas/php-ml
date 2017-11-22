@@ -11,7 +11,7 @@ class BinaryStep implements ActivationFunction
     /**
      * @param float|int $value
      */
-    public function compute($value) : float
+    public function compute($value): float
     {
         return $value >= 0 ? 1.0 : 0.0;
     }

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * @package JAMA
  *
@@ -90,6 +91,7 @@ class LUDecomposition
         for ($i = 0; $i < $this->m; ++$i) {
             $this->piv[$i] = $i;
         }
+
         $this->pivsign = 1;
         $LUcolj = [];
 
@@ -99,6 +101,7 @@ class LUDecomposition
             for ($i = 0; $i < $this->m; ++$i) {
                 $LUcolj[$i] = &$this->LU[$i][$j];
             }
+
             // Apply previous transformations.
             for ($i = 0; $i < $this->m; ++$i) {
                 $LUrowi = $this->LU[$i];
@@ -108,8 +111,10 @@ class LUDecomposition
                 for ($k = 0; $k < $kmax; ++$k) {
                     $s += $LUrowi[$k] * $LUcolj[$k];
                 }
+
                 $LUrowi[$j] = $LUcolj[$i] -= $s;
             }
+
             // Find pivot and exchange if necessary.
             $p = $j;
             for ($i = $j + 1; $i < $this->m; ++$i) {
@@ -117,17 +122,20 @@ class LUDecomposition
                     $p = $i;
                 }
             }
+
             if ($p != $j) {
                 for ($k = 0; $k < $this->n; ++$k) {
                     $t = $this->LU[$p][$k];
                     $this->LU[$p][$k] = $this->LU[$j][$k];
                     $this->LU[$j][$k] = $t;
                 }
+
                 $k = $this->piv[$p];
                 $this->piv[$p] = $this->piv[$j];
                 $this->piv[$j] = $k;
                 $this->pivsign = $this->pivsign * -1;
             }
+
             // Compute multipliers.
             if (($j < $this->m) && ($this->LU[$j][$j] != 0.0)) {
                 for ($i = $j + 1; $i < $this->m; ++$i) {
@@ -142,7 +150,7 @@ class LUDecomposition
      *
      * @return Matrix Lower triangular factor
      */
-    public function getL() : Matrix
+    public function getL(): Matrix
     {
         $L = [];
         for ($i = 0; $i < $this->m; ++$i) {
@@ -165,7 +173,7 @@ class LUDecomposition
      *
      * @return Matrix Upper triangular factor
      */
-    public function getU() : Matrix
+    public function getU(): Matrix
     {
         $U = [];
         for ($i = 0; $i < $this->n; ++$i) {
@@ -186,7 +194,7 @@ class LUDecomposition
      *
      * @return array Pivot vector
      */
-    public function getPivot() : array
+    public function getPivot(): array
     {
         return $this->piv;
     }
@@ -247,7 +255,7 @@ class LUDecomposition
      *
      * @throws MatrixException
      */
-    public function solve(Matrix $B) : array
+    public function solve(Matrix $B): array
     {
         if ($B->getRows() != $this->m) {
             throw MatrixException::notSquareMatrix();
@@ -268,11 +276,13 @@ class LUDecomposition
                 }
             }
         }
+
         // Solve U*X = Y;
         for ($k = $this->n - 1; $k >= 0; --$k) {
             for ($j = 0; $j < $nx; ++$j) {
                 $X[$k][$j] /= $this->LU[$k][$k];
             }
+
             for ($i = 0; $i < $k; ++$i) {
                 for ($j = 0; $j < $nx; ++$j) {
                     $X[$i][$j] -= $X[$k][$j] * $this->LU[$i][$k];
@@ -283,7 +293,7 @@ class LUDecomposition
         return $X;
     }
 
-    protected function getSubMatrix(array $matrix, array $RL, int $j0, int $jF) : array
+    protected function getSubMatrix(array $matrix, array $RL, int $j0, int $jF): array
     {
         $m = count($RL);
         $n = $jF - $j0;

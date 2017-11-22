@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpml\Math\Statistic;
 
+use Exception;
 use Phpml\Exception\InvalidArgumentException;
 
 class Covariance
@@ -13,7 +14,7 @@ class Covariance
      *
      * @throws InvalidArgumentException
      */
-    public static function fromXYArrays(array $x, array $y, bool $sample = true, ?float $meanX = null, ?float $meanY = null) : float
+    public static function fromXYArrays(array $x, array $y, bool $sample = true, ?float $meanX = null, ?float $meanY = null): float
     {
         if (empty($x) || empty($y)) {
             throw InvalidArgumentException::arrayCantBeEmpty();
@@ -51,7 +52,7 @@ class Covariance
      * @throws InvalidArgumentException
      * @throws \Exception
      */
-    public static function fromDataset(array $data, int $i, int $k, bool $sample = true, ?float $meanX = null, ?float $meanY = null) : float
+    public static function fromDataset(array $data, int $i, int $k, bool $sample = true, ?float $meanX = null, ?float $meanY = null): float
     {
         if (empty($data)) {
             throw InvalidArgumentException::arrayCantBeEmpty();
@@ -63,7 +64,7 @@ class Covariance
         }
 
         if ($i < 0 || $k < 0 || $i >= $n || $k >= $n) {
-            throw new \Exception('Given indices i and k do not match with the dimensionality of data');
+            throw new Exception('Given indices i and k do not match with the dimensionality of data');
         }
 
         if ($meanX === null || $meanY === null) {
@@ -92,10 +93,12 @@ class Covariance
                     if ($index == $i) {
                         $val[0] = $col - $meanX;
                     }
+
                     if ($index == $k) {
                         $val[1] = $col - $meanY;
                     }
                 }
+
                 $sum += $val[0] * $val[1];
             }
         }
@@ -112,7 +115,7 @@ class Covariance
      *
      * @param array|null $means
      */
-    public static function covarianceMatrix(array $data, ?array $means = null) : array
+    public static function covarianceMatrix(array $data, ?array $means = null): array
     {
         $n = count($data[0]);
 

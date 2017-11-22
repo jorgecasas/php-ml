@@ -9,7 +9,7 @@ use Phpml\Preprocessing\Imputer\Strategy;
 
 class MedianStrategy implements Strategy
 {
-    public function replaceValue(array $currentAxis) : float
+    public function replaceValue(array $currentAxis): float
     {
         return Mean::median($currentAxis);
     }

@@ -31,7 +31,7 @@ class CovarianceTest extends TestCase
         ];
         $knownCovariance = [
             [0.616555556, 0.615444444],
-            [0.615444444, 0.716555556]];
+            [0.615444444, 0.716555556], ];
         $x = array_column($matrix, 0);
         $y = array_column($matrix, 1);
 
