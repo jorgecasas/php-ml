@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace tests\Phpml\Math;
 
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\Math\Comparison;
 use PHPUnit\Framework\TestCase;
 
@@ -22,12 +23,10 @@ class ComparisonTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Invalid operator "~=" provided
-     */
     public function testThrowExceptionWhenOperatorIsInvalid(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid operator "~=" provided');
         Comparison::compare(1, 1, '~=');
     }
 

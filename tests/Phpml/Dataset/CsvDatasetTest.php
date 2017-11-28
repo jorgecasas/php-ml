@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace tests\Phpml\Dataset;
 
 use Phpml\Dataset\CsvDataset;
+use Phpml\Exception\FileException;
 use PHPUnit\Framework\TestCase;
 
 class CsvDatasetTest extends TestCase
 {
-    /**
-     * @expectedException \Phpml\Exception\FileException
-     */
     public function testThrowExceptionOnMissingFile(): void
     {
+        $this->expectException(FileException::class);
         new CsvDataset('missingFile', 3);
     }
 

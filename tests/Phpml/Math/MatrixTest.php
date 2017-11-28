@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace tests\Phpml\Math;
 
+use Phpml\Exception\InvalidArgumentException;
+use Phpml\Exception\MatrixException;
 use Phpml\Math\Matrix;
 use PHPUnit\Framework\TestCase;
 
 class MatrixTest extends TestCase
 {
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     */
     public function testThrowExceptionOnInvalidMatrixSupplied(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         new Matrix([[1, 2], [3]]);
     }
 
@@ -29,20 +29,16 @@ class MatrixTest extends TestCase
         $this->assertEquals($flatArray, $matrix->getColumnValues(0));
     }
 
-    /**
-     * @expectedException \Phpml\Exception\MatrixException
-     */
     public function testThrowExceptionOnInvalidColumnNumber(): void
     {
+        $this->expectException(MatrixException::class);
         $matrix = new Matrix([[1, 2, 3], [4, 5, 6]]);
         $matrix->getColumnValues(4);
     }
 
-    /**
-     * @expectedException \Phpml\Exception\MatrixException
-     */
     public function testThrowExceptionOnGetDeterminantIfArrayIsNotSquare(): void
     {
+        $this->expectException(MatrixException::class);
         $matrix = new Matrix([[1, 2, 3], [4, 5, 6]]);
         $matrix->getDeterminant();
     }
@@ -85,14 +81,11 @@ class MatrixTest extends TestCase
         $this->assertEquals($transposedMatrix, $matrix->transpose()->toArray());
     }
 
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     */
     public function testThrowExceptionOnMultiplyWhenInconsistentMatrixSupplied(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $matrix1 = new Matrix([[1, 2, 3], [4, 5, 6]]);
         $matrix2 = new Matrix([[3, 2, 1], [6, 5, 4]]);
-
         $matrix1->multiply($matrix2);
     }
 
@@ -132,26 +125,21 @@ class MatrixTest extends TestCase
         $this->assertEquals($quotient, $matrix->divideByScalar(2)->toArray());
     }
 
-    /**
-     * @expectedException \Phpml\Exception\MatrixException
-     */
     public function testThrowExceptionWhenInverseIfArrayIsNotSquare(): void
     {
+        $this->expectException(MatrixException::class);
         $matrix = new Matrix([[1, 2, 3], [4, 5, 6]]);
         $matrix->inverse();
     }
 
-    /**
-     * @expectedException \Phpml\Exception\MatrixException
-     */
     public function testThrowExceptionWhenInverseIfMatrixIsSingular(): void
     {
+        $this->expectException(MatrixException::class);
         $matrix = new Matrix([
           [0, 0, 0],
           [0, 0, 0],
           [0, 0, 0],
        ]);
-
         $matrix->inverse();
     }
 

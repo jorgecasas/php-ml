@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace tests\Phpml\Dataset;
 
 use Phpml\Dataset\ArrayDataset;
+use Phpml\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class ArrayDatasetTest extends TestCase
 {
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     */
     public function testThrowExceptionOnInvalidArgumentsSize(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         new ArrayDataset([0, 1], [0]);
     }
 

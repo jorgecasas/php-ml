@@ -7,20 +7,18 @@ namespace tests\Phpml\Metric;
 use Phpml\Classification\SVC;
 use Phpml\CrossValidation\RandomSplit;
 use Phpml\Dataset\Demo\IrisDataset;
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\Metric\Accuracy;
 use Phpml\SupportVectorMachine\Kernel;
 use PHPUnit\Framework\TestCase;
 
 class AccuracyTest extends TestCase
 {
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     */
     public function testThrowExceptionOnInvalidArguments(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $actualLabels = ['a', 'b', 'a', 'b'];
         $predictedLabels = ['a', 'a'];
-
         Accuracy::score($actualLabels, $predictedLabels);
     }
 

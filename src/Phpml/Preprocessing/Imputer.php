@@ -28,9 +28,9 @@ class Imputer implements Preprocessor
     private $axis;
 
     /**
-     * @var
+     * @var mixed[]
      */
-    private $samples;
+    private $samples = [];
 
     /**
      * @param mixed      $missingValue

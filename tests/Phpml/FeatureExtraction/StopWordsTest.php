@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace tests\Phpml\FeatureExtraction;
 
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\FeatureExtraction\StopWords;
 use PHPUnit\Framework\TestCase;
 
@@ -22,11 +23,9 @@ class StopWordsTest extends TestCase
         $this->assertFalse($stopWords->isStopWord('amet'));
     }
 
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     */
     public function testThrowExceptionOnInvalidLanguage(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         StopWords::factory('Lorem');
     }
 

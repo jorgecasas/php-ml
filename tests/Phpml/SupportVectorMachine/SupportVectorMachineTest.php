@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace tests\Phpml\SupportVectorMachine;
 
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\SupportVectorMachine\Kernel;
 use Phpml\SupportVectorMachine\SupportVectorMachine;
 use Phpml\SupportVectorMachine\Type;
@@ -81,32 +82,26 @@ SV
         $this->assertEquals('c', $predictions[2]);
     }
 
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     * @expectedExceptionMessage is not writable
-     */
     public function testThrowExceptionWhenVarPathIsNotWritable(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('is not writable');
         $svm = new SupportVectorMachine(Type::C_SVC, Kernel::RBF);
         $svm->setVarPath('var-path');
     }
 
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     * @expectedExceptionMessage does not exist
-     */
     public function testThrowExceptionWhenBinPathDoesNotExist(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('does not exist');
         $svm = new SupportVectorMachine(Type::C_SVC, Kernel::RBF);
         $svm->setBinPath('bin-path');
     }
 
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     * @expectedExceptionMessage not found
-     */
     public function testThrowExceptionWhenFileIsNotFoundInBinPath(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('not found');
         $svm = new SupportVectorMachine(Type::C_SVC, Kernel::RBF);
         $svm->setBinPath('var');
     }

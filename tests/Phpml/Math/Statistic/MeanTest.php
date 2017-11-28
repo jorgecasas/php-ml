@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace test\Phpml\Math\StandardDeviation;
 
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\Math\Statistic\Mean;
 use PHPUnit\Framework\TestCase;
 
 class MeanTest extends TestCase
 {
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     */
     public function testArithmeticThrowExceptionOnEmptyArray(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         Mean::arithmetic([]);
     }
 
@@ -25,11 +24,9 @@ class MeanTest extends TestCase
         $this->assertEquals(1.7, Mean::arithmetic([0.5, 0.5, 1.5, 2.5, 3.5]), '', $delta);
     }
 
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     */
     public function testMedianThrowExceptionOnEmptyArray(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         Mean::median([]);
     }
 
@@ -47,11 +44,9 @@ class MeanTest extends TestCase
         $this->assertEquals(3.5, Mean::median($numbers));
     }
 
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     */
     public function testModeThrowExceptionOnEmptyArray(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         Mean::mode([]);
     }
 

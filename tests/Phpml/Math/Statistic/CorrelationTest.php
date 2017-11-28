@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace test\Phpml\Math\StandardDeviation;
 
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\Math\Statistic\Correlation;
 use PHPUnit\Framework\TestCase;
 
@@ -29,11 +30,9 @@ class CorrelationTest extends TestCase
         $this->assertEquals(0.911, Correlation::pearson($x, $y), '', $delta);
     }
 
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     */
     public function testThrowExceptionOnInvalidArgumentsForPearsonCorrelation(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         Correlation::pearson([1, 2, 4], [3, 5]);
     }
 }

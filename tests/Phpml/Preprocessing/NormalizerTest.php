@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace tests\Phpml\Preprocessing;
 
+use Phpml\Exception\NormalizerException;
 use Phpml\Preprocessing\Normalizer;
 use PHPUnit\Framework\TestCase;
 
 class NormalizerTest extends TestCase
 {
-    /**
-     * @expectedException \Phpml\Exception\NormalizerException
-     */
     public function testThrowExceptionOnInvalidNorm(): void
     {
+        $this->expectException(NormalizerException::class);
         new Normalizer(99);
     }
 

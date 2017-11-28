@@ -178,7 +178,7 @@ class AprioriTest extends TestCase
      *
      * @return mixed
      */
-    public function invoke(&$object, $method, array $params = [])
+    public function invoke(&$object, string $method, array $params = [])
     {
         $reflection = new ReflectionClass(get_class($object));
         $method = $reflection->getMethod($method);

@@ -20,7 +20,7 @@
         "php": "^7.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.0",
+        "phpunit/phpunit": "^6.4",
         "friendsofphp/php-cs-fixer": "^2.4",
         "symplify/easy-coding-standard": "dev-master as 2.5",
         "symplify/coding-standard": "dev-master as 2.5",

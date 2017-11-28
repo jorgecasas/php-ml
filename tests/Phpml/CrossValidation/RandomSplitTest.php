@@ -6,23 +6,20 @@ namespace tests\Phpml\CrossValidation;
 
 use Phpml\CrossValidation\RandomSplit;
 use Phpml\Dataset\ArrayDataset;
+use Phpml\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class RandomSplitTest extends TestCase
 {
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     */
     public function testThrowExceptionOnToSmallTestSize(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         new RandomSplit(new ArrayDataset([], []), 0);
     }
 
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     */
     public function testThrowExceptionOnToBigTestSize(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         new RandomSplit(new ArrayDataset([], []), 1);
     }
 

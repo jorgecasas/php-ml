@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace tests\Phpml\Classification;
 
 use Phpml\Classification\MLPClassifier;
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\ModelManager;
 use Phpml\NeuralNetwork\Node\Neuron;
 use PHPUnit\Framework\TestCase;
@@ -160,19 +161,15 @@ class MLPClassifierTest extends TestCase
         $this->assertEquals($predicted, $restoredClassifier->predict($testSamples));
     }
 
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     */
     public function testThrowExceptionOnInvalidLayersNumber(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         new MLPClassifier(2, [], [0, 1]);
     }
 
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     */
     public function testThrowExceptionOnInvalidPartialTrainingClasses(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $classifier = new MLPClassifier(2, [2], [0, 1]);
         $classifier->partialTrain(
             [[0, 1], [1, 0]],
@@ -181,11 +178,9 @@ class MLPClassifierTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     */
     public function testThrowExceptionOnInvalidClassesNumber(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         new MLPClassifier(2, [2], [0]);
     }
 

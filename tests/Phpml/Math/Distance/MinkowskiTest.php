@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace tests\Phpml\Metric;
 
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\Math\Distance\Minkowski;
 use PHPUnit\Framework\TestCase;
 
@@ -19,14 +20,11 @@ class MinkowskiTest extends TestCase
         $this->distanceMetric = new Minkowski();
     }
 
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     */
     public function testThrowExceptionOnInvalidArguments(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $a = [0, 1, 2];
         $b = [0, 2];
-
         $this->distanceMetric->distance($a, $b);
     }
 

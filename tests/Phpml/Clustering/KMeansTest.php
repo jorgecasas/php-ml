@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace tests\Phpml\Clustering;
 
 use Phpml\Clustering\KMeans;
+use Phpml\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class KMeansTest extends TestCase
@@ -51,11 +52,9 @@ class KMeansTest extends TestCase
         $this->assertCount(4, $clusters);
     }
 
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     */
     public function testThrowExceptionOnInvalidClusterNumber(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         new KMeans(0);
     }
 }

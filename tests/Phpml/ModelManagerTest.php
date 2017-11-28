@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace tests;
 
+use Phpml\Exception\FileException;
 use Phpml\ModelManager;
 use Phpml\Regression\LeastSquares;
 use PHPUnit\Framework\TestCase;
@@ -23,11 +24,9 @@ class ModelManagerTest extends TestCase
         $this->assertEquals($estimator, $restored);
     }
 
-    /**
-     * @expectedException \Phpml\Exception\FileException
-     */
     public function testRestoreWrongFile(): void
     {
+        $this->expectException(FileException::class);
         $filepath = sys_get_temp_dir().DIRECTORY_SEPARATOR.'unexisting';
         $modelManager = new ModelManager();
         $modelManager->restoreFromFile($filepath);

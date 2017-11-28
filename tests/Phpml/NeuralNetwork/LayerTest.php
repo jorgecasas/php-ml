@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace tests\Phpml\NeuralNetwork;
 
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\NeuralNetwork\Layer;
 use Phpml\NeuralNetwork\Node\Bias;
 use Phpml\NeuralNetwork\Node\Neuron;
@@ -39,11 +40,9 @@ class LayerTest extends TestCase
         }
     }
 
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     */
     public function testThrowExceptionOnInvalidNodeClass(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         new Layer(1, stdClass::class);
     }
 

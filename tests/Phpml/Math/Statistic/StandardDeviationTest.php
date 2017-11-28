@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace test\Phpml\Math\StandardDeviation;
 
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\Math\Statistic\StandardDeviation;
 use PHPUnit\Framework\TestCase;
 
@@ -25,19 +26,15 @@ class StandardDeviationTest extends TestCase
         $this->assertEquals(50989, StandardDeviation::population($population), '', $delta);
     }
 
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     */
     public function testThrowExceptionOnEmptyArrayIfNotSample(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         StandardDeviation::population([], false);
     }
 
-    /**
-     * @expectedException \Phpml\Exception\InvalidArgumentException
-     */
     public function testThrowExceptionOnToSmallArray(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         StandardDeviation::population([1]);
     }
 }
