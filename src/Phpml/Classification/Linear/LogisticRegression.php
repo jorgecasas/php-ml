@@ -32,7 +32,7 @@ class LogisticRegression extends Adaline
      *
      * @var string
      */
-    protected $costFunction = 'sse';
+    protected $costFunction = 'log';
 
     /**
      * Regularization term: only 'L2' is supported
@@ -67,7 +67,7 @@ class LogisticRegression extends Adaline
         int $maxIterations = 500,
         bool $normalizeInputs = true,
         int $trainingType = self::CONJUGATE_GRAD_TRAINING,
-        string $cost = 'sse',
+        string $cost = 'log',
         string $penalty = 'L2'
     ) {
         $trainingTypes = range(self::BATCH_TRAINING, self::CONJUGATE_GRAD_TRAINING);
@@ -190,6 +190,8 @@ class LogisticRegression extends Adaline
                         $hX = 1e-10;
                     }
 
+                    $y = $y < 0 ? 0 : 1;
+
                     $error = -$y * log($hX) - (1 - $y) * log(1 - $hX);
                     $gradient = $hX - $y;
 
@@ -212,6 +214,8 @@ class LogisticRegression extends Adaline
                 $callback = function ($weights, $sample, $y) use ($penalty) {
                     $this->weights = $weights;
                     $hX = $this->output($sample);
+
+                    $y = $y < 0 ? 0 : 1;
 
                     $error = ($y - $hX) ** 2;
                     $gradient = -($y - $hX) * $hX * (1 - $hX);
@@ -243,7 +247,7 @@ class LogisticRegression extends Adaline
     {
         $output = $this->output($sample);
 
-        if (round($output) > 0.5) {
+        if ($output > 0.5) {
             return 1;
         }
 
@@ -260,14 +264,13 @@ class LogisticRegression extends Adaline
      */
     protected function predictProbability(array $sample, $label): float
     {
-        $predicted = $this->predictSampleBinary($sample);
+        $sample = $this->checkNormalizedSample($sample);
+        $probability = $this->output($sample);
 
-        if ((string) $predicted == (string) $label) {
-            $sample = $this->checkNormalizedSample($sample);
-
-            return (float) abs($this->output($sample) - 0.5);
+        if (array_search($label, $this->labels, true) > 0) {
+            return $probability;
         }
 
-        return 0.0;
+        return 1 - $probability;
     }
 }
