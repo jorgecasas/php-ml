@@ -95,6 +95,12 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
         }
     }
 
+    public function setLearningRate(float $learningRate): void
+    {
+        $this->learningRate = $learningRate;
+        $this->backpropagation->setLearningRate($this->learningRate);
+    }
+
     /**
      * @param mixed $target
      */

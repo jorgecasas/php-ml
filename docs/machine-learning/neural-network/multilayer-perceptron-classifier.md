@@ -45,6 +45,12 @@ $mlp->partialTrain(
 
 ```
 
+You can update the learning rate between partialTrain runs:
+
+```
+$mlp->setLearningRate(0.1);
+```
+
 ## Predict
 
 To predict sample label use predict method. You can provide one sample or array of samples:

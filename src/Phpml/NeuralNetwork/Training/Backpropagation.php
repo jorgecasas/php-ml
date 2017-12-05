@@ -26,6 +26,11 @@ class Backpropagation
 
     public function __construct(float $learningRate)
     {
+        $this->setLearningRate($learningRate);
+    }
+
+    public function setLearningRate(float $learningRate): void
+    {
         $this->learningRate = $learningRate;
     }
 
