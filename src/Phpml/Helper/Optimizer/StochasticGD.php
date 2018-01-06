@@ -31,7 +31,7 @@ class StochasticGD extends Optimizer
      * Callback function to get the gradient and cost value
      * for a specific set of theta (ϴ) and a pair of sample & target
      *
-     * @var \Closure
+     * @var \Closure|null
      */
     protected $gradientCb = null;
 
@@ -144,7 +144,7 @@ class StochasticGD extends Optimizer
      * The cost function to minimize and the gradient of the function are to be
      * handled by the callback function provided as the third parameter of the method.
      */
-    public function runOptimization(array $samples, array $targets, Closure $gradientCb): array
+    public function runOptimization(array $samples, array $targets, Closure $gradientCb): ?array
     {
         $this->samples = $samples;
         $this->targets = $targets;
@@ -181,7 +181,7 @@ class StochasticGD extends Optimizer
 
         // Solution in the pocket is better than or equal to the last state
         // so, we use this solution
-        return $this->theta = $bestTheta;
+        return $this->theta = (array) $bestTheta;
     }
 
     /**

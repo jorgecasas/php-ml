@@ -15,7 +15,7 @@ class TokenCountVectorizer implements Transformer
     private $tokenizer;
 
     /**
-     * @var StopWords
+     * @var StopWords|null
      */
     private $stopWords;
 

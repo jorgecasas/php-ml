@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\NeuralNetwork\Node;
+namespace Phpml\Tests\NeuralNetwork\Node;
 
 use Phpml\NeuralNetwork\ActivationFunction\BinaryStep;
 use Phpml\NeuralNetwork\Node\Neuron;
@@ -22,6 +22,7 @@ class NeuronTest extends TestCase
 
     public function testNeuronActivationFunction(): void
     {
+        /** @var BinaryStep|PHPUnit_Framework_MockObject_MockObject $activationFunction */
         $activationFunction = $this->getMockBuilder(BinaryStep::class)->getMock();
         $activationFunction->method('compute')->with(0)->willReturn($output = 0.69);
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\NeuralNetwork\ActivationFunction;
+namespace Phpml\Tests\NeuralNetwork\ActivationFunction;
 
 use Phpml\NeuralNetwork\ActivationFunction\Sigmoid;
 use PHPUnit\Framework\TestCase;

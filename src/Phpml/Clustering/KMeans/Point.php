@@ -48,12 +48,15 @@ class Point implements ArrayAccess
      */
     public function getClosest(array $points)
     {
+        $minPoint = null;
+
         foreach ($points as $point) {
             $distance = $this->getDistanceWith($point, false);
 
             if (!isset($minDistance)) {
                 $minDistance = $distance;
                 $minPoint = $point;
+
                 continue;
             }
 

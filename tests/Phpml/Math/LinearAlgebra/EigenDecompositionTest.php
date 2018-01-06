@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\Math\LinearAlgebra;
+namespace Phpml\Tests\Math\LinearAlgebra;
 
 use Phpml\Math\LinearAlgebra\EigenvalueDecomposition;
 use Phpml\Math\Matrix;

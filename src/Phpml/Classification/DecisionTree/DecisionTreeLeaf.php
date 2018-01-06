@@ -9,7 +9,7 @@ use Phpml\Math\Comparison;
 class DecisionTreeLeaf
 {
     /**
-     * @var string
+     * @var string|int
      */
     public $value;
 
@@ -52,7 +52,7 @@ class DecisionTreeLeaf
     public $classValue = '';
 
     /**
-     * @var bool
+     * @var bool|int
      */
     public $isTerminal = false;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\FeatureExtraction;
+namespace Phpml\Tests\FeatureExtraction;
 
 use Phpml\FeatureExtraction\TfIdfTransformer;
 use PHPUnit\Framework\TestCase;

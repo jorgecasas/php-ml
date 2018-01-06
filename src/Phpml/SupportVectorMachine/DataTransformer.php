@@ -9,6 +9,8 @@ class DataTransformer
     public static function trainingSet(array $samples, array $labels, bool $targets = false): string
     {
         $set = '';
+        $numericLabels = [];
+
         if (!$targets) {
             $numericLabels = self::numericLabels($labels);
         }

@@ -37,7 +37,7 @@ class SupportVectorMachine
     private $degree;
 
     /**
-     * @var float
+     * @var float|null
      */
     private $gamma;
 

@@ -224,7 +224,7 @@ class DecisionStump extends WeightedClassifier
             foreach ($distinctVals as $val) {
                 [$errorRate, $prob] = $this->calculateErrorRate($targets, $val, $operator, $values);
 
-                if ($split == null || $split['trainingErrorRate'] < $errorRate) {
+                if ($split === null || $split['trainingErrorRate'] < $errorRate) {
                     $split = [
                         'value' => $val,
                         'operator' => $operator,

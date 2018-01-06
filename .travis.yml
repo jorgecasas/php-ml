@@ -31,6 +31,7 @@ install:
 script:
   - vendor/bin/phpunit $PHPUNIT_FLAGS
   - if [[ $STATIC_ANALYSIS != "" ]]; then vendor/bin/ecs check src tests; fi
+  - if [[ $STATIC_ANALYSIS != "" ]]; then vendor/bin/phpstan.phar analyse src tests --level max --configuration phpstan.neon; fi
 
 after_success:
   - |

@@ -26,14 +26,14 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
     protected $classes = [];
 
     /**
-     * @var ActivationFunction
+     * @var ActivationFunction|null
      */
     protected $activationFunction;
 
     /**
      * @var Backpropagation
      */
-    protected $backpropagation = null;
+    protected $backpropagation;
 
     /**
      * @var int
@@ -49,6 +49,11 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
      * @var float
      */
     private $learningRate;
+
+    /**
+     * @var int
+     */
+    private $iterations;
 
     /**
      * @throws InvalidArgumentException

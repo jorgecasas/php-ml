@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\Classification\Ensemble;
+namespace Phpml\Tests\Classification\Ensemble;
 
 use Phpml\Classification\DecisionTree;
 use Phpml\Classification\Ensemble\RandomForest;
@@ -21,6 +21,7 @@ class RandomForestTest extends BaggingTest
             $this->assertEquals(1, 1);
         }
     }
+
     protected function getClassifier($numBaseClassifiers = 50)
     {
         $classifier = new RandomForest($numBaseClassifiers);

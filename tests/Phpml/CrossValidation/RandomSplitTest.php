@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\CrossValidation;
+namespace Phpml\Tests\CrossValidation;
 
 use Phpml\CrossValidation\RandomSplit;
 use Phpml\Dataset\ArrayDataset;

@@ -24,13 +24,11 @@ class Neuron implements Node
     /**
      * @var float
      */
-    protected $output;
+    protected $output = 0.0;
 
     public function __construct(?ActivationFunction $activationFunction = null)
     {
         $this->activationFunction = $activationFunction ?: new Sigmoid();
-        $this->synapses = [];
-        $this->output = 0;
     }
 
     public function addSynapse(Synapse $synapse): void
@@ -48,8 +46,8 @@ class Neuron implements Node
 
     public function getOutput(): float
     {
-        if ($this->output === 0) {
-            $sum = 0;
+        if ($this->output === 0.0) {
+            $sum = 0.0;
             foreach ($this->synapses as $synapse) {
                 $sum += $synapse->getOutput();
             }
@@ -62,6 +60,6 @@ class Neuron implements Node
 
     public function reset(): void
     {
-        $this->output = 0;
+        $this->output = 0.0;
     }
 }

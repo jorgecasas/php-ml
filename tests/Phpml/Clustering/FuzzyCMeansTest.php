@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\Clustering;
+namespace Phpml\Tests\Clustering;
 
 use Phpml\Clustering\FuzzyCMeans;
 use PHPUnit\Framework\TestCase;

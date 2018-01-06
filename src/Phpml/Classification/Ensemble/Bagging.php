@@ -31,7 +31,7 @@ class Bagging implements Classifier
     protected $numClassifier;
 
     /**
-     * @var Classifier
+     * @var string
      */
     protected $classifier = DecisionTree::class;
 

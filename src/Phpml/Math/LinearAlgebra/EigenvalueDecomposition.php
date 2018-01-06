@@ -88,6 +88,8 @@ class EigenvalueDecomposition
 
     private $cdivi;
 
+    private $A;
+
     /**
      *	Constructor: Check for symmetry, then construct the eigenvalue decomposition
      */

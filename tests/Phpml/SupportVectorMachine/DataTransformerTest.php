@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\SupportVectorMachine;
+namespace Phpml\Tests\SupportVectorMachine;
 
 use Phpml\SupportVectorMachine\DataTransformer;
 use PHPUnit\Framework\TestCase;

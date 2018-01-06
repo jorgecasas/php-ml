@@ -45,7 +45,7 @@ class Space extends SplObjectStorage
     }
 
     /**
-     * @param null  $data
+     * @param null $data
      */
     public function addPoint(array $coordinates, $data = null): void
     {
@@ -124,10 +124,12 @@ class Space extends SplObjectStorage
         switch ($initMethod) {
             case KMeans::INIT_RANDOM:
                 $clusters = $this->initializeRandomClusters($clustersNumber);
+
                 break;
 
             case KMeans::INIT_KMEANS_PLUS_PLUS:
                 $clusters = $this->initializeKMPPClusters($clustersNumber);
+
                 break;
 
             default:
@@ -200,6 +202,7 @@ class Space extends SplObjectStorage
                 }
 
                 $clusters[] = new Cluster($this, $point->getCoordinates());
+
                 break;
             }
         }

@@ -59,14 +59,14 @@ class DecisionTree implements Classifier
     private $selectedFeatures = [];
 
     /**
-     * @var array
+     * @var array|null
      */
-    private $featureImportances = null;
+    private $featureImportances;
 
     /**
-     * @var array
+     * @var array|null
      */
-    private $columnNames = null;
+    private $columnNames;
 
     public function __construct(int $maxDepth = 10)
     {

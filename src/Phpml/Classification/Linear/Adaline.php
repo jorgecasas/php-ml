@@ -21,7 +21,7 @@ class Adaline extends Perceptron
     /**
      * Training type may be either 'Batch' or 'Online' learning
      *
-     * @var string
+     * @var string|int
      */
     protected $trainingType;
 

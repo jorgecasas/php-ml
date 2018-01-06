@@ -19,7 +19,7 @@ class Perceptron implements Classifier, IncrementalEstimator
     use Predictable, OneVsRest;
 
     /**
-     * @var \Phpml\Helper\Optimizer\Optimizer
+     * @var \Phpml\Helper\Optimizer\Optimizer|GD|StochasticGD|null
      */
     protected $optimizer;
 
@@ -34,7 +34,7 @@ class Perceptron implements Classifier, IncrementalEstimator
     protected $featureCount = 0;
 
     /**
-     * @var array
+     * @var array|null
      */
     protected $weights = [];
 
@@ -67,8 +67,8 @@ class Perceptron implements Classifier, IncrementalEstimator
      * Initalize a perceptron classifier with given learning rate and maximum
      * number of iterations used while training the perceptron
      *
-     * @param float $learningRate    Value between 0.0(exclusive) and 1.0(inclusive)
-     * @param int   $maxIterations   Must be at least 1
+     * @param float $learningRate  Value between 0.0(exclusive) and 1.0(inclusive)
+     * @param int   $maxIterations Must be at least 1
      *
      * @throws \Exception
      */
@@ -178,7 +178,7 @@ class Perceptron implements Classifier, IncrementalEstimator
     {
         $class = $isBatch ? GD::class : StochasticGD::class;
 
-        if (empty($this->optimizer)) {
+        if ($this->optimizer === null) {
             $this->optimizer = (new $class($this->featureCount))
                 ->setLearningRate($this->learningRate)
                 ->setMaxIterations($this->maxIterations)

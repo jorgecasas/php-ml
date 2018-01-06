@@ -33,8 +33,7 @@ class Imputer implements Preprocessor
     private $samples = [];
 
     /**
-     * @param mixed      $missingValue
-     * @param array|null $samples
+     * @param mixed $missingValue
      */
     public function __construct($missingValue, Strategy $strategy, int $axis = self::AXIS_COLUMN, array $samples = [])
     {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\Math;
+namespace Phpml\Tests\Math;
 
 use Phpml\Math\Product;
 use PHPUnit\Framework\TestCase;

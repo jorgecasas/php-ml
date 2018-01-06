@@ -17,11 +17,11 @@
 
 Fresh approach to Machine Learning in PHP. Algorithms, Cross Validation, Neural Network, Preprocessing, Feature Extraction and much more in one library.
 
-PHP-ML requires PHP >= 7.0.
+PHP-ML requires PHP >= 7.1.
 
 Simple example of classification:
 ```php
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 use Phpml\Classification\KNearestNeighbors;
 
@@ -54,57 +54,57 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
 ## Features
 
 * Association rule Lerning
-    * [Apriori](machine-learning/association/apriori/)
+    * [Apriori](machine-learning/association/apriori.md)
 * Classification
-    * [SVC](machine-learning/classification/svc/)
-    * [k-Nearest Neighbors](machine-learning/classification/k-nearest-neighbors/)
-    * [Naive Bayes](machine-learning/classification/naive-bayes/)
+    * [SVC](machine-learning/classification/svc.md)
+    * [k-Nearest Neighbors](machine-learning/classification/k-nearest-neighbors.md)
+    * [Naive Bayes](machine-learning/classification/naive-bayes.md)
 * Regression
-    * [Least Squares](machine-learning/regression/least-squares/)
-    * [SVR](machine-learning/regression/svr/)
+    * [Least Squares](machine-learning/regression/least-squares.md)
+    * [SVR](machine-learning/regression/svr.md)
 * Clustering
-    * [k-Means](machine-learning/clustering/k-means/)
-    * [DBSCAN](machine-learning/clustering/dbscan/)
+    * [k-Means](machine-learning/clustering/k-means.md)
+    * [DBSCAN](machine-learning/clustering/dbscan.md)
 * Metric
-    * [Accuracy](machine-learning/metric/accuracy/)
-    * [Confusion Matrix](machine-learning/metric/confusion-matrix/)
-    * [Classification Report](machine-learning/metric/classification-report/)
+    * [Accuracy](machine-learning/metric/accuracy.md)
+    * [Confusion Matrix](machine-learning/metric/confusion-matrix.md)
+    * [Classification Report](machine-learning/metric/classification-report.md)
 * Workflow
     * [Pipeline](machine-learning/workflow/pipeline)
 * Neural Network
-    * [Multilayer Perceptron Classifier](machine-learning/neural-network/multilayer-perceptron-classifier/)
+    * [Multilayer Perceptron Classifier](machine-learning/neural-network/multilayer-perceptron-classifier.md)
 * Cross Validation
-    * [Random Split](machine-learning/cross-validation/random-split/)
-    * [Stratified Random Split](machine-learning/cross-validation/stratified-random-split/)
+    * [Random Split](machine-learning/cross-validation/random-split.md)
+    * [Stratified Random Split](machine-learning/cross-validation/stratified-random-split.md)
 * Preprocessing
-    * [Normalization](machine-learning/preprocessing/normalization/)
-    * [Imputation missing values](machine-learning/preprocessing/imputation-missing-values/)
+    * [Normalization](machine-learning/preprocessing/normalization.md)
+    * [Imputation missing values](machine-learning/preprocessing/imputation-missing-values.md)
 * Feature Extraction
-    * [Token Count Vectorizer](machine-learning/feature-extraction/token-count-vectorizer/)
-    * [Tf-idf Transformer](machine-learning/feature-extraction/tf-idf-transformer/)
+    * [Token Count Vectorizer](machine-learning/feature-extraction/token-count-vectorizer.md)
+    * [Tf-idf Transformer](machine-learning/feature-extraction/tf-idf-transformer.md)
 * Datasets
-    * [Array](machine-learning/datasets/array-dataset/)
-    * [CSV](machine-learning/datasets/csv-dataset/)
-    * [Files](machine-learning/datasets/files-dataset/)
+    * [Array](machine-learning/datasets/array-dataset.md)
+    * [CSV](machine-learning/datasets/csv-dataset.md)
+    * [Files](machine-learning/datasets/files-dataset.md)
     * Ready to use:
-        * [Iris](machine-learning/datasets/demo/iris/)
-        * [Wine](machine-learning/datasets/demo/wine/)
-        * [Glass](machine-learning/datasets/demo/glass/)
+        * [Iris](machine-learning/datasets/demo/iris.md)
+        * [Wine](machine-learning/datasets/demo/wine.md)
+        * [Glass](machine-learning/datasets/demo/glass.md)
 * Models management
-    * [Persistency](machine-learning/model-manager/persistency/)
+    * [Persistency](machine-learning/model-manager/persistency.md)
 * Math
-    * [Distance](math/distance/)
-    * [Matrix](math/matrix/)
-    * [Set](math/set/)
-    * [Statistic](math/statistic/)
+    * [Distance](math/distance.md)
+    * [Matrix](math/matrix.md)
+    * [Set](math/set.md)
+    * [Statistic](math/statistic.md)
     
 
 ## Contribute
 
-- Issue Tracker: github.com/php-ai/php-ml/issues
-- Source Code: github.com/php-ai/php-ml
+- Issue Tracker: [github.com/php-ai/php-ml/issues](https://github.com/php-ai/php-ml/issues)
+- Source Code: [github.com/php-ai/php-ml](https://github.com/php-ai/php-ml)
 
-You can find more about contributing in [CONTRIBUTING.md](CONTRIBUTING.md).
+You can find more about contributing in [CONTRIBUTING.md](../CONTRIBUTING.md).
 
 ## License
 

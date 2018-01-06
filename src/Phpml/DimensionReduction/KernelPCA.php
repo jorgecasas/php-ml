@@ -30,7 +30,7 @@ class KernelPCA extends PCA
     /**
      * Gamma value used by the kernel
      *
-     * @var float
+     * @var float|null
      */
     protected $gamma;
 

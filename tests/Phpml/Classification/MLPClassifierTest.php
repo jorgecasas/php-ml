@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\Classification;
+namespace Phpml\Tests\Classification;
 
 use Phpml\Classification\MLPClassifier;
 use Phpml\Exception\InvalidArgumentException;

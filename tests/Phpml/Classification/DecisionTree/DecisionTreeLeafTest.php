@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\Classification\DecisionTree;
+namespace Phpml\Tests\Classification\DecisionTree;
 
 use Phpml\Classification\DecisionTree\DecisionTreeLeaf;
 use PHPUnit\Framework\TestCase;

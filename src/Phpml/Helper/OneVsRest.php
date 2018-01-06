@@ -33,7 +33,7 @@ trait OneVsRest
         // Clears previous stuff.
         $this->reset();
 
-        $this->trainBylabel($samples, $targets);
+        $this->trainByLabel($samples, $targets);
     }
 
     /**

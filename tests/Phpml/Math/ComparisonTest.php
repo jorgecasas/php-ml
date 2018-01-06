@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\Math;
+namespace Phpml\Tests\Math;
 
 use Phpml\Exception\InvalidArgumentException;
 use Phpml\Math\Comparison;
@@ -11,8 +11,8 @@ use PHPUnit\Framework\TestCase;
 class ComparisonTest extends TestCase
 {
     /**
-     * @param mixed  $a
-     * @param mixed  $b
+     * @param mixed $a
+     * @param mixed $b
      *
      * @dataProvider provideData
      */

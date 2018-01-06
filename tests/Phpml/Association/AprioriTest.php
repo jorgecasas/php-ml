@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\Classification;
+namespace Phpml\Tests\Association;
 
 use Phpml\Association\Apriori;
 use Phpml\ModelManager;
@@ -173,8 +173,8 @@ class AprioriTest extends TestCase
     /**
      * Invokes objects method. Private/protected will be set accessible.
      *
-     * @param string $method  Method name to be called
-     * @param array  $params  Array of params to be passed
+     * @param string $method Method name to be called
+     * @param array  $params Array of params to be passed
      *
      * @return mixed
      */

@@ -119,19 +119,25 @@ class LogisticRegression extends Adaline
      *
      * @throws \Exception
      */
-    protected function runTraining(array $samples, array $targets)
+    protected function runTraining(array $samples, array $targets): void
     {
         $callback = $this->getCostFunction();
 
         switch ($this->trainingType) {
             case self::BATCH_TRAINING:
-                return $this->runGradientDescent($samples, $targets, $callback, true);
+                $this->runGradientDescent($samples, $targets, $callback, true);
+
+                return;
 
             case self::ONLINE_TRAINING:
-                return $this->runGradientDescent($samples, $targets, $callback, false);
+                $this->runGradientDescent($samples, $targets, $callback, false);
+
+                return;
 
             case self::CONJUGATE_GRAD_TRAINING:
-                return $this->runConjugateGradient($samples, $targets, $callback);
+                $this->runConjugateGradient($samples, $targets, $callback);
+
+                return;
 
             default:
                 throw new Exception('Logistic regression has invalid training type: %s.', $this->trainingType);
@@ -143,7 +149,7 @@ class LogisticRegression extends Adaline
      */
     protected function runConjugateGradient(array $samples, array $targets, Closure $gradientFunc): void
     {
-        if (empty($this->optimizer)) {
+        if ($this->optimizer === null) {
             $this->optimizer = (new ConjugateGradient($this->featureCount))
                 ->setMaxIterations($this->maxIterations);
         }

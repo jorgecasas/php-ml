@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests;
+namespace Phpml\Tests;
 
 use Phpml\Classification\SVC;
 use Phpml\FeatureExtraction\TfIdfTransformer;

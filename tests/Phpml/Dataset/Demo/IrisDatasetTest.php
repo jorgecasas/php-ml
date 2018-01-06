@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\Dataset\Demo;
+namespace Phpml\Tests\Dataset\Demo;
 
 use Phpml\Dataset\Demo\IrisDataset;
 use PHPUnit\Framework\TestCase;

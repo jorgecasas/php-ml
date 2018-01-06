@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\SupportVectorMachine;
+namespace Phpml\Tests\SupportVectorMachine;
 
 use Phpml\Exception\InvalidArgumentException;
 use Phpml\SupportVectorMachine\Kernel;

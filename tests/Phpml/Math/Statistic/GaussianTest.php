@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace test\Phpml\Math\StandardDeviation;
+namespace Phpml\Tests\Math\Statistic;
 
 use Phpml\Math\Statistic\Gaussian;
 use PHPUnit\Framework\TestCase;

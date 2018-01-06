@@ -15,14 +15,14 @@ class Backpropagation
     private $learningRate;
 
     /**
-     * @var array
+     * @var array|null
      */
-    private $sigmas = null;
+    private $sigmas;
 
     /**
-     * @var array
+     * @var array|null
      */
-    private $prevSigmas = null;
+    private $prevSigmas;
 
     public function __construct(float $learningRate)
     {

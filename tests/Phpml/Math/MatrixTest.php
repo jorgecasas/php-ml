@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\Math;
+namespace Phpml\Tests\Math;
 
 use Phpml\Exception\InvalidArgumentException;
 use Phpml\Exception\MatrixException;

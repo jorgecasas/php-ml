@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\NeuralNetwork;
+namespace Phpml\Tests\NeuralNetwork;
 
 use Phpml\Exception\InvalidArgumentException;
 use Phpml\NeuralNetwork\Layer;

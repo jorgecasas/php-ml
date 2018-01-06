@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\Metric;
+namespace Phpml\Tests\Metric;
 
 use Phpml\Classification\SVC;
 use Phpml\CrossValidation\RandomSplit;

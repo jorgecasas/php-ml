@@ -244,6 +244,7 @@ class Apriori implements Associator
                 foreach ((array) $this->samples as $sample) {
                     if ($this->subset($sample, $candidate)) {
                         $candidates[] = $candidate;
+
                         continue 2;
                     }
                 }

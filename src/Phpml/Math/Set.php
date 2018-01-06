@@ -15,7 +15,7 @@ class Set implements IteratorAggregate
     private $elements = [];
 
     /**
-     * @param string[]|int[]|float[] $elements
+     * @param string[]|int[]|float[]|bool[] $elements
      */
     public function __construct(array $elements = [])
     {
@@ -83,7 +83,7 @@ class Set implements IteratorAggregate
     }
 
     /**
-     * @param string|int|float $element
+     * @param string|int|float|bool $element
      */
     public function add($element): self
     {
@@ -91,7 +91,7 @@ class Set implements IteratorAggregate
     }
 
     /**
-     * @param string[]|int[]|float[] $elements
+     * @param string[]|int[]|float[]|bool[] $elements
      */
     public function addAll(array $elements): self
     {

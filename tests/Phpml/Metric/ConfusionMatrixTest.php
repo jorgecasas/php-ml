@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\Metric;
+namespace Phpml\Tests\Metric;
 
 use Phpml\Metric\ConfusionMatrix;
 use PHPUnit\Framework\TestCase;

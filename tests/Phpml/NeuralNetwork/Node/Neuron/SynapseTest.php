@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\NeuralNetwork\Node\Neuron;
+namespace Phpml\Tests\NeuralNetwork\Node\Neuron;
 
 use Phpml\NeuralNetwork\Node\Neuron;
 use Phpml\NeuralNetwork\Node\Neuron\Synapse;
@@ -41,8 +41,10 @@ class SynapseTest extends TestCase
 
     /**
      * @param int|float $output
+     *
+     * @return Neuron|PHPUnit_Framework_MockObject_MockObject
      */
-    private function getNodeMock($output = 1): PHPUnit_Framework_MockObject_MockObject
+    private function getNodeMock($output = 1)
     {
         $node = $this->getMockBuilder(Neuron::class)->getMock();
         $node->method('getOutput')->willReturn($output);

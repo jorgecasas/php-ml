@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\Dataset;
+namespace Phpml\Tests\Dataset;
 
 use Phpml\Dataset\ArrayDataset;
 use Phpml\Exception\InvalidArgumentException;

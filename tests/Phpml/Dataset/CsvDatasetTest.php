@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\Dataset;
+namespace Phpml\Tests\Dataset;
 
 use Phpml\Dataset\CsvDataset;
 use Phpml\Exception\FileException;

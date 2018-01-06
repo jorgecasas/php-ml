@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\NeuralNetwork\Node;
+namespace Phpml\Tests\NeuralNetwork\Node;
 
 use Phpml\NeuralNetwork\Node\Input;
 use PHPUnit\Framework\TestCase;

@@ -15,9 +15,9 @@ class GD extends StochasticGD
     /**
      * Number of samples given
      *
-     * @var int
+     * @var int|null
      */
-    protected $sampleCount = null;
+    protected $sampleCount;
 
     public function runOptimization(array $samples, array $targets, Closure $gradientCb): array
     {

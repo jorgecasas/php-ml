@@ -91,6 +91,7 @@ class ClassificationReport
             $values = array_filter($this->{$metric});
             if (empty($values)) {
                 $this->average[$metric] = 0.0;
+
                 continue;
             }
 

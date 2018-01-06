@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\Metric;
+namespace Phpml\Tests\Math\Distance;
 
 use Phpml\Exception\InvalidArgumentException;
 use Phpml\Math\Distance\Manhattan;

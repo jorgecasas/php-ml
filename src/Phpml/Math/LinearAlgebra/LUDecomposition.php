@@ -212,9 +212,9 @@ class LUDecomposition
     /**
      * Is the matrix nonsingular?
      *
-     * @return true if U, and hence A, is nonsingular.
+     * @return bool true if U, and hence A, is nonsingular.
      */
-    public function isNonsingular()
+    public function isNonsingular(): bool
     {
         for ($j = 0; $j < $this->n; ++$j) {
             if ($this->LU[$j][$j] == 0) {
