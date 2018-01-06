@@ -15,14 +15,14 @@ class Backpropagation
     private $learningRate;
 
     /**
-     * @var array|null
+     * @var array
      */
-    private $sigmas;
+    private $sigmas = [];
 
     /**
-     * @var array|null
+     * @var array
      */
-    private $prevSigmas;
+    private $prevSigmas = [];
 
     public function __construct(float $learningRate)
     {
@@ -57,8 +57,8 @@ class Backpropagation
         }
 
         // Clean some memory (also it helps make MLP persistency & children more maintainable).
-        $this->sigmas = null;
-        $this->prevSigmas = null;
+        $this->sigmas = [];
+        $this->prevSigmas = [];
     }
 
     private function getSigma(Neuron $neuron, int $targetClass, int $key, bool $lastLayer): float

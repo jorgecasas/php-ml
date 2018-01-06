@@ -147,7 +147,7 @@ class NaiveBayes implements Classifier
             return $this->discreteProb[$label][$feature][$value];
         }
 
-        $std = $this->std[$label][$feature] ;
+        $std = $this->std[$label][$feature];
         $mean = $this->mean[$label][$feature];
         // Calculate the probability density by use of normal/Gaussian distribution
         // Ref: https://en.wikipedia.org/wiki/Normal_distribution

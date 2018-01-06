@@ -10,7 +10,7 @@ use IteratorAggregate;
 class Set implements IteratorAggregate
 {
     /**
-     * @var string[]|int[]|float[]
+     * @var string[]|int[]|float[]|bool[]
      */
     private $elements = [];
 
@@ -135,7 +135,7 @@ class Set implements IteratorAggregate
     }
 
     /**
-     * @return string[]|int[]|float[]
+     * @return string[]|int[]|float[]|bool[]
      */
     public function toArray(): array
     {
@@ -160,9 +160,9 @@ class Set implements IteratorAggregate
     /**
      * Removes duplicates and rewrites index.
      *
-     * @param string[]|int[]|float[] $elements
+     * @param string[]|int[]|float[]|bool[] $elements
      *
-     * @return string[]|int[]|float[]
+     * @return string[]|int[]|float[]|bool[]
      */
     private static function sanitize(array $elements): array
     {

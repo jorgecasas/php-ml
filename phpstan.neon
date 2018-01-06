@@ -1,19 +1,15 @@
 parameters:
     ignoreErrors:
         - '#Phpml\\Dataset\\FilesDataset::__construct\(\) does not call parent constructor from Phpml\\Dataset\\ArrayDataset#'
-        - '#Parameter \#2 \$predictedLabels of static method Phpml\\Metric\\Accuracy::score\(\) expects mixed\[\], mixed\[\]\|string given#'
 
-        # should be always defined
-        - '#Undefined variable: \$j#'
+        # mocks
+        - '#PHPUnit_Framework_MockObject_MockObject#'
 
-        # bugged
-        - '#expects [a-z\\\|\[\]]*, [a-z\\\|\(\)\[\]]*\[\] given#'
-
-        # mock
-        - '#Parameter \#1 \$node of class Phpml\\NeuralNetwork\\Node\\Neuron\\Synapse constructor expects Phpml\\NeuralNetwork\\Node, Phpml\\NeuralNetwork\\Node\\Neuron\|PHPUnit_Framework_MockObject_MockObject given#'
-        - '#Parameter \#1 \$(activationFunction|synapse) of class Phpml\\NeuralNetwork\\Node\\Neuron constructor expects Phpml\\NeuralNetwork\\ActivationFunction|null, Phpml\\NeuralNetwork\\ActivationFunction\\BinaryStep|PHPUnit_Framework_MockObject_MockObject given#'
+        # wide range cases
+        - '#Call to function count\(\) with argument type array<int>\|Phpml\\Clustering\\KMeans\\Point will always result in number 1#'
+        - '#Parameter \#1 \$coordinates of class Phpml\\Clustering\\KMeans\\Point constructor expects array, array<int>\|Phpml\\Clustering\\KMeans\\Point given#'
 
         # probably known value
+        - '#Variable \$j might not be defined#'
         - '#Method Phpml\\Classification\\DecisionTree::getBestSplit\(\) should return Phpml\\Classification\\DecisionTree\\DecisionTreeLeaf but returns Phpml\\Classification\\DecisionTree\\DecisionTreeLeaf\|null#'
-        - '#Method Phpml\\Classification\\Linear\\DecisionStump::getBestNumericalSplit\(\) should return mixed\[\] but returns \(float\|int\|mixed\|string\)\[\]\|null#'
-        - '#Method Phpml\\Classification\\Linear\\DecisionStump::getBestNominalSplit\(\) should return mixed\[\] but returns mixed\[\]\|null#'
+        - '#Call to an undefined method Phpml\\Helper\\Optimizer\\Optimizer::getCostValues\(\)#'

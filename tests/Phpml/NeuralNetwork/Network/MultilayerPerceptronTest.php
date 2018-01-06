@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\NeuralNetwork\Network;
+namespace Phpml\Tests\NeuralNetwork\Network;
 
 use Phpml\NeuralNetwork\Network\MultilayerPerceptron;
 use PHPUnit\Framework\TestCase;
@@ -11,6 +11,7 @@ class MultilayerPerceptronTest extends TestCase
 {
     public function testLearningRateSetter(): void
     {
+        /** @var MultilayerPerceptron $mlp */
         $mlp = $this->getMockForAbstractClass(
             MultilayerPerceptron::class,
             [5, [3], [0, 1], 1000, null, 0.42]

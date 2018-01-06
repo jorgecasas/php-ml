@@ -86,7 +86,7 @@ class DecisionStump extends WeightedClassifier
 
     public function __toString(): string
     {
-        return "IF $this->column $this->operator $this->value ".
+        return "IF ${this}->column ${this}->operator ${this}->value ".
             'THEN '.$this->binaryLabels[0].' '.
             'ELSE '.$this->binaryLabels[1];
     }
@@ -176,14 +176,14 @@ class DecisionStump extends WeightedClassifier
         $maxValue = max($values);
         $stepSize = ($maxValue - $minValue) / $this->numSplitCount;
 
-        $split = null;
+        $split = [];
 
         foreach (['<=', '>'] as $operator) {
             // Before trying all possible split points, let's first try
             // the average value for the cut point
             $threshold = array_sum($values) / (float) count($values);
             [$errorRate, $prob] = $this->calculateErrorRate($targets, $threshold, $operator, $values);
-            if ($split == null || $errorRate < $split['trainingErrorRate']) {
+            if ($split === [] || $errorRate < $split['trainingErrorRate']) {
                 $split = [
                     'value' => $threshold,
                     'operator' => $operator,
@@ -218,13 +218,13 @@ class DecisionStump extends WeightedClassifier
         $valueCounts = array_count_values($values);
         $distinctVals = array_keys($valueCounts);
 
-        $split = null;
+        $split = [];
 
         foreach (['=', '!='] as $operator) {
             foreach ($distinctVals as $val) {
                 [$errorRate, $prob] = $this->calculateErrorRate($targets, $val, $operator, $values);
 
-                if ($split === null || $split['trainingErrorRate'] < $errorRate) {
+                if ($split === [] || $split['trainingErrorRate'] < $errorRate) {
                     $split = [
                         'value' => $val,
                         'operator' => $operator,

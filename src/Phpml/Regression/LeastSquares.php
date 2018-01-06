@@ -10,6 +10,7 @@ use Phpml\Math\Matrix;
 class LeastSquares implements Regression
 {
     use Predictable;
+
     /**
      * @var array
      */

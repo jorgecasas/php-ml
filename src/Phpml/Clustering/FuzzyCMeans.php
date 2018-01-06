@@ -78,7 +78,7 @@ class FuzzyCMeans implements Clusterer
     }
 
     /**
-     * @param array|Point[] $samples
+     * @param Point[]|int[][] $samples
      */
     public function cluster(array $samples): array
     {

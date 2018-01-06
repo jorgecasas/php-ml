@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace tests\Phpml\Classification\Linear;
+namespace Phpml\Tests\Classification\Linear;
 
 use Phpml\Classification\Linear\LogisticRegression;
 use PHPUnit\Framework\TestCase;
@@ -55,12 +55,12 @@ class LogisticRegressionTest extends TestCase
 
         $zero = $method->invoke($predictor, [0.1, 0.1], 0);
         $one = $method->invoke($predictor, [0.1, 0.1], 1);
-        $this->assertEquals(1, $zero + $one, null, 1e-6);
+        $this->assertEquals(1, $zero + $one, '', 1e-6);
         $this->assertTrue($zero > $one);
 
         $zero = $method->invoke($predictor, [0.9, 0.9], 0);
         $one = $method->invoke($predictor, [0.9, 0.9], 1);
-        $this->assertEquals(1, $zero + $one, null, 1e-6);
+        $this->assertEquals(1, $zero + $one, '', 1e-6);
         $this->assertTrue($zero < $one);
     }
 
@@ -97,9 +97,9 @@ class LogisticRegressionTest extends TestCase
         $two = $method->invoke($predictor, [3.0, 9.5], 2);
         $not_two = $method->invoke($predictor, [3.0, 9.5], 'not_2');
 
-        $this->assertEquals(1, $zero + $not_zero, null, 1e-6);
-        $this->assertEquals(1, $one + $not_one, null, 1e-6);
-        $this->assertEquals(1, $two + $not_two, null, 1e-6);
+        $this->assertEquals(1, $zero + $not_zero, '', 1e-6);
+        $this->assertEquals(1, $one + $not_one, '', 1e-6);
+        $this->assertEquals(1, $two + $not_two, '', 1e-6);
         $this->assertTrue($zero < $two);
         $this->assertTrue($one < $two);
     }

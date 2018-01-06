@@ -45,7 +45,7 @@ class AccuracyTest extends TestCase
         $classifier = new SVC(Kernel::RBF);
         $classifier->train($dataset->getTrainSamples(), $dataset->getTrainLabels());
 
-        $predicted = $classifier->predict($dataset->getTestSamples());
+        $predicted = (array) $classifier->predict($dataset->getTestSamples());
 
         $accuracy = Accuracy::score($dataset->getTestLabels(), $predicted);
 

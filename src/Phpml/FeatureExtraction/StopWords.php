@@ -25,7 +25,7 @@ class StopWords
 
     public static function factory(string $language = 'English'): self
     {
-        $className = __NAMESPACE__."\\StopWords\\$language";
+        $className = __NAMESPACE__."\\StopWords\\${language}";
 
         if (!class_exists($className)) {
             throw InvalidArgumentException::invalidStopWordsLanguage($language);

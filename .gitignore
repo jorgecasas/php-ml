@@ -1,4 +1,3 @@
 /vendor/
-humbuglog.*
 .php_cs.cache
 /build

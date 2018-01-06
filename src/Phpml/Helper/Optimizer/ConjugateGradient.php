@@ -171,7 +171,7 @@ class ConjugateGradient extends GD
         $dNew = array_sum($this->gradient($newTheta));
         $dOld = array_sum($this->gradient($this->theta)) + 1e-100;
 
-        return  $dNew ** 2 / $dOld ** 2;
+        return $dNew ** 2 / $dOld ** 2;
     }
 
     /**

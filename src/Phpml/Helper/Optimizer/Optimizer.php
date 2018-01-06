@@ -47,7 +47,7 @@ abstract class Optimizer
     public function setInitialTheta(array $theta)
     {
         if (count($theta) != $this->dimensions) {
-            throw new Exception("Number of values in the weights array should be $this->dimensions");
+            throw new Exception("Number of values in the weights array should be ${this}->dimensions");
         }
 
         $this->theta = $theta;

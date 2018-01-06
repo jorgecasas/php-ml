@@ -148,7 +148,7 @@ class RandomForest extends Bagging
         }
 
         return $classifier
-                ->setColumnNames($this->columnNames)
-                ->setNumFeatures($featureCount);
+            ->setColumnNames($this->columnNames)
+            ->setNumFeatures($featureCount);
     }
 }

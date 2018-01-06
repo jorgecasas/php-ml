@@ -34,7 +34,7 @@ class Perceptron implements Classifier, IncrementalEstimator
     protected $featureCount = 0;
 
     /**
-     * @var array|null
+     * @var array
      */
     protected $weights = [];
 
@@ -146,7 +146,7 @@ class Perceptron implements Classifier, IncrementalEstimator
         $this->labels = [];
         $this->optimizer = null;
         $this->featureCount = 0;
-        $this->weights = null;
+        $this->weights = [];
         $this->costValues = [];
     }
 
@@ -174,7 +174,7 @@ class Perceptron implements Classifier, IncrementalEstimator
      * Executes a Gradient Descent algorithm for
      * the given cost function
      */
-    protected function runGradientDescent(array $samples, array $targets, Closure $gradientFunc, bool $isBatch = false): void
+    protected function runGradientDescent(array $samples, array $targets, Closure $gradientFunc, bool $isBatch = false)
     {
         $class = $isBatch ? GD::class : StochasticGD::class;
 

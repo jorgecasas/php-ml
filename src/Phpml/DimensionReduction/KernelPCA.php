@@ -156,9 +156,9 @@ class KernelPCA extends PCA
         $N_K_N = $N->multiply($K_N);
 
         return $K->subtract($N_K)
-                 ->subtract($K_N)
-                 ->add($N_K_N)
-                 ->toArray();
+            ->subtract($K_N)
+            ->add($N_K_N)
+            ->toArray();
     }
 
     /**

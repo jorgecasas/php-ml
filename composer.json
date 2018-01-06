@@ -15,11 +15,10 @@
         "php": "^7.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.4",
-        "symplify/easy-coding-standard": "v3.0.0-RC3",
-        "symplify/coding-standard": "v3.0.0-RC3",
-        "symplify/package-builder": "v3.0.0-RC3",
-        "phpstan/phpstan-shim": "^0.8"
+        "phpunit/phpunit": "^6.5",
+        "symplify/easy-coding-standard": "^3.1",
+        "symplify/coding-standard": "^3.1",
+        "phpstan/phpstan-shim": "^0.9"
     },
     "autoload": {
         "psr-4": {
@@ -30,5 +29,10 @@
         "psr-4": {
             "Phpml\\Tests\\": "tests/Phpml"
         }
+    },
+    "scripts": {
+        "check-cs": "vendor/bin/ecs check src tests bin",
+        "fix-cs": "vendor/bin/ecs check src tests bin --fix",
+        "phpstan": "vendor/bin/phpstan.phar analyse src tests bin --level max --configuration phpstan.neon"
     }
 }

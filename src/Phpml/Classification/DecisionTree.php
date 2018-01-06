@@ -64,9 +64,9 @@ class DecisionTree implements Classifier
     private $featureImportances;
 
     /**
-     * @var array|null
+     * @var array
      */
-    private $columnNames;
+    private $columnNames = [];
 
     public function __construct(int $maxDepth = 10)
     {
@@ -89,7 +89,7 @@ class DecisionTree implements Classifier
 
         // If column names are given or computed before, then there is no
         // need to init it and accidentally remove the previous given names
-        if ($this->columnNames === null) {
+        if ($this->columnNames === []) {
             $this->columnNames = range(0, $this->featureCount - 1);
         } elseif (count($this->columnNames) > $this->featureCount) {
             $this->columnNames = array_slice($this->columnNames, 0, $this->featureCount);
@@ -380,9 +380,9 @@ class DecisionTree implements Classifier
                 $median = Mean::median($values);
                 foreach ($values as &$value) {
                     if ($value <= $median) {
-                        $value = "<= $median";
+                        $value = "<= ${median}";
                     } else {
-                        $value = "> $median";
+                        $value = "> ${median}";
                     }
                 }
             }
