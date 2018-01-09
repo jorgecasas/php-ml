@@ -59,4 +59,38 @@ class DBSCANTest extends TestCase
 
         $this->assertEquals($clustered, $dbscan->cluster($samples));
     }
+
+    public function testClusterEpsilonSmall(): void
+    {
+        $samples = [[0], [1], [2]];
+        $clustered = [
+        ];
+
+        $dbscan = new DBSCAN($epsilon = 0.5, $minSamples = 2);
+
+        $this->assertEquals($clustered, $dbscan->cluster($samples));
+    }
+
+    public function testClusterEpsilonBoundary(): void
+    {
+        $samples = [[0], [1], [2]];
+        $clustered = [
+        ];
+
+        $dbscan = new DBSCAN($epsilon = 1.0, $minSamples = 2);
+
+        $this->assertEquals($clustered, $dbscan->cluster($samples));
+    }
+
+    public function testClusterEpsilonLarge(): void
+    {
+        $samples = [[0], [1], [2]];
+        $clustered = [
+            [[0], [1], [2]],
+        ];
+
+        $dbscan = new DBSCAN($epsilon = 1.5, $minSamples = 2);
+
+        $this->assertEquals($clustered, $dbscan->cluster($samples));
+    }
 }
