@@ -25,4 +25,13 @@ class Sigmoid implements ActivationFunction
     {
         return 1 / (1 + exp(-$this->beta * $value));
     }
+
+    /**
+     * @param float|int $value
+     * @param float|int $computedvalue
+     */
+    public function differentiate($value, $computedvalue): float
+    {
+        return $computedvalue * (1 - $computedvalue);
+    }
 }

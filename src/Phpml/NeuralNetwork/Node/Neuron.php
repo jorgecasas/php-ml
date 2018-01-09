@@ -26,6 +26,11 @@ class Neuron implements Node
      */
     protected $output = 0.0;
 
+    /**
+     * @var float
+     */
+    protected $z = 0.0;
+
     public function __construct(?ActivationFunction $activationFunction = null)
     {
         $this->activationFunction = $activationFunction ?: new Sigmoid();
@@ -47,19 +52,25 @@ class Neuron implements Node
     public function getOutput(): float
     {
         if ($this->output === 0.0) {
-            $sum = 0.0;
+            $this->z = 0;
             foreach ($this->synapses as $synapse) {
-                $sum += $synapse->getOutput();
+                $this->z += $synapse->getOutput();
             }
 
-            $this->output = $this->activationFunction->compute($sum);
+            $this->output = $this->activationFunction->compute($this->z);
         }
 
         return $this->output;
     }
 
+    public function getDerivative(): float
+    {
+        return $this->activationFunction->differentiate($this->z, $this->output);
+    }
+
     public function reset(): void
     {
         $this->output = 0.0;
+        $this->z = 0.0;
     }
 }

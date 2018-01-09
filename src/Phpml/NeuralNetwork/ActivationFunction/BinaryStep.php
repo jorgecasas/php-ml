@@ -15,4 +15,17 @@ class BinaryStep implements ActivationFunction
     {
         return $value >= 0 ? 1.0 : 0.0;
     }
+
+    /**
+     * @param float|int $value
+     * @param float|int $computedvalue
+     */
+    public function differentiate($value, $computedvalue): float
+    {
+        if ($value === 0 || $value === 0.0) {
+            return 1;
+        }
+
+        return 0;
+    }
 }

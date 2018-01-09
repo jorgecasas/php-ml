@@ -29,4 +29,27 @@ class GaussianTest extends TestCase
             [0, -3],
         ];
     }
+
+    /**
+     * @dataProvider gaussianDerivativeProvider
+     */
+    public function testGaussianDerivative($expected, $value): void
+    {
+        $gaussian = new Gaussian();
+        $activatedValue = $gaussian->compute($value);
+        $this->assertEquals($expected, $gaussian->differentiate($value, $activatedValue), '', 0.001);
+    }
+
+    public function gaussianDerivativeProvider(): array
+    {
+        return [
+            [0, -5],
+            [0.735, -1],
+            [0.779, -0.5],
+            [0, 0],
+            [-0.779, 0.5],
+            [-0.735, 1],
+            [0, 5],
+        ];
+    }
 }

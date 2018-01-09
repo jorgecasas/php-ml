@@ -25,4 +25,13 @@ class PReLU implements ActivationFunction
     {
         return $value >= 0 ? $value : $this->beta * $value;
     }
+
+    /**
+     * @param float|int $value
+     * @param float|int $computedvalue
+     */
+    public function differentiate($value, $computedvalue): float
+    {
+        return $computedvalue >= 0 ? 1.0 : $this->beta;
+    }
 }

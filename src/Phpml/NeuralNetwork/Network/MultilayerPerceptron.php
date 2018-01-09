@@ -9,6 +9,7 @@ use Phpml\Exception\InvalidArgumentException;
 use Phpml\Helper\Predictable;
 use Phpml\IncrementalEstimator;
 use Phpml\NeuralNetwork\ActivationFunction;
+use Phpml\NeuralNetwork\ActivationFunction\Sigmoid;
 use Phpml\NeuralNetwork\Layer;
 use Phpml\NeuralNetwork\Node\Bias;
 use Phpml\NeuralNetwork\Node\Input;
@@ -125,7 +126,10 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
     {
         $this->addInputLayer($this->inputLayerFeatures);
         $this->addNeuronLayers($this->hiddenLayers, $this->activationFunction);
-        $this->addNeuronLayers([count($this->classes)], $this->activationFunction);
+
+        // Sigmoid function for the output layer as we want a value from 0 to 1.
+        $sigmoid = new Sigmoid();
+        $this->addNeuronLayers([count($this->classes)], $sigmoid);
 
         $this->addBiasNodes();
         $this->generateSynapses();

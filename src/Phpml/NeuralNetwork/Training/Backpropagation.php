@@ -64,7 +64,7 @@ class Backpropagation
     private function getSigma(Neuron $neuron, int $targetClass, int $key, bool $lastLayer): float
     {
         $neuronOutput = $neuron->getOutput();
-        $sigma = $neuronOutput * (1 - $neuronOutput);
+        $sigma = $neuron->getDerivative();
 
         if ($lastLayer) {
             $value = 0;

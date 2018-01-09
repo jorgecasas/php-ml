@@ -29,4 +29,27 @@ class PReLUTest extends TestCase
             [0.02, -0.06, -3],
         ];
     }
+
+    /**
+     * @dataProvider preluDerivativeProvider
+     */
+    public function testPReLUDerivative($beta, $expected, $value): void
+    {
+        $prelu = new PReLU($beta);
+        $activatedValue = $prelu->compute($value);
+        $this->assertEquals($expected, $prelu->differentiate($value, $activatedValue));
+    }
+
+    public function preluDerivativeProvider(): array
+    {
+        return [
+            [0.5, 0.5, -3],
+            [0.5, 1, 0],
+            [0.5, 1, 1],
+            [0.01, 1, 1],
+            [1, 1, 1],
+            [0.3, 1, 0.1],
+            [0.1, 0.1, -0.1],
+        ];
+    }
 }

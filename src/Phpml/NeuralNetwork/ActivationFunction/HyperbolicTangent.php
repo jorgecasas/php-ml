@@ -25,4 +25,13 @@ class HyperbolicTangent implements ActivationFunction
     {
         return tanh($this->beta * $value);
     }
+
+    /**
+     * @param float|int $value
+     * @param float|int $computedvalue
+     */
+    public function differentiate($value, $computedvalue): float
+    {
+        return 1 - pow($computedvalue, 2);
+    }
 }

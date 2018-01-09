@@ -7,6 +7,11 @@ namespace Phpml\Tests\Classification;
 use Phpml\Classification\MLPClassifier;
 use Phpml\Exception\InvalidArgumentException;
 use Phpml\ModelManager;
+use Phpml\NeuralNetwork\ActivationFunction;
+use Phpml\NeuralNetwork\ActivationFunction\HyperbolicTangent;
+use Phpml\NeuralNetwork\ActivationFunction\PReLU;
+use Phpml\NeuralNetwork\ActivationFunction\Sigmoid;
+use Phpml\NeuralNetwork\ActivationFunction\ThresholdedReLU;
 use Phpml\NeuralNetwork\Node\Neuron;
 use PHPUnit\Framework\TestCase;
 
@@ -139,6 +144,33 @@ class MLPClassifierTest extends TestCase
         $this->assertEquals('a', $network->predict([0, 0, 1, 1, 0]));
         $this->assertEquals('a', $network->predict([1, 1, 1, 1, 1]));
         $this->assertEquals(4, $network->predict([0, 0, 0, 0, 0]));
+    }
+
+    /**
+     * @dataProvider activationFunctionsProvider
+     */
+    public function testBackpropagationActivationFunctions(ActivationFunction $activationFunction): void
+    {
+        $network = new MLPClassifier(5, [3], ['a', 'b'], 10000, $activationFunction);
+        $network->train(
+            [[1, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 0, 1, 1, 0], [1, 1, 1, 1, 1]],
+            ['a', 'b', 'a', 'a']
+        );
+
+        $this->assertEquals('a', $network->predict([1, 0, 0, 0, 0]));
+        $this->assertEquals('b', $network->predict([0, 1, 0, 0, 0]));
+        $this->assertEquals('a', $network->predict([0, 0, 1, 1, 0]));
+        $this->assertEquals('a', $network->predict([1, 1, 1, 1, 1]));
+    }
+
+    public function activationFunctionsProvider(): array
+    {
+        return [
+            [new Sigmoid()],
+            [new HyperbolicTangent()],
+            [new PReLU()],
+            [new ThresholdedReLU()],
+        ];
     }
 
     public function testSaveAndRestore(): void

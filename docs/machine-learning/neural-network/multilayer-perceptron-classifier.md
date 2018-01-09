@@ -66,4 +66,6 @@ $mlp->predict([[1, 1, 1, 1], [0, 0, 0, 0]]);
 * BinaryStep
 * Gaussian
 * HyperbolicTangent
+* Parametric Rectified Linear Unit
 * Sigmoid (default)
+* Thresholded Rectified Linear Unit

@@ -13,7 +13,7 @@ class ThresholdedReLU implements ActivationFunction
      */
     private $theta;
 
-    public function __construct(float $theta = 1.0)
+    public function __construct(float $theta = 0.0)
     {
         $this->theta = $theta;
     }
@@ -24,5 +24,14 @@ class ThresholdedReLU implements ActivationFunction
     public function compute($value): float
     {
         return $value > $this->theta ? $value : 0.0;
+    }
+
+    /**
+     * @param float|int $value
+     * @param float|int $calculatedvalue
+     */
+    public function differentiate($value, $calculatedvalue): float
+    {
+        return $calculatedvalue >= $this->theta ? 1.0 : 0.0;
     }
 }
