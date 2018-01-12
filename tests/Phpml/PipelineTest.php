@@ -7,6 +7,7 @@ namespace Phpml\Tests;
 use Phpml\Classification\SVC;
 use Phpml\FeatureExtraction\TfIdfTransformer;
 use Phpml\FeatureExtraction\TokenCountVectorizer;
+use Phpml\ModelManager;
 use Phpml\Pipeline;
 use Phpml\Preprocessing\Imputer;
 use Phpml\Preprocessing\Imputer\Strategy\MostFrequentStrategy;
@@ -103,5 +104,41 @@ class PipelineTest extends TestCase
         $predicted = $pipeline->predict(['Hello Max', 'Goodbye Mark']);
 
         $this->assertEquals($expected, $predicted);
+    }
+
+    public function testSaveAndRestore(): void
+    {
+        $pipeline = new Pipeline([
+            new TokenCountVectorizer(new WordTokenizer()),
+            new TfIdfTransformer(),
+        ], new SVC());
+
+        $pipeline->train([
+            'Hello Paul',
+            'Hello Martin',
+            'Goodbye Tom',
+            'Hello John',
+            'Goodbye Alex',
+            'Bye Tony',
+        ], [
+            'greetings',
+            'greetings',
+            'farewell',
+            'greetings',
+            'farewell',
+            'farewell',
+        ]);
+
+        $testSamples = ['Hello Max', 'Goodbye Mark'];
+        $predicted = $pipeline->predict($testSamples);
+
+        $filepath = tempnam(sys_get_temp_dir(), uniqid('pipeline-test', true));
+        $modelManager = new ModelManager();
+        $modelManager->saveToFile($pipeline, $filepath);
+
+        $restoredClassifier = $modelManager->restoreFromFile($filepath);
+        $this->assertEquals($pipeline, $restoredClassifier);
+        $this->assertEquals($predicted, $restoredClassifier->predict($testSamples));
+        unlink($filepath);
     }
 }
