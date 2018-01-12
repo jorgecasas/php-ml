@@ -31,7 +31,7 @@ class ConjugateGradient extends GD
 
         for ($i = 0; $i < $this->maxIterations; ++$i) {
             // Obtain α that minimizes f(θ + α.d)
-            $alpha = $this->getAlpha(array_sum($d));
+            $alpha = $this->getAlpha($d);
 
             // θ(k+1) = θ(k) + α.d
             $thetaNew = $this->getNewTheta($alpha, $d);
@@ -63,7 +63,23 @@ class ConjugateGradient extends GD
      */
     protected function gradient(array $theta): array
     {
-        [, $gradient] = parent::gradient($theta);
+        [, $updates, $penalty] = parent::gradient($theta);
+
+        // Calculate gradient for each dimension
+        $gradient = [];
+        for ($i = 0; $i <= $this->dimensions; ++$i) {
+            if ($i === 0) {
+                $gradient[$i] = array_sum($updates);
+            } else {
+                $col = array_column($this->samples, $i - 1);
+                $error = 0;
+                foreach ($col as $index => $val) {
+                    $error += $val * $updates[$index];
+                }
+
+                $gradient[$i] = $error + $penalty * $theta[$i];
+            }
+        }
 
         return $gradient;
     }
@@ -92,14 +108,14 @@ class ConjugateGradient extends GD
      *		b-1) If cost function decreases, continue enlarging alpha
      *		b-2) If cost function increases, take the midpoint and try again
      */
-    protected function getAlpha(float $d): float
+    protected function getAlpha(array $d): float
     {
-        $small = 0.0001 * $d;
-        $large = 0.01 * $d;
+        $small = MP::muls($d, 0.0001);
+        $large = MP::muls($d, 0.01);
 
         // Obtain θ + α.d for two initial values, x0 and x1
-        $x0 = MP::adds($this->theta, $small);
-        $x1 = MP::adds($this->theta, $large);
+        $x0 = MP::add($this->theta, $small);
+        $x1 = MP::add($this->theta, $large);
 
         $epsilon = 0.0001;
         $iteration = 0;
@@ -123,12 +139,20 @@ class ConjugateGradient extends GD
             $error = $fx1 / $this->dimensions;
         } while ($error <= $epsilon || $iteration++ < 10);
 
-        //  Return α = θ / d
-        if ($d == 0) {
-            return $x1[0] - $this->theta[0];
+        // Return α = θ / d
+        // For accuracy, choose a dimension which maximize |d[i]|
+        $imax = 0;
+        for ($i = 1; $i <= $this->dimensions; ++$i) {
+            if (abs($d[$i]) > abs($d[$imax])) {
+                $imax = $i;
+            }
         }
 
-        return ($x1[0] - $this->theta[0]) / $d;
+        if ($d[$imax] == 0) {
+            return $x1[$imax] - $this->theta[$imax];
+        }
+
+        return ($x1[$imax] - $this->theta[$imax]) / $d[$imax];
     }
 
     /**
@@ -139,22 +163,7 @@ class ConjugateGradient extends GD
      */
     protected function getNewTheta(float $alpha, array $d): array
     {
-        $theta = $this->theta;
-
-        for ($i = 0; $i < $this->dimensions + 1; ++$i) {
-            if ($i === 0) {
-                $theta[$i] += $alpha * array_sum($d);
-            } else {
-                $sum = 0.0;
-                foreach ($this->samples as $si => $sample) {
-                    $sum += $sample[$i - 1] * $d[$si] * $alpha;
-                }
-
-                $theta[$i] += $sum;
-            }
-        }
-
-        return $theta;
+        return MP::add($this->theta, MP::muls($d, $alpha));
     }
 
     /**
@@ -168,10 +177,16 @@ class ConjugateGradient extends GD
      */
     protected function getBeta(array $newTheta): float
     {
-        $dNew = array_sum($this->gradient($newTheta));
-        $dOld = array_sum($this->gradient($this->theta)) + 1e-100;
+        $gNew = $this->gradient($newTheta);
+        $gOld = $this->gradient($this->theta);
+        $dNew = 0;
+        $dOld = 1e-100;
+        for ($i = 0; $i <= $this->dimensions; ++$i) {
+            $dNew += $gNew[$i] ** 2;
+            $dOld += $gOld[$i] ** 2;
+        }
 
-        return $dNew ** 2 / $dOld ** 2;
+        return $dNew / $dOld;
     }
 
     /**
