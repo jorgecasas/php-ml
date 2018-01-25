@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Phpml\SupportVectorMachine;
 
 use Phpml\Exception\InvalidArgumentException;
+use Phpml\Exception\LibsvmCommandException;
 use Phpml\Helper\Trainable;
 
 class SupportVectorMachine
@@ -153,7 +154,11 @@ class SupportVectorMachine
 
         $command = $this->buildTrainCommand($trainingSetFileName, $modelFileName);
         $output = '';
-        exec(escapeshellcmd($command), $output);
+        exec(escapeshellcmd($command), $output, $return);
+
+        if ($return !== 0) {
+            throw LibsvmCommandException::failedToRun($command);
+        }
 
         $this->model = file_get_contents($modelFileName);
 
@@ -168,6 +173,8 @@ class SupportVectorMachine
 
     /**
      * @return array|string
+     *
+     * @throws LibsvmCommandException
      */
     public function predict(array $samples)
     {
@@ -178,7 +185,11 @@ class SupportVectorMachine
 
         $command = sprintf('%ssvm-predict%s %s %s %s', $this->binPath, $this->getOSExtension(), $testSetFileName, $modelFileName, $outputFileName);
         $output = '';
-        exec(escapeshellcmd($command), $output);
+        exec(escapeshellcmd($command), $output, $return);
+
+        if ($return !== 0) {
+            throw LibsvmCommandException::failedToRun($command);
+        }
 
         $predictions = file_get_contents($outputFileName);
 
