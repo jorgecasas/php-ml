@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Phpml\Tests\SupportVectorMachine;
 
 use Phpml\Exception\InvalidArgumentException;
+use Phpml\Exception\LibsvmCommandException;
 use Phpml\SupportVectorMachine\Kernel;
 use Phpml\SupportVectorMachine\SupportVectorMachine;
 use Phpml\SupportVectorMachine\Type;
@@ -104,5 +105,23 @@ SV
         $this->expectExceptionMessage('not found');
         $svm = new SupportVectorMachine(Type::C_SVC, Kernel::RBF);
         $svm->setBinPath('var');
+    }
+
+    public function testThrowExceptionWhenLibsvmFailsDuringTrain(): void
+    {
+        $this->expectException(LibsvmCommandException::class);
+        $this->expectExceptionMessage('ERROR: unknown svm type');
+
+        $svm = new SupportVectorMachine(99, Kernel::RBF);
+        $svm->train([], []);
+    }
+
+    public function testThrowExceptionWhenLibsvmFailsDuringPredict(): void
+    {
+        $this->expectException(LibsvmCommandException::class);
+        $this->expectExceptionMessage('can\'t open model file');
+
+        $svm = new SupportVectorMachine(Type::C_SVC, Kernel::RBF);
+        $svm->predict([1]);
     }
 }

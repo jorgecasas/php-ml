@@ -153,16 +153,17 @@ class SupportVectorMachine
         $modelFileName = $trainingSetFileName.'-model';
 
         $command = $this->buildTrainCommand($trainingSetFileName, $modelFileName);
-        $output = '';
-        exec(escapeshellcmd($command), $output, $return);
+        $output = [];
+        exec(escapeshellcmd($command).' 2>&1', $output, $return);
+
+        unlink($trainingSetFileName);
 
         if ($return !== 0) {
-            throw LibsvmCommandException::failedToRun($command);
+            throw LibsvmCommandException::failedToRun($command, array_pop($output));
         }
 
         $this->model = file_get_contents($modelFileName);
 
-        unlink($trainingSetFileName);
         unlink($modelFileName);
     }
 
@@ -184,18 +185,18 @@ class SupportVectorMachine
         $outputFileName = $testSetFileName.'-output';
 
         $command = sprintf('%ssvm-predict%s %s %s %s', $this->binPath, $this->getOSExtension(), $testSetFileName, $modelFileName, $outputFileName);
-        $output = '';
-        exec(escapeshellcmd($command), $output, $return);
-
-        if ($return !== 0) {
-            throw LibsvmCommandException::failedToRun($command);
-        }
-
-        $predictions = file_get_contents($outputFileName);
+        $output = [];
+        exec(escapeshellcmd($command).' 2>&1', $output, $return);
 
         unlink($testSetFileName);
         unlink($modelFileName);
+        $predictions = file_get_contents($outputFileName);
+
         unlink($outputFileName);
+
+        if ($return !== 0) {
+            throw LibsvmCommandException::failedToRun($command, array_pop($output));
+        }
 
         if (in_array($this->type, [Type::C_SVC, Type::NU_SVC])) {
             $predictions = DataTransformer::predictions($predictions, $this->targets);
