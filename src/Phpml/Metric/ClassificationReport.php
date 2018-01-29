@@ -4,8 +4,36 @@ declare(strict_types=1);
 
 namespace Phpml\Metric;
 
+use Phpml\Exception\InvalidArgumentException;
+
 class ClassificationReport
 {
+    public const MICRO_AVERAGE = 1;
+
+    public const MACRO_AVERAGE = 2;
+
+    public const WEIGHTED_AVERAGE = 3;
+
+    /**
+     * @var array
+     */
+    private $truePositive = [];
+
+    /**
+     * @var array
+     */
+    private $falsePositive = [];
+
+    /**
+     * @var array
+     */
+    private $falseNegative = [];
+
+    /**
+     * @var array
+     */
+    private $support = [];
+
     /**
      * @var array
      */
@@ -24,31 +52,18 @@ class ClassificationReport
     /**
      * @var array
      */
-    private $support = [];
-
-    /**
-     * @var array
-     */
     private $average = [];
 
-    public function __construct(array $actualLabels, array $predictedLabels)
+    public function __construct(array $actualLabels, array $predictedLabels, int $average = self::MACRO_AVERAGE)
     {
-        $truePositive = $falsePositive = $falseNegative = $this->support = self::getLabelIndexedArray($actualLabels, $predictedLabels);
-
-        foreach ($actualLabels as $index => $actual) {
-            $predicted = $predictedLabels[$index];
-            ++$this->support[$actual];
-
-            if ($actual === $predicted) {
-                ++$truePositive[$actual];
-            } else {
-                ++$falsePositive[$predicted];
-                ++$falseNegative[$actual];
-            }
+        $averagingMethods = range(self::MICRO_AVERAGE, self::WEIGHTED_AVERAGE);
+        if (!in_array($average, $averagingMethods)) {
+            throw new InvalidArgumentException('Averaging method must be MICRO_AVERAGE, MACRO_AVERAGE or WEIGHTED_AVERAGE');
         }
 
-        $this->computeMetrics($truePositive, $falsePositive, $falseNegative);
-        $this->computeAverage();
+        $this->aggregateClassificationResults($actualLabels, $predictedLabels);
+        $this->computeMetrics();
+        $this->computeAverage($average);
     }
 
     public function getPrecision(): array
@@ -76,26 +91,98 @@ class ClassificationReport
         return $this->average;
     }
 
-    private function computeMetrics(array $truePositive, array $falsePositive, array $falseNegative): void
+    private function aggregateClassificationResults(array $actualLabels, array $predictedLabels): void
     {
-        foreach ($truePositive as $label => $tp) {
-            $this->precision[$label] = $this->computePrecision($tp, $falsePositive[$label]);
-            $this->recall[$label] = $this->computeRecall($tp, $falseNegative[$label]);
+        $truePositive = $falsePositive = $falseNegative = $support = self::getLabelIndexedArray($actualLabels, $predictedLabels);
+
+        foreach ($actualLabels as $index => $actual) {
+            $predicted = $predictedLabels[$index];
+            ++$support[$actual];
+
+            if ($actual === $predicted) {
+                ++$truePositive[$actual];
+            } else {
+                ++$falsePositive[$predicted];
+                ++$falseNegative[$actual];
+            }
+        }
+
+        $this->truePositive = $truePositive;
+        $this->falsePositive = $falsePositive;
+        $this->falseNegative = $falseNegative;
+        $this->support = $support;
+    }
+
+    private function computeMetrics(): void
+    {
+        foreach ($this->truePositive as $label => $tp) {
+            $this->precision[$label] = $this->computePrecision($tp, $this->falsePositive[$label]);
+            $this->recall[$label] = $this->computeRecall($tp, $this->falseNegative[$label]);
             $this->f1score[$label] = $this->computeF1Score((float) $this->precision[$label], (float) $this->recall[$label]);
         }
     }
 
-    private function computeAverage(): void
+    private function computeAverage(int $average): void
+    {
+        switch ($average) {
+            case self::MICRO_AVERAGE:
+                $this->computeMicroAverage();
+
+                return;
+            case self::MACRO_AVERAGE:
+                $this->computeMacroAverage();
+
+                return;
+            case self::WEIGHTED_AVERAGE:
+                $this->computeWeightedAverage();
+
+                return;
+        }
+    }
+
+    private function computeMicroAverage(): void
+    {
+        $truePositive = array_sum($this->truePositive);
+        $falsePositive = array_sum($this->falsePositive);
+        $falseNegative = array_sum($this->falseNegative);
+
+        $precision = $this->computePrecision($truePositive, $falsePositive);
+        $recall = $this->computeRecall($truePositive, $falseNegative);
+        $f1score = $this->computeF1Score((float) $precision, (float) $recall);
+
+        $this->average = compact('precision', 'recall', 'f1score');
+    }
+
+    private function computeMacroAverage(): void
     {
         foreach (['precision', 'recall', 'f1score'] as $metric) {
-            $values = array_filter($this->{$metric});
-            if (empty($values)) {
+            $values = $this->{$metric};
+            if (count($values) == 0) {
                 $this->average[$metric] = 0.0;
 
                 continue;
             }
 
             $this->average[$metric] = array_sum($values) / count($values);
+        }
+    }
+
+    private function computeWeightedAverage(): void
+    {
+        foreach (['precision', 'recall', 'f1score'] as $metric) {
+            $values = $this->{$metric};
+            if (count($values) == 0) {
+                $this->average[$metric] = 0.0;
+
+                continue;
+            }
+
+            $sum = 0;
+            foreach ($values as $i => $value) {
+                $sum += $value * $this->support[$i];
+            }
+
+            $this->average[$metric] = $sum / array_sum($this->support);
         }
     }
 

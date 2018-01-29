@@ -18,6 +18,13 @@ $predictedLabels = ['cat', 'cat', 'bird', 'bird', 'ant'];
 $report = new ClassificationReport($actualLabels, $predictedLabels);
 ```
 
+Optionally you can provide the following parameter:
+
+* $average - (int) averaging method for multi-class classification
+    * `ClassificationReport::MICRO_AVERAGE` = 1
+    * `ClassificationReport::MACRO_AVERAGE` = 2 (default)
+    * `ClassificationReport::WEIGHTED_AVERAGE` = 3
+
 ### Metrics
 
 After creating the report you can draw its individual metrics:
