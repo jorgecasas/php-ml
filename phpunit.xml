@@ -5,8 +5,8 @@
         colors="true"
         beStrictAboutTestsThatDoNotTestAnything="true"
         beStrictAboutOutputDuringTests="true"
-        beStrictAboutTestSize="true"
         beStrictAboutChangesToGlobalState="true"
+        enforceTimeLimit="true"
 >
     <testsuite name="PHP-ML Test Suite">
         <directory>tests/*</directory>
