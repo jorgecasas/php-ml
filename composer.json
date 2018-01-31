@@ -15,10 +15,13 @@
         "php": "^7.1"
     },
     "require-dev": {
+        "phpstan/phpstan-shim": "^0.9",
         "phpunit/phpunit": "^6.5",
-        "symplify/easy-coding-standard": "^3.1",
         "symplify/coding-standard": "^3.1",
-        "phpstan/phpstan-shim": "^0.9"
+        "symplify/easy-coding-standard": "^3.1"
+    },
+    "config": {
+        "sort-packages": true
     },
     "autoload": {
         "psr-4": {
