@@ -19,6 +19,10 @@ matrix:
         - _OSX=10.11
         - _PHP: php71
 
+cache:
+  directories:
+    - $HOME/.composer/cache
+
 before_install:
   - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then /usr/bin/env bash bin/prepare_osx_env.sh ; fi
   - if [[ $DISABLE_XDEBUG == "true" ]]; then phpenv config-rm xdebug.ini; fi
