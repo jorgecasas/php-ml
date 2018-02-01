@@ -19,6 +19,24 @@ $mlp = new MLPClassifier(4, [2], ['a', 'b', 'c']);
 
 ```
 
+An Activation Function may also be passed in with each individual hidden layer. Example:
+
+```
+use Phpml\NeuralNetwork\ActivationFunction\PReLU;
+use Phpml\NeuralNetwork\ActivationFunction\Sigmoid;
+$mlp = new MLPClassifier(4, [[2, new PReLU], [2, new Sigmoid]], ['a', 'b', 'c']);
+```
+
+Instead of configuring each hidden layer as an array, they may also be configured with Layer objects. Example:
+
+```
+use Phpml\NeuralNetwork\Layer;
+use Phpml\NeuralNetwork\Node\Neuron;
+$layer1 = new Layer(2, Neuron::class, new PReLU);
+$layer2 = new Layer(2, Neuron::class, new Sigmoid);
+$mlp = new MLPClassifier(4, [$layer1, $layer2], ['a', 'b', 'c']);
+```
+
 ## Train
 
 To train a MLP simply provide train samples and labels (as array). Example:
