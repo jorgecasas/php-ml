@@ -35,7 +35,7 @@ To predict sample label use `predict` method. You can provide one sample or arra
 
 ```
 $associator->predict(['alpha','theta']);
-// return [[['beta']]]
+// return [['beta']]
 
 $associator->predict([['alpha','epsilon'],['beta','theta']]);
 // return [[['beta']], [['alpha']]]
@@ -47,7 +47,7 @@ Get generated association rules simply use `rules` method.
  
 ```
 $associator->getRules();
-// return [['antecedent' => ['alpha', 'theta'], 'consequent' => ['beta], 'support' => 1.0, 'confidence' => 1.0], ... ]
+// return [['antecedent' => ['alpha', 'theta'], 'consequent' => ['beta'], 'support' => 1.0, 'confidence' => 1.0], ... ]
 ```
 
 ### Frequent item sets
