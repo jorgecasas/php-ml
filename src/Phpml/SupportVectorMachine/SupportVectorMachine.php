@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Phpml\SupportVectorMachine;
 
 use Phpml\Exception\InvalidArgumentException;
+use Phpml\Exception\InvalidOperationException;
 use Phpml\Exception\LibsvmCommandException;
 use Phpml\Helper\Trainable;
 
@@ -179,12 +180,60 @@ class SupportVectorMachine
      */
     public function predict(array $samples)
     {
+        $predictions = $this->runSvmPredict($samples, false);
+
+        if (in_array($this->type, [Type::C_SVC, Type::NU_SVC])) {
+            $predictions = DataTransformer::predictions($predictions, $this->targets);
+        } else {
+            $predictions = explode(PHP_EOL, trim($predictions));
+        }
+
+        if (!is_array($samples[0])) {
+            return $predictions[0];
+        }
+
+        return $predictions;
+    }
+
+    /**
+     * @return array|string
+     *
+     * @throws LibsvmCommandException
+     */
+    public function predictProbability(array $samples)
+    {
+        if (!$this->probabilityEstimates) {
+            throw new InvalidOperationException('Model does not support probabiliy estimates');
+        }
+
+        $predictions = $this->runSvmPredict($samples, true);
+
+        if (in_array($this->type, [Type::C_SVC, Type::NU_SVC])) {
+            $predictions = DataTransformer::probabilities($predictions, $this->targets);
+        } else {
+            $predictions = explode(PHP_EOL, trim($predictions));
+        }
+
+        if (!is_array($samples[0])) {
+            return $predictions[0];
+        }
+
+        return $predictions;
+    }
+
+    private function runSvmPredict(array $samples, bool $probabilityEstimates): string
+    {
         $testSet = DataTransformer::testSet($samples);
         file_put_contents($testSetFileName = $this->varPath.uniqid('phpml', true), $testSet);
         file_put_contents($modelFileName = $testSetFileName.'-model', $this->model);
         $outputFileName = $testSetFileName.'-output';
 
-        $command = sprintf('%ssvm-predict%s %s %s %s', $this->binPath, $this->getOSExtension(), $testSetFileName, $modelFileName, $outputFileName);
+        $command = $this->buildPredictCommand(
+            $testSetFileName,
+            $modelFileName,
+            $outputFileName,
+            $probabilityEstimates
+        );
         $output = [];
         exec(escapeshellcmd($command).' 2>&1', $output, $return);
 
@@ -196,16 +245,6 @@ class SupportVectorMachine
 
         if ($return !== 0) {
             throw LibsvmCommandException::failedToRun($command, array_pop($output));
-        }
-
-        if (in_array($this->type, [Type::C_SVC, Type::NU_SVC])) {
-            $predictions = DataTransformer::predictions($predictions, $this->targets);
-        } else {
-            $predictions = explode(PHP_EOL, trim($predictions));
-        }
-
-        if (!is_array($samples[0])) {
-            return $predictions[0];
         }
 
         return $predictions;
@@ -243,6 +282,23 @@ class SupportVectorMachine
             $this->probabilityEstimates,
             escapeshellarg($trainingSetFileName),
             escapeshellarg($modelFileName)
+        );
+    }
+
+    private function buildPredictCommand(
+        string $testSetFileName,
+        string $modelFileName,
+        string $outputFileName,
+        bool $probabilityEstimates
+    ): string {
+        return sprintf(
+            '%ssvm-predict%s -b %d %s %s %s',
+            $this->binPath,
+            $this->getOSExtension(),
+            $probabilityEstimates ? 1 : 0,
+            escapeshellarg($testSetFileName),
+            escapeshellarg($modelFileName),
+            escapeshellarg($outputFileName)
         );
     }
 

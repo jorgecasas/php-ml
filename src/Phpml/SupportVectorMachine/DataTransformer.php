@@ -49,6 +49,37 @@ class DataTransformer
         return $results;
     }
 
+    public static function probabilities(string $rawPredictions, array $labels): array
+    {
+        $numericLabels = self::numericLabels($labels);
+
+        $predictions = explode(PHP_EOL, trim($rawPredictions));
+
+        $header = array_shift($predictions);
+        $headerColumns = explode(' ', $header);
+        array_shift($headerColumns);
+
+        $columnLabels = [];
+        foreach ($headerColumns as $numericLabel) {
+            $columnLabels[] = array_search($numericLabel, $numericLabels);
+        }
+
+        $results = [];
+        foreach ($predictions as $rawResult) {
+            $probabilities = explode(' ', $rawResult);
+            array_shift($probabilities);
+
+            $result = [];
+            foreach ($probabilities as $i => $prob) {
+                $result[$columnLabels[$i]] = (float) $prob;
+            }
+
+            $results[] = $result;
+        }
+
+        return $results;
+    }
+
     public static function numericLabels(array $labels): array
     {
         $numericLabels = [];
