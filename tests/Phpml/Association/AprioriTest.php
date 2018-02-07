@@ -64,7 +64,6 @@ class AprioriTest extends TestCase
 
         $L = $apriori->apriori();
 
-        $this->assertCount(0, $L[3]);
         $this->assertCount(4, $L[2]);
         $this->assertTrue($this->invoke($apriori, 'contains', [$L[2], [1, 2]]));
         $this->assertFalse($this->invoke($apriori, 'contains', [$L[2], [1, 3]]));
@@ -203,5 +202,30 @@ class AprioriTest extends TestCase
         $restoredClassifier = $modelManager->restoreFromFile($filepath);
         $this->assertEquals($classifier, $restoredClassifier);
         $this->assertEquals($predicted, $restoredClassifier->predict($testSamples));
+    }
+
+    public function testAprioriEmpty(): void
+    {
+        $sample = [];
+
+        $apriori = new Apriori(0, 0);
+        $apriori->train($sample, []);
+
+        $L = $apriori->apriori();
+
+        $this->assertEmpty($L);
+    }
+
+    public function testAprioriSingleItem(): void
+    {
+        $sample = [['a']];
+
+        $apriori = new Apriori(0, 0);
+        $apriori->train($sample, []);
+
+        $L = $apriori->apriori();
+
+        $this->assertEquals([1], array_keys($L));
+        $this->assertEquals([['a']], $L[1]);
     }
 }

@@ -86,12 +86,11 @@ class Apriori implements Associator
     public function apriori(): array
     {
         $L = [];
-        $L[1] = $this->items();
-        $L[1] = $this->frequent($L[1]);
 
-        for ($k = 2; !empty($L[$k - 1]); ++$k) {
-            $L[$k] = $this->candidates($L[$k - 1]);
-            $L[$k] = $this->frequent($L[$k]);
+        $items = $this->frequent($this->items());
+        for ($k = 1; !empty($items); ++$k) {
+            $L[$k] = $items;
+            $items = $this->frequent($this->candidates($items));
         }
 
         return $L;
