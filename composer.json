@@ -34,12 +34,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Phpml\\": "src/Phpml"
+            "Phpml\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Phpml\\Tests\\": "tests/Phpml"
+            "Phpml\\Tests\\": "tests/"
         }
     },
     "scripts": {

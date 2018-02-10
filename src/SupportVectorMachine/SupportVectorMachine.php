@@ -120,7 +120,7 @@ class SupportVectorMachine
         $this->shrinking = $shrinking;
         $this->probabilityEstimates = $probabilityEstimates;
 
-        $rootPath = realpath(implode(DIRECTORY_SEPARATOR, [__DIR__, '..', '..', '..'])).DIRECTORY_SEPARATOR;
+        $rootPath = realpath(implode(DIRECTORY_SEPARATOR, [__DIR__, '..', '..'])).DIRECTORY_SEPARATOR;
 
         $this->binPath = $rootPath.'bin'.DIRECTORY_SEPARATOR.'libsvm'.DIRECTORY_SEPARATOR;
         $this->varPath = $rootPath.'var'.DIRECTORY_SEPARATOR;

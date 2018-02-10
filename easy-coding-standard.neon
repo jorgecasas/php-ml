@@ -40,19 +40,19 @@ parameters:
     skip:
         PhpCsFixer\Fixer\Alias\RandomApiMigrationFixer:
             # random_int() breaks code
-            - src/Phpml/CrossValidation/RandomSplit.php
+            - src/CrossValidation/RandomSplit.php
         SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff:
             # magic calls
-            - src/Phpml/Preprocessing/Normalizer.php
+            - src/Preprocessing/Normalizer.php
         PhpCsFixer\Fixer\StringNotation\ExplicitStringVariableFixer:
             # bugged
-            - src/Phpml/Classification/DecisionTree/DecisionTreeLeaf.php
+            - src/Classification/DecisionTree/DecisionTreeLeaf.php
         Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDocBlockFixer:
             # bug in fixer
-            - src/Phpml/Math/LinearAlgebra/LUDecomposition.php
+            - src/Math/LinearAlgebra/LUDecomposition.php
         PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer:
             # covariant return types
-            - src/Phpml/Classification/Linear/Perceptron.php
+            - src/Classification/Linear/Perceptron.php
 
     skip_codes:
         # missing typehints
