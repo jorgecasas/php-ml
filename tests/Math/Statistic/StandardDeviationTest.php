@@ -37,4 +37,29 @@ class StandardDeviationTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         StandardDeviation::population([1]);
     }
+
+    /**
+     * @dataProvider dataProviderForSumOfSquaresDeviations
+     */
+    public function testSumOfSquares(array $numbers, float $sum): void
+    {
+        self::assertEquals($sum, StandardDeviation::sumOfSquares($numbers), '', 0.0001);
+    }
+
+    public function dataProviderForSumOfSquaresDeviations(): array
+    {
+        return [
+            [[3, 6, 7, 11, 12, 13, 17], 136.8571],
+            [[6, 11, 12, 14, 15, 20, 21], 162.8571],
+            [[1, 2, 3, 6, 7, 11, 12], 112],
+            [[1, 2, 3, 4, 5, 6, 7, 8, 9, 0], 82.5],
+            [[34, 253, 754, 2342, 75, 23, 876, 4, 1, -34, -345, 754, -377, 3, 0], 6453975.7333],
+        ];
+    }
+
+    public function testThrowExceptionOnEmptyArraySumOfSquares(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        StandardDeviation::sumOfSquares([]);
+    }
 }

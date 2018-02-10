@@ -76,6 +76,8 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
 * Cross Validation
     * [Random Split](machine-learning/cross-validation/random-split.md)
     * [Stratified Random Split](machine-learning/cross-validation/stratified-random-split.md)
+* Feature Selection
+    * [Variance Threshold](machine-learning/feature-selection/variance-threshold.md)
 * Preprocessing
     * [Normalization](machine-learning/preprocessing/normalization.md)
     * [Imputation missing values](machine-learning/preprocessing/imputation-missing-values.md)
