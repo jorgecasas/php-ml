@@ -41,7 +41,7 @@ class TokenCountVectorizer implements Transformer
         $this->minDF = $minDF;
     }
 
-    public function fit(array $samples): void
+    public function fit(array $samples, ?array $targets = null): void
     {
         $this->buildVocabulary($samples);
     }

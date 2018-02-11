@@ -48,7 +48,7 @@ class Normalizer implements Preprocessor
         $this->norm = $norm;
     }
 
-    public function fit(array $samples): void
+    public function fit(array $samples, ?array $targets = null): void
     {
         if ($this->fitted) {
             return;

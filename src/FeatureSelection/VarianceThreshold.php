@@ -33,11 +33,9 @@ final class VarianceThreshold implements Transformer
         }
 
         $this->threshold = $threshold;
-        $this->variances = [];
-        $this->keepColumns = [];
     }
 
-    public function fit(array $samples): void
+    public function fit(array $samples, ?array $targets = null): void
     {
         $this->variances = array_map(function (array $column) {
             return Variance::population($column);

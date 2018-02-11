@@ -59,7 +59,7 @@ class MLPClassifierTest extends TestCase
     public function testBackpropagationLearning(): void
     {
         // Single layer 2 classes.
-        $network = new MLPClassifier(2, [2], ['a', 'b']);
+        $network = new MLPClassifier(2, [2], ['a', 'b'], 1000);
         $network->train(
             [[1, 0], [0, 1], [1, 1], [0, 0]],
             ['a', 'b', 'a', 'b']
@@ -118,7 +118,7 @@ class MLPClassifierTest extends TestCase
     public function testBackpropagationLearningMultilayer(): void
     {
         // Multi-layer 2 classes.
-        $network = new MLPClassifier(5, [3, 2], ['a', 'b', 'c']);
+        $network = new MLPClassifier(5, [3, 2], ['a', 'b', 'c'], 2000);
         $network->train(
             [[1, 0, 0, 0, 0], [0, 1, 1, 0, 0], [1, 1, 1, 1, 1], [0, 0, 0, 0, 0]],
             ['a', 'b', 'a', 'c']
@@ -133,7 +133,7 @@ class MLPClassifierTest extends TestCase
     public function testBackpropagationLearningMulticlass(): void
     {
         // Multi-layer more than 2 classes.
-        $network = new MLPClassifier(5, [3, 2], ['a', 'b', 4]);
+        $network = new MLPClassifier(5, [3, 2], ['a', 'b', 4], 1000);
         $network->train(
             [[1, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 0, 1, 1, 0], [1, 1, 1, 1, 1], [0, 0, 0, 0, 0]],
             ['a', 'b', 'a', 'a', 4]
@@ -151,7 +151,7 @@ class MLPClassifierTest extends TestCase
      */
     public function testBackpropagationActivationFunctions(ActivationFunction $activationFunction): void
     {
-        $network = new MLPClassifier(5, [3], ['a', 'b'], 10000, $activationFunction);
+        $network = new MLPClassifier(5, [3], ['a', 'b'], 1000, $activationFunction);
         $network->train(
             [[1, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 0, 1, 1, 0], [1, 1, 1, 1, 1]],
             ['a', 'b', 'a', 'a']
@@ -178,7 +178,7 @@ class MLPClassifierTest extends TestCase
         // Instantinate new Percetron trained for OR problem
         $samples = [[0, 0], [1, 0], [0, 1], [1, 1]];
         $targets = [0, 1, 1, 1];
-        $classifier = new MLPClassifier(2, [2], [0, 1]);
+        $classifier = new MLPClassifier(2, [2], [0, 1], 1000);
         $classifier->train($samples, $targets);
         $testSamples = [[0, 0], [1, 0], [0, 1], [1, 1]];
         $predicted = $classifier->predict($testSamples);

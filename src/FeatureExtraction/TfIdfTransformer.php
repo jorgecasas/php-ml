@@ -20,7 +20,7 @@ class TfIdfTransformer implements Transformer
         }
     }
 
-    public function fit(array $samples): void
+    public function fit(array $samples, ?array $targets = null): void
     {
         $this->countTokensFrequency($samples);
 
