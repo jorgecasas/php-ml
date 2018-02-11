@@ -138,7 +138,7 @@ class Apriori implements Associator
                 $this->rules[] = [
                     self::ARRAY_KEY_ANTECEDENT => $antecedent,
                     self::ARRAY_KEY_CONSEQUENT => $consequent,
-                    self::ARRAY_KEY_SUPPORT => $this->support($consequent),
+                    self::ARRAY_KEY_SUPPORT => $this->support($frequent),
                     self::ARRAY_KEY_CONFIDENCE => $confidence,
                 ];
             }
