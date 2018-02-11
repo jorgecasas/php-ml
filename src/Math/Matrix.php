@@ -237,6 +237,29 @@ class Matrix
     }
 
     /**
+     * Frobenius norm (Hilbert–Schmidt norm, Euclidean norm) (‖A‖F)
+     * Square root of the sum of the square of all elements.
+     *
+     * https://en.wikipedia.org/wiki/Matrix_norm#Frobenius_norm
+     *
+     *          _____________
+     *         /ᵐ   ⁿ
+     * ‖A‖F = √ Σ   Σ  |aᵢⱼ|²
+     *         ᵢ₌₁ ᵢ₌₁
+     */
+    public function frobeniusNorm(): float
+    {
+        $squareSum = 0;
+        for ($i = 0; $i < $this->rows; ++$i) {
+            for ($j = 0; $j < $this->columns; ++$j) {
+                $squareSum += ($this->matrix[$i][$j]) ** 2;
+            }
+        }
+
+        return sqrt($squareSum);
+    }
+
+    /**
      * Returns the transpose of given array
      */
     public static function transposeArray(array $array): array
@@ -259,7 +282,7 @@ class Matrix
     /**
      * Element-wise addition or substraction depending on the given sign parameter
      */
-    protected function _add(self $other, int $sign = 1): self
+    private function _add(self $other, int $sign = 1): self
     {
         $a1 = $this->toArray();
         $a2 = $other->toArray();
@@ -277,7 +300,7 @@ class Matrix
     /**
      * Returns diagonal identity matrix of the same size of this matrix
      */
-    protected function getIdentity(): self
+    private function getIdentity(): self
     {
         $array = array_fill(0, $this->rows, array_fill(0, $this->columns, 0));
         for ($i = 0; $i < $this->rows; ++$i) {

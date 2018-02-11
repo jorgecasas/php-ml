@@ -251,4 +251,55 @@ class MatrixTest extends TestCase
         $dot = [6, 12];
         $this->assertEquals($dot, Matrix::dot($matrix2, $matrix1));
     }
+
+    /**
+     * @dataProvider dataProviderForFrobeniusNorm
+     */
+    public function testFrobeniusNorm(array $matrix, float $norm): void
+    {
+        $matrix = new Matrix($matrix);
+
+        $this->assertEquals($norm, $matrix->frobeniusNorm(), '', 0.0001);
+    }
+
+    public function dataProviderForFrobeniusNorm()
+    {
+        return [
+            [
+                [
+                    [1, -7],
+                    [2, 3],
+                ], 7.93725,
+            ],
+            [
+                [
+                    [1, 2, 3],
+                    [2, 3, 4],
+                    [3, 4, 5],
+                ], 9.643651,
+            ],
+            [
+                [
+                    [1, 5, 3, 9],
+                    [2, 3, 4, 12],
+                    [4, 2, 5, 11],
+                ], 21.330729,
+            ],
+            [
+                [
+                    [1, 5, 3],
+                    [2, 3, 4],
+                    [4, 2, 5],
+                    [6, 6, 3],
+                ], 13.784049,
+            ],
+            [
+                [
+                    [5, -4, 2],
+                    [-1, 2, 3],
+                    [-2, 1, 0],
+                ], 8,
+            ],
+        ];
+    }
 }
