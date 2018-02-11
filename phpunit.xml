@@ -9,7 +9,7 @@
         enforceTimeLimit="true"
 >
     <testsuite name="PHP-ML Test Suite">
-        <directory>tests/*</directory>
+        <directory>tests</directory>
     </testsuite>
 
     <filter>

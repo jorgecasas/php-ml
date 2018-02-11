@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpml\Tests\Math\Statistic;
 
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\Math\Statistic\Covariance;
 use Phpml\Math\Statistic\Mean;
 use PHPUnit\Framework\TestCase;
@@ -58,5 +59,47 @@ class CovarianceTest extends TestCase
 
         $covariance = Covariance::covarianceMatrix($matrix, [$meanX, $meanY]);
         $this->assertEquals($knownCovariance, $covariance, '', $epsilon);
+    }
+
+    public function testThrowExceptionOnEmptyX(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        Covariance::fromXYArrays([], [1, 2, 3]);
+    }
+
+    public function testThrowExceptionOnEmptyY(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        Covariance::fromXYArrays([1, 2, 3], []);
+    }
+
+    public function testThrowExceptionOnToSmallArrayIfSample(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        Covariance::fromXYArrays([1], [2], true);
+    }
+
+    public function testThrowExceptionIfEmptyDataset(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        Covariance::fromDataset([], 0, 1);
+    }
+
+    public function testThrowExceptionOnToSmallDatasetIfSample(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        Covariance::fromDataset([1], 0, 1);
+    }
+
+    public function testThrowExceptionWhenKIndexIsOutOfBound(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        Covariance::fromDataset([1, 2, 3], 2, 5);
+    }
+
+    public function testThrowExceptionWhenIIndexIsOutOfBound(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        Covariance::fromDataset([1, 2, 3], 5, 2);
     }
 }
