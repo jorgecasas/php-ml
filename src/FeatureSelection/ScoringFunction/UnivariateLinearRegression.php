@@ -16,7 +16,7 @@ use Phpml\Math\Statistic\Mean;
  *
  * 1. The cross correlation between each regressor and the target is computed,
  * that is, ((X[:, i] - mean(X[:, i])) * (y - mean_y)) / (std(X[:, i]) *std(y)).
- * 2. It is converted to an F score then to a p-value.
+ * 2. It is converted to an F score.
  *
  * Ported from scikit-learn f_regression function (http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.f_regression.html#sklearn.feature_selection.f_regression)
  */

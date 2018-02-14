@@ -6,7 +6,7 @@
 [![Documentation Status](https://readthedocs.org/projects/php-ml/badge/?version=master)](http://php-ml.readthedocs.org/)
 [![Total Downloads](https://poser.pugx.org/php-ai/php-ml/downloads.svg)](https://packagist.org/packages/php-ai/php-ml)
 [![License](https://poser.pugx.org/php-ai/php-ml/license.svg)](https://packagist.org/packages/php-ai/php-ml)
-[![Coverage Status](https://coveralls.io/repos/github/php-ai/php-ml/badge.svg?branch=coveralls)](https://coveralls.io/github/php-ai/php-ml?branch=coveralls)
+[![Coverage Status](https://coveralls.io/repos/github/php-ai/php-ml/badge.svg?branch=master)](https://coveralls.io/github/php-ai/php-ml?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/php-ai/php-ml/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/php-ai/php-ml/?branch=master)
 
 <a href="http://www.yegor256.com/2016/10/23/award-2017.html">
@@ -78,6 +78,7 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
     * [Stratified Random Split](machine-learning/cross-validation/stratified-random-split.md)
 * Feature Selection
     * [Variance Threshold](machine-learning/feature-selection/variance-threshold.md)
+    * [SelectKBest](machine-learning/feature-selection/selectkbest.md)
 * Preprocessing
     * [Normalization](machine-learning/preprocessing/normalization.md)
     * [Imputation missing values](machine-learning/preprocessing/imputation-missing-values.md)

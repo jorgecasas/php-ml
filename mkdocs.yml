@@ -27,6 +27,7 @@ pages:
       - Stratified Random Split: machine-learning/cross-validation/stratified-random-split.md
     - Feature Selection:
       - VarianceThreshold: machine-learning/feature-selection/variance-threshold.md
+      - SelectKBest: machine-learning/feature-selection/selectkbest.md
     - Preprocessing:
       - Normalization: machine-learning/preprocessing/normalization.md
       - Imputation missing values: machine-learning/preprocessing/imputation-missing-values.md
