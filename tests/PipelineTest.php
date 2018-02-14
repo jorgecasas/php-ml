@@ -7,6 +7,8 @@ namespace Phpml\Tests;
 use Phpml\Classification\SVC;
 use Phpml\FeatureExtraction\TfIdfTransformer;
 use Phpml\FeatureExtraction\TokenCountVectorizer;
+use Phpml\FeatureSelection\ScoringFunction\ANOVAFValue;
+use Phpml\FeatureSelection\SelectKBest;
 use Phpml\ModelManager;
 use Phpml\Pipeline;
 use Phpml\Preprocessing\Imputer;
@@ -104,6 +106,18 @@ class PipelineTest extends TestCase
         $predicted = $pipeline->predict(['Hello Max', 'Goodbye Mark']);
 
         $this->assertEquals($expected, $predicted);
+    }
+
+    public function testPipelineTransformersWithTargets() : void
+    {
+        $samples = [[1, 2, 1], [1, 3, 4], [5, 2, 1], [1, 3, 3], [1, 3, 4], [0, 3, 5]];
+        $targets = ['a', 'a', 'a', 'b', 'b', 'b'];
+
+        $pipeline = new Pipeline([$selector = new SelectKBest(2)], new SVC());
+        $pipeline->train($samples, $targets);
+
+        self::assertEquals([1.47058823, 4.0, 3.0], $selector->scores(), '', 0.00000001);
+        self::assertEquals(['b'], $pipeline->predict([[1, 3, 5]]));
     }
 
     public function testSaveAndRestore(): void

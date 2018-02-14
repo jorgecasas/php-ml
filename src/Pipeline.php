@@ -54,7 +54,7 @@ class Pipeline implements Estimator
     public function train(array $samples, array $targets): void
     {
         foreach ($this->transformers as $transformer) {
-            $transformer->fit($samples);
+            $transformer->fit($samples, $targets);
             $transformer->transform($samples);
         }
 
