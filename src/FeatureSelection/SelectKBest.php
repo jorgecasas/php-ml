@@ -31,7 +31,7 @@ final class SelectKBest implements Transformer
      */
     private $keepColumns = null;
 
-    public function __construct(?ScoringFunction $scoringFunction = null, int $k = 10)
+    public function __construct(int $k = 10, ?ScoringFunction $scoringFunction = null)
     {
         if ($scoringFunction === null) {
             $scoringFunction = new ANOVAFValue();
