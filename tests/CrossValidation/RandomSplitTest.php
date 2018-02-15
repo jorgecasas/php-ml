@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class RandomSplitTest extends TestCase
 {
-    public function testThrowExceptionOnToSmallTestSize(): void
+    public function testThrowExceptionOnTooSmallTestSize(): void
     {
         $this->expectException(InvalidArgumentException::class);
         new RandomSplit(new ArrayDataset([], []), 0);

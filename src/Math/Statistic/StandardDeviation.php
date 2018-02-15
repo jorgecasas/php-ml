@@ -20,7 +20,7 @@ class StandardDeviation
         $n = count($numbers);
 
         if ($sample && $n === 1) {
-            throw InvalidArgumentException::arraySizeToSmall(2);
+            throw InvalidArgumentException::arraySizeTooSmall(2);
         }
 
         $mean = Mean::arithmetic($numbers);

@@ -23,7 +23,7 @@ class InvalidArgumentException extends Exception
         return new self('The array has zero elements');
     }
 
-    public static function arraySizeToSmall(int $minimumSize = 2): self
+    public static function arraySizeTooSmall(int $minimumSize = 2): self
     {
         return new self(sprintf('The array must have at least %d elements', $minimumSize));
     }

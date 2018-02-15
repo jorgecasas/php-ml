@@ -32,7 +32,7 @@ class StandardDeviationTest extends TestCase
         StandardDeviation::population([], false);
     }
 
-    public function testThrowExceptionOnToSmallArray(): void
+    public function testThrowExceptionOnTooSmallArray(): void
     {
         $this->expectException(InvalidArgumentException::class);
         StandardDeviation::population([1]);

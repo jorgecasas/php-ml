@@ -73,7 +73,7 @@ class CovarianceTest extends TestCase
         Covariance::fromXYArrays([1, 2, 3], []);
     }
 
-    public function testThrowExceptionOnToSmallArrayIfSample(): void
+    public function testThrowExceptionOnTooSmallArrayIfSample(): void
     {
         $this->expectException(InvalidArgumentException::class);
         Covariance::fromXYArrays([1], [2], true);
@@ -85,7 +85,7 @@ class CovarianceTest extends TestCase
         Covariance::fromDataset([], 0, 1);
     }
 
-    public function testThrowExceptionOnToSmallDatasetIfSample(): void
+    public function testThrowExceptionOnTooSmallDatasetIfSample(): void
     {
         $this->expectException(InvalidArgumentException::class);
         Covariance::fromDataset([1], 0, 1);

@@ -21,7 +21,7 @@ class Covariance
 
         $n = count($x);
         if ($sample && $n === 1) {
-            throw InvalidArgumentException::arraySizeToSmall(2);
+            throw InvalidArgumentException::arraySizeTooSmall(2);
         }
 
         if ($meanX === null) {
@@ -59,7 +59,7 @@ class Covariance
 
         $n = count($data);
         if ($sample && $n === 1) {
-            throw InvalidArgumentException::arraySizeToSmall(2);
+            throw InvalidArgumentException::arraySizeTooSmall(2);
         }
 
         if ($i < 0 || $k < 0 || $i >= $n || $k >= $n) {

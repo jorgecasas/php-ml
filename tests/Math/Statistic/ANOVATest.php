@@ -32,7 +32,7 @@ final class ANOVATest extends TestCase
         self::assertEquals([0.6, 2.4, 1.24615385], ANOVA::oneWayF($samples), '', 0.00000001);
     }
 
-    public function testThrowExceptionOnToSmallSamples(): void
+    public function testThrowExceptionOnTooSmallSamples(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $samples = [

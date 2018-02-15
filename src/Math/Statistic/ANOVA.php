@@ -25,7 +25,7 @@ final class ANOVA
     {
         $classes = count($samples);
         if ($classes < 2) {
-            throw InvalidArgumentException::arraySizeToSmall(2);
+            throw InvalidArgumentException::arraySizeTooSmall(2);
         }
 
         $samplesPerClass = array_map(function (array $class): int {
