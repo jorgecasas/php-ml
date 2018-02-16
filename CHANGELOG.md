@@ -3,6 +3,32 @@ CHANGELOG
 
 This changelog references the relevant changes done in PHP-ML library.
 
+* 0.6.0 (2018-02-16)
+    * feature [FeatureSelection] implement SelectKBest with scoring functions (#232)
+    * feature [FeatureSelection] implement VarianceThreshold - simple baseline approach to feature selection.  (#228)
+    * feature [Classification] support probability estimation in SVC (#218)
+    * feature [NeuralNetwork] configure an Activation Function per hidden layer (#208)
+    * feature [NeuralNetwork] Ability to update learningRate in MLP (#160)
+    * feature [Metric] Choose averaging method in classification report (#205)
+    * enhancement Add phpstan strict rules (#233)
+    * enhancement Flatten directory structure (#220)
+    * enhancement Update phpunit/phpunit (#219)
+    * enhancement Cache dependencies installed with composer on Travis (#215)
+    * enhancement Add support for coveralls.io (#153)
+    * enhancement Add phpstan and easy coding standards (#156, #168)
+    * enhancement Throw exception when libsvm command fails to run (#200, #202)
+    * enhancement Normalize composer.json and sort packages (#214, #210)
+    * enhancement Rewrite DBSCAN (#185)
+    * fix phpunit include tests path (#230)
+    * fix support of a rule in Apriori (#229)
+    * fix apriori generates an empty array as a part of the frequent item sets (#224)
+    * fix backpropagation random error (#157)
+    * fix logistic regression implementation (#169)
+    * fix activation functions support (#163)
+    * fix string representation of integer labels issue in NaiveBayes (#206)
+    * fix the implementation of conjugate gradient method (#184)
+    * typo, tests and documentation fixes (#234, #221, #181, #183, #155, #159, #165, #187, #154, #191, #203, #209, #213, #212, #211)
+
 * 0.5.0 (2017-11-14)
     * general [php] Upgrade to PHP 7.1 (#150)
     * general [coding standard] fix imports order and drop unused docs typehints
