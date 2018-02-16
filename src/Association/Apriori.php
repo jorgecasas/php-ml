@@ -63,11 +63,11 @@ class Apriori implements Associator
      */
     public function getRules(): array
     {
-        if (!$this->large) {
+        if (empty($this->large)) {
             $this->large = $this->apriori();
         }
 
-        if ($this->rules) {
+        if (!empty($this->rules)) {
             return $this->rules;
         }
 

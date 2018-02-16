@@ -20,7 +20,7 @@ class FuzzyCMeans implements Clusterer
     /**
      * @var array|Cluster[]
      */
-    private $clusters = null;
+    private $clusters = [];
 
     /**
      * @var Space
@@ -152,8 +152,7 @@ class FuzzyCMeans implements Clusterer
     protected function updateClusters(): void
     {
         $dim = $this->space->getDimension();
-        if (!$this->clusters) {
-            $this->clusters = [];
+        if (empty($this->clusters)) {
             for ($i = 0; $i < $this->clustersNumber; ++$i) {
                 $this->clusters[] = new Cluster($this->space, array_fill(0, $dim, 0.0));
             }

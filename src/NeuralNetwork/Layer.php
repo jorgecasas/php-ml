@@ -19,7 +19,7 @@ class Layer
      */
     public function __construct(int $nodesNumber = 0, string $nodeClass = Neuron::class, ?ActivationFunction $activationFunction = null)
     {
-        if (!in_array(Node::class, class_implements($nodeClass))) {
+        if (!in_array(Node::class, class_implements($nodeClass), true)) {
             throw InvalidArgumentException::invalidLayerNodeClass();
         }
 

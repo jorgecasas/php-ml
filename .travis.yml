@@ -41,5 +41,5 @@ after_success:
   - |
     if [[ $PHPUNIT_FLAGS != "" ]]; then
       wget https://github.com/php-coveralls/php-coveralls/releases/download/v2.0.0/php-coveralls.phar
-      php coveralls.phar --verbose;
+      php php-coveralls.phar --verbose;
     fi

@@ -29,14 +29,14 @@ class DecisionTreeLeaf
     public $columnIndex;
 
     /**
-     * @var DecisionTreeLeaf
+     * @var ?DecisionTreeLeaf
      */
-    public $leftLeaf = null;
+    public $leftLeaf;
 
     /**
-     * @var DecisionTreeLeaf
+     * @var ?DecisionTreeLeaf
      */
-    public $rightLeaf = null;
+    public $rightLeaf;
 
     /**
      * @var array
@@ -52,7 +52,7 @@ class DecisionTreeLeaf
     public $classValue = '';
 
     /**
-     * @var bool|int
+     * @var bool
      */
     public $isTerminal = false;
 
@@ -103,12 +103,12 @@ class DecisionTreeLeaf
         $nodeSampleCount = (float) count($this->records);
         $iT = $this->giniIndex;
 
-        if ($this->leftLeaf) {
+        if ($this->leftLeaf !== null) {
             $pL = count($this->leftLeaf->records) / $nodeSampleCount;
             $iT -= $pL * $this->leftLeaf->giniIndex;
         }
 
-        if ($this->rightLeaf) {
+        if ($this->rightLeaf !== null) {
             $pR = count($this->rightLeaf->records) / $nodeSampleCount;
             $iT -= $pR * $this->rightLeaf->giniIndex;
         }
@@ -140,16 +140,16 @@ class DecisionTreeLeaf
 
         $str = "<table ><tr><td colspan=3 align=center style='border:1px solid;'>${value}</td></tr>";
 
-        if ($this->leftLeaf || $this->rightLeaf) {
+        if ($this->leftLeaf !== null || $this->rightLeaf !== null) {
             $str .= '<tr>';
-            if ($this->leftLeaf) {
+            if ($this->leftLeaf !== null) {
                 $str .= '<td valign=top><b>| Yes</b><br>'.$this->leftLeaf->getHTML($columnNames).'</td>';
             } else {
                 $str .= '<td></td>';
             }
 
             $str .= '<td>&nbsp;</td>';
-            if ($this->rightLeaf) {
+            if ($this->rightLeaf !== null) {
                 $str .= '<td valign=top align=right><b>No |</b><br>'.$this->rightLeaf->getHTML($columnNames).'</td>';
             } else {
                 $str .= '<td></td>';

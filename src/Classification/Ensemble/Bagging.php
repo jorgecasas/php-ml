@@ -145,7 +145,7 @@ class Bagging implements Classifier
         $classifiers = [];
         for ($i = 0; $i < $this->numClassifier; ++$i) {
             $ref = new ReflectionClass($this->classifier);
-            if ($this->classifierOptions) {
+            if (!empty($this->classifierOptions)) {
                 $obj = $ref->newInstanceArgs($this->classifierOptions);
             } else {
                 $obj = $ref->newInstance();

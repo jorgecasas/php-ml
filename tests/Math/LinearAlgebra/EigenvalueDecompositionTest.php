@@ -8,7 +8,7 @@ use Phpml\Math\LinearAlgebra\EigenvalueDecomposition;
 use Phpml\Math\Matrix;
 use PHPUnit\Framework\TestCase;
 
-class EigenDecompositionTest extends TestCase
+class EigenvalueDecompositionTest extends TestCase
 {
     public function testSymmetricMatrixEigenPairs(): void
     {

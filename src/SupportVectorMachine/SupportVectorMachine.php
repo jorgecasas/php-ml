@@ -149,7 +149,7 @@ class SupportVectorMachine
         $this->samples = array_merge($this->samples, $samples);
         $this->targets = array_merge($this->targets, $targets);
 
-        $trainingSet = DataTransformer::trainingSet($this->samples, $this->targets, in_array($this->type, [Type::EPSILON_SVR, Type::NU_SVR]));
+        $trainingSet = DataTransformer::trainingSet($this->samples, $this->targets, in_array($this->type, [Type::EPSILON_SVR, Type::NU_SVR], true));
         file_put_contents($trainingSetFileName = $this->varPath.uniqid('phpml', true), $trainingSet);
         $modelFileName = $trainingSetFileName.'-model';
 
@@ -182,7 +182,7 @@ class SupportVectorMachine
     {
         $predictions = $this->runSvmPredict($samples, false);
 
-        if (in_array($this->type, [Type::C_SVC, Type::NU_SVC])) {
+        if (in_array($this->type, [Type::C_SVC, Type::NU_SVC], true)) {
             $predictions = DataTransformer::predictions($predictions, $this->targets);
         } else {
             $predictions = explode(PHP_EOL, trim($predictions));
@@ -208,7 +208,7 @@ class SupportVectorMachine
 
         $predictions = $this->runSvmPredict($samples, true);
 
-        if (in_array($this->type, [Type::C_SVC, Type::NU_SVC])) {
+        if (in_array($this->type, [Type::C_SVC, Type::NU_SVC], true)) {
             $predictions = DataTransformer::probabilities($predictions, $this->targets);
         } else {
             $predictions = explode(PHP_EOL, trim($predictions));

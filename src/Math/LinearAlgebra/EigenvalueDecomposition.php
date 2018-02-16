@@ -274,6 +274,7 @@ class EigenvalueDecomposition
         }
 
         // Accumulate transformations.
+        $j = 0;
         for ($i = 0; $i < $this->n - 1; ++$i) {
             $this->V[$this->n - 1][$i] = $this->V[$i][$i];
             $this->V[$i][$i] = 1.0;

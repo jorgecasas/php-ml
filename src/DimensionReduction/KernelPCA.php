@@ -58,7 +58,7 @@ class KernelPCA extends PCA
     public function __construct(int $kernel = self::KERNEL_RBF, ?float $totalVariance = null, ?int $numFeatures = null, ?float $gamma = null)
     {
         $availableKernels = [self::KERNEL_RBF, self::KERNEL_SIGMOID, self::KERNEL_LAPLACIAN, self::KERNEL_LINEAR];
-        if (!in_array($kernel, $availableKernels)) {
+        if (!in_array($kernel, $availableKernels, true)) {
             throw new Exception('KernelPCA can be initialized with the following kernels only: Linear, RBF, Sigmoid and Laplacian');
         }
 

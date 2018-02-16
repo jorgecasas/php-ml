@@ -105,7 +105,7 @@ class Matrix
      */
     public function getDeterminant()
     {
-        if ($this->determinant) {
+        if ($this->determinant !== null) {
             return $this->determinant;
         }
 

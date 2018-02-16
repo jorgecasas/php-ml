@@ -6,9 +6,9 @@ namespace Phpml\Metric;
 
 class ConfusionMatrix
 {
-    public static function compute(array $actualLabels, array $predictedLabels, ?array $labels = null): array
+    public static function compute(array $actualLabels, array $predictedLabels, array $labels = []): array
     {
-        $labels = $labels ? array_flip($labels) : self::getUniqueLabels($actualLabels);
+        $labels = !empty($labels) ? array_flip($labels) : self::getUniqueLabels($actualLabels);
         $matrix = self::generateMatrixWithZeros($labels);
 
         foreach ($actualLabels as $index => $actual) {

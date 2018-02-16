@@ -16,7 +16,7 @@ class Space extends SplObjectStorage
      */
     protected $dimension;
 
-    public function __construct($dimension)
+    public function __construct(int $dimension)
     {
         if ($dimension < 1) {
             throw new LogicException('a space dimension cannot be null or negative');
@@ -75,7 +75,7 @@ class Space extends SplObjectStorage
      */
     public function getBoundaries()
     {
-        if (!count($this)) {
+        if (empty($this)) {
             return false;
         }
 
@@ -153,8 +153,8 @@ class Space extends SplObjectStorage
                 $closest = $point->getClosest($clusters);
 
                 if ($closest !== $cluster) {
-                    isset($attach[$closest]) || $attach[$closest] = new SplObjectStorage();
-                    isset($detach[$cluster]) || $detach[$cluster] = new SplObjectStorage();
+                    $attach[$closest] ?? $attach[$closest] = new SplObjectStorage();
+                    $detach[$cluster] ?? $detach[$cluster] = new SplObjectStorage();
 
                     $attach[$closest]->attach($point);
                     $detach[$cluster]->attach($point);

@@ -42,7 +42,7 @@ class Adaline extends Perceptron
         bool $normalizeInputs = true,
         int $trainingType = self::BATCH_TRAINING
     ) {
-        if (!in_array($trainingType, [self::BATCH_TRAINING, self::ONLINE_TRAINING])) {
+        if (!in_array($trainingType, [self::BATCH_TRAINING, self::ONLINE_TRAINING], true)) {
             throw new Exception('Adaline can only be trained with batch and online/stochastic gradient descent algorithm');
         }
 

@@ -273,15 +273,15 @@ class DecisionTree implements Classifier
         }
 
         if ($allSame || $depth >= $this->maxDepth || count($remainingTargets) === 1) {
-            $split->isTerminal = 1;
+            $split->isTerminal = true;
             arsort($remainingTargets);
             $split->classValue = key($remainingTargets);
         } else {
-            if ($leftRecords) {
+            if (!empty($leftRecords)) {
                 $split->leftLeaf = $this->getSplitLeaf($leftRecords, $depth + 1);
             }
 
-            if ($rightRecords) {
+            if (!empty($rightRecords)) {
                 $split->rightLeaf = $this->getSplitLeaf($rightRecords, $depth + 1);
             }
         }
@@ -312,13 +312,13 @@ class DecisionTree implements Classifier
                 $split->value = $baseValue;
                 $split->giniIndex = $gini;
                 $split->columnIndex = $i;
-                $split->isContinuous = $this->columnTypes[$i] == self::CONTINUOUS;
+                $split->isContinuous = $this->columnTypes[$i] === self::CONTINUOUS;
                 $split->records = $records;
 
                 // If a numeric column is to be selected, then
                 // the original numeric value and the selected operator
                 // will also be saved into the leaf for future access
-                if ($this->columnTypes[$i] == self::CONTINUOUS) {
+                if ($this->columnTypes[$i] === self::CONTINUOUS) {
                     $matches = [];
                     preg_match("/^([<>=]{1,2})\s*(.*)/", (string) $split->value, $matches);
                     $split->operator = $matches[1];
@@ -349,11 +349,11 @@ class DecisionTree implements Classifier
     protected function getSelectedFeatures(): array
     {
         $allFeatures = range(0, $this->featureCount - 1);
-        if ($this->numUsableFeatures === 0 && !$this->selectedFeatures) {
+        if ($this->numUsableFeatures === 0 && empty($this->selectedFeatures)) {
             return $allFeatures;
         }
 
-        if ($this->selectedFeatures) {
+        if (!empty($this->selectedFeatures)) {
             return $this->selectedFeatures;
         }
 
@@ -363,7 +363,7 @@ class DecisionTree implements Classifier
         }
 
         shuffle($allFeatures);
-        $selectedFeatures = array_slice($allFeatures, 0, $numFeatures, false);
+        $selectedFeatures = array_slice($allFeatures, 0, $numFeatures);
         sort($selectedFeatures);
 
         return $selectedFeatures;
@@ -406,7 +406,7 @@ class DecisionTree implements Classifier
         //	  all values in that column (Lower than or equal to %20 of all values)
         $numericValues = array_filter($columnValues, 'is_numeric');
         $floatValues = array_filter($columnValues, 'is_float');
-        if ($floatValues) {
+        if (!empty($floatValues)) {
             return false;
         }
 
@@ -433,7 +433,7 @@ class DecisionTree implements Classifier
      */
     protected function getSplitNodesByColumn(int $column, DecisionTreeLeaf $node): array
     {
-        if (!$node || $node->isTerminal) {
+        if ($node->isTerminal) {
             return [];
         }
 
@@ -444,11 +444,11 @@ class DecisionTree implements Classifier
 
         $lNodes = [];
         $rNodes = [];
-        if ($node->leftLeaf) {
+        if ($node->leftLeaf !== null) {
             $lNodes = $this->getSplitNodesByColumn($column, $node->leftLeaf);
         }
 
-        if ($node->rightLeaf) {
+        if ($node->rightLeaf !== null) {
             $rNodes = $this->getSplitNodesByColumn($column, $node->rightLeaf);
         }
 
@@ -475,6 +475,6 @@ class DecisionTree implements Classifier
             }
         } while ($node);
 
-        return $node ? $node->classValue : $this->labels[0];
+        return $node !== null ? $node->classValue : $this->labels[0];
     }
 }

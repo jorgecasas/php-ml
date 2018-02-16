@@ -97,7 +97,7 @@ class Perceptron implements Classifier, IncrementalEstimator
 
     public function trainBinary(array $samples, array $targets, array $labels): void
     {
-        if ($this->normalizer) {
+        if ($this->normalizer !== null) {
             $this->normalizer->transform($samples);
         }
 
@@ -196,7 +196,7 @@ class Perceptron implements Classifier, IncrementalEstimator
      */
     protected function checkNormalizedSample(array $sample): array
     {
-        if ($this->normalizer) {
+        if ($this->normalizer !== null) {
             $samples = [$sample];
             $this->normalizer->transform($samples);
             $sample = $samples[0];

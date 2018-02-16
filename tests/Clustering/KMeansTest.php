@@ -20,7 +20,7 @@ class KMeansTest extends TestCase
         $this->assertCount(2, $clusters);
 
         foreach ($samples as $index => $sample) {
-            if (in_array($sample, $clusters[0]) || in_array($sample, $clusters[1])) {
+            if (in_array($sample, $clusters[0], true) || in_array($sample, $clusters[1], true)) {
                 unset($samples[$index]);
             }
         }

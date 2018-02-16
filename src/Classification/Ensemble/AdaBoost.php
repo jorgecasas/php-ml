@@ -158,7 +158,7 @@ class AdaBoost implements Classifier
     protected function getBestClassifier(): Classifier
     {
         $ref = new ReflectionClass($this->baseClassifier);
-        if ($this->classifierOptions) {
+        if (!empty($this->classifierOptions)) {
             $classifier = $ref->newInstanceArgs($this->classifierOptions);
         } else {
             $classifier = $ref->newInstance();

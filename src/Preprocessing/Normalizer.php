@@ -41,7 +41,7 @@ class Normalizer implements Preprocessor
      */
     public function __construct(int $norm = self::NORM_L2)
     {
-        if (!in_array($norm, [self::NORM_L1, self::NORM_L2, self::NORM_STD])) {
+        if (!in_array($norm, [self::NORM_L1, self::NORM_L2, self::NORM_STD], true)) {
             throw NormalizerException::unknownNorm();
         }
 

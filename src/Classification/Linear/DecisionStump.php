@@ -118,7 +118,7 @@ class DecisionStump extends WeightedClassifier
 
         // Check the size of the weights given.
         // If none given, then assign 1 as a weight to each sample
-        if ($this->weights) {
+        if (!empty($this->weights)) {
             $numWeights = count($this->weights);
             if ($numWeights != count($samples)) {
                 throw new Exception('Number of sample weights does not match with number of samples');

@@ -57,7 +57,7 @@ class ClassificationReport
     public function __construct(array $actualLabels, array $predictedLabels, int $average = self::MACRO_AVERAGE)
     {
         $averagingMethods = range(self::MICRO_AVERAGE, self::WEIGHTED_AVERAGE);
-        if (!in_array($average, $averagingMethods)) {
+        if (!in_array($average, $averagingMethods, true)) {
             throw new InvalidArgumentException('Averaging method must be MICRO_AVERAGE, MACRO_AVERAGE or WEIGHTED_AVERAGE');
         }
 

@@ -16,11 +16,11 @@ class MLPClassifier extends MultilayerPerceptron implements Classifier
      */
     public function getTargetClass($target): int
     {
-        if (!in_array($target, $this->classes)) {
+        if (!in_array($target, $this->classes, true)) {
             throw InvalidArgumentException::invalidTarget($target);
         }
 
-        return array_search($target, $this->classes);
+        return array_search($target, $this->classes, true);
     }
 
     /**

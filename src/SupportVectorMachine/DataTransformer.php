@@ -42,7 +42,7 @@ class DataTransformer
         $results = [];
         foreach (explode(PHP_EOL, $rawPredictions) as $result) {
             if (isset($result[0])) {
-                $results[] = array_search($result, $numericLabels);
+                $results[] = array_search((int) $result, $numericLabels, true);
             }
         }
 
@@ -61,7 +61,7 @@ class DataTransformer
 
         $columnLabels = [];
         foreach ($headerColumns as $numericLabel) {
-            $columnLabels[] = array_search($numericLabel, $numericLabels);
+            $columnLabels[] = array_search((int) $numericLabel, $numericLabels, true);
         }
 
         $results = [];

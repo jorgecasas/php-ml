@@ -130,7 +130,7 @@ class LDA extends EigenTransformerBase
         $overallMean = array_fill(0, count($data[0]), 0.0);
 
         foreach ($data as $index => $row) {
-            $label = array_search($classes[$index], $this->labels);
+            $label = array_search($classes[$index], $this->labels, true);
 
             foreach ($row as $col => $val) {
                 if (!isset($means[$label][$col])) {
@@ -177,7 +177,7 @@ class LDA extends EigenTransformerBase
         $sW = new Matrix($s, false);
 
         foreach ($data as $index => $row) {
-            $label = array_search($classes[$index], $this->labels);
+            $label = array_search($classes[$index], $this->labels, true);
             $means = $this->means[$label];
 
             $row = $this->calculateVar($row, $means);

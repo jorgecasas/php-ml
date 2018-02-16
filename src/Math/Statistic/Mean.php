@@ -50,7 +50,7 @@ class Mean
 
         $values = array_count_values($numbers);
 
-        return array_search(max($values), $values);
+        return array_search(max($values), $values, true);
     }
 
     /**

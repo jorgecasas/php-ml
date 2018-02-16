@@ -1,15 +1,17 @@
+includes:
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+    - vendor/phpstan/phpstan-phpunit/strictRules.neon
+
 parameters:
     ignoreErrors:
         - '#Phpml\\Dataset\\FilesDataset::__construct\(\) does not call parent constructor from Phpml\\Dataset\\ArrayDataset#'
-
-        # mocks
-        - '#PHPUnit_Framework_MockObject_MockObject#'
 
         # wide range cases
         - '#Call to function count\(\) with argument type array<int>\|Phpml\\Clustering\\KMeans\\Point will always result in number 1#'
         - '#Parameter \#1 \$coordinates of class Phpml\\Clustering\\KMeans\\Point constructor expects array, array<int>\|Phpml\\Clustering\\KMeans\\Point given#'
 
         # probably known value
-        - '#Variable \$j might not be defined#'
         - '#Method Phpml\\Classification\\DecisionTree::getBestSplit\(\) should return Phpml\\Classification\\DecisionTree\\DecisionTreeLeaf but returns Phpml\\Classification\\DecisionTree\\DecisionTreeLeaf\|null#'
         - '#Call to an undefined method Phpml\\Helper\\Optimizer\\Optimizer::getCostValues\(\)#'

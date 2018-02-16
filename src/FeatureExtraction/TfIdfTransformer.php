@@ -13,9 +13,9 @@ class TfIdfTransformer implements Transformer
      */
     private $idf = [];
 
-    public function __construct(?array $samples = null)
+    public function __construct(array $samples = [])
     {
-        if ($samples) {
+        if (!empty($samples)) {
             $this->fit($samples);
         }
     }

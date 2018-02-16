@@ -123,7 +123,7 @@ class TokenCountVectorizer implements Transformer
 
     private function isStopWord(string $token): bool
     {
-        return $this->stopWords && $this->stopWords->isStopWord($token);
+        return $this->stopWords !== null && $this->stopWords->isStopWord($token);
     }
 
     private function updateFrequency(string $token): void

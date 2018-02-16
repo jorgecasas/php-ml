@@ -71,13 +71,13 @@ class LogisticRegression extends Adaline
         string $penalty = 'L2'
     ) {
         $trainingTypes = range(self::BATCH_TRAINING, self::CONJUGATE_GRAD_TRAINING);
-        if (!in_array($trainingType, $trainingTypes)) {
+        if (!in_array($trainingType, $trainingTypes, true)) {
             throw new Exception('Logistic regression can only be trained with '.
                 'batch (gradient descent), online (stochastic gradient descent) '.
                 'or conjugate batch (conjugate gradients) algorithms');
         }
 
-        if (!in_array($cost, ['log', 'sse'])) {
+        if (!in_array($cost, ['log', 'sse'], true)) {
             throw new Exception("Logistic regression cost function can be one of the following: \n".
                 "'log' for log-likelihood and 'sse' for sum of squared errors");
         }
