@@ -75,7 +75,7 @@ class Space extends SplObjectStorage
      */
     public function getBoundaries()
     {
-        if (empty($this)) {
+        if (count($this) === 0) {
             return false;
         }
 

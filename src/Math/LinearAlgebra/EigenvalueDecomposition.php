@@ -99,7 +99,7 @@ class EigenvalueDecomposition
         $this->n = count($Arg[0]);
         $this->symmetric = true;
 
-        for ($j = 0; ($j < $this->n) && $this->symmetric; ++$j) {
+        for ($j = 0; ($j < $this->n) & $this->symmetric; ++$j) {
             for ($i = 0; ($i < $this->n) & $this->symmetric; ++$i) {
                 $this->symmetric = ($this->A[$i][$j] == $this->A[$j][$i]);
             }
@@ -204,7 +204,7 @@ class EigenvalueDecomposition
             $scale += array_sum(array_map('abs', $this->d));
             if ($scale == 0.0) {
                 $this->e[$i] = $this->d[$i_];
-                $this->d = array_slice($this->V[$i_], 0, $i_);
+                $this->d = array_slice($this->V[$i_], 0, $this->n - 1);
                 for ($j = 0; $j < $i; ++$j) {
                     $this->V[$j][$i] = $this->V[$i][$j] = 0.0;
                 }
@@ -244,7 +244,8 @@ class EigenvalueDecomposition
                 }
 
                 $f = 0.0;
-                if ($h === 0 || $h < 1e-32) {
+
+                if ($h == 0.0) {
                     $h = 1e-32;
                 }
 
@@ -274,7 +275,6 @@ class EigenvalueDecomposition
         }
 
         // Accumulate transformations.
-        $j = 0;
         for ($i = 0; $i < $this->n - 1; ++$i) {
             $this->V[$this->n - 1][$i] = $this->V[$i][$i];
             $this->V[$i][$i] = 1.0;
@@ -302,7 +302,7 @@ class EigenvalueDecomposition
         }
 
         $this->d = $this->V[$this->n - 1];
-        $this->V[$this->n - 1] = array_fill(0, $j, 0.0);
+        $this->V[$this->n - 1] = array_fill(0, $this->n, 0.0);
         $this->V[$this->n - 1][$this->n - 1] = 1.0;
         $this->e[0] = 0.0;
     }

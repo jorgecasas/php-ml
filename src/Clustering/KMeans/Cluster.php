@@ -76,7 +76,8 @@ class Cluster extends Point implements IteratorAggregate, Countable
 
     public function updateCentroid(): void
     {
-        if (empty($this->points)) {
+        $count = count($this->points);
+        if ($count === 0) {
             return;
         }
 
@@ -88,7 +89,6 @@ class Cluster extends Point implements IteratorAggregate, Countable
             }
         }
 
-        $count = count($this->points);
         for ($n = 0; $n < $this->dimension; ++$n) {
             $this->coordinates[$n] = $centroid->coordinates[$n] / $count;
         }
