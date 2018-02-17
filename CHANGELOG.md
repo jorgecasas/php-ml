@@ -3,6 +3,9 @@ CHANGELOG
 
 This changelog references the relevant changes done in PHP-ML library.
 
+* 0.6.1 (2018-02-18)
+    * Fix KMeans and EigenvalueDecomposition (#235)
+
 * 0.6.0 (2018-02-16)
     * feature [FeatureSelection] implement SelectKBest with scoring functions (#232)
     * feature [FeatureSelection] implement VarianceThreshold - simple baseline approach to feature selection.  (#228)
