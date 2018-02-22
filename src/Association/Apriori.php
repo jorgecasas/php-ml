@@ -212,9 +212,9 @@ class Apriori implements Associator
      */
     private function frequent(array $samples): array
     {
-        return array_filter($samples, function ($entry) {
+        return array_values(array_filter($samples, function ($entry) {
             return $this->support($entry) >= $this->support;
-        });
+        }));
     }
 
     /**
@@ -234,7 +234,7 @@ class Apriori implements Associator
                     continue;
                 }
 
-                $candidate = array_unique(array_merge($p, $q));
+                $candidate = array_values(array_unique(array_merge($p, $q)));
 
                 if ($this->contains($candidates, $candidate)) {
                     continue;

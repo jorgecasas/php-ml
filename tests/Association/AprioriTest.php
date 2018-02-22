@@ -101,6 +101,18 @@ class AprioriTest extends TestCase
         $this->assertEquals([['a']], $L[1]);
     }
 
+    public function testAprioriL3(): void
+    {
+        $sample = [['a', 'b', 'c']];
+
+        $apriori = new Apriori(0, 0);
+        $apriori->train($sample, []);
+
+        $L = $apriori->apriori();
+
+        $this->assertEquals([['a', 'b', 'c']], $L[3]);
+    }
+
     public function testGetRules(): void
     {
         $apriori = new Apriori(0.4, 0.8);
