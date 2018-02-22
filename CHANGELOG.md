@@ -3,6 +3,9 @@ CHANGELOG
 
 This changelog references the relevant changes done in PHP-ML library.
 
+* 0.6.2 (2018-02-22)
+    * Fix Apriori array keys (#238)
+
 * 0.6.1 (2018-02-18)
     * Fix KMeans and EigenvalueDecomposition (#235)
 
