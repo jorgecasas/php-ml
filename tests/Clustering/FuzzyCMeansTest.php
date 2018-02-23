@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Phpml\Tests\Clustering;
 
 use Phpml\Clustering\FuzzyCMeans;
+use Phpml\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class FuzzyCMeansTest extends TestCase
@@ -44,5 +45,20 @@ class FuzzyCMeansTest extends TestCase
         foreach ($matrix as $col) {
             $this->assertEquals(1, array_sum($col));
         }
+    }
+
+    /**
+     * @dataProvider invalidClusterNumberProvider
+     */
+    public function testInvalidClusterNumber(int $clusters): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        new FuzzyCMeans($clusters);
+    }
+
+    public function invalidClusterNumberProvider(): array
+    {
+        return [[0], [-1]];
     }
 }

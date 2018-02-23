@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Phpml\Helper\Optimizer;
 
 use Closure;
-use Exception;
+use Phpml\Exception\InvalidArgumentException;
 
 abstract class Optimizer
 {
+    public $initialTheta;
+
     /**
      * Unknown variables to be found
      *
@@ -33,21 +35,16 @@ abstract class Optimizer
         // Inits the weights randomly
         $this->theta = [];
         for ($i = 0; $i < $this->dimensions; ++$i) {
-            $this->theta[] = random_int(0, getrandmax()) / (float) getrandmax();
+            $this->theta[] = (random_int(0, PHP_INT_MAX) / PHP_INT_MAX) + 0.1;
         }
+
+        $this->initialTheta = $this->theta;
     }
 
-    /**
-     * Sets the weights manually
-     *
-     * @return $this
-     *
-     * @throws \Exception
-     */
     public function setInitialTheta(array $theta)
     {
         if (count($theta) != $this->dimensions) {
-            throw new Exception("Number of values in the weights array should be ${this}->dimensions");
+            throw new InvalidArgumentException(sprintf('Number of values in the weights array should be %s', $this->dimensions));
         }
 
         $this->theta = $theta;

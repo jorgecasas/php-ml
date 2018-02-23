@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpml\Tests\Helper\Optimizer;
 
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\Helper\Optimizer\ConjugateGradient;
 use PHPUnit\Framework\TestCase;
 
@@ -35,6 +36,34 @@ class ConjugateGradientTest extends TestCase
         $this->assertEquals([-1, 2], $theta, '', 0.1);
     }
 
+    public function testRunOptimizationWithCustomInitialTheta(): void
+    {
+        // 200 samples from y = -1 + 2x (i.e. theta = [-1, 2])
+        $samples = [];
+        $targets = [];
+        for ($i = -100; $i <= 100; ++$i) {
+            $x = $i / 100;
+            $samples[] = [$x];
+            $targets[] = -1 + 2 * $x;
+        }
+
+        $callback = function ($theta, $sample, $target) {
+            $y = $theta[0] + $theta[1] * $sample[0];
+            $cost = ($y - $target) ** 2 / 2;
+            $grad = $y - $target;
+
+            return [$cost, $grad];
+        };
+
+        $optimizer = new ConjugateGradient(1);
+        // set very weak theta to trigger very bad result
+        $optimizer->setInitialTheta([0.0000001, 0.0000001]);
+
+        $theta = $optimizer->runOptimization($samples, $targets, $callback);
+
+        $this->assertEquals([-1.087708, 2.212034], $theta, '', 0.000001);
+    }
+
     public function testRunOptimization2Dim(): void
     {
         // 100 samples from y = -1 + 2x0 - 3x1 (i.e. theta = [-1, 2, -3])
@@ -61,5 +90,13 @@ class ConjugateGradientTest extends TestCase
         $theta = $optimizer->runOptimization($samples, $targets, $callback);
 
         $this->assertEquals([-1, 2, -3], $theta, '', 0.1);
+    }
+
+    public function testThrowExceptionOnInvalidTheta(): void
+    {
+        $opimizer = new ConjugateGradient(2);
+
+        $this->expectException(InvalidArgumentException::class);
+        $opimizer->setInitialTheta([0.15]);
     }
 }

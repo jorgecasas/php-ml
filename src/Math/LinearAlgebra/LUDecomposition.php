@@ -225,25 +225,14 @@ class LUDecomposition
         return true;
     }
 
-    /**
-     * Count determinants
-     *
-     * @return float|int d matrix determinant
-     *
-     * @throws MatrixException
-     */
-    public function det()
+    public function det(): float
     {
-        if ($this->m !== $this->n) {
-            throw MatrixException::notSquareMatrix();
-        }
-
         $d = $this->pivsign;
         for ($j = 0; $j < $this->n; ++$j) {
             $d *= $this->LU[$j][$j];
         }
 
-        return $d;
+        return (float) $d;
     }
 
     /**
