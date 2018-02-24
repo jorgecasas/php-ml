@@ -12,4 +12,19 @@ class DatasetException extends Exception
     {
         return new self(sprintf('Dataset root folder "%s" missing.', $path));
     }
+
+    public static function invalidTarget(string $target): self
+    {
+        return new self(sprintf('Invalid target "%s".', $target));
+    }
+
+    public static function invalidIndex(string $index): self
+    {
+        return new self(sprintf('Invalid index "%s".', $index));
+    }
+
+    public static function invalidValue(string $value): self
+    {
+        return new self(sprintf('Invalid value "%s".', $value));
+    }
 }

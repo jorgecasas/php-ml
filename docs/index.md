@@ -12,7 +12,7 @@
 <a href="http://www.yegor256.com/2016/10/23/award-2017.html">
   <img src="http://www.yegor256.com/images/award/2017/winner-itcraftsmanpl.png"
   style="width:203px;height:45px;"/></a>
-  
+
 ![PHP-ML - Machine Learning library for PHP](assets/php-ml-logo.png)
 
 Fresh approach to Machine Learning in PHP. Algorithms, Cross Validation, Neural Network, Preprocessing, Feature Extraction and much more in one library.
@@ -31,7 +31,7 @@ $labels = ['a', 'a', 'a', 'b', 'b', 'b'];
 $classifier = new KNearestNeighbors();
 $classifier->train($samples, $labels);
 
-$classifier->predict([3, 2]); 
+$classifier->predict([3, 2]);
 // return 'b'
 ```
 
@@ -89,6 +89,7 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
     * [Array](machine-learning/datasets/array-dataset.md)
     * [CSV](machine-learning/datasets/csv-dataset.md)
     * [Files](machine-learning/datasets/files-dataset.md)
+    * [SVM](machine-learning/datasets/svm-dataset.md)
     * Ready to use:
         * [Iris](machine-learning/datasets/demo/iris.md)
         * [Wine](machine-learning/datasets/demo/wine.md)
@@ -100,7 +101,7 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
     * [Matrix](math/matrix.md)
     * [Set](math/set.md)
     * [Statistic](math/statistic.md)
-    
+
 
 ## Contribute
 

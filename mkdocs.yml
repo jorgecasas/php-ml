@@ -38,6 +38,7 @@ pages:
       - Array Dataset: machine-learning/datasets/array-dataset.md
       - CSV Dataset: machine-learning/datasets/csv-dataset.md
       - Files Dataset: machine-learning/datasets/files-dataset.md
+      - SVM Dataset: machine-learning/datasets/svm-dataset.md
       - Ready to use datasets:
         - Iris: machine-learning/datasets/demo/iris.md
         - Wine: machine-learning/datasets/demo/wine.md
