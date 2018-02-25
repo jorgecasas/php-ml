@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpml\Tests\SupportVectorMachine;
 
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\SupportVectorMachine\DataTransformer;
 use PHPUnit\Framework\TestCase;
 
@@ -77,5 +78,13 @@ class DataTransformerTest extends TestCase
         ];
 
         $this->assertEquals($probabilities, DataTransformer::probabilities($rawPredictions, $labels));
+    }
+
+    public function testThrowExceptionWhenTestSetIsEmpty(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The array has zero elements');
+
+        DataTransformer::testSet([]);
     }
 }

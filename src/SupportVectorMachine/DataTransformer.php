@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Phpml\SupportVectorMachine;
 
+use Phpml\Exception\InvalidArgumentException;
+
 class DataTransformer
 {
     public static function trainingSet(array $samples, array $labels, bool $targets = false): string
@@ -24,6 +26,10 @@ class DataTransformer
 
     public static function testSet(array $samples): string
     {
+        if (empty($samples)) {
+            throw InvalidArgumentException::arrayCantBeEmpty();
+        }
+
         if (!is_array($samples[0])) {
             $samples = [$samples];
         }
