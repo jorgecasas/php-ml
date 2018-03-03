@@ -33,7 +33,7 @@ class Comparison
             case '!==':
                 return $a !== $b;
             default:
-                throw InvalidArgumentException::invalidOperator($operator);
+                throw new InvalidArgumentException(sprintf('Invalid operator "%s" provided', $operator));
         }
     }
 }

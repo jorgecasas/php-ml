@@ -63,7 +63,7 @@ class FuzzyCMeans implements Clusterer
     public function __construct(int $clustersNumber, float $fuzziness = 2.0, float $epsilon = 1e-2, int $maxIterations = 100)
     {
         if ($clustersNumber <= 0) {
-            throw InvalidArgumentException::invalidClustersNumber();
+            throw new InvalidArgumentException('Invalid clusters number');
         }
 
         $this->clustersNumber = $clustersNumber;

@@ -24,7 +24,7 @@ class ArrayDataset implements Dataset
     public function __construct(array $samples, array $targets)
     {
         if (count($samples) != count($targets)) {
-            throw InvalidArgumentException::arraySizeNotMatch();
+            throw new InvalidArgumentException('Size of given arrays does not match');
         }
 
         $this->samples = $samples;

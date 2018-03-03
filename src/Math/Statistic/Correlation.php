@@ -17,7 +17,7 @@ class Correlation
     public static function pearson(array $x, array $y): float
     {
         if (count($x) !== count($y)) {
-            throw InvalidArgumentException::arraySizeNotMatch();
+            throw new InvalidArgumentException('Size of given arrays does not match');
         }
 
         $count = count($x);

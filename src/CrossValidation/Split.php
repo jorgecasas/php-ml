@@ -32,7 +32,7 @@ abstract class Split
     public function __construct(Dataset $dataset, float $testSize = 0.3, ?int $seed = null)
     {
         if ($testSize <= 0 || $testSize >= 1) {
-            throw InvalidArgumentException::percentNotInRange('testSize');
+            throw new InvalidArgumentException('testsize must be between 0.0 and 1.0');
         }
 
         $this->seedGenerator($seed);

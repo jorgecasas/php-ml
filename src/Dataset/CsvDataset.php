@@ -19,12 +19,12 @@ class CsvDataset extends ArrayDataset
     public function __construct(string $filepath, int $features, bool $headingRow = true, string $delimiter = ',', int $maxLineLength = 0)
     {
         if (!file_exists($filepath)) {
-            throw FileException::missingFile(basename($filepath));
+            throw new FileException(sprintf('File "%s" missing.', basename($filepath)));
         }
 
         $handle = fopen($filepath, 'rb');
         if ($handle === false) {
-            throw FileException::cantOpenFile(basename($filepath));
+            throw new FileException(sprintf('File "%s" can\'t be open.', basename($filepath)));
         }
 
         if ($headingRow) {

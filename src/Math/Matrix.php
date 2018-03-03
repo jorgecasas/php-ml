@@ -48,7 +48,7 @@ class Matrix
         if ($validate) {
             for ($i = 0; $i < $this->rows; ++$i) {
                 if (count($matrix[$i]) !== $this->columns) {
-                    throw InvalidArgumentException::matrixDimensionsDidNotMatch();
+                    throw new InvalidArgumentException('Matrix dimensions did not match');
                 }
             }
         }
@@ -92,7 +92,7 @@ class Matrix
     public function getColumnValues($column): array
     {
         if ($column >= $this->columns) {
-            throw MatrixException::columnOutOfRange();
+            throw new MatrixException('Column out of range');
         }
 
         return array_column($this->matrix, $column);
@@ -110,7 +110,7 @@ class Matrix
         }
 
         if (!$this->isSquare()) {
-            throw MatrixException::notSquareMatrix();
+            throw new MatrixException('Matrix is not square matrix');
         }
 
         $lu = new LUDecomposition($this);
@@ -139,7 +139,7 @@ class Matrix
     public function multiply(self $matrix): self
     {
         if ($this->columns != $matrix->getRows()) {
-            throw InvalidArgumentException::inconsistentMatrixSupplied();
+            throw new InvalidArgumentException('Inconsistent matrix supplied');
         }
 
         $product = [];
@@ -200,7 +200,7 @@ class Matrix
     public function inverse(): self
     {
         if (!$this->isSquare()) {
-            throw MatrixException::notSquareMatrix();
+            throw new MatrixException('Matrix is not square matrix');
         }
 
         $LU = new LUDecomposition($this);

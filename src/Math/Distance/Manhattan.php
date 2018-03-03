@@ -15,7 +15,7 @@ class Manhattan implements Distance
     public function distance(array $a, array $b): float
     {
         if (count($a) !== count($b)) {
-            throw InvalidArgumentException::arraySizeNotMatch();
+            throw new InvalidArgumentException('Size of given arrays does not match');
         }
 
         return array_sum(array_map(function ($m, $n) {

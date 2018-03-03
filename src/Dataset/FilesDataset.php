@@ -11,7 +11,7 @@ class FilesDataset extends ArrayDataset
     public function __construct(string $rootPath)
     {
         if (!is_dir($rootPath)) {
-            throw DatasetException::missingFolder($rootPath);
+            throw new DatasetException(sprintf('Dataset root folder "%s" missing.', $rootPath));
         }
 
         $this->scanRootPath($rootPath);

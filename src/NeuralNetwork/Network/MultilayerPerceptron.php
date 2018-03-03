@@ -62,11 +62,11 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
     public function __construct(int $inputLayerFeatures, array $hiddenLayers, array $classes, int $iterations = 10000, ?ActivationFunction $activationFunction = null, float $learningRate = 1)
     {
         if (empty($hiddenLayers)) {
-            throw InvalidArgumentException::invalidLayersNumber();
+            throw new InvalidArgumentException('Provide at least 1 hidden layer');
         }
 
         if (count($classes) < 2) {
-            throw InvalidArgumentException::invalidClassesNumber();
+            throw new InvalidArgumentException('Provide at least 2 different classes');
         }
 
         $this->classes = array_values($classes);
@@ -93,7 +93,9 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
     {
         if (!empty($classes) && array_values($classes) !== $this->classes) {
             // We require the list of classes in the constructor.
-            throw InvalidArgumentException::inconsistentClasses();
+            throw new InvalidArgumentException(
+                'The provided classes don\'t match the classes provided in the constructor'
+            );
         }
 
         for ($i = 0; $i < $this->iterations; ++$i) {

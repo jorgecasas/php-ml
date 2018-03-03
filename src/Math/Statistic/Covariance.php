@@ -16,12 +16,12 @@ class Covariance
     public static function fromXYArrays(array $x, array $y, bool $sample = true, ?float $meanX = null, ?float $meanY = null): float
     {
         if (empty($x) || empty($y)) {
-            throw InvalidArgumentException::arrayCantBeEmpty();
+            throw new InvalidArgumentException('The array has zero elements');
         }
 
         $n = count($x);
         if ($sample && $n === 1) {
-            throw InvalidArgumentException::arraySizeTooSmall(2);
+            throw new InvalidArgumentException('The array must have at least 2 elements');
         }
 
         if ($meanX === null) {
@@ -54,12 +54,12 @@ class Covariance
     public static function fromDataset(array $data, int $i, int $k, bool $sample = true, ?float $meanX = null, ?float $meanY = null): float
     {
         if (empty($data)) {
-            throw InvalidArgumentException::arrayCantBeEmpty();
+            throw new InvalidArgumentException('The array has zero elements');
         }
 
         $n = count($data);
         if ($sample && $n === 1) {
-            throw InvalidArgumentException::arraySizeTooSmall(2);
+            throw new InvalidArgumentException('The array must have at least 2 elements');
         }
 
         if ($i < 0 || $k < 0 || $i >= $n || $k >= $n) {

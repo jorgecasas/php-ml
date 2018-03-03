@@ -14,13 +14,13 @@ class StandardDeviation
     public static function population(array $numbers, bool $sample = true): float
     {
         if (empty($numbers)) {
-            throw InvalidArgumentException::arrayCantBeEmpty();
+            throw new InvalidArgumentException('The array has zero elements');
         }
 
         $n = count($numbers);
 
         if ($sample && $n === 1) {
-            throw InvalidArgumentException::arraySizeTooSmall(2);
+            throw new InvalidArgumentException('The array must have at least 2 elements');
         }
 
         $mean = Mean::arithmetic($numbers);
@@ -45,7 +45,7 @@ class StandardDeviation
     public static function sumOfSquares(array $numbers): float
     {
         if (empty($numbers)) {
-            throw InvalidArgumentException::arrayCantBeEmpty();
+            throw new InvalidArgumentException('The array has zero elements');
         }
 
         $mean = Mean::arithmetic($numbers);

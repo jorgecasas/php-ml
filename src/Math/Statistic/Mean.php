@@ -59,7 +59,7 @@ class Mean
     private static function checkArrayLength(array $array): void
     {
         if (empty($array)) {
-            throw InvalidArgumentException::arrayCantBeEmpty();
+            throw new InvalidArgumentException('The array has zero elements');
         }
     }
 }

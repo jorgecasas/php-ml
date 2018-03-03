@@ -27,7 +27,7 @@ class DataTransformer
     public static function testSet(array $samples): string
     {
         if (empty($samples)) {
-            throw InvalidArgumentException::arrayCantBeEmpty();
+            throw new InvalidArgumentException('The array has zero elements');
         }
 
         if (!is_array($samples[0])) {

@@ -17,7 +17,9 @@ class MLPClassifier extends MultilayerPerceptron implements Classifier
     public function getTargetClass($target): int
     {
         if (!in_array($target, $this->classes, true)) {
-            throw InvalidArgumentException::invalidTarget($target);
+            throw new InvalidArgumentException(
+                sprintf('Target with value "%s" is not part of the accepted classes', $target)
+            );
         }
 
         return array_search($target, $this->classes, true);

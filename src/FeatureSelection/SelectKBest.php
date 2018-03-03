@@ -44,7 +44,7 @@ final class SelectKBest implements Transformer
     public function fit(array $samples, ?array $targets = null): void
     {
         if ($targets === null || empty($targets)) {
-            throw InvalidArgumentException::arrayCantBeEmpty();
+            throw new InvalidArgumentException('The array has zero elements');
         }
 
         $this->scores = $sorted = $this->scoringFunction->score($samples, $targets);

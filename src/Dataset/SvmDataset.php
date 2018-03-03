@@ -41,12 +41,12 @@ class SvmDataset extends ArrayDataset
     private static function openFile(string $filePath)
     {
         if (!file_exists($filePath)) {
-            throw FileException::missingFile(basename($filePath));
+            throw new FileException(sprintf('File "%s" missing.', basename($filePath)));
         }
 
         $handle = fopen($filePath, 'rb');
         if ($handle === false) {
-            throw FileException::cantOpenFile(basename($filePath));
+            throw new FileException(sprintf('File "%s" can\'t be open.', basename($filePath)));
         }
 
         return $handle;
@@ -87,7 +87,7 @@ class SvmDataset extends ArrayDataset
     private static function parseTargetColumn(string $column): float
     {
         if (!is_numeric($column)) {
-            throw DatasetException::invalidTarget($column);
+            throw new DatasetException(sprintf('Invalid target "%s".', $column));
         }
 
         return (float) $column;
@@ -97,7 +97,7 @@ class SvmDataset extends ArrayDataset
     {
         $feature = explode(':', $column, 2);
         if (count($feature) != 2) {
-            throw DatasetException::invalidValue($column);
+            throw new DatasetException(sprintf('Invalid value "%s".', $column));
         }
 
         $index = self::parseFeatureIndex($feature[0]);
@@ -109,11 +109,11 @@ class SvmDataset extends ArrayDataset
     private static function parseFeatureIndex(string $index): int
     {
         if (!is_numeric($index) || !ctype_digit($index)) {
-            throw DatasetException::invalidIndex($index);
+            throw new DatasetException(sprintf('Invalid index "%s".', $index));
         }
 
         if ((int) $index < 1) {
-            throw DatasetException::invalidIndex($index);
+            throw new DatasetException(sprintf('Invalid index "%s".', $index));
         }
 
         return (int) $index - 1;
@@ -122,7 +122,7 @@ class SvmDataset extends ArrayDataset
     private static function parseFeatureValue(string $value): float
     {
         if (!is_numeric($value)) {
-            throw DatasetException::invalidValue($value);
+            throw new DatasetException(sprintf('Invalid value "%s".', $value));
         }
 
         return (float) $value;

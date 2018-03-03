@@ -26,7 +26,7 @@ class KMeans implements Clusterer
     public function __construct(int $clustersNumber, int $initialization = self::INIT_KMEANS_PLUS_PLUS)
     {
         if ($clustersNumber <= 0) {
-            throw InvalidArgumentException::invalidClustersNumber();
+            throw new InvalidArgumentException('Invalid clusters number');
         }
 
         $this->clustersNumber = $clustersNumber;

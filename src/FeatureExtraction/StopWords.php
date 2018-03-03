@@ -28,7 +28,7 @@ class StopWords
         $className = __NAMESPACE__."\\StopWords\\${language}";
 
         if (!class_exists($className)) {
-            throw InvalidArgumentException::invalidStopWordsLanguage($language);
+            throw new InvalidArgumentException(sprintf('Can\'t find "%s" language for StopWords', $language));
         }
 
         return new $className();

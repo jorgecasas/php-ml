@@ -81,7 +81,7 @@ class LUDecomposition
     public function __construct(Matrix $A)
     {
         if ($A->getRows() != $A->getColumns()) {
-            throw MatrixException::notSquareMatrix();
+            throw new MatrixException('Matrix is not square matrix');
         }
 
         // Use a "left-looking", dot-product, Crout/Doolittle algorithm.
@@ -247,11 +247,11 @@ class LUDecomposition
     public function solve(Matrix $B): array
     {
         if ($B->getRows() != $this->m) {
-            throw MatrixException::notSquareMatrix();
+            throw new MatrixException('Matrix is not square matrix');
         }
 
         if (!$this->isNonsingular()) {
-            throw MatrixException::singularMatrix();
+            throw new MatrixException('Matrix is singular');
         }
 
         // Copy right hand side with pivoting

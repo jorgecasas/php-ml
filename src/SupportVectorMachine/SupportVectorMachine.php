@@ -137,7 +137,7 @@ class SupportVectorMachine
     public function setVarPath(string $varPath): void
     {
         if (!is_writable($varPath)) {
-            throw InvalidArgumentException::pathNotWritable($varPath);
+            throw new InvalidArgumentException(sprintf('The specified path "%s" is not writable', $varPath));
         }
 
         $this->ensureDirectorySeparator($varPath);
@@ -160,7 +160,9 @@ class SupportVectorMachine
         unlink($trainingSetFileName);
 
         if ($return !== 0) {
-            throw LibsvmCommandException::failedToRun($command, array_pop($output));
+            throw new LibsvmCommandException(
+                sprintf('Failed running libsvm command: "%s" with reason: "%s"', $command, array_pop($output))
+            );
         }
 
         $this->model = file_get_contents($modelFileName);
@@ -244,7 +246,9 @@ class SupportVectorMachine
         unlink($outputFileName);
 
         if ($return !== 0) {
-            throw LibsvmCommandException::failedToRun($command, array_pop($output));
+            throw new LibsvmCommandException(
+                sprintf('Failed running libsvm command: "%s" with reason: "%s"', $command, array_pop($output))
+            );
         }
 
         return $predictions;
@@ -312,18 +316,18 @@ class SupportVectorMachine
     private function verifyBinPath(string $path): void
     {
         if (!is_dir($path)) {
-            throw InvalidArgumentException::pathNotFound($path);
+            throw new InvalidArgumentException(sprintf('The specified path "%s" does not exist', $path));
         }
 
         $osExtension = $this->getOSExtension();
         foreach (['svm-predict', 'svm-scale', 'svm-train'] as $filename) {
             $filePath = $path.$filename.$osExtension;
             if (!file_exists($filePath)) {
-                throw InvalidArgumentException::fileNotFound($filePath);
+                throw new InvalidArgumentException(sprintf('File "%s" not found', $filePath));
             }
 
             if (!is_executable($filePath)) {
-                throw InvalidArgumentException::fileNotExecutable($filePath);
+                throw new InvalidArgumentException(sprintf('File "%s" is not executable', $filePath));
             }
         }
     }
