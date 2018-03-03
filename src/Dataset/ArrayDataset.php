@@ -40,4 +40,23 @@ class ArrayDataset implements Dataset
     {
         return $this->targets;
     }
+
+    /**
+     * @param int[] $columns
+     */
+    public function removeColumns(array $columns): void
+    {
+        foreach ($this->samples as &$sample) {
+            $this->removeColumnsFromSample($sample, $columns);
+        }
+    }
+
+    private function removeColumnsFromSample(array &$sample, array $columns): void
+    {
+        foreach ($columns as $index) {
+            unset($sample[$index]);
+        }
+
+        $sample = array_values($sample);
+    }
 }
