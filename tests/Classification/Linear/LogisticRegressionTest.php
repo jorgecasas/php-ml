@@ -8,15 +8,125 @@ use Phpml\Classification\Linear\LogisticRegression;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 use ReflectionProperty;
+use Throwable;
 
 class LogisticRegressionTest extends TestCase
 {
+    public function testConstructorThrowWhenInvalidTrainingType(): void
+    {
+        $this->expectException(Throwable::class);
+
+        $classifier = new LogisticRegression(
+            500,
+            true,
+            -1,
+            'log',
+            'L2'
+        );
+    }
+
+    public function testConstructorThrowWhenInvalidCost(): void
+    {
+        $this->expectException(Throwable::class);
+
+        $classifier = new LogisticRegression(
+            500,
+            true,
+            LogisticRegression::CONJUGATE_GRAD_TRAINING,
+            'invalid',
+            'L2'
+        );
+    }
+
+    public function testConstructorThrowWhenInvalidPenalty(): void
+    {
+        $this->expectException(Throwable::class);
+
+        $classifier = new LogisticRegression(
+            500,
+            true,
+            LogisticRegression::CONJUGATE_GRAD_TRAINING,
+            'log',
+            'invalid'
+        );
+    }
+
     public function testPredictSingleSample(): void
     {
         // AND problem
         $samples = [[0, 0], [1, 0], [0, 1], [1, 1], [0.4, 0.4], [0.6, 0.6]];
         $targets = [0, 0, 0, 1, 0, 1];
         $classifier = new LogisticRegression();
+        $classifier->train($samples, $targets);
+        $this->assertEquals(0, $classifier->predict([0.1, 0.1]));
+        $this->assertEquals(1, $classifier->predict([0.9, 0.9]));
+    }
+
+    public function testPredictSingleSampleWithBatchTraining(): void
+    {
+        $samples = [[0, 0], [1, 0], [0, 1], [1, 1], [0.4, 0.4], [0.6, 0.6]];
+        $targets = [0, 0, 0, 1, 0, 1];
+
+        // $maxIterations is set to 10000 as batch training needs more
+        // iteration to converge than CG method in general.
+        $classifier = new LogisticRegression(
+            10000,
+            true,
+            LogisticRegression::BATCH_TRAINING,
+            'log',
+            'L2'
+        );
+        $classifier->train($samples, $targets);
+        $this->assertEquals(0, $classifier->predict([0.1, 0.1]));
+        $this->assertEquals(1, $classifier->predict([0.9, 0.9]));
+    }
+
+    public function testPredictSingleSampleWithOnlineTraining(): void
+    {
+        $samples = [[0, 0], [1, 0], [0, 1], [1, 1], [0.4, 0.4], [0.6, 0.6]];
+        $targets = [0, 0, 0, 1, 0, 1];
+
+        // $penalty is set to empty (no penalty) because L2 penalty seems to
+        // prevent convergence in online training for this dataset.
+        $classifier = new LogisticRegression(
+            10000,
+            true,
+            LogisticRegression::ONLINE_TRAINING,
+            'log',
+            ''
+        );
+        $classifier->train($samples, $targets);
+        $this->assertEquals(0, $classifier->predict([0.1, 0.1]));
+        $this->assertEquals(1, $classifier->predict([0.9, 0.9]));
+    }
+
+    public function testPredictSingleSampleWithSSECost(): void
+    {
+        $samples = [[0, 0], [1, 0], [0, 1], [1, 1], [0.4, 0.4], [0.6, 0.6]];
+        $targets = [0, 0, 0, 1, 0, 1];
+        $classifier = new LogisticRegression(
+            500,
+            true,
+            LogisticRegression::CONJUGATE_GRAD_TRAINING,
+            'sse',
+            'L2'
+        );
+        $classifier->train($samples, $targets);
+        $this->assertEquals(0, $classifier->predict([0.1, 0.1]));
+        $this->assertEquals(1, $classifier->predict([0.9, 0.9]));
+    }
+
+    public function testPredictSingleSampleWithoutPenalty(): void
+    {
+        $samples = [[0, 0], [1, 0], [0, 1], [1, 1], [0.4, 0.4], [0.6, 0.6]];
+        $targets = [0, 0, 0, 1, 0, 1];
+        $classifier = new LogisticRegression(
+            500,
+            true,
+            LogisticRegression::CONJUGATE_GRAD_TRAINING,
+            'log',
+            ''
+        );
         $classifier->train($samples, $targets);
         $this->assertEquals(0, $classifier->predict([0.1, 0.1]));
         $this->assertEquals(1, $classifier->predict([0.9, 0.9]));
