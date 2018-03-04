@@ -29,12 +29,12 @@ class DecisionTreeLeaf
     public $columnIndex;
 
     /**
-     * @var ?DecisionTreeLeaf
+     * @var DecisionTreeLeaf|null
      */
     public $leftLeaf;
 
     /**
-     * @var ?DecisionTreeLeaf
+     * @var DecisionTreeLeaf|null
      */
     public $rightLeaf;
 

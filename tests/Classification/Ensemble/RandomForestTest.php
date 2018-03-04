@@ -7,19 +7,44 @@ namespace Phpml\Tests\Classification\Ensemble;
 use Phpml\Classification\DecisionTree;
 use Phpml\Classification\Ensemble\RandomForest;
 use Phpml\Classification\NaiveBayes;
-use Throwable;
+use Phpml\Exception\InvalidArgumentException;
 
 class RandomForestTest extends BaggingTest
 {
-    public function testOtherBaseClassifier(): void
+    public function testThrowExceptionWithInvalidClassifier(): void
     {
-        try {
-            $classifier = new RandomForest();
-            $classifier->setClassifer(NaiveBayes::class);
-            $this->assertEquals(0, 1);
-        } catch (Throwable $ex) {
-            $this->assertEquals(1, 1);
-        }
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('RandomForest can only use DecisionTree as base classifier');
+
+        $classifier = new RandomForest();
+        $classifier->setClassifer(NaiveBayes::class);
+    }
+
+    public function testThrowExceptionWithInvalidFeatureSubsetRatioType(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Feature subset ratio must be a string or a float');
+
+        $classifier = new RandomForest();
+        $classifier->setFeatureSubsetRatio(1);
+    }
+
+    public function testThrowExceptionWithInvalidFeatureSubsetRatioFloat(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('When a float is given, feature subset ratio should be between 0.1 and 1.0');
+
+        $classifier = new RandomForest();
+        $classifier->setFeatureSubsetRatio(1.1);
+    }
+
+    public function testThrowExceptionWithInvalidFeatureSubsetRatioString(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("When a string is given, feature subset ratio can only be 'sqrt' or 'log'");
+
+        $classifier = new RandomForest();
+        $classifier->setFeatureSubsetRatio('pow');
     }
 
     protected function getClassifier($numBaseClassifiers = 50)
