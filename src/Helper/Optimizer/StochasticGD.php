@@ -89,7 +89,7 @@ class StochasticGD extends Optimizer
         $this->dimensions = $dimensions;
     }
 
-    public function setInitialTheta(array $theta)
+    public function setTheta(array $theta)
     {
         if (count($theta) != $this->dimensions + 1) {
             throw new InvalidArgumentException(sprintf('Number of values in the weights array should be %s', $this->dimensions + 1));

@@ -9,8 +9,6 @@ use Phpml\Exception\InvalidArgumentException;
 
 abstract class Optimizer
 {
-    public $initialTheta;
-
     /**
      * Unknown variables to be found
      *
@@ -37,11 +35,9 @@ abstract class Optimizer
         for ($i = 0; $i < $this->dimensions; ++$i) {
             $this->theta[] = (random_int(0, PHP_INT_MAX) / PHP_INT_MAX) + 0.1;
         }
-
-        $this->initialTheta = $this->theta;
     }
 
-    public function setInitialTheta(array $theta)
+    public function setTheta(array $theta)
     {
         if (count($theta) != $this->dimensions) {
             throw new InvalidArgumentException(sprintf('Number of values in the weights array should be %s', $this->dimensions));

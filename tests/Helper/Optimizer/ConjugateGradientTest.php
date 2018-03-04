@@ -57,7 +57,7 @@ class ConjugateGradientTest extends TestCase
 
         $optimizer = new ConjugateGradient(1);
         // set very weak theta to trigger very bad result
-        $optimizer->setInitialTheta([0.0000001, 0.0000001]);
+        $optimizer->setTheta([0.0000001, 0.0000001]);
 
         $theta = $optimizer->runOptimization($samples, $targets, $callback);
 
@@ -97,6 +97,6 @@ class ConjugateGradientTest extends TestCase
         $opimizer = new ConjugateGradient(2);
 
         $this->expectException(InvalidArgumentException::class);
-        $opimizer->setInitialTheta([0.15]);
+        $opimizer->setTheta([0.15]);
     }
 }
