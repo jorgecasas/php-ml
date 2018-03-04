@@ -49,7 +49,7 @@ class Cluster extends Point implements IteratorAggregate, Countable
     public function attach(Point $point): Point
     {
         if ($point instanceof self) {
-            throw new LogicException('cannot attach a cluster to another');
+            throw new LogicException('Cannot attach a cluster to another');
         }
 
         $this->points->attach($point);
