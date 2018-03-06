@@ -5,12 +5,32 @@ declare(strict_types=1);
 namespace Phpml\Tests\Classification\Ensemble;
 
 use Phpml\Classification\Ensemble\AdaBoost;
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\ModelManager;
 use PHPUnit\Framework\TestCase;
 
 class AdaBoostTest extends TestCase
 {
-    public function testPredictSingleSample()
+    public function testTrainThrowWhenMultiClassTargetGiven(): void
+    {
+        $samples = [
+            [0, 0],
+            [0.5, 0.5],
+            [1, 1],
+        ];
+        $targets = [
+            0,
+            1,
+            2,
+        ];
+
+        $classifier = new AdaBoost();
+
+        $this->expectException(InvalidArgumentException::class);
+        $classifier->train($samples, $targets);
+    }
+
+    public function testPredictSingleSample(): void
     {
         // AND problem
         $samples = [[0.1, 0.3], [1, 0], [0, 1], [1, 1], [0.9, 0.8], [1.1, 1.1]];
@@ -38,8 +58,6 @@ class AdaBoostTest extends TestCase
         $this->assertEquals(0, $classifier->predict([0.1, 0.1]));
         $this->assertEquals(1, $classifier->predict([0, 0.999]));
         $this->assertEquals(0, $classifier->predict([1.1, 0.8]));
-
-        return $classifier;
     }
 
     public function testSaveAndRestore(): void

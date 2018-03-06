@@ -7,6 +7,7 @@ namespace Phpml\Tests\Classification\Ensemble;
 use Phpml\Classification\DecisionTree;
 use Phpml\Classification\Ensemble\Bagging;
 use Phpml\Classification\NaiveBayes;
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\ModelManager;
 use PHPUnit\Framework\TestCase;
 
@@ -34,7 +35,15 @@ class BaggingTest extends TestCase
         ['scorching',   0,      0,    'false',    'Dont_play'],
     ];
 
-    public function testPredictSingleSample()
+    public function testSetSubsetRatioThrowWhenRatioOutOfBounds(): void
+    {
+        $classifier = $this->getClassifier();
+
+        $this->expectException(InvalidArgumentException::class);
+        $classifier->setSubsetRatio(0);
+    }
+
+    public function testPredictSingleSample(): void
     {
         [$data, $targets] = $this->getData($this->data);
         $classifier = $this->getClassifier();
@@ -48,8 +57,6 @@ class BaggingTest extends TestCase
         $classifier->train($data, $targets);
         $this->assertEquals('Dont_play', $classifier->predict(['scorching', 95, 90, 'true']));
         $this->assertEquals('Play', $classifier->predict(['overcast', 60, 60, 'false']));
-
-        return $classifier;
     }
 
     public function testSaveAndRestore(): void

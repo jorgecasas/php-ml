@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Phpml\Tests\DimensionReduction;
 
 use Phpml\DimensionReduction\KernelPCA;
+use Phpml\Exception\InvalidArgumentException;
+use Phpml\Exception\InvalidOperationException;
 use PHPUnit\Framework\TestCase;
 
 class KernelPCATest extends TestCase
@@ -47,5 +49,35 @@ class KernelPCATest extends TestCase
         $newTransformed = [0.18956227539216];
         $newTransformed2 = $kpca->transform($newData);
         $this->assertEquals(abs($newTransformed[0]), abs($newTransformed2[0]), '', $epsilon);
+    }
+
+    public function testKernelPCAThrowWhenKernelInvalid(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $kpca = new KernelPCA(0, null, 1, 15);
+    }
+
+    public function testTransformThrowWhenNotFitted(): void
+    {
+        $samples = [1, 0];
+
+        $kpca = new KernelPCA(KernelPCA::KERNEL_RBF, null, 1, 15);
+
+        $this->expectException(InvalidOperationException::class);
+        $kpca->transform($samples);
+    }
+
+    public function testTransformThrowWhenMultiDimensionalArrayGiven(): void
+    {
+        $samples = [
+            [1, 0],
+            [1, 1],
+        ];
+
+        $kpca = new KernelPCA(KernelPCA::KERNEL_RBF, null, 1, 15);
+        $kpca->fit($samples);
+
+        $this->expectException(InvalidArgumentException::class);
+        $kpca->transform($samples);
     }
 }

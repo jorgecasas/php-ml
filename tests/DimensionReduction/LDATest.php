@@ -6,6 +6,8 @@ namespace Phpml\Tests\DimensionReduction;
 
 use Phpml\Dataset\Demo\IrisDataset;
 use Phpml\DimensionReduction\LDA;
+use Phpml\Exception\InvalidArgumentException;
+use Phpml\Exception\InvalidOperationException;
 use PHPUnit\Framework\TestCase;
 
 class LDATest extends TestCase
@@ -61,5 +63,42 @@ class LDATest extends TestCase
 
             array_map($check, $newRow, $newRow2);
         }
+    }
+
+    public function testLDAThrowWhenTotalVarianceOutOfRange(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $pca = new LDA(0, null);
+    }
+
+    public function testLDAThrowWhenNumFeaturesOutOfRange(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $pca = new LDA(null, 0);
+    }
+
+    public function testLDAThrowWhenParameterNotSpecified(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $pca = new LDA();
+    }
+
+    public function testLDAThrowWhenBothParameterSpecified(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $pca = new LDA(0.9, 1);
+    }
+
+    public function testTransformThrowWhenNotFitted(): void
+    {
+        $samples = [
+            [1, 0],
+            [1, 1],
+        ];
+
+        $pca = new LDA(0.9);
+
+        $this->expectException(InvalidOperationException::class);
+        $pca->transform($samples);
     }
 }

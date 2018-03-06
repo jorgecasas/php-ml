@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Phpml\Classification\Linear;
 
-use Exception;
+use Phpml\Exception\InvalidArgumentException;
 
 class Adaline extends Perceptron
 {
@@ -34,7 +34,7 @@ class Adaline extends Perceptron
      * If normalizeInputs is set to true, then every input given to the algorithm will be standardized
      * by use of standard deviation and mean calculation
      *
-     * @throws \Exception
+     * @throws InvalidArgumentException
      */
     public function __construct(
         float $learningRate = 0.001,
@@ -43,7 +43,7 @@ class Adaline extends Perceptron
         int $trainingType = self::BATCH_TRAINING
     ) {
         if (!in_array($trainingType, [self::BATCH_TRAINING, self::ONLINE_TRAINING], true)) {
-            throw new Exception('Adaline can only be trained with batch and online/stochastic gradient descent algorithm');
+            throw new InvalidArgumentException('Adaline can only be trained with batch and online/stochastic gradient descent algorithm');
         }
 
         $this->trainingType = $trainingType;

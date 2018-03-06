@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Phpml\Classification\Linear;
 
-use Exception;
 use Phpml\Classification\DecisionTree;
 use Phpml\Classification\WeightedClassifier;
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\Helper\OneVsRest;
 use Phpml\Helper\Predictable;
 use Phpml\Math\Comparison;
@@ -104,7 +104,7 @@ class DecisionStump extends WeightedClassifier
     }
 
     /**
-     * @throws \Exception
+     * @throws InvalidArgumentException
      */
     protected function trainBinary(array $samples, array $targets, array $labels): void
     {
@@ -121,7 +121,7 @@ class DecisionStump extends WeightedClassifier
         if (!empty($this->weights)) {
             $numWeights = count($this->weights);
             if ($numWeights != count($samples)) {
-                throw new Exception('Number of sample weights does not match with number of samples');
+                throw new InvalidArgumentException('Number of sample weights does not match with number of samples');
             }
         } else {
             $this->weights = array_fill(0, count($samples), 1);

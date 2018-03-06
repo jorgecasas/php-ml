@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Phpml\Classification\Ensemble;
 
-use Exception;
 use Phpml\Classification\Classifier;
 use Phpml\Classification\DecisionTree;
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\Helper\Predictable;
 use Phpml\Helper\Trainable;
 use ReflectionClass;
@@ -77,12 +77,12 @@ class Bagging implements Classifier
      *
      * @return $this
      *
-     * @throws \Exception
+     * @throws InvalidArgumentException
      */
     public function setSubsetRatio(float $ratio)
     {
         if ($ratio < 0.1 || $ratio > 1.0) {
-            throw new Exception('Subset ratio should be between 0.1 and 1.0');
+            throw new InvalidArgumentException('Subset ratio should be between 0.1 and 1.0');
         }
 
         $this->subsetRatio = $ratio;

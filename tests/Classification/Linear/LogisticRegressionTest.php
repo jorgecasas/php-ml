@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Phpml\Tests\Classification\Linear;
 
 use Phpml\Classification\Linear\LogisticRegression;
+use Phpml\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 use ReflectionProperty;
-use Throwable;
 
 class LogisticRegressionTest extends TestCase
 {
     public function testConstructorThrowWhenInvalidTrainingType(): void
     {
-        $this->expectException(Throwable::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $classifier = new LogisticRegression(
             500,
@@ -27,7 +27,7 @@ class LogisticRegressionTest extends TestCase
 
     public function testConstructorThrowWhenInvalidCost(): void
     {
-        $this->expectException(Throwable::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $classifier = new LogisticRegression(
             500,
@@ -40,7 +40,7 @@ class LogisticRegressionTest extends TestCase
 
     public function testConstructorThrowWhenInvalidPenalty(): void
     {
-        $this->expectException(Throwable::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $classifier = new LogisticRegression(
             500,

@@ -5,11 +5,24 @@ declare(strict_types=1);
 namespace Phpml\Tests\Classification\Linear;
 
 use Phpml\Classification\Linear\Perceptron;
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\ModelManager;
 use PHPUnit\Framework\TestCase;
 
 class PerceptronTest extends TestCase
 {
+    public function testPerceptronThrowWhenLearningRateOutOfRange(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $classifier = new Perceptron(0, 5000);
+    }
+
+    public function testPerceptronThrowWhenMaxIterationsOutOfRange(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $classifier = new Perceptron(0.001, 0);
+    }
+
     public function testPredictSingleSample(): void
     {
         // AND problem

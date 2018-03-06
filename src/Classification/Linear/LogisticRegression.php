@@ -6,6 +6,7 @@ namespace Phpml\Classification\Linear;
 
 use Closure;
 use Exception;
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\Helper\Optimizer\ConjugateGradient;
 
 class LogisticRegression extends Adaline
@@ -61,7 +62,7 @@ class LogisticRegression extends Adaline
      *
      * Penalty (Regularization term) can be 'L2' or empty string to cancel penalty term
      *
-     * @throws \Exception
+     * @throws InvalidArgumentException
      */
     public function __construct(
         int $maxIterations = 500,
@@ -72,18 +73,24 @@ class LogisticRegression extends Adaline
     ) {
         $trainingTypes = range(self::BATCH_TRAINING, self::CONJUGATE_GRAD_TRAINING);
         if (!in_array($trainingType, $trainingTypes, true)) {
-            throw new Exception('Logistic regression can only be trained with '.
+            throw new InvalidArgumentException(
+                'Logistic regression can only be trained with '.
                 'batch (gradient descent), online (stochastic gradient descent) '.
-                'or conjugate batch (conjugate gradients) algorithms');
+                'or conjugate batch (conjugate gradients) algorithms'
+            );
         }
 
         if (!in_array($cost, ['log', 'sse'], true)) {
-            throw new Exception("Logistic regression cost function can be one of the following: \n".
-                "'log' for log-likelihood and 'sse' for sum of squared errors");
+            throw new InvalidArgumentException(
+                "Logistic regression cost function can be one of the following: \n".
+                "'log' for log-likelihood and 'sse' for sum of squared errors"
+            );
         }
 
         if ($penalty != '' && strtoupper($penalty) !== 'L2') {
-            throw new Exception("Logistic regression supports only 'L2' regularization");
+            throw new InvalidArgumentException(
+                "Logistic regression supports only 'L2' regularization"
+            );
         }
 
         $this->learningRate = 0.001;
@@ -140,7 +147,8 @@ class LogisticRegression extends Adaline
                 return;
 
             default:
-                throw new Exception('Logistic regression has invalid training type: %s.', $this->trainingType);
+                // Not reached
+                throw new Exception(sprintf('Logistic regression has invalid training type: %d.', $this->trainingType));
         }
     }
 
@@ -232,6 +240,7 @@ class LogisticRegression extends Adaline
                 return $callback;
 
             default:
+                // Not reached
                 throw new Exception(sprintf('Logistic regression has invalid cost function: %s.', $this->costFunction));
         }
     }

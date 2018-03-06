@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Phpml\Classification\Linear;
 
 use Closure;
-use Exception;
 use Phpml\Classification\Classifier;
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\Helper\OneVsRest;
 use Phpml\Helper\Optimizer\GD;
 use Phpml\Helper\Optimizer\StochasticGD;
@@ -70,16 +70,16 @@ class Perceptron implements Classifier, IncrementalEstimator
      * @param float $learningRate  Value between 0.0(exclusive) and 1.0(inclusive)
      * @param int   $maxIterations Must be at least 1
      *
-     * @throws \Exception
+     * @throws InvalidArgumentException
      */
     public function __construct(float $learningRate = 0.001, int $maxIterations = 1000, bool $normalizeInputs = true)
     {
         if ($learningRate <= 0.0 || $learningRate > 1.0) {
-            throw new Exception('Learning rate should be a float value between 0.0(exclusive) and 1.0(inclusive)');
+            throw new InvalidArgumentException('Learning rate should be a float value between 0.0(exclusive) and 1.0(inclusive)');
         }
 
         if ($maxIterations <= 0) {
-            throw new Exception('Maximum number of iterations must be an integer greater than 0');
+            throw new InvalidArgumentException('Maximum number of iterations must be an integer greater than 0');
         }
 
         if ($normalizeInputs) {

@@ -5,11 +5,23 @@ declare(strict_types=1);
 namespace Phpml\Tests\Classification\Linear;
 
 use Phpml\Classification\Linear\Adaline;
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\ModelManager;
 use PHPUnit\Framework\TestCase;
 
 class AdalineTest extends TestCase
 {
+    public function testAdalineThrowWhenInvalidTrainingType(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $classifier = new Adaline(
+            0.001,
+            1000,
+            true,
+            0
+        );
+    }
+
     public function testPredictSingleSample(): void
     {
         // AND problem

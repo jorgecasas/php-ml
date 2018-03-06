@@ -5,11 +5,24 @@ declare(strict_types=1);
 namespace Phpml\Tests\Classification\Linear;
 
 use Phpml\Classification\Linear\DecisionStump;
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\ModelManager;
 use PHPUnit\Framework\TestCase;
 
 class DecisionStumpTest extends TestCase
 {
+    public function testTrainThrowWhenSample(): void
+    {
+        $samples = [[0, 0], [1, 0], [0, 1], [1, 1]];
+        $targets = [0, 0, 1, 1];
+
+        $classifier = new DecisionStump();
+        $classifier->setSampleWeights([0.1, 0.1, 0.1]);
+
+        $this->expectException(InvalidArgumentException::class);
+        $classifier->train($samples, $targets);
+    }
+
     public function testPredictSingleSample()
     {
         // Samples should be separable with a line perpendicular

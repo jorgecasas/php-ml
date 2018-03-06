@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Phpml\Tests\DimensionReduction;
 
 use Phpml\DimensionReduction\PCA;
+use Phpml\Exception\InvalidArgumentException;
+use Phpml\Exception\InvalidOperationException;
 use PHPUnit\Framework\TestCase;
 
 class PCATest extends TestCase
@@ -53,5 +55,42 @@ class PCATest extends TestCase
                 $this->assertEquals(abs($val1), abs($val2), '', $epsilon);
             }, $newRow, $newRow2);
         }
+    }
+
+    public function testPCAThrowWhenTotalVarianceOutOfRange(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $pca = new PCA(0, null);
+    }
+
+    public function testPCAThrowWhenNumFeaturesOutOfRange(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $pca = new PCA(null, 0);
+    }
+
+    public function testPCAThrowWhenParameterNotSpecified(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $pca = new PCA();
+    }
+
+    public function testPCAThrowWhenBothParameterSpecified(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $pca = new PCA(0.9, 1);
+    }
+
+    public function testTransformThrowWhenNotFitted(): void
+    {
+        $samples = [
+            [1, 0],
+            [1, 1],
+        ];
+
+        $pca = new PCA(0.9);
+
+        $this->expectException(InvalidOperationException::class);
+        $pca->transform($samples);
     }
 }

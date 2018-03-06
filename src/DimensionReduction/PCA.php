@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Phpml\DimensionReduction;
 
-use Exception;
+use Phpml\Exception\InvalidArgumentException;
+use Phpml\Exception\InvalidOperationException;
 use Phpml\Math\Statistic\Covariance;
 use Phpml\Math\Statistic\Mean;
 
@@ -31,20 +32,20 @@ class PCA extends EigenTransformerBase
      * @param float $totalVariance Total explained variance to be preserved
      * @param int   $numFeatures   Number of features to be preserved
      *
-     * @throws \Exception
+     * @throws InvalidArgumentException
      */
     public function __construct(?float $totalVariance = null, ?int $numFeatures = null)
     {
         if ($totalVariance !== null && ($totalVariance < 0.1 || $totalVariance > 0.99)) {
-            throw new Exception('Total variance can be a value between 0.1 and 0.99');
+            throw new InvalidArgumentException('Total variance can be a value between 0.1 and 0.99');
         }
 
         if ($numFeatures !== null && $numFeatures <= 0) {
-            throw new Exception('Number of features to be preserved should be greater than 0');
+            throw new InvalidArgumentException('Number of features to be preserved should be greater than 0');
         }
 
-        if ($totalVariance !== null && $numFeatures !== null) {
-            throw new Exception('Either totalVariance or numFeatures should be specified in order to run the algorithm');
+        if (($totalVariance !== null) === ($numFeatures !== null)) {
+            throw new InvalidArgumentException('Either totalVariance or numFeatures should be specified in order to run the algorithm');
         }
 
         if ($numFeatures !== null) {
@@ -81,12 +82,12 @@ class PCA extends EigenTransformerBase
      * Transforms the given sample to a lower dimensional vector by using
      * the eigenVectors obtained in the last run of <code>fit</code>.
      *
-     * @throws \Exception
+     * @throws InvalidOperationException
      */
     public function transform(array $sample): array
     {
         if (!$this->fit) {
-            throw new Exception('PCA has not been fitted with respect to original dataset, please run PCA::fit() first');
+            throw new InvalidOperationException('PCA has not been fitted with respect to original dataset, please run PCA::fit() first');
         }
 
         if (!is_array($sample[0])) {

@@ -6,6 +6,8 @@ namespace Phpml\DimensionReduction;
 
 use Closure;
 use Exception;
+use Phpml\Exception\InvalidArgumentException;
+use Phpml\Exception\InvalidOperationException;
 use Phpml\Math\Distance\Euclidean;
 use Phpml\Math\Distance\Manhattan;
 use Phpml\Math\Matrix;
@@ -53,13 +55,13 @@ class KernelPCA extends PCA
      * @param int   $numFeatures   Number of columns to be returned
      * @param float $gamma         Gamma parameter is used with RBF and Sigmoid kernels
      *
-     * @throws \Exception
+     * @throws InvalidArgumentException
      */
     public function __construct(int $kernel = self::KERNEL_RBF, ?float $totalVariance = null, ?int $numFeatures = null, ?float $gamma = null)
     {
         $availableKernels = [self::KERNEL_RBF, self::KERNEL_SIGMOID, self::KERNEL_LAPLACIAN, self::KERNEL_LINEAR];
         if (!in_array($kernel, $availableKernels, true)) {
-            throw new Exception('KernelPCA can be initialized with the following kernels only: Linear, RBF, Sigmoid and Laplacian');
+            throw new InvalidArgumentException('KernelPCA can be initialized with the following kernels only: Linear, RBF, Sigmoid and Laplacian');
         }
 
         parent::__construct($totalVariance, $numFeatures);
@@ -97,16 +99,17 @@ class KernelPCA extends PCA
      * Transforms the given sample to a lower dimensional vector by using
      * the variables obtained during the last run of <code>fit</code>.
      *
-     * @throws \Exception
+     * @throws InvalidArgumentException
+     * @throws InvalidOperationException
      */
     public function transform(array $sample): array
     {
         if (!$this->fit) {
-            throw new Exception('KernelPCA has not been fitted with respect to original dataset, please run KernelPCA::fit() first');
+            throw new InvalidOperationException('KernelPCA has not been fitted with respect to original dataset, please run KernelPCA::fit() first');
         }
 
         if (is_array($sample[0])) {
-            throw new Exception('KernelPCA::transform() accepts only one-dimensional arrays');
+            throw new InvalidArgumentException('KernelPCA::transform() accepts only one-dimensional arrays');
         }
 
         $pairs = $this->getDistancePairs($sample);
@@ -199,6 +202,7 @@ class KernelPCA extends PCA
                 };
 
             default:
+                // Not reached
                 throw new Exception(sprintf('KernelPCA initialized with invalid kernel: %d', $this->kernel));
         }
     }

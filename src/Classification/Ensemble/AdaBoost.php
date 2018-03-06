@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Phpml\Classification\Ensemble;
 
-use Exception;
 use Phpml\Classification\Classifier;
 use Phpml\Classification\Linear\DecisionStump;
 use Phpml\Classification\WeightedClassifier;
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\Helper\Predictable;
 use Phpml\Helper\Trainable;
 use Phpml\Math\Statistic\Mean;
@@ -93,14 +93,14 @@ class AdaBoost implements Classifier
     }
 
     /**
-     * @throws \Exception
+     * @throws InvalidArgumentException
      */
     public function train(array $samples, array $targets): void
     {
         // Initialize usual variables
         $this->labels = array_keys(array_count_values($targets));
         if (count($this->labels) != 2) {
-            throw new Exception('AdaBoost is a binary classifier and can classify between two classes only');
+            throw new InvalidArgumentException('AdaBoost is a binary classifier and can classify between two classes only');
         }
 
         // Set all target values to either -1 or 1
