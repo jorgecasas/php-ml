@@ -18,10 +18,16 @@ class Point implements ArrayAccess
      */
     protected $coordinates = [];
 
-    public function __construct(array $coordinates)
+    /**
+     * @var mixed
+     */
+    protected $label;
+
+    public function __construct(array $coordinates, $label = null)
     {
         $this->dimension = count($coordinates);
         $this->coordinates = $coordinates;
+        $this->label = $label;
     }
 
     public function toArray(): array

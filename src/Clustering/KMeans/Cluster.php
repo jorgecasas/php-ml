@@ -32,7 +32,11 @@ class Cluster extends Point implements IteratorAggregate, Countable
     {
         $points = [];
         foreach ($this->points as $point) {
-            $points[] = $point->toArray();
+            if (!empty($point->label)) {
+                $points[$point->label] = $point->toArray();
+            } else {
+                $points[] = $point->toArray();
+            }
         }
 
         return $points;

@@ -28,6 +28,32 @@ class KMeansTest extends TestCase
         $this->assertCount(0, $samples);
     }
 
+    public function testKMeansSamplesLabeledClustering(): void
+    {
+        $samples = [
+            '555' => [1, 1],
+            '666' => [8, 7],
+            'ABC' => [1, 2],
+            'DEF' => [7, 8],
+            668 => [2, 1],
+            [8, 9],
+        ];
+
+        $kmeans = new KMeans(2);
+        $clusters = $kmeans->cluster($samples);
+
+        $this->assertCount(2, $clusters);
+
+        foreach ($samples as $index => $sample) {
+            if (in_array($sample, $clusters[0], true) || in_array($sample, $clusters[1], true)) {
+                $this->assertArrayHasKey($index, $clusters[0] + $clusters[1]);
+                unset($samples[$index]);
+            }
+        }
+
+        $this->assertCount(0, $samples);
+    }
+
     public function testKMeansInitializationMethods(): void
     {
         $samples = [

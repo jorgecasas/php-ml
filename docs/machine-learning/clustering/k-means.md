@@ -19,10 +19,12 @@ To divide the samples into clusters simply use `cluster` method. It's return the
 
 ```
 $samples = [[1, 1], [8, 7], [1, 2], [7, 8], [2, 1], [8, 9]];
+Or if you need to keep your indentifiers along with yours samples you can use array keys as labels.
+$samples = [ 'Label1' => [1, 1], 'Label2' => [8, 7], 'Label3' => [1, 2]];
 
 $kmeans = new KMeans(2);
 $kmeans->cluster($samples);
-// return [0=>[[1, 1], ...], 1=>[[8, 7], ...]] 
+// return [0=>[[1, 1], ...], 1=>[[8, 7], ...]] or [0=>['Label1' => [1, 1], 'Label3' => [1, 2], ...], 1=>['Label2' => [8, 7], ...]]
 ```
 
 ### Initialization methods
