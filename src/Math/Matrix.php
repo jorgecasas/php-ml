@@ -142,15 +142,24 @@ class Matrix
             throw new InvalidArgumentException('Inconsistent matrix supplied');
         }
 
+        $array1 = $this->toArray();
+        $array2 = $matrix->toArray();
+        $colCount = $matrix->columns;
+
+        /*
+         - To speed-up multiplication, we need to avoid use of array index operator [ ] as much as possible( See #255 for details)
+         - A combination of "foreach" and "array_column" works much faster then accessing the array via index operator
+        */
         $product = [];
-        $multiplier = $matrix->toArray();
-        for ($i = 0; $i < $this->rows; ++$i) {
-            $columns = $matrix->getColumns();
-            for ($j = 0; $j < $columns; ++$j) {
-                $product[$i][$j] = 0;
-                for ($k = 0; $k < $this->columns; ++$k) {
-                    $product[$i][$j] += $this->matrix[$i][$k] * $multiplier[$k][$j];
+        foreach ($array1 as $row => $rowData) {
+            for ($col = 0; $col < $colCount; ++$col) {
+                $columnData = array_column($array2, $col);
+                $sum = 0;
+                foreach ($rowData as $key => $valueData) {
+                    $sum += $valueData * $columnData[$key];
                 }
+
+                $product[$row][$col] = $sum;
             }
         }
 
