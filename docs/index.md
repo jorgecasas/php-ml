@@ -9,11 +9,9 @@
 [![Coverage Status](https://coveralls.io/repos/github/php-ai/php-ml/badge.svg?branch=master)](https://coveralls.io/github/php-ai/php-ml?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/php-ai/php-ml/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/php-ai/php-ml/?branch=master)
 
-<a href="http://www.yegor256.com/2016/10/23/award-2017.html">
-  <img src="http://www.yegor256.com/images/award/2017/winner-itcraftsmanpl.png"
-  style="width:203px;height:45px;"/></a>
-
-![PHP-ML - Machine Learning library for PHP](assets/php-ml-logo.png)
+<p align="center">
+	<img src="https://github.com/php-ai/php-ml/blob/master/docs/assets/php-ml-logo.png" />
+</p>
 
 Fresh approach to Machine Learning in PHP. Algorithms, Cross Validation, Neural Network, Preprocessing, Feature Extraction and much more in one library.
 
@@ -34,6 +32,11 @@ $classifier->train($samples, $labels);
 $classifier->predict([3, 2]);
 // return 'b'
 ```
+
+## Awards
+
+<a href="http://www.yegor256.com/2016/10/23/award-2017.html">
+  <img src="http://www.yegor256.com/images/award/2017/winner-itcraftsmanpl.png" width="400"/></a>
 
 ## Documentation
 
@@ -105,6 +108,7 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
 
 ## Contribute
 
+- Guide: [CONTRIBUTING.md](https://github.com/php-ai/php-ml/blob/master/CONTRIBUTING.md)
 - Issue Tracker: [github.com/php-ai/php-ml/issues](https://github.com/php-ai/php-ml/issues)
 - Source Code: [github.com/php-ai/php-ml](https://github.com/php-ai/php-ml)
 

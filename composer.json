@@ -23,6 +23,7 @@
         "php": "^7.1"
     },
     "require-dev": {
+        "phpbench/phpbench": "^0.14.0",
         "phpstan/phpstan-phpunit": "^0.9.4",
         "phpstan/phpstan-shim": "^0.9",
         "phpstan/phpstan-strict-rules": "^0.9.0",

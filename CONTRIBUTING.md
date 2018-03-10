@@ -8,12 +8,28 @@ code base clean, unified and future proof.
 
 You should only open pull requests against the `master` branch.
 
-## Unit-Tests
+## Unit Tests
 
 Please try to add a test for your pull-request. You can run the unit-tests by calling:
 
 ```bash
 vendor/bin/phpunit
+```
+
+## Performance Tests
+
+Before first run bootstrap script will download all necessary datasets from public repository `php-ai/php-ml-datasets`.
+
+Time performance tests:
+
+```bash
+vendor/bin/phpbench run --report=time
+```
+
+Memory performance tests:
+
+```bash
+vendor/bin/phpbench run --report=memory
 ```
 
 ## Travis
@@ -23,21 +39,21 @@ If you break the tests, I cannot merge your code, so please make sure that your 
 
 ## Merge
 
-Please allow me time to review your pull requests. I will give my best to review everything as fast as possible, but cannot always live up to my own expectations.
+Please give me time to review your pull requests. I will give my best to review everything as fast as possible, but cannot always live up to my own expectations.
 
 ## Coding Standards & Static Analysis
 
 When contributing code to PHP-ML, you must follow its coding standards. To do that, just run:
 
 ```bash
-vendor/bin/ecs check src tests --fix
+composer fix-cs
 ```
 [More about EasyCodingStandard](https://github.com/Symplify/EasyCodingStandard)
 
 Code has to also pass static analysis by [PHPStan](https://github.com/phpstan/phpstan):
 
 ```bash
-vendor/bin/phpstan.phar analyse src tests --level max --configuration phpstan.neon
+composer phpstan
 ```
 
 
