@@ -4,7 +4,7 @@ Class implementing Epsilon-Support Vector Regression based on libsvm.
 
 ### Constructor Parameters
 
-* $kernel (int) - kernel type to be used in the algorithm (default Kernel::LINEAR)
+* $kernel (int) - kernel type to be used in the algorithm (default Kernel::RBF)
 * $degree (int) - degree of the Kernel::POLYNOMIAL function (default 3)
 * $epsilon (float) -  epsilon in loss function of epsilon-SVR (default 0.1)
 * $cost (float) - parameter C of C-SVC (default 1.0)
