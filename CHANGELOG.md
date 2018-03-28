@@ -3,6 +3,18 @@ CHANGELOG
 
 This changelog references the relevant changes done in PHP-ML library.
 
+* Unreleased
+    * feature [Clustering] added KMeans associative clustering (#262)
+    * feature [Dataset] added removeColumns function to ArrayDataset (#249)
+    * feature [Dataset] added a SvmDataset class for SVM-Light (or LibSVM) format files (#237)
+    * feature [Optimizer] removed $initialTheta property and renamed setInitialTheta method to setTheta (#252)
+    * enhancement Add performance test for LeastSquares (#263)
+    * enhancement Micro optimization for matrix multiplication (#255)
+    * enhancement Throw proper exception (#259, #251)
+    * fix ensure DataTransformer::testSet samples array is not empty (#204)
+    * fix optimizer initial theta randomization (#239)
+    * typo, tests, code styles and documentation fixes (#265, #261, #254, #253, #251, #250, #248, #245, #243)
+
 * 0.6.2 (2018-02-22)
     * Fix Apriori array keys (#238)
 
@@ -80,7 +92,7 @@ This changelog references the relevant changes done in PHP-ML library.
     * bug [Metric] - division by zero
 
 * 0.2.0 (2016-08-14)
-    * feature [NeuralNetwork] - MultilayerPerceptron and Backpropagation training 
+    * feature [NeuralNetwork] - MultilayerPerceptron and Backpropagation training
 
 * 0.1.2 (2016-07-24)
     * feature [Dataset] - FilesDataset - load dataset from files (folder names as targets)
@@ -90,7 +102,7 @@ This changelog references the relevant changes done in PHP-ML library.
 
 * 0.1.1 (2016-07-12)
     * feature [Cross Validation] Stratified Random Split - equal distribution for targets in split
-    * feature [General] Documentation - add missing pages (Pipeline, ConfusionMatrix and TfIdfTransformer) and fix links 
+    * feature [General] Documentation - add missing pages (Pipeline, ConfusionMatrix and TfIdfTransformer) and fix links
 
 * 0.1.0 (2016-07-08)
     * first develop release
