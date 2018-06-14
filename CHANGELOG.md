@@ -13,6 +13,7 @@ This changelog references the relevant changes done in PHP-ML library.
     * enhancement Throw proper exception (#259, #251)
     * fix ensure DataTransformer::testSet samples array is not empty (#204)
     * fix optimizer initial theta randomization (#239)
+    * fix travis build on osx (#281)
     * typo, tests, code styles and documentation fixes (#265, #261, #254, #253, #251, #250, #248, #245, #243)
 
 * 0.6.2 (2018-02-22)

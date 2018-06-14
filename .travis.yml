@@ -17,7 +17,6 @@ matrix:
       language: generic
       env:
         - _OSX=10.11
-        - _PHP: php71
 
 cache:
   directories:
@@ -28,7 +27,6 @@ before_install:
   - if [[ $DISABLE_XDEBUG == "true" ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
-  - if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then /usr/bin/env bash bin/handle_brew_pkg.sh "${_PHP}" ; fi
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install --no-interaction --ignore-platform-reqs
 
