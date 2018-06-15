@@ -25,7 +25,7 @@ class ConfusionMatrix
                 $column = $labels[$predicted];
             }
 
-            $matrix[$row][$column] += 1;
+            ++$matrix[$row][$column];
         }
 
         return $matrix;
@@ -47,8 +47,7 @@ class ConfusionMatrix
     {
         $labels = array_values(array_unique($labels));
         sort($labels);
-        $labels = array_flip($labels);
 
-        return $labels;
+        return array_flip($labels);
     }
 }

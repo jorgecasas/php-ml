@@ -452,9 +452,7 @@ class DecisionTree implements Classifier
             $rNodes = $this->getSplitNodesByColumn($column, $node->rightLeaf);
         }
 
-        $nodes = array_merge($nodes, $lNodes, $rNodes);
-
-        return $nodes;
+        return array_merge($nodes, $lNodes, $rNodes);
     }
 
     /**

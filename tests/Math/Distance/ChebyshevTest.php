@@ -15,7 +15,7 @@ class ChebyshevTest extends TestCase
      */
     private $distanceMetric;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->distanceMetric = new Chebyshev();
     }

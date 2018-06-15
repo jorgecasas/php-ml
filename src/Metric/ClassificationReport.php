@@ -226,8 +226,7 @@ class ClassificationReport
     {
         $labels = array_values(array_unique(array_merge($actualLabels, $predictedLabels)));
         sort($labels);
-        $labels = array_combine($labels, array_fill(0, count($labels), 0));
 
-        return $labels;
+        return array_combine($labels, array_fill(0, count($labels), 0));
     }
 }

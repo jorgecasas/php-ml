@@ -33,9 +33,7 @@ class StratifiedRandomSplit extends RandomSplit
             $split[$targets[$key]][] = $sample;
         }
 
-        $datasets = $this->createDatasets($uniqueTargets, $split);
-
-        return $datasets;
+        return $this->createDatasets($uniqueTargets, $split);
     }
 
     private function createDatasets(array $uniqueTargets, array $split): array

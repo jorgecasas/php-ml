@@ -197,7 +197,9 @@ class Space extends SplObjectStorage
 
             $sum = random_int(0, (int) $sum);
             foreach ($this as $point) {
-                if (($sum -= $distances[$point]) > 0) {
+                $sum -= $distances[$point];
+
+                if ($sum > 0) {
                     continue;
                 }
 

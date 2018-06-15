@@ -34,7 +34,7 @@ class Gaussian
         $std2 = $this->std ** 2;
         $mean = $this->mean;
 
-        return exp(-(($value - $mean) ** 2) / (2 * $std2)) / sqrt(2 * $std2 * pi());
+        return exp(-(($value - $mean) ** 2) / (2 * $std2)) / sqrt(2 * $std2 * M_PI);
     }
 
     /**

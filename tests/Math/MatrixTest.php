@@ -136,10 +136,10 @@ class MatrixTest extends TestCase
     {
         $this->expectException(MatrixException::class);
         $matrix = new Matrix([
-          [0, 0, 0],
-          [0, 0, 0],
-          [0, 0, 0],
-       ]);
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0],
+        ]);
         $matrix->inverse();
     }
 

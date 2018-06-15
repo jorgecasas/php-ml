@@ -155,7 +155,7 @@ class NaiveBayes implements Classifier
         // some libraries adopt taking log of calculations such as
         // scikit-learn did.
         // (See : https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/naive_bayes.py)
-        $pdf = -0.5 * log(2.0 * pi() * $std * $std);
+        $pdf = -0.5 * log(2.0 * M_PI * $std * $std);
         $pdf -= 0.5 * pow($value - $mean, 2) / ($std * $std);
 
         return $pdf;

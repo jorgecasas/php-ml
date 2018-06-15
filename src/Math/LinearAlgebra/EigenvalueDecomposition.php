@@ -18,7 +18,7 @@ declare(strict_types=1);
  *	conditioned, or even singular, so the validity of the equation
  *	A = V*D*inverse(V) depends upon V.cond().
  *
- *	@author  Paul Meagher
+ *	@author Paul Meagher
  *	@license PHP v3.0
  *
  *	@version 1.1
@@ -344,7 +344,7 @@ class EigenvalueDecomposition
                 $iter = 0;
                 do {
                     // Could check iteration count here.
-                    $iter += 1;
+                    ++$iter;
                     // Compute implicit shift
                     $g = $this->d[$l];
                     $p = ($this->d[$l + 1] - $g) / (2.0 * $this->e[$l]);
@@ -598,7 +598,7 @@ class EigenvalueDecomposition
                 $this->e[$n] = 0.0;
                 --$n;
                 $iter = 0;
-                // Two roots found
+            // Two roots found
             } elseif ($l == $n - 1) {
                 $w = $this->H[$n][$n - 1] * $this->H[$n - 1][$n];
                 $p = ($this->H[$n - 1][$n - 1] - $this->H[$n][$n]) / 2.0;
@@ -661,7 +661,7 @@ class EigenvalueDecomposition
 
                 $n = $n - 2;
                 $iter = 0;
-                // No convergence yet
+            // No convergence yet
             } else {
                 // Form shift
                 $x = $this->H[$n][$n];

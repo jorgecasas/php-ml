@@ -79,9 +79,7 @@ class SvmDataset extends ArrayDataset
         $line = rtrim($line);
         $line = str_replace("\t", ' ', $line);
 
-        $columns = explode(' ', $line);
-
-        return $columns;
+        return explode(' ', $line);
     }
 
     private static function parseTargetColumn(string $column): float

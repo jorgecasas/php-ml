@@ -1,0 +1,68 @@
+imports:
+    - { resource: 'vendor/symplify/easy-coding-standard/config/psr2.yml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/php71.yml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/clean-code.yml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/common.yml' }
+
+services:
+    # spacing
+    PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer: ~
+    PhpCsFixer\Fixer\Whitespace\BlankLineBeforeStatementFixer: ~
+    PhpCsFixer\Fixer\CastNotation\CastSpacesFixer: ~
+    PhpCsFixer\Fixer\Operator\ConcatSpaceFixer:
+        spacing: none
+    PhpCsFixer\Fixer\ClassNotation\MethodSeparationFixer: ~
+    PhpCsFixer\Fixer\ClassNotation\NoBlankLinesAfterClassOpeningFixer: ~
+    PhpCsFixer\Fixer\Whitespace\NoSpacesAroundOffsetFixer:
+        positions: ['inside', 'outside']
+    PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer:
+        align_double_arrow: false
+        align_equals: false
+
+    # phpdoc
+    PhpCsFixer\Fixer\Phpdoc\PhpdocSeparationFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\PhpdocAlignFixer: ~
+
+    # Symplify
+    Symplify\CodingStandard\Fixer\Import\ImportNamespacedNameFixer: ~
+    Symplify\CodingStandard\Fixer\Php\ClassStringToClassConstantFixer: ~
+    Symplify\CodingStandard\Fixer\Property\ArrayPropertyDefaultValueFixer: ~
+    Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer: ~
+
+parameters:
+    exclude_checkers:
+        # from strict.neon
+        - 'PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer'
+        - 'PhpCsFixer\Fixer\Strict\StrictComparisonFixer'
+        # personal prefference
+        - 'PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer'
+
+    skip:
+        PhpCsFixer\Fixer\Alias\RandomApiMigrationFixer:
+            # random_int() breaks code
+            - 'src/CrossValidation/RandomSplit.php'
+        SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff:
+            # magic calls
+            - 'src/Preprocessing/Normalizer.php'
+        PhpCsFixer\Fixer\StringNotation\ExplicitStringVariableFixer:
+            # bugged
+            - 'src/Classification/DecisionTree/DecisionTreeLeaf.php'
+        Symplify\CodingStandard\Fixer\Commenting\RemoveUselessDocBlockFixer:
+            # false positive - already fixed in master
+            - 'src/Helper/OneVsRest.php'
+            # bug in fixer
+            - 'src/Math/LinearAlgebra/LUDecomposition.php'
+        PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer:
+            # covariant return types
+            - 'src/Classification/Linear/Perceptron.php'
+
+        # missing typehints
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingParameterTypeHint: ~
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingTraversableParameterTypeHintSpecification: ~
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingReturnTypeHint: ~
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingTraversableReturnTypeHintSpecification: ~
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingPropertyTypeHint: ~
+        SlevomatCodingStandard\Sniffs\TypeHints\TypeHintDeclarationSniff.MissingTraversablePropertyTypeHintSpecification: ~
+
+        # assignment in "while ($var = ...)" are ok
+        PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff.FoundInWhileCondition:

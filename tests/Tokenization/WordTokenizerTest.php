@@ -18,8 +18,8 @@ class WordTokenizerTest extends TestCase
                  Nulla vitae ,.,/ congue lorem.';
 
         $tokens = ['Lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit',
-                 'Cras', 'consectetur', 'dui', 'et', 'lobortis', 'auctor',
-                 'Nulla', 'vitae', 'congue', 'lorem', ];
+            'Cras', 'consectetur', 'dui', 'et', 'lobortis', 'auctor',
+            'Nulla', 'vitae', 'congue', 'lorem', ];
 
         $this->assertEquals($tokens, $tokenizer->tokenize($text));
     }
@@ -33,8 +33,8 @@ class WordTokenizerTest extends TestCase
                  殍涾烰 齞齝囃 蹅輶 鄜, 孻憵 擙樲橚 藒襓謥 岯岪弨 蒮 廞徲 孻憵懥 趡趛踠 槏';
 
         $tokens = ['鋍鞎', '鞮鞢騉', '袟袘觕', '炟砏', '謺貙蹖', '偢偣唲', '箷箯緷', '鑴鱱爧', '覮轀',
-                  '剆坲', '煘煓瑐', '鬐鶤鶐', '飹勫嫢', '枲柊氠', '鍎鞚韕', '焲犈',
-                  '殍涾烰', '齞齝囃', '蹅輶', '孻憵', '擙樲橚', '藒襓謥', '岯岪弨', '廞徲', '孻憵懥', '趡趛踠', ];
+            '剆坲', '煘煓瑐', '鬐鶤鶐', '飹勫嫢', '枲柊氠', '鍎鞚韕', '焲犈',
+            '殍涾烰', '齞齝囃', '蹅輶', '孻憵', '擙樲橚', '藒襓謥', '岯岪弨', '廞徲', '孻憵懥', '趡趛踠', ];
 
         $this->assertEquals($tokens, $tokenizer->tokenize($text));
     }
