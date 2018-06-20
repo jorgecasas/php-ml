@@ -4,7 +4,7 @@ Classifier implementing Support Vector Machine based on libsvm.
 
 ### Constructor Parameters
 
-* $kernel (int) - kernel type to be used in the algorithm (default Kernel::LINEAR)
+* $kernel (int) - kernel type to be used in the algorithm (default Kernel::RBF)
 * $cost (float) - parameter C of C-SVC (default 1.0)
 * $degree (int) - degree of the Kernel::POLYNOMIAL function (default 3)
 * $gamma (float) - kernel coefficient for ‘Kernel::RBF’, ‘Kernel::POLYNOMIAL’ and ‘Kernel::SIGMOID’. If gamma is ‘null’ then 1/features will be used instead.

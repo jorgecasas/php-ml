@@ -4,6 +4,7 @@ CHANGELOG
 This changelog references the relevant changes done in PHP-ML library.
 
 * Unreleased
+    * feature [Dataset] changed the default kernel type in SVC to Kernel::RBF (#267)
     * feature [Clustering] added KMeans associative clustering (#262)
     * feature [Dataset] added removeColumns function to ArrayDataset (#249)
     * feature [Dataset] added a SvmDataset class for SVM-Light (or LibSVM) format files (#237)

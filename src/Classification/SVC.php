@@ -11,7 +11,7 @@ use Phpml\SupportVectorMachine\Type;
 class SVC extends SupportVectorMachine implements Classifier
 {
     public function __construct(
-        int $kernel = Kernel::LINEAR,
+        int $kernel = Kernel::RBF,
         float $cost = 1.0,
         int $degree = 3,
         ?float $gamma = null,
