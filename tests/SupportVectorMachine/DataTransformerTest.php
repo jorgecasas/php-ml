@@ -16,10 +16,10 @@ class DataTransformerTest extends TestCase
         $labels = ['a', 'a', 'b', 'b'];
 
         $trainingSet =
-            '0 1:1 2:1 '.PHP_EOL.
-            '0 1:2 2:1 '.PHP_EOL.
-            '1 1:3 2:2 '.PHP_EOL.
-            '1 1:4 2:5 '.PHP_EOL
+            '0 1:1.000000 2:1.000000 '.PHP_EOL.
+            '0 1:2.000000 2:1.000000 '.PHP_EOL.
+            '1 1:3.000000 2:2.000000 '.PHP_EOL.
+            '1 1:4.000000 2:5.000000 '.PHP_EOL
         ;
 
         $this->assertEquals($trainingSet, DataTransformer::trainingSet($samples, $labels));
@@ -30,10 +30,10 @@ class DataTransformerTest extends TestCase
         $samples = [[1, 1], [2, 1], [3, 2], [4, 5]];
 
         $testSet =
-            '0 1:1 2:1 '.PHP_EOL.
-            '0 1:2 2:1 '.PHP_EOL.
-            '0 1:3 2:2 '.PHP_EOL.
-            '0 1:4 2:5 '.PHP_EOL
+            '0 1:1.000000 2:1.000000 '.PHP_EOL.
+            '0 1:2.000000 2:1.000000 '.PHP_EOL.
+            '0 1:3.000000 2:2.000000 '.PHP_EOL.
+            '0 1:4.000000 2:5.000000 '.PHP_EOL
         ;
 
         $this->assertEquals($testSet, DataTransformer::testSet($samples));

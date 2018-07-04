@@ -57,13 +57,32 @@ class SVCTest extends TestCase
         $classifier->train($trainSamples, $trainLabels);
         $predicted = $classifier->predict($testSamples);
 
-        $filename = 'svc-test-'.random_int(100, 999).'-'.uniqid();
-        $filepath = tempnam(sys_get_temp_dir(), $filename);
+        $filepath = tempnam(sys_get_temp_dir(), uniqid('svc-test', true));
         $modelManager = new ModelManager();
         $modelManager->saveToFile($classifier, $filepath);
 
         $restoredClassifier = $modelManager->restoreFromFile($filepath);
         $this->assertEquals($classifier, $restoredClassifier);
         $this->assertEquals($predicted, $restoredClassifier->predict($testSamples));
+        $this->assertEquals($predicted, $testLabels);
+    }
+
+    public function testWithNonDotDecimalLocale(): void
+    {
+        $currentLocale = setlocale(LC_NUMERIC, '0');
+        setlocale(LC_NUMERIC, 'pl_PL.utf8');
+
+        $trainSamples = [[1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 2]];
+        $trainLabels = ['a', 'a', 'a', 'b', 'b', 'b'];
+
+        $testSamples = [[3, 2], [5, 1], [4, 3]];
+        $testLabels = ['b', 'b', 'b'];
+
+        $classifier = new SVC(Kernel::LINEAR, $cost = 1000);
+        $classifier->train($trainSamples, $trainLabels);
+
+        $this->assertEquals($classifier->predict($testSamples), $testLabels);
+
+        setlocale(LC_NUMERIC, $currentLocale);
     }
 }

@@ -269,7 +269,7 @@ class SupportVectorMachine
     private function buildTrainCommand(string $trainingSetFileName, string $modelFileName): string
     {
         return sprintf(
-            '%ssvm-train%s -s %s -t %s -c %s -n %s -d %s%s -r %s -p %s -m %s -e %s -h %d -b %d %s %s',
+            '%ssvm-train%s -s %s -t %s -c %s -n %F -d %s%s -r %s -p %F -m %F -e %F -h %d -b %d %s %s',
             $this->binPath,
             $this->getOSExtension(),
             $this->type,
