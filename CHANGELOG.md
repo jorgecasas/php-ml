@@ -9,6 +9,7 @@ This changelog references the relevant changes done in PHP-ML library.
     * feature [Dataset] added removeColumns function to ArrayDataset (#249)
     * feature [Dataset] added a SvmDataset class for SVM-Light (or LibSVM) format files (#237)
     * feature [Optimizer] removed $initialTheta property and renamed setInitialTheta method to setTheta (#252)
+    * change [Imputer] Throw exception when trying to transform without train data (#314)
     * enhancement Add performance test for LeastSquares (#263)
     * enhancement Micro optimization for matrix multiplication (#255)
     * enhancement Throw proper exception (#259, #251)

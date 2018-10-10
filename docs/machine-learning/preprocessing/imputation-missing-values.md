@@ -8,6 +8,7 @@ To solve this problem you can use the `Imputer` class.
 * $missingValue (mixed) - this value will be replaced (default null)
 * $strategy (Strategy) - imputation strategy (read to use: MeanStrategy, MedianStrategy, MostFrequentStrategy)
 * $axis (int) - axis for strategy, Imputer::AXIS_COLUMN or Imputer::AXIS_ROW
+* $samples (array) - array of samples to train
 
 ```
 $imputer = new Imputer(null, new MeanStrategy(), Imputer::AXIS_COLUMN);
@@ -34,6 +35,7 @@ $data = [
 ];
 
 $imputer = new Imputer(null, new MeanStrategy(), Imputer::AXIS_COLUMN);
+$imputer->fit($data);
 $imputer->transform($data);
 
 /*
@@ -45,4 +47,21 @@ $data = [
 ];
 */
 
+```
+
+You can also use `$samples` constructer parameter instead of `fit` method:
+
+```
+use Phpml\Preprocessing\Imputer;
+use Phpml\Preprocessing\Imputer\Strategy\MeanStrategy;
+
+$data = [
+    [1, null, 3, 4],
+    [4, 3, 2, 1],
+    [null, 6, 7, 8],
+    [8, 7, null, 5],
+];
+
+$imputer = new Imputer(null, new MeanStrategy(), Imputer::AXIS_COLUMN, $data);
+$imputer->transform($data);
 ```

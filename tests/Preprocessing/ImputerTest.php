@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpml\Tests\Preprocessing;
 
+use Phpml\Exception\InvalidOperationException;
 use Phpml\Preprocessing\Imputer;
 use Phpml\Preprocessing\Imputer\Strategy\MeanStrategy;
 use Phpml\Preprocessing\Imputer\Strategy\MedianStrategy;
@@ -172,5 +173,19 @@ class ImputerTest extends TestCase
         $imputer->transform($data);
 
         $this->assertEquals($imputeData, $data, '', $delta = 0.01);
+    }
+
+    public function testThrowExceptionWhenTryingToTransformWithoutTrainSamples(): void
+    {
+        $this->expectException(InvalidOperationException::class);
+
+        $data = [
+            [1, 3, null],
+            [6, null, 8],
+            [null, 7, 5],
+        ];
+
+        $imputer = new Imputer(null, new MeanStrategy(), Imputer::AXIS_COLUMN);
+        $imputer->transform($data);
     }
 }
