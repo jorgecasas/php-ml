@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpml\Tests\NeuralNetwork\Network;
 
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\NeuralNetwork\ActivationFunction;
 use Phpml\NeuralNetwork\Layer;
 use Phpml\NeuralNetwork\Network\MultilayerPerceptron;
@@ -13,6 +14,39 @@ use PHPUnit_Framework_MockObject_MockObject;
 
 class MultilayerPerceptronTest extends TestCase
 {
+    public function testThrowExceptionWhenHiddenLayersAreEmpty(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Provide at least 1 hidden layer');
+
+        $this->getMockForAbstractClass(
+            MultilayerPerceptron::class,
+            [5, [], [0, 1], 1000, null, 0.42]
+        );
+    }
+
+    public function testThrowExceptionWhenThereIsOnlyOneClass(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Provide at least 2 different classes');
+
+        $this->getMockForAbstractClass(
+            MultilayerPerceptron::class,
+            [5, [3], [0], 1000, null, 0.42]
+        );
+    }
+
+    public function testThrowExceptionWhenClassesAreNotUnique(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Classes must be unique');
+
+        $this->getMockForAbstractClass(
+            MultilayerPerceptron::class,
+            [5, [3], [0, 1, 2, 3, 1], 1000, null, 0.42]
+        );
+    }
+
     public function testLearningRateSetter(): void
     {
         /** @var MultilayerPerceptron $mlp */

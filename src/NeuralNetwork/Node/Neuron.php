@@ -44,7 +44,7 @@ class Neuron implements Node
     /**
      * @return Synapse[]
      */
-    public function getSynapses()
+    public function getSynapses(): array
     {
         return $this->synapses;
     }

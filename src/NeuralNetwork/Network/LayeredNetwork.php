@@ -51,8 +51,6 @@ abstract class LayeredNetwork implements Network
 
     /**
      * @param mixed $input
-     *
-     * @return $this
      */
     public function setInput($input): Network
     {

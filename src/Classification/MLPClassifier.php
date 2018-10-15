@@ -41,7 +41,7 @@ class MLPClassifier extends MultilayerPerceptron implements Classifier
             }
         }
 
-        return $this->classes[$predictedClass];
+        return $predictedClass;
     }
 
     /**
@@ -49,9 +49,8 @@ class MLPClassifier extends MultilayerPerceptron implements Classifier
      */
     protected function trainSample(array $sample, $target): void
     {
-
         // Feed-forward.
-        $this->setInput($sample)->getOutput();
+        $this->setInput($sample);
 
         // Back-propagate.
         $this->backpropagation->backpropagate($this->getLayers(), $this->getTargetClass($target));

@@ -183,7 +183,7 @@ class MLPClassifierTest extends TestCase
         $testSamples = [[0, 0], [1, 0], [0, 1], [1, 1]];
         $predicted = $classifier->predict($testSamples);
 
-        $filename = 'perceptron-test-'.random_int(100, 999).'-'.uniqid();
+        $filename = 'perceptron-test-'.random_int(100, 999).'-'.uniqid('', false);
         $filepath = tempnam(sys_get_temp_dir(), $filename);
         $modelManager = new ModelManager();
         $modelManager->saveToFile($classifier, $filepath);
@@ -204,7 +204,7 @@ class MLPClassifierTest extends TestCase
         $this->assertEquals('a', $network->predict([1, 0]));
         $this->assertEquals('b', $network->predict([0, 1]));
 
-        $filename = 'perceptron-test-'.random_int(100, 999).'-'.uniqid();
+        $filename = 'perceptron-test-'.random_int(100, 999).'-'.uniqid('', false);
         $filepath = tempnam(sys_get_temp_dir(), $filename);
         $modelManager = new ModelManager();
         $modelManager->saveToFile($network, $filepath);
@@ -243,6 +243,13 @@ class MLPClassifierTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         new MLPClassifier(2, [2], [0]);
+    }
+
+    public function testOutputWithLabels(): void
+    {
+        $output = (new MLPClassifier(2, [2, 2], ['T', 'F']))->getOutput();
+
+        $this->assertEquals(['T', 'F'], array_keys($output));
     }
 
     private function getSynapsesNodes(array $synapses): array

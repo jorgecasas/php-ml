@@ -69,6 +69,10 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
             throw new InvalidArgumentException('Provide at least 2 different classes');
         }
 
+        if (count($classes) !== count(array_unique($classes))) {
+            throw new InvalidArgumentException('Classes must be unique');
+        }
+
         $this->classes = array_values($classes);
         $this->iterations = $iterations;
         $this->inputLayerFeatures = $inputLayerFeatures;
@@ -107,6 +111,16 @@ abstract class MultilayerPerceptron extends LayeredNetwork implements Estimator,
     {
         $this->learningRate = $learningRate;
         $this->backpropagation->setLearningRate($this->learningRate);
+    }
+
+    public function getOutput(): array
+    {
+        $result = [];
+        foreach ($this->getOutputLayer()->getNodes() as $i => $neuron) {
+            $result[$this->classes[$i]] = $neuron->getOutput();
+        }
+
+        return $result;
     }
 
     /**

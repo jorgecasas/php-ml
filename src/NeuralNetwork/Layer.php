@@ -41,12 +41,9 @@ class Layer
         return $this->nodes;
     }
 
-    /**
-     * @return Neuron
-     */
     private function createNode(string $nodeClass, ?ActivationFunction $activationFunction = null): Node
     {
-        if ($nodeClass == Neuron::class) {
+        if ($nodeClass === Neuron::class) {
             return new Neuron($activationFunction);
         }
 
