@@ -18,6 +18,7 @@ This changelog references the relevant changes done in PHP-ML library.
     * fix travis build on osx (#281)
     * fix SVM locale (non-locale aware) (#288)
     * typo, tests, code styles and documentation fixes (#265, #261, #254, #253, #251, #250, #248, #245, #243)
+    * change [MLPClassifier] return labels in output (#315)
 
 * 0.6.2 (2018-02-22)
     * Fix Apriori array keys (#238)
