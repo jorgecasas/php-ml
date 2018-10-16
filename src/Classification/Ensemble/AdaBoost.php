@@ -16,7 +16,8 @@ use ReflectionClass;
 
 class AdaBoost implements Classifier
 {
-    use Predictable, Trainable;
+    use Predictable;
+    use Trainable;
 
     /**
      * Actual labels given in the targets array

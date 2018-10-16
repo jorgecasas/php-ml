@@ -87,10 +87,8 @@ class LogisticRegression extends Adaline
             );
         }
 
-        if ($penalty != '' && strtoupper($penalty) !== 'L2') {
-            throw new InvalidArgumentException(
-                "Logistic regression supports only 'L2' regularization"
-            );
+        if ($penalty !== '' && strtoupper($penalty) !== 'L2') {
+            throw new InvalidArgumentException('Logistic regression supports only \'L2\' regularization');
         }
 
         $this->learningRate = 0.001;
@@ -174,7 +172,7 @@ class LogisticRegression extends Adaline
     protected function getCostFunction(): Closure
     {
         $penalty = 0;
-        if ($this->penalty == 'L2') {
+        if ($this->penalty === 'L2') {
             $penalty = $this->lambda;
         }
 
@@ -190,7 +188,7 @@ class LogisticRegression extends Adaline
                  * The gradient of the cost function to be used with gradient descent:
                  *		∇J(x) = -(y - h(x)) = (h(x) - y)
                  */
-                $callback = function ($weights, $sample, $y) use ($penalty) {
+                return function ($weights, $sample, $y) use ($penalty) {
                     $this->weights = $weights;
                     $hX = $this->output($sample);
 
@@ -211,9 +209,6 @@ class LogisticRegression extends Adaline
 
                     return [$error, $gradient, $penalty];
                 };
-
-                return $callback;
-
             case 'sse':
                 /*
                  * Sum of squared errors or least squared errors cost function:
@@ -225,7 +220,7 @@ class LogisticRegression extends Adaline
                  * The gradient of the cost function:
                  *		∇J(x) = -(h(x) - y) . h(x) . (1 - h(x))
                  */
-                $callback = function ($weights, $sample, $y) use ($penalty) {
+                return function ($weights, $sample, $y) use ($penalty) {
                     $this->weights = $weights;
                     $hX = $this->output($sample);
 
@@ -236,9 +231,6 @@ class LogisticRegression extends Adaline
 
                     return [$error, $gradient, $penalty];
                 };
-
-                return $callback;
-
             default:
                 // Not reached
                 throw new Exception(sprintf('Logistic regression has invalid cost function: %s.', $this->costFunction));

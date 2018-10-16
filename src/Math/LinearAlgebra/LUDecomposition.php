@@ -133,7 +133,7 @@ class LUDecomposition
                 $k = $this->piv[$p];
                 $this->piv[$p] = $this->piv[$j];
                 $this->piv[$j] = $k;
-                $this->pivsign = $this->pivsign * -1;
+                $this->pivsign *= -1;
             }
 
             // Compute multipliers.

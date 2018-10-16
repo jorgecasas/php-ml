@@ -17,7 +17,8 @@ use Phpml\Preprocessing\Normalizer;
 
 class Perceptron implements Classifier, IncrementalEstimator
 {
-    use Predictable, OneVsRest;
+    use Predictable;
+    use OneVsRest;
 
     /**
      * @var Optimizer|GD|StochasticGD|null

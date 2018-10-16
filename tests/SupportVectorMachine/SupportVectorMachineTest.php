@@ -197,7 +197,7 @@ SV
         $svm = new SupportVectorMachine(Type::C_SVC, Kernel::LINEAR, 100.0);
         $svm->train($samples, $labels);
 
-        $predictions = $svm->predictProbability([
+        $svm->predictProbability([
             [3, 2],
             [2, 3],
             [4, -5],

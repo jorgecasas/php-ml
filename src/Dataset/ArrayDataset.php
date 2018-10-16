@@ -23,7 +23,7 @@ class ArrayDataset implements Dataset
      */
     public function __construct(array $samples, array $targets)
     {
-        if (count($samples) != count($targets)) {
+        if (count($samples) !== count($targets)) {
             throw new InvalidArgumentException('Size of given arrays does not match');
         }
 

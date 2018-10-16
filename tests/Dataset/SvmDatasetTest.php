@@ -136,77 +136,77 @@ class SvmDatasetTest extends TestCase
     public function testSvmDatasetMissingFile(): void
     {
         $this->expectException(FileException::class);
+        $this->expectExceptionMessage('File "err_file_not_exists.svm" missing.');
 
-        $filePath = self::getFilePath('err_file_not_exists.svm');
-        $dataset = new SvmDataset($filePath);
+        new SvmDataset(self::getFilePath('err_file_not_exists.svm'));
     }
 
     public function testSvmDatasetEmptyLine(): void
     {
         $this->expectException(DatasetException::class);
+        $this->expectExceptionMessage('Invalid target "".');
 
-        $filePath = self::getFilePath('err_empty_line.svm');
-        $dataset = new SvmDataset($filePath);
+        new SvmDataset(self::getFilePath('err_empty_line.svm'));
     }
 
     public function testSvmDatasetNoLabels(): void
     {
         $this->expectException(DatasetException::class);
+        $this->expectExceptionMessage('Invalid target "1:2.3".');
 
-        $filePath = self::getFilePath('err_no_labels.svm');
-        $dataset = new SvmDataset($filePath);
+        new SvmDataset(self::getFilePath('err_no_labels.svm'));
     }
 
     public function testSvmDatasetStringLabels(): void
     {
         $this->expectException(DatasetException::class);
+        $this->expectExceptionMessage('Invalid target "A".');
 
-        $filePath = self::getFilePath('err_string_labels.svm');
-        $dataset = new SvmDataset($filePath);
+        new SvmDataset(self::getFilePath('err_string_labels.svm'));
     }
 
     public function testSvmDatasetInvalidSpaces(): void
     {
         $this->expectException(DatasetException::class);
+        $this->expectExceptionMessage('Invalid target "".');
 
-        $filePath = self::getFilePath('err_invalid_spaces.svm');
-        $dataset = new SvmDataset($filePath);
+        new SvmDataset(self::getFilePath('err_invalid_spaces.svm'));
     }
 
     public function testSvmDatasetStringIndex(): void
     {
         $this->expectException(DatasetException::class);
+        $this->expectExceptionMessage('Invalid index "x".');
 
-        $filePath = self::getFilePath('err_string_index.svm');
-        $dataset = new SvmDataset($filePath);
+        new SvmDataset(self::getFilePath('err_string_index.svm'));
     }
 
     public function testSvmDatasetIndexZero(): void
     {
         $this->expectException(DatasetException::class);
+        $this->expectExceptionMessage('Invalid index "0".');
 
-        $filePath = self::getFilePath('err_index_zero.svm');
-        $dataset = new SvmDataset($filePath);
+        new SvmDataset(self::getFilePath('err_index_zero.svm'));
     }
 
     public function testSvmDatasetInvalidValue(): void
     {
         $this->expectException(DatasetException::class);
+        $this->expectExceptionMessage('Invalid value "xyz".');
 
-        $filePath = self::getFilePath('err_invalid_value.svm');
-        $dataset = new SvmDataset($filePath);
+        new SvmDataset(self::getFilePath('err_invalid_value.svm'));
     }
 
     public function testSvmDatasetInvalidFeature(): void
     {
         $this->expectException(DatasetException::class);
+        $this->expectExceptionMessage('Invalid value "12345".');
 
-        $filePath = self::getFilePath('err_invalid_feature.svm');
-        $dataset = new SvmDataset($filePath);
+        new SvmDataset(self::getFilePath('err_invalid_feature.svm'));
     }
 
     private static function getFilePath(string $baseName): string
     {
-        return dirname(__FILE__).'/Resources/svm/'.$baseName;
+        return __DIR__.'/Resources/svm/'.$baseName;
     }
 }

@@ -60,25 +60,29 @@ class PCATest extends TestCase
     public function testPCAThrowWhenTotalVarianceOutOfRange(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $pca = new PCA(0, null);
+        $this->expectExceptionMessage('Total variance can be a value between 0.1 and 0.99');
+        new PCA(0., null);
     }
 
     public function testPCAThrowWhenNumFeaturesOutOfRange(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $pca = new PCA(null, 0);
+        $this->expectExceptionMessage('Number of features to be preserved should be greater than 0');
+        new PCA(null, 0);
     }
 
     public function testPCAThrowWhenParameterNotSpecified(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $pca = new PCA();
+        $this->expectExceptionMessage('Either totalVariance or numFeatures should be specified in order to run the algorithm');
+        new PCA();
     }
 
     public function testPCAThrowWhenBothParameterSpecified(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $pca = new PCA(0.9, 1);
+        $this->expectExceptionMessage('Either totalVariance or numFeatures should be specified in order to run the algorithm');
+        new PCA(0.9, 1);
     }
 
     public function testTransformThrowWhenNotFitted(): void
@@ -91,6 +95,7 @@ class PCATest extends TestCase
         $pca = new PCA(0.9);
 
         $this->expectException(InvalidOperationException::class);
+        $this->expectExceptionMessage('PCA has not been fitted with respect to original dataset, please run PCA::fit() first');
         $pca->transform($samples);
     }
 }

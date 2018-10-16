@@ -9,7 +9,8 @@ use Phpml\Helper\Trainable;
 
 class Apriori implements Associator
 {
-    use Trainable, Predictable;
+    use Trainable;
+    use Predictable;
 
     public const ARRAY_KEY_ANTECEDENT = 'antecedent';
 

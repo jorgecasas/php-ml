@@ -13,7 +13,8 @@ use Phpml\Math\Comparison;
 
 class DecisionStump extends WeightedClassifier
 {
-    use Predictable, OneVsRest;
+    use Predictable;
+    use OneVsRest;
 
     public const AUTO_SELECT = -1;
 

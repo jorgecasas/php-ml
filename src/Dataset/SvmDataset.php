@@ -94,7 +94,7 @@ class SvmDataset extends ArrayDataset
     private static function parseFeatureColumn(string $column): array
     {
         $feature = explode(':', $column, 2);
-        if (count($feature) != 2) {
+        if (count($feature) !== 2) {
             throw new DatasetException(sprintf('Invalid value "%s".', $column));
         }
 

@@ -14,13 +14,15 @@ class PerceptronTest extends TestCase
     public function testPerceptronThrowWhenLearningRateOutOfRange(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $classifier = new Perceptron(0, 5000);
+        $this->expectExceptionMessage('Learning rate should be a float value between 0.0(exclusive) and 1.0(inclusive)');
+        new Perceptron(0, 5000);
     }
 
     public function testPerceptronThrowWhenMaxIterationsOutOfRange(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $classifier = new Perceptron(0.001, 0);
+        $this->expectExceptionMessage('Maximum number of iterations must be an integer greater than 0');
+        new Perceptron(0.001, 0);
     }
 
     public function testPredictSingleSample(): void
@@ -90,7 +92,7 @@ class PerceptronTest extends TestCase
         $testSamples = [[0, 1], [1, 1], [0.2, 0.1]];
         $predicted = $classifier->predict($testSamples);
 
-        $filename = 'perceptron-test-'.random_int(100, 999).'-'.uniqid();
+        $filename = 'perceptron-test-'.random_int(100, 999).'-'.uniqid('', false);
         $filepath = tempnam(sys_get_temp_dir(), $filename);
         $modelManager = new ModelManager();
         $modelManager->saveToFile($classifier, $filepath);

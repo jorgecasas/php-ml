@@ -43,7 +43,7 @@ final class UnivariateLinearRegression implements ScoringFunction
         }
 
         $correlations = [];
-        foreach ($samples[0] as $index => $feature) {
+        foreach (array_keys($samples[0]) as $index) {
             $featureColumn = array_column($samples, $index);
             $correlations[$index] =
                 (Matrix::dot($targets, $featureColumn)[0] / (new Matrix($featureColumn, false))->transpose()->frobeniusNorm())
@@ -57,15 +57,15 @@ final class UnivariateLinearRegression implements ScoringFunction
         }, $correlations);
     }
 
-    private function centerTargets(&$targets): void
+    private function centerTargets(array &$targets): void
     {
         $mean = Mean::arithmetic($targets);
-        foreach ($targets as &$target) {
+        array_walk($targets, function (&$target) use ($mean): void {
             $target -= $mean;
-        }
+        });
     }
 
-    private function centerSamples(&$samples): void
+    private function centerSamples(array &$samples): void
     {
         $means = [];
         foreach ($samples[0] as $index => $feature) {

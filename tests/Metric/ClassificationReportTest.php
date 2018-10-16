@@ -98,7 +98,7 @@ class ClassificationReportTest extends TestCase
         $predicted = ['cat', 'cat', 'bird', 'bird', 'ant'];
 
         $this->expectException(InvalidArgumentException::class);
-        $report = new ClassificationReport($labels, $predicted, 0);
+        new ClassificationReport($labels, $predicted, 0);
     }
 
     public function testClassificationReportMicroAverage(): void

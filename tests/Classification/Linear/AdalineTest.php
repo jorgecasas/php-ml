@@ -14,7 +14,9 @@ class AdalineTest extends TestCase
     public function testAdalineThrowWhenInvalidTrainingType(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $classifier = new Adaline(
+        $this->expectExceptionMessage('Adaline can only be trained with batch and online/stochastic gradient descent algorithm');
+
+        new Adaline(
             0.001,
             1000,
             true,
@@ -86,7 +88,7 @@ class AdalineTest extends TestCase
         $testSamples = [[0, 1], [1, 1], [0.2, 0.1]];
         $predicted = $classifier->predict($testSamples);
 
-        $filename = 'adaline-test-'.random_int(100, 999).'-'.uniqid();
+        $filename = 'adaline-test-'.random_int(100, 999).'-'.uniqid('', false);
         $filepath = tempnam(sys_get_temp_dir(), $filename);
         $modelManager = new ModelManager();
         $modelManager->saveToFile($classifier, $filepath);

@@ -11,7 +11,8 @@ use Phpml\Math\Statistic\StandardDeviation;
 
 class NaiveBayes implements Classifier
 {
-    use Trainable, Predictable;
+    use Trainable;
+    use Predictable;
 
     public const CONTINUOS = 1;
 

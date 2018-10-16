@@ -66,14 +66,13 @@ class KNearestNeighborsTest extends TestCase
         $trainLabels = ['a', 'a', 'a', 'b', 'b', 'b'];
 
         $testSamples = [[3, 2], [5, 1], [4, 3], [4, -5], [2, 3], [1, 2], [1, 5], [3, 10]];
-        $testLabels = ['b', 'b', 'b', 'b', 'a', 'a', 'a', 'a'];
 
         // Using non-default constructor parameters to check that their values are restored.
         $classifier = new KNearestNeighbors(3, new Chebyshev());
         $classifier->train($trainSamples, $trainLabels);
         $predicted = $classifier->predict($testSamples);
 
-        $filename = 'knearest-neighbors-test-'.random_int(100, 999).'-'.uniqid();
+        $filename = 'knearest-neighbors-test-'.random_int(100, 999).'-'.uniqid('', false);
         $filepath = tempnam(sys_get_temp_dir(), $filename);
         $modelManager = new ModelManager();
         $modelManager->saveToFile($classifier, $filepath);

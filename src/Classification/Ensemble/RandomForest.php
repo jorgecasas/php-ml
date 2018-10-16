@@ -16,9 +16,9 @@ class RandomForest extends Bagging
     protected $featureSubsetRatio = 'log';
 
     /**
-     * @var array
+     * @var array|null
      */
-    protected $columnNames = null;
+    protected $columnNames;
 
     /**
      * Initializes RandomForest with the given number of trees. More trees
@@ -53,7 +53,7 @@ class RandomForest extends Bagging
             throw new InvalidArgumentException('When a float is given, feature subset ratio should be between 0.1 and 1.0');
         }
 
-        if (is_string($ratio) && $ratio != 'sqrt' && $ratio != 'log') {
+        if (is_string($ratio) && $ratio !== 'sqrt' && $ratio !== 'log') {
             throw new InvalidArgumentException("When a string is given, feature subset ratio can only be 'sqrt' or 'log'");
         }
 
@@ -69,7 +69,7 @@ class RandomForest extends Bagging
      */
     public function setClassifer(string $classifier, array $classifierOptions = [])
     {
-        if ($classifier != DecisionTree::class) {
+        if ($classifier !== DecisionTree::class) {
             throw new InvalidArgumentException('RandomForest can only use DecisionTree as base classifier');
         }
 
@@ -100,10 +100,9 @@ class RandomForest extends Bagging
 
         // Normalize & sort the importance values
         $total = array_sum($sum);
-        foreach ($sum as &$importance) {
+        array_walk($sum, function (&$importance) use ($total): void {
             $importance /= $total;
-        }
-
+        });
         arsort($sum);
 
         return $sum;
@@ -131,7 +130,7 @@ class RandomForest extends Bagging
     {
         if (is_float($this->featureSubsetRatio)) {
             $featureCount = (int) ($this->featureSubsetRatio * $this->featureCount);
-        } elseif ($this->featureSubsetRatio == 'sqrt') {
+        } elseif ($this->featureSubsetRatio === 'sqrt') {
             $featureCount = (int) sqrt($this->featureCount) + 1;
         } else {
             $featureCount = (int) log($this->featureCount, 2) + 1;

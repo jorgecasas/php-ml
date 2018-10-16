@@ -68,25 +68,29 @@ class LDATest extends TestCase
     public function testLDAThrowWhenTotalVarianceOutOfRange(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $pca = new LDA(0, null);
+        $this->expectExceptionMessage('Total variance can be a value between 0.1 and 0.99');
+        new LDA(0., null);
     }
 
     public function testLDAThrowWhenNumFeaturesOutOfRange(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $pca = new LDA(null, 0);
+        $this->expectExceptionMessage('Number of features to be preserved should be greater than 0');
+        new LDA(null, 0);
     }
 
     public function testLDAThrowWhenParameterNotSpecified(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $pca = new LDA();
+        $this->expectExceptionMessage('Either totalVariance or numFeatures should be specified in order to run the algorithm');
+        new LDA();
     }
 
     public function testLDAThrowWhenBothParameterSpecified(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $pca = new LDA(0.9, 1);
+        $this->expectExceptionMessage('Either totalVariance or numFeatures should be specified in order to run the algorithm');
+        new LDA(0.9, 1);
     }
 
     public function testTransformThrowWhenNotFitted(): void
@@ -99,6 +103,7 @@ class LDATest extends TestCase
         $pca = new LDA(0.9);
 
         $this->expectException(InvalidOperationException::class);
+        $this->expectExceptionMessage('LDA has not been fitted with respect to original dataset, please run LDA::fit() first');
         $pca->transform($samples);
     }
 }

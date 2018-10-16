@@ -15,8 +15,11 @@ class LogisticRegressionTest extends TestCase
     public function testConstructorThrowWhenInvalidTrainingType(): void
     {
         $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Logistic regression can only be trained with '.
+            'batch (gradient descent), online (stochastic gradient descent) '.
+            'or conjugate batch (conjugate gradients) algorithms');
 
-        $classifier = new LogisticRegression(
+        new LogisticRegression(
             500,
             true,
             -1,
@@ -28,8 +31,10 @@ class LogisticRegressionTest extends TestCase
     public function testConstructorThrowWhenInvalidCost(): void
     {
         $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Logistic regression cost function can be one of the following: \n".
+            "'log' for log-likelihood and 'sse' for sum of squared errors");
 
-        $classifier = new LogisticRegression(
+        new LogisticRegression(
             500,
             true,
             LogisticRegression::CONJUGATE_GRAD_TRAINING,
@@ -41,8 +46,9 @@ class LogisticRegressionTest extends TestCase
     public function testConstructorThrowWhenInvalidPenalty(): void
     {
         $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Logistic regression supports only \'L2\' regularization');
 
-        $classifier = new LogisticRegression(
+        new LogisticRegression(
             500,
             true,
             LogisticRegression::CONJUGATE_GRAD_TRAINING,

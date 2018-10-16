@@ -13,7 +13,8 @@ use ReflectionClass;
 
 class Bagging implements Classifier
 {
-    use Trainable, Predictable;
+    use Trainable;
+    use Predictable;
 
     /**
      * @var int

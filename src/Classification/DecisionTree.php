@@ -12,7 +12,8 @@ use Phpml\Math\Statistic\Mean;
 
 class DecisionTree implements Classifier
 {
-    use Trainable, Predictable;
+    use Trainable;
+    use Predictable;
 
     public const CONTINUOUS = 1;
 
@@ -31,7 +32,7 @@ class DecisionTree implements Classifier
     /**
      * @var DecisionTreeLeaf
      */
-    protected $tree = null;
+    protected $tree;
 
     /**
      * @var int
@@ -219,10 +220,9 @@ class DecisionTree implements Classifier
         // Normalize & sort the importances
         $total = array_sum($this->featureImportances);
         if ($total > 0) {
-            foreach ($this->featureImportances as &$importance) {
+            array_walk($this->featureImportances, function (&$importance) use ($total): void {
                 $importance /= $total;
-            }
-
+            });
             arsort($this->featureImportances);
         }
 

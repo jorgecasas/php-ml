@@ -102,7 +102,7 @@ final class ANOVA
     {
         foreach ($sums as &$row) {
             foreach ($row as &$sum) {
-                $sum = $sum ** 2;
+                $sum **= 2;
             }
         }
 

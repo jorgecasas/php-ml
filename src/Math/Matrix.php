@@ -261,7 +261,7 @@ class Matrix
         $squareSum = 0;
         for ($i = 0; $i < $this->rows; ++$i) {
             for ($j = 0; $j < $this->columns; ++$j) {
-                $squareSum += ($this->matrix[$i][$j]) ** 2;
+                $squareSum += $this->matrix[$i][$j] ** 2;
             }
         }
 
