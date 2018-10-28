@@ -22,22 +22,22 @@ class FilesDatasetTest extends TestCase
 
         $dataset = new FilesDataset($rootPath);
 
-        $this->assertCount(50, $dataset->getSamples());
-        $this->assertCount(50, $dataset->getTargets());
+        self::assertCount(50, $dataset->getSamples());
+        self::assertCount(50, $dataset->getTargets());
 
         $targets = ['business', 'entertainment', 'politics', 'sport', 'tech'];
-        $this->assertEquals($targets, array_values(array_unique($dataset->getTargets())));
+        self::assertEquals($targets, array_values(array_unique($dataset->getTargets())));
 
         $firstSample = file_get_contents($rootPath.'/business/001.txt');
-        $this->assertEquals($firstSample, $dataset->getSamples()[0][0]);
+        self::assertEquals($firstSample, $dataset->getSamples()[0][0]);
 
         $firstTarget = 'business';
-        $this->assertEquals($firstTarget, $dataset->getTargets()[0]);
+        self::assertEquals($firstTarget, $dataset->getTargets()[0]);
 
         $lastSample = file_get_contents($rootPath.'/tech/010.txt');
-        $this->assertEquals($lastSample, $dataset->getSamples()[49][0]);
+        self::assertEquals($lastSample, $dataset->getSamples()[49][0]);
 
         $lastTarget = 'tech';
-        $this->assertEquals($lastTarget, $dataset->getTargets()[49]);
+        self::assertEquals($lastTarget, $dataset->getTargets()[49]);
     }
 }

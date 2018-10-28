@@ -14,13 +14,13 @@ class StopWordsTest extends TestCase
     {
         $stopWords = new StopWords(['lorem', 'ipsum', 'dolor']);
 
-        $this->assertTrue($stopWords->isStopWord('lorem'));
-        $this->assertTrue($stopWords->isStopWord('ipsum'));
-        $this->assertTrue($stopWords->isStopWord('dolor'));
+        self::assertTrue($stopWords->isStopWord('lorem'));
+        self::assertTrue($stopWords->isStopWord('ipsum'));
+        self::assertTrue($stopWords->isStopWord('dolor'));
 
-        $this->assertFalse($stopWords->isStopWord('consectetur'));
-        $this->assertFalse($stopWords->isStopWord('adipiscing'));
-        $this->assertFalse($stopWords->isStopWord('amet'));
+        self::assertFalse($stopWords->isStopWord('consectetur'));
+        self::assertFalse($stopWords->isStopWord('adipiscing'));
+        self::assertFalse($stopWords->isStopWord('amet'));
     }
 
     public function testThrowExceptionOnInvalidLanguage(): void
@@ -33,23 +33,23 @@ class StopWordsTest extends TestCase
     {
         $stopWords = StopWords::factory('English');
 
-        $this->assertTrue($stopWords->isStopWord('again'));
-        $this->assertFalse($stopWords->isStopWord('strategy'));
+        self::assertTrue($stopWords->isStopWord('again'));
+        self::assertFalse($stopWords->isStopWord('strategy'));
     }
 
     public function testPolishStopWords(): void
     {
         $stopWords = StopWords::factory('Polish');
 
-        $this->assertTrue($stopWords->isStopWord('wam'));
-        $this->assertFalse($stopWords->isStopWord('transhumanizm'));
+        self::assertTrue($stopWords->isStopWord('wam'));
+        self::assertFalse($stopWords->isStopWord('transhumanizm'));
     }
 
     public function testFrenchStopWords(): void
     {
         $stopWords = StopWords::factory('French');
 
-        $this->assertTrue($stopWords->isStopWord('alors'));
-        $this->assertFalse($stopWords->isStopWord('carte'));
+        self::assertTrue($stopWords->isStopWord('alors'));
+        self::assertFalse($stopWords->isStopWord('carte'));
     }
 }

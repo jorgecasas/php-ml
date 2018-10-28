@@ -11,12 +11,14 @@ class ThresholdedReLUTest extends TestCase
 {
     /**
      * @dataProvider thresholdProvider
+     *
+     * @param float|int $value
      */
-    public function testThresholdedReLUActivationFunction($theta, $expected, $value): void
+    public function testThresholdedReLUActivationFunction(float $theta, float $expected, $value): void
     {
         $thresholdedReLU = new ThresholdedReLU($theta);
 
-        $this->assertEquals($expected, $thresholdedReLU->compute($value));
+        self::assertEquals($expected, $thresholdedReLU->compute($value));
     }
 
     public function thresholdProvider(): array
@@ -31,12 +33,14 @@ class ThresholdedReLUTest extends TestCase
 
     /**
      * @dataProvider thresholdDerivativeProvider
+     *
+     * @param float|int $value
      */
-    public function testThresholdedReLUDerivative($theta, $expected, $value): void
+    public function testThresholdedReLUDerivative(float $theta, float $expected, $value): void
     {
         $thresholdedReLU = new ThresholdedReLU($theta);
         $activatedValue = $thresholdedReLU->compute($value);
-        $this->assertEquals($expected, $thresholdedReLU->differentiate($value, $activatedValue));
+        self::assertEquals($expected, $thresholdedReLU->differentiate($value, $activatedValue));
     }
 
     public function thresholdDerivativeProvider(): array

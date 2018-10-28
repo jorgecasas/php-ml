@@ -20,9 +20,9 @@ class GaussianTest extends TestCase
         $x = [0, 0.1, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0];
         $pdf = [0.3989, 0.3969, 0.3520, 0.2419, 0.1295, 0.0539, 0.0175, 0.0044];
         foreach ($x as $i => $v) {
-            $this->assertEquals($pdf[$i], $g->pdf($v), '', $delta);
+            self::assertEquals($pdf[$i], $g->pdf($v), '', $delta);
 
-            $this->assertEquals($pdf[$i], Gaussian::distributionPdf($mean, $std, $v), '', $delta);
+            self::assertEquals($pdf[$i], Gaussian::distributionPdf($mean, $std, $v), '', $delta);
         }
     }
 }

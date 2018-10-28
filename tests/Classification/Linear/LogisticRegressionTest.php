@@ -64,8 +64,8 @@ class LogisticRegressionTest extends TestCase
         $targets = [0, 0, 0, 1, 0, 1];
         $classifier = new LogisticRegression();
         $classifier->train($samples, $targets);
-        $this->assertEquals(0, $classifier->predict([0.1, 0.1]));
-        $this->assertEquals(1, $classifier->predict([0.9, 0.9]));
+        self::assertEquals(0, $classifier->predict([0.1, 0.1]));
+        self::assertEquals(1, $classifier->predict([0.9, 0.9]));
     }
 
     public function testPredictSingleSampleWithBatchTraining(): void
@@ -83,8 +83,8 @@ class LogisticRegressionTest extends TestCase
             'L2'
         );
         $classifier->train($samples, $targets);
-        $this->assertEquals(0, $classifier->predict([0.1, 0.1]));
-        $this->assertEquals(1, $classifier->predict([0.9, 0.9]));
+        self::assertEquals(0, $classifier->predict([0.1, 0.1]));
+        self::assertEquals(1, $classifier->predict([0.9, 0.9]));
     }
 
     public function testPredictSingleSampleWithOnlineTraining(): void
@@ -102,8 +102,8 @@ class LogisticRegressionTest extends TestCase
             ''
         );
         $classifier->train($samples, $targets);
-        $this->assertEquals(0, $classifier->predict([0.1, 0.1]));
-        $this->assertEquals(1, $classifier->predict([0.9, 0.9]));
+        self::assertEquals(0, $classifier->predict([0.1, 0.1]));
+        self::assertEquals(1, $classifier->predict([0.9, 0.9]));
     }
 
     public function testPredictSingleSampleWithSSECost(): void
@@ -118,8 +118,8 @@ class LogisticRegressionTest extends TestCase
             'L2'
         );
         $classifier->train($samples, $targets);
-        $this->assertEquals(0, $classifier->predict([0.1, 0.1]));
-        $this->assertEquals(1, $classifier->predict([0.9, 0.9]));
+        self::assertEquals(0, $classifier->predict([0.1, 0.1]));
+        self::assertEquals(1, $classifier->predict([0.9, 0.9]));
     }
 
     public function testPredictSingleSampleWithoutPenalty(): void
@@ -134,8 +134,8 @@ class LogisticRegressionTest extends TestCase
             ''
         );
         $classifier->train($samples, $targets);
-        $this->assertEquals(0, $classifier->predict([0.1, 0.1]));
-        $this->assertEquals(1, $classifier->predict([0.9, 0.9]));
+        self::assertEquals(0, $classifier->predict([0.1, 0.1]));
+        self::assertEquals(1, $classifier->predict([0.9, 0.9]));
     }
 
     public function testPredictMultiClassSample(): void
@@ -151,9 +151,9 @@ class LogisticRegressionTest extends TestCase
 
         $classifier = new LogisticRegression();
         $classifier->train($samples, $targets);
-        $this->assertEquals(0, $classifier->predict([0.5, 0.5]));
-        $this->assertEquals(1, $classifier->predict([6.0, 5.0]));
-        $this->assertEquals(2, $classifier->predict([3.0, 9.5]));
+        self::assertEquals(0, $classifier->predict([0.5, 0.5]));
+        self::assertEquals(1, $classifier->predict([6.0, 5.0]));
+        self::assertEquals(2, $classifier->predict([3.0, 9.5]));
     }
 
     public function testPredictProbabilitySingleSample(): void
@@ -171,13 +171,13 @@ class LogisticRegressionTest extends TestCase
 
         $zero = $method->invoke($predictor, [0.1, 0.1], 0);
         $one = $method->invoke($predictor, [0.1, 0.1], 1);
-        $this->assertEquals(1, $zero + $one, '', 1e-6);
-        $this->assertTrue($zero > $one);
+        self::assertEquals(1, $zero + $one, '', 1e-6);
+        self::assertTrue($zero > $one);
 
         $zero = $method->invoke($predictor, [0.9, 0.9], 0);
         $one = $method->invoke($predictor, [0.9, 0.9], 1);
-        $this->assertEquals(1, $zero + $one, '', 1e-6);
-        $this->assertTrue($zero < $one);
+        self::assertEquals(1, $zero + $one, '', 1e-6);
+        self::assertTrue($zero < $one);
     }
 
     public function testPredictProbabilityMultiClassSample(): void
@@ -213,10 +213,10 @@ class LogisticRegressionTest extends TestCase
         $two = $method->invoke($predictor, [3.0, 9.5], 2);
         $not_two = $method->invoke($predictor, [3.0, 9.5], 'not_2');
 
-        $this->assertEquals(1, $zero + $not_zero, '', 1e-6);
-        $this->assertEquals(1, $one + $not_one, '', 1e-6);
-        $this->assertEquals(1, $two + $not_two, '', 1e-6);
-        $this->assertTrue($zero < $two);
-        $this->assertTrue($one < $two);
+        self::assertEquals(1, $zero + $not_zero, '', 1e-6);
+        self::assertEquals(1, $one + $not_one, '', 1e-6);
+        self::assertEquals(1, $two + $not_two, '', 1e-6);
+        self::assertTrue($zero < $two);
+        self::assertTrue($one < $two);
     }
 }

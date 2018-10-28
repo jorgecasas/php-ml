@@ -11,12 +11,14 @@ class HyperboliTangentTest extends TestCase
 {
     /**
      * @dataProvider tanhProvider
+     *
+     * @param float|int $value
      */
-    public function testHyperbolicTangentActivationFunction($beta, $expected, $value): void
+    public function testHyperbolicTangentActivationFunction(float $beta, float $expected, $value): void
     {
         $tanh = new HyperbolicTangent($beta);
 
-        $this->assertEquals($expected, $tanh->compute($value), '', 0.001);
+        self::assertEquals($expected, $tanh->compute($value), '', 0.001);
     }
 
     public function tanhProvider(): array
@@ -33,12 +35,14 @@ class HyperboliTangentTest extends TestCase
 
     /**
      * @dataProvider tanhDerivativeProvider
+     *
+     * @param float|int $value
      */
-    public function testHyperbolicTangentDerivative($beta, $expected, $value): void
+    public function testHyperbolicTangentDerivative(float $beta, float $expected, $value): void
     {
         $tanh = new HyperbolicTangent($beta);
         $activatedValue = $tanh->compute($value);
-        $this->assertEquals($expected, $tanh->differentiate($value, $activatedValue), '', 0.001);
+        self::assertEquals($expected, $tanh->differentiate($value, $activatedValue), '', 0.001);
     }
 
     public function tanhDerivativeProvider(): array

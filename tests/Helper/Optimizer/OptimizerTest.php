@@ -26,9 +26,9 @@ class OptimizerTest extends TestCase
         $optimizer = $this->getMockForAbstractClass(Optimizer::class, [2]);
         $object = $optimizer->setTheta([0.3, 1]);
 
-        $theta = $this->getObjectAttribute($optimizer, 'theta');
+        $theta = self::getObjectAttribute($optimizer, 'theta');
 
-        $this->assertSame($object, $optimizer);
-        $this->assertSame([0.3, 1], $theta);
+        self::assertSame($object, $optimizer);
+        self::assertSame([0.3, 1], $theta);
     }
 }

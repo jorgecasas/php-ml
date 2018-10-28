@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Phpml\Helper\Optimizer;
 
 use Closure;
+use Phpml\Exception\InvalidOperationException;
 
 /**
  * Batch version of Gradient Descent to optimize the weights
@@ -58,6 +59,10 @@ class GD extends StochasticGD
         $costs = [];
         $gradient = [];
         $totalPenalty = 0;
+
+        if ($this->gradientCb === null) {
+            throw new InvalidOperationException('Gradient callback is not defined');
+        }
 
         foreach ($this->samples as $index => $sample) {
             $target = $this->targets[$index];

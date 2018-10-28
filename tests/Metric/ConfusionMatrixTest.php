@@ -20,7 +20,7 @@ class ConfusionMatrixTest extends TestCase
             [1, 0, 2],
         ];
 
-        $this->assertEquals($confusionMatrix, ConfusionMatrix::compute($actualLabels, $predictedLabels));
+        self::assertEquals($confusionMatrix, ConfusionMatrix::compute($actualLabels, $predictedLabels));
     }
 
     public function testComputeConfusionMatrixOnStringLabels(): void
@@ -34,7 +34,7 @@ class ConfusionMatrixTest extends TestCase
             [1, 0, 2],
         ];
 
-        $this->assertEquals($confusionMatrix, ConfusionMatrix::compute($actualLabels, $predictedLabels));
+        self::assertEquals($confusionMatrix, ConfusionMatrix::compute($actualLabels, $predictedLabels));
     }
 
     public function testComputeConfusionMatrixOnLabelsWithSubset(): void
@@ -48,7 +48,7 @@ class ConfusionMatrixTest extends TestCase
             [0, 0],
         ];
 
-        $this->assertEquals($confusionMatrix, ConfusionMatrix::compute($actualLabels, $predictedLabels, $labels));
+        self::assertEquals($confusionMatrix, ConfusionMatrix::compute($actualLabels, $predictedLabels, $labels));
 
         $labels = ['bird', 'ant'];
 
@@ -57,6 +57,6 @@ class ConfusionMatrixTest extends TestCase
             [0, 2],
         ];
 
-        $this->assertEquals($confusionMatrix, ConfusionMatrix::compute($actualLabels, $predictedLabels, $labels));
+        self::assertEquals($confusionMatrix, ConfusionMatrix::compute($actualLabels, $predictedLabels, $labels));
     }
 }

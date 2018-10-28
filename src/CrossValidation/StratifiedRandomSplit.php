@@ -27,6 +27,7 @@ class StratifiedRandomSplit extends RandomSplit
         $samples = $dataset->getSamples();
 
         $uniqueTargets = array_unique($targets);
+        /** @var array $split */
         $split = array_combine($uniqueTargets, array_fill(0, count($uniqueTargets), []));
 
         foreach ($samples as $key => $sample) {

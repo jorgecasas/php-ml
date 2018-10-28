@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Phpml\Clustering\KMeans;
 
-use Countable;
 use IteratorAggregate;
 use LogicException;
 use SplObjectStorage;
 
-class Cluster extends Point implements IteratorAggregate, Countable
+class Cluster extends Point implements IteratorAggregate
 {
     /**
      * @var Space
@@ -32,10 +31,10 @@ class Cluster extends Point implements IteratorAggregate, Countable
     {
         $points = [];
         foreach ($this->points as $point) {
-            if (!empty($point->label)) {
-                $points[$point->label] = $point->toArray();
-            } else {
+            if (count($point->label) === 0) {
                 $points[] = $point->toArray();
+            } else {
+                $points[$point->label] = $point->toArray();
             }
         }
 
@@ -106,10 +105,7 @@ class Cluster extends Point implements IteratorAggregate, Countable
         return $this->points;
     }
 
-    /**
-     * @return mixed
-     */
-    public function count()
+    public function count(): int
     {
         return count($this->points);
     }

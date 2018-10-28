@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpml\Tests\Classification\Ensemble;
 
+use Phpml\Classification\Classifier;
 use Phpml\Classification\DecisionTree;
 use Phpml\Classification\Ensemble\RandomForest;
 use Phpml\Classification\NaiveBayes;
@@ -47,7 +48,10 @@ class RandomForestTest extends BaggingTest
         $classifier->setFeatureSubsetRatio('pow');
     }
 
-    protected function getClassifier($numBaseClassifiers = 50)
+    /**
+     * @return RandomForest
+     */
+    protected function getClassifier(int $numBaseClassifiers = 50): Classifier
     {
         $classifier = new RandomForest($numBaseClassifiers);
         $classifier->setFeatureSubsetRatio('log');
@@ -55,7 +59,7 @@ class RandomForestTest extends BaggingTest
         return $classifier;
     }
 
-    protected function getAvailableBaseClassifiers()
+    protected function getAvailableBaseClassifiers(): array
     {
         return [DecisionTree::class => ['depth' => 5]];
     }

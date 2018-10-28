@@ -28,6 +28,8 @@ class Space extends SplObjectStorage
     public function toArray(): array
     {
         $points = [];
+
+        /** @var Point $point */
         foreach ($this as $point) {
             $points[] = $point->toArray();
         }
@@ -35,9 +37,12 @@ class Space extends SplObjectStorage
         return ['points' => $points];
     }
 
+    /**
+     * @param mixed $label
+     */
     public function newPoint(array $coordinates, $label = null): Point
     {
-        if (count($coordinates) != $this->dimension) {
+        if (count($coordinates) !== $this->dimension) {
             throw new LogicException('('.implode(',', $coordinates).') is not a point of this space');
         }
 
@@ -45,7 +50,8 @@ class Space extends SplObjectStorage
     }
 
     /**
-     * @param null $data
+     * @param mixed $label
+     * @param mixed $data
      */
     public function addPoint(array $coordinates, $label = null, $data = null): void
     {
@@ -53,8 +59,8 @@ class Space extends SplObjectStorage
     }
 
     /**
-     * @param Point $point
-     * @param null  $data
+     * @param object $point
+     * @param mixed  $data
      */
     public function attach($point, $data = null): void
     {
@@ -82,10 +88,16 @@ class Space extends SplObjectStorage
         $min = $this->newPoint(array_fill(0, $this->dimension, null));
         $max = $this->newPoint(array_fill(0, $this->dimension, null));
 
+        /** @var self $point */
         foreach ($this as $point) {
             for ($n = 0; $n < $this->dimension; ++$n) {
-                ($min[$n] > $point[$n] || $min[$n] === null) && $min[$n] = $point[$n];
-                ($max[$n] < $point[$n] || $max[$n] === null) && $max[$n] = $point[$n];
+                if ($min[$n] === null || $min[$n] > $point[$n]) {
+                    $min[$n] = $point[$n];
+                }
+
+                if ($max[$n] === null || $max[$n] < $point[$n]) {
+                    $max[$n] = $point[$n];
+                }
             }
         }
 
@@ -141,7 +153,10 @@ class Space extends SplObjectStorage
         return $clusters;
     }
 
-    protected function iterate($clusters): bool
+    /**
+     * @param Cluster[] $clusters
+     */
+    protected function iterate(array $clusters): bool
     {
         $convergence = true;
 
@@ -164,10 +179,12 @@ class Space extends SplObjectStorage
             }
         }
 
+        /** @var Cluster $cluster */
         foreach ($attach as $cluster) {
             $cluster->attachAll($attach[$cluster]);
         }
 
+        /** @var Cluster $cluster */
         foreach ($detach as $cluster) {
             $cluster->detachAll($detach[$cluster]);
         }
@@ -179,23 +196,36 @@ class Space extends SplObjectStorage
         return $convergence;
     }
 
+    /**
+     * @return Cluster[]
+     */
     protected function initializeKMPPClusters(int $clustersNumber): array
     {
         $clusters = [];
         $this->rewind();
 
-        $clusters[] = new Cluster($this, $this->current()->getCoordinates());
+        /** @var Point $current */
+        $current = $this->current();
+
+        $clusters[] = new Cluster($this, $current->getCoordinates());
 
         $distances = new SplObjectStorage();
 
         for ($i = 1; $i < $clustersNumber; ++$i) {
             $sum = 0;
+            /** @var Point $point */
             foreach ($this as $point) {
-                $distance = $point->getDistanceWith($point->getClosest($clusters));
+                $closest = $point->getClosest($clusters);
+                if ($closest === null) {
+                    continue;
+                }
+
+                $distance = $point->getDistanceWith($closest);
                 $sum += $distances[$point] = $distance;
             }
 
             $sum = random_int(0, (int) $sum);
+            /** @var Point $point */
             foreach ($this as $point) {
                 $sum -= $distances[$point];
 
@@ -212,6 +242,9 @@ class Space extends SplObjectStorage
         return $clusters;
     }
 
+    /**
+     * @return Cluster[]
+     */
     private function initializeRandomClusters(int $clustersNumber): array
     {
         $clusters = [];

@@ -23,8 +23,8 @@ class ArrayDatasetTest extends TestCase
             $labels = ['a', 'a', 'b', 'b']
         );
 
-        $this->assertEquals($samples, $dataset->getSamples());
-        $this->assertEquals($labels, $dataset->getTargets());
+        self::assertEquals($samples, $dataset->getSamples());
+        self::assertEquals($labels, $dataset->getTargets());
     }
 
     public function testRemoveColumns(): void
@@ -35,6 +35,6 @@ class ArrayDatasetTest extends TestCase
         );
         $dataset->removeColumns([0, 2]);
 
-        $this->assertEquals([[2, 4], [3, 5], [4, 6], [5, 7]], $dataset->getSamples());
+        self::assertEquals([[2, 4], [3, 5], [4, 6], [5, 7]], $dataset->getSamples());
     }
 }

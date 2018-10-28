@@ -11,6 +11,9 @@ use ReflectionClass;
 
 class AprioriTest extends TestCase
 {
+    /**
+     * @var array
+     */
     private $sampleGreek = [
         ['alpha', 'beta', 'epsilon'],
         ['alpha', 'beta', 'theta'],
@@ -18,6 +21,9 @@ class AprioriTest extends TestCase
         ['alpha', 'beta', 'theta'],
     ];
 
+    /**
+     * @var array
+     */
     private $sampleChars = [
         ['E', 'D', 'N', 'E+N', 'EN'],
         ['E', 'R', 'N', 'E+R', 'E+N', 'ER', 'EN'],
@@ -31,6 +37,9 @@ class AprioriTest extends TestCase
         ['N'],
     ];
 
+    /**
+     * @var array
+     */
     private $sampleBasket = [
         [1, 2, 3, 4],
         [1, 2, 4],
@@ -48,16 +57,16 @@ class AprioriTest extends TestCase
 
         $predicted = $apriori->predict([['alpha', 'epsilon'], ['beta', 'theta']]);
 
-        $this->assertCount(2, $predicted);
-        $this->assertEquals([['beta']], $predicted[0]);
-        $this->assertEquals([['alpha']], $predicted[1]);
+        self::assertCount(2, $predicted);
+        self::assertEquals([['beta']], $predicted[0]);
+        self::assertEquals([['alpha']], $predicted[1]);
     }
 
     public function testPowerSet(): void
     {
         $apriori = new Apriori();
 
-        $this->assertCount(8, self::invoke($apriori, 'powerSet', [['a', 'b', 'c']]));
+        self::assertCount(8, self::invoke($apriori, 'powerSet', [['a', 'b', 'c']]));
     }
 
     public function testApriori(): void
@@ -67,13 +76,13 @@ class AprioriTest extends TestCase
 
         $L = $apriori->apriori();
 
-        $this->assertCount(4, $L[2]);
-        $this->assertTrue(self::invoke($apriori, 'contains', [$L[2], [1, 2]]));
-        $this->assertFalse(self::invoke($apriori, 'contains', [$L[2], [1, 3]]));
-        $this->assertFalse(self::invoke($apriori, 'contains', [$L[2], [1, 4]]));
-        $this->assertTrue(self::invoke($apriori, 'contains', [$L[2], [2, 3]]));
-        $this->assertTrue(self::invoke($apriori, 'contains', [$L[2], [2, 4]]));
-        $this->assertTrue(self::invoke($apriori, 'contains', [$L[2], [3, 4]]));
+        self::assertCount(4, $L[2]);
+        self::assertTrue(self::invoke($apriori, 'contains', [$L[2], [1, 2]]));
+        self::assertFalse(self::invoke($apriori, 'contains', [$L[2], [1, 3]]));
+        self::assertFalse(self::invoke($apriori, 'contains', [$L[2], [1, 4]]));
+        self::assertTrue(self::invoke($apriori, 'contains', [$L[2], [2, 3]]));
+        self::assertTrue(self::invoke($apriori, 'contains', [$L[2], [2, 4]]));
+        self::assertTrue(self::invoke($apriori, 'contains', [$L[2], [3, 4]]));
     }
 
     public function testAprioriEmpty(): void
@@ -85,7 +94,7 @@ class AprioriTest extends TestCase
 
         $L = $apriori->apriori();
 
-        $this->assertEmpty($L);
+        self::assertEmpty($L);
     }
 
     public function testAprioriSingleItem(): void
@@ -97,8 +106,8 @@ class AprioriTest extends TestCase
 
         $L = $apriori->apriori();
 
-        $this->assertEquals([1], array_keys($L));
-        $this->assertEquals([['a']], $L[1]);
+        self::assertEquals([1], array_keys($L));
+        self::assertEquals([['a']], $L[1]);
     }
 
     public function testAprioriL3(): void
@@ -110,7 +119,7 @@ class AprioriTest extends TestCase
 
         $L = $apriori->apriori();
 
-        $this->assertEquals([['a', 'b', 'c']], $L[3]);
+        self::assertEquals([['a', 'b', 'c']], $L[3]);
     }
 
     public function testGetRules(): void
@@ -118,7 +127,7 @@ class AprioriTest extends TestCase
         $apriori = new Apriori(0.4, 0.8);
         $apriori->train($this->sampleChars, []);
 
-        $this->assertCount(19, $apriori->getRules());
+        self::assertCount(19, $apriori->getRules());
     }
 
     public function testGetRulesSupportAndConfidence(): void
@@ -130,14 +139,14 @@ class AprioriTest extends TestCase
 
         $rules = $apriori->getRules();
 
-        $this->assertCount(4, $rules);
-        $this->assertContains([
+        self::assertCount(4, $rules);
+        self::assertContains([
             Apriori::ARRAY_KEY_ANTECEDENT => ['a'],
             Apriori::ARRAY_KEY_CONSEQUENT => ['b'],
             Apriori::ARRAY_KEY_SUPPORT => 0.5,
             Apriori::ARRAY_KEY_CONFIDENCE => 0.5,
         ], $rules);
-        $this->assertContains([
+        self::assertContains([
             Apriori::ARRAY_KEY_ANTECEDENT => ['b'],
             Apriori::ARRAY_KEY_CONSEQUENT => ['a'],
             Apriori::ARRAY_KEY_SUPPORT => 0.5,
@@ -149,14 +158,14 @@ class AprioriTest extends TestCase
     {
         $apriori = new Apriori();
 
-        $this->assertCount(6, self::invoke($apriori, 'antecedents', [['a', 'b', 'c']]));
+        self::assertCount(6, self::invoke($apriori, 'antecedents', [['a', 'b', 'c']]));
     }
 
     public function testItems(): void
     {
         $apriori = new Apriori();
         $apriori->train($this->sampleGreek, []);
-        $this->assertCount(4, self::invoke($apriori, 'items', []));
+        self::assertCount(4, self::invoke($apriori, 'items', []));
     }
 
     public function testFrequent(): void
@@ -164,8 +173,8 @@ class AprioriTest extends TestCase
         $apriori = new Apriori(0.51);
         $apriori->train($this->sampleGreek, []);
 
-        $this->assertCount(0, self::invoke($apriori, 'frequent', [[['epsilon'], ['theta']]]));
-        $this->assertCount(2, self::invoke($apriori, 'frequent', [[['alpha'], ['beta']]]));
+        self::assertCount(0, self::invoke($apriori, 'frequent', [[['epsilon'], ['theta']]]));
+        self::assertCount(2, self::invoke($apriori, 'frequent', [[['alpha'], ['beta']]]));
     }
 
     public function testCandidates(): void
@@ -175,10 +184,10 @@ class AprioriTest extends TestCase
 
         $candidates = self::invoke($apriori, 'candidates', [[['alpha'], ['beta'], ['theta']]]);
 
-        $this->assertCount(3, $candidates);
-        $this->assertEquals(['alpha', 'beta'], $candidates[0]);
-        $this->assertEquals(['alpha', 'theta'], $candidates[1]);
-        $this->assertEquals(['beta', 'theta'], $candidates[2]);
+        self::assertCount(3, $candidates);
+        self::assertEquals(['alpha', 'beta'], $candidates[0]);
+        self::assertEquals(['alpha', 'theta'], $candidates[1]);
+        self::assertEquals(['beta', 'theta'], $candidates[2]);
     }
 
     public function testConfidence(): void
@@ -186,8 +195,8 @@ class AprioriTest extends TestCase
         $apriori = new Apriori();
         $apriori->train($this->sampleGreek, []);
 
-        $this->assertEquals(0.5, self::invoke($apriori, 'confidence', [['alpha', 'beta', 'theta'], ['alpha', 'beta']]));
-        $this->assertEquals(1, self::invoke($apriori, 'confidence', [['alpha', 'beta'], ['alpha']]));
+        self::assertEquals(0.5, self::invoke($apriori, 'confidence', [['alpha', 'beta', 'theta'], ['alpha', 'beta']]));
+        self::assertEquals(1, self::invoke($apriori, 'confidence', [['alpha', 'beta'], ['alpha']]));
     }
 
     public function testSupport(): void
@@ -195,8 +204,8 @@ class AprioriTest extends TestCase
         $apriori = new Apriori();
         $apriori->train($this->sampleGreek, []);
 
-        $this->assertEquals(1.0, self::invoke($apriori, 'support', [['alpha', 'beta']]));
-        $this->assertEquals(0.5, self::invoke($apriori, 'support', [['epsilon']]));
+        self::assertEquals(1.0, self::invoke($apriori, 'support', [['alpha', 'beta']]));
+        self::assertEquals(0.5, self::invoke($apriori, 'support', [['epsilon']]));
     }
 
     public function testFrequency(): void
@@ -204,35 +213,35 @@ class AprioriTest extends TestCase
         $apriori = new Apriori();
         $apriori->train($this->sampleGreek, []);
 
-        $this->assertEquals(4, self::invoke($apriori, 'frequency', [['alpha', 'beta']]));
-        $this->assertEquals(2, self::invoke($apriori, 'frequency', [['epsilon']]));
+        self::assertEquals(4, self::invoke($apriori, 'frequency', [['alpha', 'beta']]));
+        self::assertEquals(2, self::invoke($apriori, 'frequency', [['epsilon']]));
     }
 
     public function testContains(): void
     {
         $apriori = new Apriori();
 
-        $this->assertTrue(self::invoke($apriori, 'contains', [[['a'], ['b']], ['a']]));
-        $this->assertTrue(self::invoke($apriori, 'contains', [[[1, 2]], [1, 2]]));
-        $this->assertFalse(self::invoke($apriori, 'contains', [[['a'], ['b']], ['c']]));
+        self::assertTrue(self::invoke($apriori, 'contains', [[['a'], ['b']], ['a']]));
+        self::assertTrue(self::invoke($apriori, 'contains', [[[1, 2]], [1, 2]]));
+        self::assertFalse(self::invoke($apriori, 'contains', [[['a'], ['b']], ['c']]));
     }
 
     public function testSubset(): void
     {
         $apriori = new Apriori();
 
-        $this->assertTrue(self::invoke($apriori, 'subset', [['a', 'b'], ['a']]));
-        $this->assertTrue(self::invoke($apriori, 'subset', [['a'], ['a']]));
-        $this->assertFalse(self::invoke($apriori, 'subset', [['a'], ['a', 'b']]));
+        self::assertTrue(self::invoke($apriori, 'subset', [['a', 'b'], ['a']]));
+        self::assertTrue(self::invoke($apriori, 'subset', [['a'], ['a']]));
+        self::assertFalse(self::invoke($apriori, 'subset', [['a'], ['a', 'b']]));
     }
 
     public function testEquals(): void
     {
         $apriori = new Apriori();
 
-        $this->assertTrue(self::invoke($apriori, 'equals', [['a'], ['a']]));
-        $this->assertFalse(self::invoke($apriori, 'equals', [['a'], []]));
-        $this->assertFalse(self::invoke($apriori, 'equals', [['a'], ['b', 'a']]));
+        self::assertTrue(self::invoke($apriori, 'equals', [['a'], ['a']]));
+        self::assertFalse(self::invoke($apriori, 'equals', [['a'], []]));
+        self::assertFalse(self::invoke($apriori, 'equals', [['a'], ['b', 'a']]));
     }
 
     public function testSaveAndRestore(): void
@@ -243,14 +252,14 @@ class AprioriTest extends TestCase
         $testSamples = [['alpha', 'epsilon'], ['beta', 'theta']];
         $predicted = $classifier->predict($testSamples);
 
-        $filename = 'apriori-test-'.random_int(100, 999).'-'.uniqid();
-        $filepath = tempnam(sys_get_temp_dir(), $filename);
+        $filename = 'apriori-test-'.random_int(100, 999).'-'.uniqid('', false);
+        $filepath = (string) tempnam(sys_get_temp_dir(), $filename);
         $modelManager = new ModelManager();
         $modelManager->saveToFile($classifier, $filepath);
 
         $restoredClassifier = $modelManager->restoreFromFile($filepath);
-        $this->assertEquals($classifier, $restoredClassifier);
-        $this->assertEquals($predicted, $restoredClassifier->predict($testSamples));
+        self::assertEquals($classifier, $restoredClassifier);
+        self::assertEquals($predicted, $restoredClassifier->predict($testSamples));
     }
 
     /**
@@ -261,7 +270,7 @@ class AprioriTest extends TestCase
      *
      * @return mixed
      */
-    private static function invoke(&$object, string $method, array $params = [])
+    private static function invoke(Apriori $object, string $method, array $params = [])
     {
         $reflection = new ReflectionClass(get_class($object));
         $method = $reflection->getMethod($method);

@@ -91,7 +91,7 @@ class ConjugateGradient extends GD
     {
         [$cost] = parent::gradient($theta);
 
-        return array_sum($cost) / $this->sampleCount;
+        return array_sum($cost) / (int) $this->sampleCount;
     }
 
     /**

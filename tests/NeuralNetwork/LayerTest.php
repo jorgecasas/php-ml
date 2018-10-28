@@ -17,16 +17,16 @@ class LayerTest extends TestCase
     {
         $layer = new Layer();
 
-        $this->assertEquals([], $layer->getNodes());
+        self::assertEquals([], $layer->getNodes());
     }
 
     public function testLayerInitializationWithDefaultNodesType(): void
     {
         $layer = new Layer($number = 5);
 
-        $this->assertCount($number, $layer->getNodes());
+        self::assertCount($number, $layer->getNodes());
         foreach ($layer->getNodes() as $node) {
-            $this->assertInstanceOf(Neuron::class, $node);
+            self::assertInstanceOf(Neuron::class, $node);
         }
     }
 
@@ -34,9 +34,9 @@ class LayerTest extends TestCase
     {
         $layer = new Layer($number = 5, $class = Bias::class);
 
-        $this->assertCount($number, $layer->getNodes());
+        self::assertCount($number, $layer->getNodes());
         foreach ($layer->getNodes() as $node) {
-            $this->assertInstanceOf($class, $node);
+            self::assertInstanceOf($class, $node);
         }
     }
 
@@ -52,6 +52,6 @@ class LayerTest extends TestCase
         $layer->addNode($node1 = new Neuron());
         $layer->addNode($node2 = new Neuron());
 
-        $this->assertEquals([$node1, $node2], $layer->getNodes());
+        self::assertEquals([$node1, $node2], $layer->getNodes());
     }
 }

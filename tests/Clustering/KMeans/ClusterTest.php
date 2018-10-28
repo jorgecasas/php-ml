@@ -26,7 +26,7 @@ class ClusterTest extends TestCase
         $cluster = new Cluster(new Space(2), [1, 2]);
         $cluster->attach(new Point([1, 1]));
 
-        $this->assertSame([
+        self::assertSame([
             'centroid' => [1, 2],
             'points' => [
                 [1, 1],
@@ -42,8 +42,8 @@ class ClusterTest extends TestCase
 
         $detachedPoint = $cluster->detach($point);
 
-        $this->assertSame($detachedPoint, $point);
-        $this->assertNotContains($point, $cluster->getPoints());
-        $this->assertCount(1, $cluster);
+        self::assertSame($detachedPoint, $point);
+        self::assertNotContains($point, $cluster->getPoints());
+        self::assertCount(1, $cluster);
     }
 }

@@ -11,12 +11,14 @@ class BinaryStepTest extends TestCase
 {
     /**
      * @dataProvider binaryStepProvider
+     *
+     * @param float|int $value
      */
-    public function testBinaryStepActivationFunction($expected, $value): void
+    public function testBinaryStepActivationFunction(float $expected, $value): void
     {
         $binaryStep = new BinaryStep();
 
-        $this->assertEquals($expected, $binaryStep->compute($value));
+        self::assertEquals($expected, $binaryStep->compute($value));
     }
 
     public function binaryStepProvider(): array
@@ -30,12 +32,14 @@ class BinaryStepTest extends TestCase
 
     /**
      * @dataProvider binaryStepDerivativeProvider
+     *
+     * @param float|int $value
      */
-    public function testBinaryStepDerivative($expected, $value): void
+    public function testBinaryStepDerivative(float $expected, $value): void
     {
         $binaryStep = new BinaryStep();
         $activatedValue = $binaryStep->compute($value);
-        $this->assertEquals($expected, $binaryStep->differentiate($value, $activatedValue));
+        self::assertEquals($expected, $binaryStep->differentiate($value, $activatedValue));
     }
 
     public function binaryStepDerivativeProvider(): array

@@ -10,6 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 class DecisionTreeTest extends TestCase
 {
+    /**
+     * @var array
+     */
     private $data = [
         ['sunny',       85,    85,    'false',    'Dont_play'],
         ['sunny',       80,    90,    'true',     'Dont_play'],
@@ -27,26 +30,27 @@ class DecisionTreeTest extends TestCase
         ['rain',        71,    80,    'true',     'Dont_play'],
     ];
 
+    /**
+     * @var array
+     */
     private $extraData = [
         ['scorching',   90,     95,     'false',   'Dont_play'],
         ['scorching',  100,     93,     'true',    'Dont_play'],
     ];
 
-    public function testPredictSingleSample()
+    public function testPredictSingleSample(): void
     {
         [$data, $targets] = $this->getData($this->data);
         $classifier = new DecisionTree(5);
         $classifier->train($data, $targets);
-        $this->assertEquals('Dont_play', $classifier->predict(['sunny', 78, 72, 'false']));
-        $this->assertEquals('Play', $classifier->predict(['overcast', 60, 60, 'false']));
-        $this->assertEquals('Dont_play', $classifier->predict(['rain', 60, 60, 'true']));
+        self::assertEquals('Dont_play', $classifier->predict(['sunny', 78, 72, 'false']));
+        self::assertEquals('Play', $classifier->predict(['overcast', 60, 60, 'false']));
+        self::assertEquals('Dont_play', $classifier->predict(['rain', 60, 60, 'true']));
 
         [$data, $targets] = $this->getData($this->extraData);
         $classifier->train($data, $targets);
-        $this->assertEquals('Dont_play', $classifier->predict(['scorching', 95, 90, 'true']));
-        $this->assertEquals('Play', $classifier->predict(['overcast', 60, 60, 'false']));
-
-        return $classifier;
+        self::assertEquals('Dont_play', $classifier->predict(['scorching', 95, 90, 'true']));
+        self::assertEquals('Play', $classifier->predict(['overcast', 60, 60, 'false']));
     }
 
     public function testSaveAndRestore(): void
@@ -58,14 +62,14 @@ class DecisionTreeTest extends TestCase
         $testSamples = [['sunny', 78, 72, 'false'], ['overcast', 60, 60, 'false']];
         $predicted = $classifier->predict($testSamples);
 
-        $filename = 'decision-tree-test-'.random_int(100, 999).'-'.uniqid();
-        $filepath = tempnam(sys_get_temp_dir(), $filename);
+        $filename = 'decision-tree-test-'.random_int(100, 999).'-'.uniqid('', false);
+        $filepath = (string) tempnam(sys_get_temp_dir(), $filename);
         $modelManager = new ModelManager();
         $modelManager->saveToFile($classifier, $filepath);
 
         $restoredClassifier = $modelManager->restoreFromFile($filepath);
-        $this->assertEquals($classifier, $restoredClassifier);
-        $this->assertEquals($predicted, $restoredClassifier->predict($testSamples));
+        self::assertEquals($classifier, $restoredClassifier);
+        self::assertEquals($predicted, $restoredClassifier->predict($testSamples));
     }
 
     public function testTreeDepth(): void
@@ -73,10 +77,10 @@ class DecisionTreeTest extends TestCase
         [$data, $targets] = $this->getData($this->data);
         $classifier = new DecisionTree(5);
         $classifier->train($data, $targets);
-        $this->assertTrue($classifier->actualDepth <= 5);
+        self::assertTrue($classifier->actualDepth <= 5);
     }
 
-    private function getData($input)
+    private function getData(array $input): array
     {
         $targets = array_column($input, 4);
         array_walk($input, function (&$v): void {

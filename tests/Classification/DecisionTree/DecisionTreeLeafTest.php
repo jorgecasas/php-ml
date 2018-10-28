@@ -21,7 +21,10 @@ class DecisionTreeLeafTest extends TestCase
 
         $leaf->rightLeaf = $rightLeaf;
 
-        $this->assertEquals('<table ><tr><td colspan=3 align=center style=\'border:1px solid;\'><b>col_0 =1</b><br>Gini: 0.00</td></tr><tr><td></td><td>&nbsp;</td><td valign=top align=right><b>No |</b><br><table ><tr><td colspan=3 align=center style=\'border:1px solid;\'><b>col_1 <= 2</b><br>Gini: 0.00</td></tr></table></td></tr></table>', $leaf->getHTML());
+        self::assertEquals(
+            '<table ><tr><td colspan=3 align=center style=\'border:1px solid;\'><b>col_0 =1</b><br>Gini: 0.00</td></tr><tr><td></td><td>&nbsp;</td><td valign=top align=right><b>No |</b><br><table ><tr><td colspan=3 align=center style=\'border:1px solid;\'><b>col_1 <= 2</b><br>Gini: 0.00</td></tr></table></td></tr></table>',
+            $leaf->getHTML()
+        );
     }
 
     public function testNodeImpurityDecreaseShouldBeZeroWhenLeafIsTerminal(): void
@@ -29,7 +32,7 @@ class DecisionTreeLeafTest extends TestCase
         $leaf = new DecisionTreeLeaf();
         $leaf->isTerminal = true;
 
-        $this->assertEquals(0.0, $leaf->getNodeImpurityDecrease(1));
+        self::assertEquals(0.0, $leaf->getNodeImpurityDecrease(1));
     }
 
     public function testNodeImpurityDecrease(): void
@@ -45,6 +48,6 @@ class DecisionTreeLeafTest extends TestCase
         $leaf->rightLeaf->records = [];
         $leaf->rightLeaf->giniIndex = 0.3;
 
-        $this->assertSame(0.75, $leaf->getNodeImpurityDecrease(2));
+        self::assertSame(0.75, $leaf->getNodeImpurityDecrease(2));
     }
 }

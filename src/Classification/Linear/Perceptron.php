@@ -61,11 +61,6 @@ class Perceptron implements Classifier, IncrementalEstimator
     protected $enableEarlyStop = true;
 
     /**
-     * @var array
-     */
-    protected $costValues = [];
-
-    /**
      * Initalize a perceptron classifier with given learning rate and maximum
      * number of iterations used while training the perceptron
      *
@@ -156,7 +151,7 @@ class Perceptron implements Classifier, IncrementalEstimator
      * Trains the perceptron model with Stochastic Gradient Descent optimization
      * to get the correct set of weights
      */
-    protected function runTraining(array $samples, array $targets)
+    protected function runTraining(array $samples, array $targets): void
     {
         // The cost function is the sum of squares
         $callback = function ($weights, $sample, $target) {
@@ -176,7 +171,7 @@ class Perceptron implements Classifier, IncrementalEstimator
      * Executes a Gradient Descent algorithm for
      * the given cost function
      */
-    protected function runGradientDescent(array $samples, array $targets, Closure $gradientFunc, bool $isBatch = false)
+    protected function runGradientDescent(array $samples, array $targets, Closure $gradientFunc, bool $isBatch = false): void
     {
         $class = $isBatch ? GD::class : StochasticGD::class;
 

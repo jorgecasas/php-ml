@@ -16,8 +16,8 @@ class NeuronTest extends TestCase
     {
         $neuron = new Neuron();
 
-        $this->assertEquals([], $neuron->getSynapses());
-        $this->assertEquals(0.5, $neuron->getOutput());
+        self::assertEquals([], $neuron->getSynapses());
+        self::assertEquals(0.5, $neuron->getOutput());
     }
 
     public function testNeuronActivationFunction(): void
@@ -28,7 +28,7 @@ class NeuronTest extends TestCase
 
         $neuron = new Neuron($activationFunction);
 
-        $this->assertEquals($output, $neuron->getOutput());
+        self::assertEquals($output, $neuron->getOutput());
     }
 
     public function testNeuronWithSynapse(): void
@@ -36,8 +36,8 @@ class NeuronTest extends TestCase
         $neuron = new Neuron();
         $neuron->addSynapse($synapse = $this->getSynapseMock());
 
-        $this->assertEquals([$synapse], $neuron->getSynapses());
-        $this->assertEquals(0.88, $neuron->getOutput(), '', 0.01);
+        self::assertEquals([$synapse], $neuron->getSynapses());
+        self::assertEquals(0.88, $neuron->getOutput(), '', 0.01);
     }
 
     public function testNeuronRefresh(): void
@@ -46,11 +46,11 @@ class NeuronTest extends TestCase
         $neuron->getOutput();
         $neuron->addSynapse($this->getSynapseMock());
 
-        $this->assertEquals(0.5, $neuron->getOutput(), '', 0.01);
+        self::assertEquals(0.5, $neuron->getOutput(), '', 0.01);
 
         $neuron->reset();
 
-        $this->assertEquals(0.88, $neuron->getOutput(), '', 0.01);
+        self::assertEquals(0.88, $neuron->getOutput(), '', 0.01);
     }
 
     /**

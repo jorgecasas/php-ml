@@ -19,13 +19,13 @@ class StratifiedRandomSplitTest extends TestCase
 
         $split = new StratifiedRandomSplit($dataset, 0.5);
 
-        $this->assertEquals(2, $this->countSamplesByTarget($split->getTestLabels(), 'a'));
-        $this->assertEquals(2, $this->countSamplesByTarget($split->getTestLabels(), 'b'));
+        self::assertEquals(2, $this->countSamplesByTarget($split->getTestLabels(), 'a'));
+        self::assertEquals(2, $this->countSamplesByTarget($split->getTestLabels(), 'b'));
 
         $split = new StratifiedRandomSplit($dataset, 0.25);
 
-        $this->assertEquals(1, $this->countSamplesByTarget($split->getTestLabels(), 'a'));
-        $this->assertEquals(1, $this->countSamplesByTarget($split->getTestLabels(), 'b'));
+        self::assertEquals(1, $this->countSamplesByTarget($split->getTestLabels(), 'a'));
+        self::assertEquals(1, $this->countSamplesByTarget($split->getTestLabels(), 'b'));
     }
 
     public function testDatasetStratifiedRandomSplitWithEvenDistributionAndNumericTargets(): void
@@ -37,16 +37,19 @@ class StratifiedRandomSplitTest extends TestCase
 
         $split = new StratifiedRandomSplit($dataset, 0.5);
 
-        $this->assertEquals(2, $this->countSamplesByTarget($split->getTestLabels(), 1));
-        $this->assertEquals(2, $this->countSamplesByTarget($split->getTestLabels(), 2));
+        self::assertEquals(2, $this->countSamplesByTarget($split->getTestLabels(), 1));
+        self::assertEquals(2, $this->countSamplesByTarget($split->getTestLabels(), 2));
 
         $split = new StratifiedRandomSplit($dataset, 0.25);
 
-        $this->assertEquals(1, $this->countSamplesByTarget($split->getTestLabels(), 1));
-        $this->assertEquals(1, $this->countSamplesByTarget($split->getTestLabels(), 2));
+        self::assertEquals(1, $this->countSamplesByTarget($split->getTestLabels(), 1));
+        self::assertEquals(1, $this->countSamplesByTarget($split->getTestLabels(), 2));
     }
 
-    private function countSamplesByTarget($splitTargets, $countTarget): int
+    /**
+     * @param string|int $countTarget
+     */
+    private function countSamplesByTarget(array $splitTargets, $countTarget): int
     {
         $count = 0;
         foreach ($splitTargets as $target) {

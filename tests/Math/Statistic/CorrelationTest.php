@@ -16,18 +16,18 @@ class CorrelationTest extends TestCase
         $delta = 0.001;
         $x = [9300,  10565,  15000,  15000,  17764,  57000,  65940,  73676,  77006,  93739, 146088, 153260];
         $y = [7100, 15500, 4400, 4400, 5900, 4600, 8800, 2000, 2750, 2550,  960, 1025];
-        $this->assertEquals(-0.641, Correlation::pearson($x, $y), '', $delta);
+        self::assertEquals(-0.641, Correlation::pearson($x, $y), '', $delta);
 
         //http://www.statisticshowto.com/how-to-compute-pearsons-correlation-coefficients/
         $delta = 0.001;
         $x = [43, 21, 25, 42, 57, 59];
         $y = [99, 65, 79, 75, 87, 82];
-        $this->assertEquals(0.549, Correlation::pearson($x, $y), '', $delta);
+        self::assertEquals(0.549, Correlation::pearson($x, $y), '', $delta);
 
         $delta = 0.001;
         $x = [60, 61, 62, 63, 65];
         $y = [3.1, 3.6, 3.8, 4, 4.1];
-        $this->assertEquals(0.911, Correlation::pearson($x, $y), '', $delta);
+        self::assertEquals(0.911, Correlation::pearson($x, $y), '', $delta);
     }
 
     public function testThrowExceptionOnInvalidArgumentsForPearsonCorrelation(): void

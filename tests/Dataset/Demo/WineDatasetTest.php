@@ -14,10 +14,10 @@ class WineDatasetTest extends TestCase
         $wine = new WineDataset();
 
         // whole dataset
-        $this->assertCount(178, $wine->getSamples());
-        $this->assertCount(178, $wine->getTargets());
+        self::assertCount(178, $wine->getSamples());
+        self::assertCount(178, $wine->getTargets());
 
         // one sample features count
-        $this->assertCount(13, $wine->getSamples()[0]);
+        self::assertCount(13, $wine->getSamples()[0]);
     }
 }

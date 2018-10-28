@@ -51,18 +51,13 @@ trait OneVsRest
     protected function trainByLabel(array $samples, array $targets, array $allLabels = []): void
     {
         // Overwrites the current value if it exist. $allLabels must be provided for each partialTrain run.
-        if (!empty($allLabels)) {
-            $this->allLabels = $allLabels;
-        } else {
-            $this->allLabels = array_keys(array_count_values($targets));
-        }
-
+        $this->allLabels = count($allLabels) === 0 ? array_keys(array_count_values($targets)) : $allLabels;
         sort($this->allLabels, SORT_STRING);
 
         // If there are only two targets, then there is no need to perform OvR
-        if (count($this->allLabels) == 2) {
+        if (count($this->allLabels) === 2) {
             // Init classifier if required.
-            if (empty($this->classifiers)) {
+            if (count($this->classifiers) === 0) {
                 $this->classifiers[0] = $this->getClassifierCopy();
             }
 
@@ -72,7 +67,7 @@ trait OneVsRest
 
             foreach ($this->allLabels as $label) {
                 // Init classifier if required.
-                if (empty($this->classifiers[$label])) {
+                if (!isset($this->classifiers[$label])) {
                     $this->classifiers[$label] = $this->getClassifierCopy();
                 }
 
@@ -92,10 +87,8 @@ trait OneVsRest
 
     /**
      * Returns an instance of the current class after cleaning up OneVsRest stuff.
-     *
-     * @return Classifier|OneVsRest
      */
-    protected function getClassifierCopy()
+    protected function getClassifierCopy(): Classifier
     {
         // Clone the current classifier, so that
         // we don't mess up its variables while training
@@ -111,7 +104,7 @@ trait OneVsRest
      */
     protected function predictSample(array $sample)
     {
-        if (count($this->allLabels) == 2) {
+        if (count($this->allLabels) === 2) {
             return $this->classifiers[0]->predictSampleBinary($sample);
         }
 

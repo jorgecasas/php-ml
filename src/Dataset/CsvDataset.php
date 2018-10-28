@@ -29,14 +29,14 @@ class CsvDataset extends ArrayDataset
 
         if ($headingRow) {
             $data = fgetcsv($handle, $maxLineLength, $delimiter);
-            $this->columnNames = array_slice($data, 0, $features);
+            $this->columnNames = array_slice((array) $data, 0, $features);
         } else {
             $this->columnNames = range(0, $features - 1);
         }
 
         $samples = $targets = [];
         while (($data = fgetcsv($handle, $maxLineLength, $delimiter)) !== false) {
-            $samples[] = array_slice($data, 0, $features);
+            $samples[] = array_slice((array) $data, 0, $features);
             $targets[] = $data[$features];
         }
 

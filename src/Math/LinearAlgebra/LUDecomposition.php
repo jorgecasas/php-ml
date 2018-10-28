@@ -80,7 +80,7 @@ class LUDecomposition
      */
     public function __construct(Matrix $A)
     {
-        if ($A->getRows() != $A->getColumns()) {
+        if ($A->getRows() !== $A->getColumns()) {
             throw new MatrixException('Matrix is not square matrix');
         }
 
@@ -118,7 +118,7 @@ class LUDecomposition
             // Find pivot and exchange if necessary.
             $p = $j;
             for ($i = $j + 1; $i < $this->m; ++$i) {
-                if (abs($LUcolj[$i]) > abs($LUcolj[$p])) {
+                if (abs($LUcolj[$i] ?? 0) > abs($LUcolj[$p] ?? 0)) {
                     $p = $i;
                 }
             }
@@ -204,7 +204,7 @@ class LUDecomposition
      *
      * @see getPivot
      */
-    public function getDoublePivot()
+    public function getDoublePivot(): array
     {
         return $this->getPivot();
     }

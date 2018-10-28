@@ -43,7 +43,7 @@ final class SelectKBest implements Transformer
 
     public function fit(array $samples, ?array $targets = null): void
     {
-        if ($targets === null || empty($targets)) {
+        if ($targets === null || count($targets) === 0) {
             throw new InvalidArgumentException('The array has zero elements');
         }
 

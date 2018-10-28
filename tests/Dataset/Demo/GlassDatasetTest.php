@@ -14,10 +14,10 @@ class GlassDatasetTest extends TestCase
         $glass = new GlassDataset();
 
         // whole dataset
-        $this->assertCount(214, $glass->getSamples());
-        $this->assertCount(214, $glass->getTargets());
+        self::assertCount(214, $glass->getSamples());
+        self::assertCount(214, $glass->getTargets());
 
         // one sample features count
-        $this->assertCount(9, $glass->getSamples()[0]);
+        self::assertCount(9, $glass->getSamples()[0]);
     }
 }

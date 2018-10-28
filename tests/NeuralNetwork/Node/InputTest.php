@@ -12,10 +12,10 @@ class InputTest extends TestCase
     public function testInputInitialization(): void
     {
         $input = new Input();
-        $this->assertEquals(0.0, $input->getOutput());
+        self::assertEquals(0.0, $input->getOutput());
 
         $input = new Input($value = 9.6);
-        $this->assertEquals($value, $input->getOutput());
+        self::assertEquals($value, $input->getOutput());
     }
 
     public function testSetInput(): void
@@ -23,6 +23,6 @@ class InputTest extends TestCase
         $input = new Input();
         $input->setInput($value = 6.9);
 
-        $this->assertEquals($value, $input->getOutput());
+        self::assertEquals($value, $input->getOutput());
     }
 }

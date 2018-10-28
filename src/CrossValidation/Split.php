@@ -60,7 +60,7 @@ abstract class Split
         return $this->testLabels;
     }
 
-    abstract protected function splitDataset(Dataset $dataset, float $testSize);
+    abstract protected function splitDataset(Dataset $dataset, float $testSize): void;
 
     protected function seedGenerator(?int $seed = null): void
     {

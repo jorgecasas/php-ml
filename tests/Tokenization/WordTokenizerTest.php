@@ -21,7 +21,7 @@ class WordTokenizerTest extends TestCase
             'Cras', 'consectetur', 'dui', 'et', 'lobortis', 'auctor',
             'Nulla', 'vitae', 'congue', 'lorem', ];
 
-        $this->assertEquals($tokens, $tokenizer->tokenize($text));
+        self::assertEquals($tokens, $tokenizer->tokenize($text));
     }
 
     public function testTokenizationOnUtf8(): void
@@ -36,6 +36,6 @@ class WordTokenizerTest extends TestCase
             '剆坲', '煘煓瑐', '鬐鶤鶐', '飹勫嫢', '枲柊氠', '鍎鞚韕', '焲犈',
             '殍涾烰', '齞齝囃', '蹅輶', '孻憵', '擙樲橚', '藒襓謥', '岯岪弨', '廞徲', '孻憵懥', '趡趛踠', ];
 
-        $this->assertEquals($tokens, $tokenizer->tokenize($text));
+        self::assertEquals($tokens, $tokenizer->tokenize($text));
     }
 }

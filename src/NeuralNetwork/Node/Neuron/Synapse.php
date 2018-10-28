@@ -49,6 +49,6 @@ class Synapse
 
     protected function generateRandomWeight(): float
     {
-        return 1 / random_int(5, 25) * (random_int(0, 1) ? -1 : 1);
+        return (1 / random_int(5, 25) * random_int(0, 1)) > 0 ? -1 : 1;
     }
 }

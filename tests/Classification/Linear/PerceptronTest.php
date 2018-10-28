@@ -33,9 +33,9 @@ class PerceptronTest extends TestCase
         $classifier = new Perceptron(0.001, 5000);
         $classifier->setEarlyStop(false);
         $classifier->train($samples, $targets);
-        $this->assertEquals(0, $classifier->predict([0.1, 0.2]));
-        $this->assertEquals(0, $classifier->predict([0, 1]));
-        $this->assertEquals(1, $classifier->predict([1.1, 0.8]));
+        self::assertEquals(0, $classifier->predict([0.1, 0.2]));
+        self::assertEquals(0, $classifier->predict([0, 1]));
+        self::assertEquals(1, $classifier->predict([1.1, 0.8]));
 
         // OR problem
         $samples = [[0.1, 0.1], [0.4, 0.], [0., 0.3], [1, 0], [0, 1], [1, 1]];
@@ -43,9 +43,9 @@ class PerceptronTest extends TestCase
         $classifier = new Perceptron(0.001, 5000, false);
         $classifier->setEarlyStop(false);
         $classifier->train($samples, $targets);
-        $this->assertEquals(0, $classifier->predict([0., 0.]));
-        $this->assertEquals(1, $classifier->predict([0.1, 0.99]));
-        $this->assertEquals(1, $classifier->predict([1.1, 0.8]));
+        self::assertEquals(0, $classifier->predict([0., 0.]));
+        self::assertEquals(1, $classifier->predict([0.1, 0.99]));
+        self::assertEquals(1, $classifier->predict([1.1, 0.8]));
 
         // By use of One-v-Rest, Perceptron can perform multi-class classification
         // The samples should be separable by lines perpendicular to the dimensions
@@ -59,15 +59,15 @@ class PerceptronTest extends TestCase
         $classifier = new Perceptron();
         $classifier->setEarlyStop(false);
         $classifier->train($samples, $targets);
-        $this->assertEquals(0, $classifier->predict([0.5, 0.5]));
-        $this->assertEquals(1, $classifier->predict([6.0, 5.0]));
-        $this->assertEquals(2, $classifier->predict([3.0, 9.5]));
+        self::assertEquals(0, $classifier->predict([0.5, 0.5]));
+        self::assertEquals(1, $classifier->predict([6.0, 5.0]));
+        self::assertEquals(2, $classifier->predict([3.0, 9.5]));
 
         // Extra partial training should lead to the same results.
         $classifier->partialTrain([[0, 1], [1, 0]], [0, 0], [0, 1, 2]);
-        $this->assertEquals(0, $classifier->predict([0.5, 0.5]));
-        $this->assertEquals(1, $classifier->predict([6.0, 5.0]));
-        $this->assertEquals(2, $classifier->predict([3.0, 9.5]));
+        self::assertEquals(0, $classifier->predict([0.5, 0.5]));
+        self::assertEquals(1, $classifier->predict([6.0, 5.0]));
+        self::assertEquals(2, $classifier->predict([3.0, 9.5]));
 
         // Train should clear previous data.
         $samples = [
@@ -77,9 +77,9 @@ class PerceptronTest extends TestCase
         ];
         $targets = [2, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1];
         $classifier->train($samples, $targets);
-        $this->assertEquals(2, $classifier->predict([0.5, 0.5]));
-        $this->assertEquals(0, $classifier->predict([6.0, 5.0]));
-        $this->assertEquals(1, $classifier->predict([3.0, 9.5]));
+        self::assertEquals(2, $classifier->predict([0.5, 0.5]));
+        self::assertEquals(0, $classifier->predict([6.0, 5.0]));
+        self::assertEquals(1, $classifier->predict([3.0, 9.5]));
     }
 
     public function testSaveAndRestore(): void
@@ -93,12 +93,12 @@ class PerceptronTest extends TestCase
         $predicted = $classifier->predict($testSamples);
 
         $filename = 'perceptron-test-'.random_int(100, 999).'-'.uniqid('', false);
-        $filepath = tempnam(sys_get_temp_dir(), $filename);
+        $filepath = (string) tempnam(sys_get_temp_dir(), $filename);
         $modelManager = new ModelManager();
         $modelManager->saveToFile($classifier, $filepath);
 
         $restoredClassifier = $modelManager->restoreFromFile($filepath);
-        $this->assertEquals($classifier, $restoredClassifier);
-        $this->assertEquals($predicted, $restoredClassifier->predict($testSamples));
+        self::assertEquals($classifier, $restoredClassifier);
+        self::assertEquals($predicted, $restoredClassifier->predict($testSamples));
     }
 }

@@ -16,7 +16,7 @@ class ModelManager
         }
 
         $serialized = serialize($estimator);
-        if (empty($serialized)) {
+        if (!isset($serialized[0])) {
             throw new SerializeException(sprintf('Class "%s" can not be serialized.', gettype($estimator)));
         }
 
@@ -32,7 +32,7 @@ class ModelManager
             throw new FileException(sprintf('File "%s" can\'t be open.', basename($filepath)));
         }
 
-        $object = unserialize(file_get_contents($filepath));
+        $object = unserialize((string) file_get_contents($filepath), [Estimator::class]);
         if ($object === false) {
             throw new SerializeException(sprintf('"%s" can not be unserialized.', basename($filepath)));
         }

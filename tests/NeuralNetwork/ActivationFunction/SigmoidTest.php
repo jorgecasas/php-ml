@@ -11,12 +11,14 @@ class SigmoidTest extends TestCase
 {
     /**
      * @dataProvider sigmoidProvider
+     *
+     * @param float|int $value
      */
-    public function testSigmoidActivationFunction($beta, $expected, $value): void
+    public function testSigmoidActivationFunction(float $beta, float $expected, $value): void
     {
         $sigmoid = new Sigmoid($beta);
 
-        $this->assertEquals($expected, $sigmoid->compute($value), '', 0.001);
+        self::assertEquals($expected, $sigmoid->compute($value), '', 0.001);
     }
 
     public function sigmoidProvider(): array
@@ -33,12 +35,14 @@ class SigmoidTest extends TestCase
 
     /**
      * @dataProvider sigmoidDerivativeProvider
+     *
+     * @param float|int $value
      */
-    public function testSigmoidDerivative($beta, $expected, $value): void
+    public function testSigmoidDerivative(float $beta, float $expected, $value): void
     {
         $sigmoid = new Sigmoid($beta);
         $activatedValue = $sigmoid->compute($value);
-        $this->assertEquals($expected, $sigmoid->differentiate($value, $activatedValue), '', 0.001);
+        self::assertEquals($expected, $sigmoid->differentiate($value, $activatedValue), '', 0.001);
     }
 
     public function sigmoidDerivativeProvider(): array

@@ -119,7 +119,7 @@ class DecisionTreeLeaf
     /**
      * Returns HTML representation of the node including children nodes
      */
-    public function getHTML($columnNames = null): string
+    public function getHTML(?array $columnNames = null): string
     {
         if ($this->isTerminal) {
             $value = "<b>${this}->classValue</b>";
@@ -131,7 +131,7 @@ class DecisionTreeLeaf
                 $col = "col_$this->columnIndex";
             }
 
-            if (!preg_match('/^[<>=]{1,2}/', (string) $value)) {
+            if ((bool) preg_match('/^[<>=]{1,2}/', (string) $value) === false) {
                 $value = "=${value}";
             }
 

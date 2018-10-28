@@ -17,7 +17,7 @@ final class VarianceTest extends TestCase
         self::assertEquals($variance, Variance::population($numbers), '', 0.001);
     }
 
-    public function dataProviderForPopulationVariance()
+    public function dataProviderForPopulationVariance(): array
     {
         return [
             [[0, 0, 0, 0, 0, 1], 0.138],

@@ -74,10 +74,10 @@ class TokenCountVectorizerTest extends TestCase
         $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer());
 
         $vectorizer->fit($samples);
-        $this->assertSame($vocabulary, $vectorizer->getVocabulary());
+        self::assertSame($vocabulary, $vectorizer->getVocabulary());
 
         $vectorizer->transform($samples);
-        $this->assertSame($tokensCounts, $samples);
+        self::assertSame($tokensCounts, $samples);
     }
 
     public function testTransformationWithMinimumDocumentTokenCountFrequency(): void
@@ -132,10 +132,10 @@ class TokenCountVectorizerTest extends TestCase
         $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer(), null, 0.5);
 
         $vectorizer->fit($samples);
-        $this->assertSame($vocabulary, $vectorizer->getVocabulary());
+        self::assertSame($vocabulary, $vectorizer->getVocabulary());
 
         $vectorizer->transform($samples);
-        $this->assertSame($tokensCounts, $samples);
+        self::assertSame($tokensCounts, $samples);
 
         // word at least once in all samples
         $samples = [
@@ -184,7 +184,7 @@ class TokenCountVectorizerTest extends TestCase
         $vectorizer->fit($samples);
         $vectorizer->transform($samples);
 
-        $this->assertSame($tokensCounts, $samples);
+        self::assertSame($tokensCounts, $samples);
     }
 
     public function testTransformationWithStopWords(): void
@@ -246,9 +246,9 @@ class TokenCountVectorizerTest extends TestCase
         $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer(), $stopWords);
 
         $vectorizer->fit($samples);
-        $this->assertSame($vocabulary, $vectorizer->getVocabulary());
+        self::assertSame($vocabulary, $vectorizer->getVocabulary());
 
         $vectorizer->transform($samples);
-        $this->assertSame($tokensCounts, $samples);
+        self::assertSame($tokensCounts, $samples);
     }
 }

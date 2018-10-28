@@ -13,7 +13,7 @@ interface Network
 
     public function getOutput(): array;
 
-    public function addLayer(Layer $layer);
+    public function addLayer(Layer $layer): void;
 
     /**
      * @return Layer[]

@@ -6,6 +6,7 @@ namespace Phpml\Helper\Optimizer;
 
 use Closure;
 use Phpml\Exception\InvalidArgumentException;
+use Phpml\Exception\InvalidOperationException;
 
 /**
  * Stochastic Gradient Descent optimization method
@@ -34,7 +35,7 @@ class StochasticGD extends Optimizer
      *
      * @var \Closure|null
      */
-    protected $gradientCb = null;
+    protected $gradientCb;
 
     /**
      * Maximum number of iterations used to train the model
@@ -89,9 +90,9 @@ class StochasticGD extends Optimizer
         $this->dimensions = $dimensions;
     }
 
-    public function setTheta(array $theta)
+    public function setTheta(array $theta): Optimizer
     {
-        if (count($theta) != $this->dimensions + 1) {
+        if (count($theta) !== $this->dimensions + 1) {
             throw new InvalidArgumentException(sprintf('Number of values in the weights array should be %s', $this->dimensions + 1));
         }
 
@@ -156,7 +157,7 @@ class StochasticGD extends Optimizer
      * The cost function to minimize and the gradient of the function are to be
      * handled by the callback function provided as the third parameter of the method.
      */
-    public function runOptimization(array $samples, array $targets, Closure $gradientCb): ?array
+    public function runOptimization(array $samples, array $targets, Closure $gradientCb): array
     {
         $this->samples = $samples;
         $this->targets = $targets;
@@ -175,7 +176,7 @@ class StochasticGD extends Optimizer
 
             // Save the best theta in the "pocket" so that
             // any future set of theta worse than this will be disregarded
-            if ($bestTheta == null || $cost <= $bestScore) {
+            if ($bestTheta === null || $cost <= $bestScore) {
                 $bestTheta = $theta;
                 $bestScore = $cost;
             }
@@ -209,6 +210,10 @@ class StochasticGD extends Optimizer
     {
         $jValue = 0.0;
         $theta = $this->theta;
+
+        if ($this->gradientCb === null) {
+            throw new InvalidOperationException('Gradient callback is not defined');
+        }
 
         foreach ($this->samples as $index => $sample) {
             $target = $this->targets[$index];
@@ -254,7 +259,7 @@ class StochasticGD extends Optimizer
 
         // Check if the last two cost values are almost the same
         $costs = array_slice($this->costValues, -2);
-        if (count($costs) == 2 && abs($costs[1] - $costs[0]) < $this->threshold) {
+        if (count($costs) === 2 && abs($costs[1] - $costs[0]) < $this->threshold) {
             return true;
         }
 

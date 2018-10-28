@@ -14,10 +14,10 @@ class IrisDatasetTest extends TestCase
         $iris = new IrisDataset();
 
         // whole dataset
-        $this->assertCount(150, $iris->getSamples());
-        $this->assertCount(150, $iris->getTargets());
+        self::assertCount(150, $iris->getSamples());
+        self::assertCount(150, $iris->getTargets());
 
         // one sample features count
-        $this->assertCount(4, $iris->getSamples()[0]);
+        self::assertCount(4, $iris->getSamples()[0]);
     }
 }

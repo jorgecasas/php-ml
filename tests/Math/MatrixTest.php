@@ -22,11 +22,10 @@ class MatrixTest extends TestCase
         $flatArray = [1, 2, 3, 4];
         $matrix = Matrix::fromFlatArray($flatArray);
 
-        $this->assertInstanceOf(Matrix::class, $matrix);
-        $this->assertEquals([[1], [2], [3], [4]], $matrix->toArray());
-        $this->assertEquals(4, $matrix->getRows());
-        $this->assertEquals(1, $matrix->getColumns());
-        $this->assertEquals($flatArray, $matrix->getColumnValues(0));
+        self::assertEquals([[1], [2], [3], [4]], $matrix->toArray());
+        self::assertEquals(4, $matrix->getRows());
+        self::assertEquals(1, $matrix->getColumns());
+        self::assertEquals($flatArray, $matrix->getColumnValues(0));
     }
 
     public function testThrowExceptionOnInvalidColumnNumber(): void
@@ -51,7 +50,7 @@ class MatrixTest extends TestCase
             [4, 2, 1],
             [5, 6, 7],
         ]);
-        $this->assertEquals(-3, $matrix->getDeterminant());
+        self::assertEquals(-3, $matrix->getDeterminant());
 
         $matrix = new Matrix([
             [1, 2, 3, 3, 2, 1],
@@ -61,7 +60,7 @@ class MatrixTest extends TestCase
             [1 / 4, 4, 1, 0, 2, 3 / 7],
             [1, 8, 7, 5, 4, 4 / 5],
         ]);
-        $this->assertEquals(1116.5035, $matrix->getDeterminant(), '', $delta = 0.0001);
+        self::assertEquals(1116.5035, $matrix->getDeterminant(), '', $delta = 0.0001);
     }
 
     public function testMatrixTranspose(): void
@@ -78,7 +77,7 @@ class MatrixTest extends TestCase
             [3, 1, 7],
         ];
 
-        $this->assertEquals($transposedMatrix, $matrix->transpose()->toArray());
+        self::assertEquals($transposedMatrix, $matrix->transpose()->toArray());
     }
 
     public function testThrowExceptionOnMultiplyWhenInconsistentMatrixSupplied(): void
@@ -107,7 +106,7 @@ class MatrixTest extends TestCase
             [139, 154],
         ];
 
-        $this->assertEquals($product, $matrix1->multiply($matrix2)->toArray());
+        self::assertEquals($product, $matrix1->multiply($matrix2)->toArray());
     }
 
     public function testDivideByScalar(): void
@@ -122,7 +121,7 @@ class MatrixTest extends TestCase
             [1, 5, 10],
         ];
 
-        $this->assertEquals($quotient, $matrix->divideByScalar(2)->toArray());
+        self::assertEquals($quotient, $matrix->divideByScalar(2)->toArray());
     }
 
     public function testThrowExceptionWhenInverseIfArrayIsNotSquare(): void
@@ -158,7 +157,7 @@ class MatrixTest extends TestCase
             [-1 / 2, 1 / 2, -1 / 2],
         ];
 
-        $this->assertEquals($inverseMatrix, $matrix->inverse()->toArray(), '', $delta = 0.0001);
+        self::assertEquals($inverseMatrix, $matrix->inverse()->toArray(), '', $delta = 0.0001);
     }
 
     public function testCrossOutMatrix(): void
@@ -174,14 +173,14 @@ class MatrixTest extends TestCase
             [1, 1],
         ];
 
-        $this->assertEquals($crossOuted, $matrix->crossOut(1, 1)->toArray());
+        self::assertEquals($crossOuted, $matrix->crossOut(1, 1)->toArray());
     }
 
     public function testToScalar(): void
     {
         $matrix = new Matrix([[1, 2, 3], [3, 2, 3]]);
 
-        $this->assertEquals($matrix->toScalar(), 1);
+        self::assertEquals($matrix->toScalar(), 1);
     }
 
     public function testMultiplyByScalar(): void
@@ -196,7 +195,7 @@ class MatrixTest extends TestCase
             [-4, -20, -40],
         ];
 
-        $this->assertEquals($result, $matrix->multiplyByScalar(-2)->toArray());
+        self::assertEquals($result, $matrix->multiplyByScalar(-2)->toArray());
     }
 
     public function testAdd(): void
@@ -208,7 +207,7 @@ class MatrixTest extends TestCase
         $m1 = new Matrix($array1);
         $m2 = new Matrix($array2);
 
-        $this->assertEquals($result, $m1->add($m2)->toArray()[0]);
+        self::assertEquals($result, $m1->add($m2)->toArray()[0]);
     }
 
     public function testSubtract(): void
@@ -220,7 +219,7 @@ class MatrixTest extends TestCase
         $m1 = new Matrix($array1);
         $m2 = new Matrix($array2);
 
-        $this->assertEquals($result, $m1->subtract($m2)->toArray()[0]);
+        self::assertEquals($result, $m1->subtract($m2)->toArray()[0]);
     }
 
     public function testTransposeArray(): void
@@ -235,7 +234,7 @@ class MatrixTest extends TestCase
             [1, 2],
         ];
 
-        $this->assertEquals($transposed, Matrix::transposeArray($array));
+        self::assertEquals($transposed, Matrix::transposeArray($array));
     }
 
     public function testDot(): void
@@ -244,12 +243,12 @@ class MatrixTest extends TestCase
         $vect2 = [3, 3, 3];
         $dot = [18];
 
-        $this->assertEquals($dot, Matrix::dot($vect1, $vect2));
+        self::assertEquals($dot, Matrix::dot($vect1, $vect2));
 
         $matrix1 = [[1, 1], [2, 2]];
         $matrix2 = [[3, 3], [3, 3], [3, 3]];
         $dot = [6, 12];
-        $this->assertEquals($dot, Matrix::dot($matrix2, $matrix1));
+        self::assertEquals($dot, Matrix::dot($matrix2, $matrix1));
     }
 
     /**
@@ -257,12 +256,10 @@ class MatrixTest extends TestCase
      */
     public function testFrobeniusNorm(array $matrix, float $norm): void
     {
-        $matrix = new Matrix($matrix);
-
-        $this->assertEquals($norm, $matrix->frobeniusNorm(), '', 0.0001);
+        self::assertEquals($norm, (new Matrix($matrix))->frobeniusNorm(), '', 0.0001);
     }
 
-    public function dataProviderForFrobeniusNorm()
+    public function dataProviderForFrobeniusNorm(): array
     {
         return [
             [

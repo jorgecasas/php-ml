@@ -35,7 +35,7 @@ SV
         $svm = new SupportVectorMachine(Type::C_SVC, Kernel::LINEAR, 100.0);
         $svm->train($samples, $labels);
 
-        $this->assertEquals($model, $svm->getModel());
+        self::assertEquals($model, $svm->getModel());
     }
 
     public function testTrainCSVCModelWithProbabilityEstimate(): void
@@ -59,8 +59,8 @@ SV
         );
         $svm->train($samples, $labels);
 
-        $this->assertContains(PHP_EOL.'probA ', $svm->getModel());
-        $this->assertContains(PHP_EOL.'probB ', $svm->getModel());
+        self::assertContains(PHP_EOL.'probA ', $svm->getModel());
+        self::assertContains(PHP_EOL.'probB ', $svm->getModel());
     }
 
     public function testPredictSampleWithLinearKernel(): void
@@ -77,9 +77,9 @@ SV
             [4, -5],
         ]);
 
-        $this->assertEquals('b', $predictions[0]);
-        $this->assertEquals('a', $predictions[1]);
-        $this->assertEquals('b', $predictions[2]);
+        self::assertEquals('b', $predictions[0]);
+        self::assertEquals('a', $predictions[1]);
+        self::assertEquals('b', $predictions[2]);
     }
 
     public function testPredictSampleFromMultipleClassWithRbfKernel(): void
@@ -104,9 +104,9 @@ SV
             [-4, -3],
         ]);
 
-        $this->assertEquals('a', $predictions[0]);
-        $this->assertEquals('b', $predictions[1]);
-        $this->assertEquals('c', $predictions[2]);
+        self::assertEquals('a', $predictions[0]);
+        self::assertEquals('b', $predictions[1]);
+        self::assertEquals('c', $predictions[2]);
     }
 
     public function testPredictProbability(): void
@@ -136,12 +136,12 @@ SV
             [4, -5],
         ]);
 
-        $this->assertTrue($predictions[0]['a'] < $predictions[0]['b']);
-        $this->assertTrue($predictions[1]['a'] > $predictions[1]['b']);
-        $this->assertTrue($predictions[2]['a'] < $predictions[2]['b']);
+        self::assertTrue($predictions[0]['a'] < $predictions[0]['b']);
+        self::assertTrue($predictions[1]['a'] > $predictions[1]['b']);
+        self::assertTrue($predictions[2]['a'] < $predictions[2]['b']);
 
         // Should be true because the latter is farther from the decision boundary
-        $this->assertTrue($predictions[0]['b'] < $predictions[2]['b']);
+        self::assertTrue($predictions[0]['b'] < $predictions[2]['b']);
     }
 
     public function testThrowExceptionWhenVarPathIsNotWritable(): void

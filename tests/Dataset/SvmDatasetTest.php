@@ -21,8 +21,8 @@ class SvmDatasetTest extends TestCase
         $expectedTargets = [
         ];
 
-        $this->assertEquals($expectedSamples, $dataset->getSamples());
-        $this->assertEquals($expectedTargets, $dataset->getTargets());
+        self::assertEquals($expectedSamples, $dataset->getSamples());
+        self::assertEquals($expectedTargets, $dataset->getTargets());
     }
 
     public function testSvmDataset1x1(): void
@@ -37,8 +37,8 @@ class SvmDatasetTest extends TestCase
             0,
         ];
 
-        $this->assertEquals($expectedSamples, $dataset->getSamples());
-        $this->assertEquals($expectedTargets, $dataset->getTargets());
+        self::assertEquals($expectedSamples, $dataset->getSamples());
+        self::assertEquals($expectedTargets, $dataset->getTargets());
     }
 
     public function testSvmDataset3x1(): void
@@ -57,8 +57,8 @@ class SvmDatasetTest extends TestCase
             1,
         ];
 
-        $this->assertEquals($expectedSamples, $dataset->getSamples());
-        $this->assertEquals($expectedTargets, $dataset->getTargets());
+        self::assertEquals($expectedSamples, $dataset->getSamples());
+        self::assertEquals($expectedTargets, $dataset->getTargets());
     }
 
     public function testSvmDataset3x4(): void
@@ -77,8 +77,8 @@ class SvmDatasetTest extends TestCase
             0,
         ];
 
-        $this->assertEquals($expectedSamples, $dataset->getSamples());
-        $this->assertEquals($expectedTargets, $dataset->getTargets());
+        self::assertEquals($expectedSamples, $dataset->getSamples());
+        self::assertEquals($expectedTargets, $dataset->getTargets());
     }
 
     public function testSvmDatasetSparse(): void
@@ -95,8 +95,8 @@ class SvmDatasetTest extends TestCase
             1,
         ];
 
-        $this->assertEquals($expectedSamples, $dataset->getSamples());
-        $this->assertEquals($expectedTargets, $dataset->getTargets());
+        self::assertEquals($expectedSamples, $dataset->getSamples());
+        self::assertEquals($expectedTargets, $dataset->getTargets());
     }
 
     public function testSvmDatasetComments(): void
@@ -113,8 +113,8 @@ class SvmDatasetTest extends TestCase
             1,
         ];
 
-        $this->assertEquals($expectedSamples, $dataset->getSamples());
-        $this->assertEquals($expectedTargets, $dataset->getTargets());
+        self::assertEquals($expectedSamples, $dataset->getSamples());
+        self::assertEquals($expectedTargets, $dataset->getTargets());
     }
 
     public function testSvmDatasetTabs(): void
@@ -129,8 +129,8 @@ class SvmDatasetTest extends TestCase
             1,
         ];
 
-        $this->assertEquals($expectedSamples, $dataset->getSamples());
-        $this->assertEquals($expectedTargets, $dataset->getTargets());
+        self::assertEquals($expectedSamples, $dataset->getSamples());
+        self::assertEquals($expectedTargets, $dataset->getTargets());
     }
 
     public function testSvmDatasetMissingFile(): void

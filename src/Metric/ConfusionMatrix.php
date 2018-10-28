@@ -8,13 +8,13 @@ class ConfusionMatrix
 {
     public static function compute(array $actualLabels, array $predictedLabels, array $labels = []): array
     {
-        $labels = !empty($labels) ? array_flip($labels) : self::getUniqueLabels($actualLabels);
+        $labels = count($labels) === 0 ? self::getUniqueLabels($actualLabels) : array_flip($labels);
         $matrix = self::generateMatrixWithZeros($labels);
 
         foreach ($actualLabels as $index => $actual) {
             $predicted = $predictedLabels[$index];
 
-            if (!isset($labels[$actual]) || !isset($labels[$predicted])) {
+            if (!isset($labels[$actual], $labels[$predicted])) {
                 continue;
             }
 

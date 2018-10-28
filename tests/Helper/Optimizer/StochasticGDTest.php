@@ -32,7 +32,7 @@ class StochasticGDTest extends TestCase
 
         $theta = $optimizer->runOptimization($samples, $targets, $callback);
 
-        $this->assertEquals([-1, 2], $theta, '', 0.1);
+        self::assertEquals([-1, 2], $theta, '', 0.1);
     }
 
     public function testRunOptimization2Dim(): void
@@ -60,6 +60,6 @@ class StochasticGDTest extends TestCase
 
         $theta = $optimizer->runOptimization($samples, $targets, $callback);
 
-        $this->assertEquals([-1, 2, -3], $theta, '', 0.1);
+        self::assertEquals([-1, 2, -3], $theta, '', 0.1);
     }
 }

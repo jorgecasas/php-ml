@@ -21,7 +21,7 @@ class SVRTest extends TestCase
         $regression = new SVR(Kernel::LINEAR);
         $regression->train($samples, $targets);
 
-        $this->assertEquals(4.03, $regression->predict([64]), '', $delta);
+        self::assertEquals(4.03, $regression->predict([64]), '', $delta);
     }
 
     public function testPredictMultiFeaturesSamples(): void
@@ -34,7 +34,7 @@ class SVRTest extends TestCase
         $regression = new SVR(Kernel::LINEAR);
         $regression->train($samples, $targets);
 
-        $this->assertEquals([4109.82, 4112.28], $regression->predict([[60000, 1996], [60000, 2000]]), '', $delta);
+        self::assertEquals([4109.82, 4112.28], $regression->predict([[60000, 1996], [60000, 2000]]), '', $delta);
     }
 
     public function testSaveAndRestore(): void
@@ -48,13 +48,13 @@ class SVRTest extends TestCase
         $testSamples = [64];
         $predicted = $regression->predict($testSamples);
 
-        $filename = 'svr-test'.random_int(100, 999).'-'.uniqid();
-        $filepath = tempnam(sys_get_temp_dir(), $filename);
+        $filename = 'svr-test'.random_int(100, 999).'-'.uniqid('', false);
+        $filepath = (string) tempnam(sys_get_temp_dir(), $filename);
         $modelManager = new ModelManager();
         $modelManager->saveToFile($regression, $filepath);
 
         $restoredRegression = $modelManager->restoreFromFile($filepath);
-        $this->assertEquals($regression, $restoredRegression);
-        $this->assertEquals($predicted, $restoredRegression->predict($testSamples));
+        self::assertEquals($regression, $restoredRegression);
+        self::assertEquals($predicted, $restoredRegression->predict($testSamples));
     }
 }

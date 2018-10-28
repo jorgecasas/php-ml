@@ -13,7 +13,7 @@ class ModelManagerTest extends TestCase
 {
     public function testSaveAndRestore(): void
     {
-        $filename = uniqid();
+        $filename = uniqid('', false);
         $filepath = sys_get_temp_dir().DIRECTORY_SEPARATOR.$filename;
 
         $estimator = new LeastSquares();
@@ -21,7 +21,7 @@ class ModelManagerTest extends TestCase
         $modelManager->saveToFile($estimator, $filepath);
 
         $restored = $modelManager->restoreFromFile($filepath);
-        $this->assertEquals($estimator, $restored);
+        self::assertEquals($estimator, $restored);
     }
 
     public function testRestoreWrongFile(): void

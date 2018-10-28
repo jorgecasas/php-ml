@@ -34,8 +34,7 @@ final class LUDecompositionTest extends TestCase
         $lu = new LUDecomposition(new Matrix([[1, 2], [3, 4]]));
         $L = $lu->getL();
 
-        $this->assertInstanceOf(Matrix::class, $L);
-        $this->assertSame([[1.0, 0.0], [0.3333333333333333, 1.0]], $L->toArray());
+        self::assertSame([[1.0, 0.0], [0.3333333333333333, 1.0]], $L->toArray());
     }
 
     public function testUpperTriangularFactor(): void
@@ -43,7 +42,6 @@ final class LUDecompositionTest extends TestCase
         $lu = new LUDecomposition(new Matrix([[1, 2], [3, 4]]));
         $U = $lu->getU();
 
-        $this->assertInstanceOf(Matrix::class, $U);
-        $this->assertSame([[3.0, 4.0], [0.0, 0.6666666666666667]], $U->toArray());
+        self::assertSame([[3.0, 4.0], [0.0, 0.6666666666666667]], $U->toArray());
     }
 }

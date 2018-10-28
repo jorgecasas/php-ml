@@ -15,7 +15,7 @@ class TfIdfTransformer implements Transformer
 
     public function __construct(array $samples = [])
     {
-        if (!empty($samples)) {
+        if (count($samples) > 0) {
             $this->fit($samples);
         }
     }

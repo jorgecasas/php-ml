@@ -20,7 +20,7 @@ class ComparisonTest extends TestCase
     {
         $result = Comparison::compare($a, $b, $operator);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     public function testThrowExceptionWhenOperatorIsInvalid(): void

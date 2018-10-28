@@ -27,7 +27,7 @@ class AccuracyTest extends TestCase
         $actualLabels = ['a', 'b', 'a', 'b'];
         $predictedLabels = ['a', 'a', 'b', 'b'];
 
-        $this->assertEquals(0.5, Accuracy::score($actualLabels, $predictedLabels));
+        self::assertEquals(0.5, Accuracy::score($actualLabels, $predictedLabels));
     }
 
     public function testCalculateNotNormalizedScore(): void
@@ -35,7 +35,7 @@ class AccuracyTest extends TestCase
         $actualLabels = ['a', 'b', 'a', 'b'];
         $predictedLabels = ['a', 'b', 'b', 'b'];
 
-        $this->assertEquals(3, Accuracy::score($actualLabels, $predictedLabels, false));
+        self::assertEquals(3, Accuracy::score($actualLabels, $predictedLabels, false));
     }
 
     public function testAccuracyOnDemoDataset(): void
@@ -51,6 +51,6 @@ class AccuracyTest extends TestCase
 
         $expected = PHP_VERSION_ID >= 70100 ? 1 : 0.959;
 
-        $this->assertEquals($expected, $accuracy, '', 0.01);
+        self::assertEquals($expected, $accuracy, '', 0.01);
     }
 }

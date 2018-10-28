@@ -11,12 +11,14 @@ class PReLUTest extends TestCase
 {
     /**
      * @dataProvider preluProvider
+     *
+     * @param float|int $value
      */
-    public function testPReLUActivationFunction($beta, $expected, $value): void
+    public function testPReLUActivationFunction(float $beta, float $expected, $value): void
     {
         $prelu = new PReLU($beta);
 
-        $this->assertEquals($expected, $prelu->compute($value), '', 0.001);
+        self::assertEquals($expected, $prelu->compute($value), '', 0.001);
     }
 
     public function preluProvider(): array
@@ -32,12 +34,14 @@ class PReLUTest extends TestCase
 
     /**
      * @dataProvider preluDerivativeProvider
+     *
+     * @param float|int $value
      */
-    public function testPReLUDerivative($beta, $expected, $value): void
+    public function testPReLUDerivative(float $beta, float $expected, $value): void
     {
         $prelu = new PReLU($beta);
         $activatedValue = $prelu->compute($value);
-        $this->assertEquals($expected, $prelu->differentiate($value, $activatedValue));
+        self::assertEquals($expected, $prelu->differentiate($value, $activatedValue));
     }
 
     public function preluDerivativeProvider(): array

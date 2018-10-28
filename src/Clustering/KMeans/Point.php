@@ -6,7 +6,7 @@ namespace Phpml\Clustering\KMeans;
 
 use ArrayAccess;
 
-class Point implements ArrayAccess
+class Point implements ArrayAccess, \Countable
 {
     /**
      * @var int
@@ -23,6 +23,9 @@ class Point implements ArrayAccess
      */
     protected $label;
 
+    /**
+     * @param mixed $label
+     */
     public function __construct(array $coordinates, $label = null)
     {
         $this->dimension = count($coordinates);
@@ -36,7 +39,7 @@ class Point implements ArrayAccess
     }
 
     /**
-     * @return int|mixed
+     * @return float|int
      */
     public function getDistanceWith(self $point, bool $precise = true)
     {
@@ -50,9 +53,9 @@ class Point implements ArrayAccess
     }
 
     /**
-     * @return mixed
+     * @param Point[] $points
      */
-    public function getClosest(array $points)
+    public function getClosest(array $points): ?self
     {
         $minPoint = null;
 
@@ -113,5 +116,10 @@ class Point implements ArrayAccess
     public function offsetUnset($offset): void
     {
         unset($this->coordinates[$offset]);
+    }
+
+    public function count(): int
+    {
+        return count($this->coordinates);
     }
 }

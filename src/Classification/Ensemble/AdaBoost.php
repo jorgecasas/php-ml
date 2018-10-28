@@ -100,7 +100,7 @@ class AdaBoost implements Classifier
     {
         // Initialize usual variables
         $this->labels = array_keys(array_count_values($targets));
-        if (count($this->labels) != 2) {
+        if (count($this->labels) !== 2) {
             throw new InvalidArgumentException('AdaBoost is a binary classifier and can classify between two classes only');
         }
 
@@ -159,13 +159,10 @@ class AdaBoost implements Classifier
     protected function getBestClassifier(): Classifier
     {
         $ref = new ReflectionClass($this->baseClassifier);
-        if (!empty($this->classifierOptions)) {
-            $classifier = $ref->newInstanceArgs($this->classifierOptions);
-        } else {
-            $classifier = $ref->newInstance();
-        }
+        /** @var Classifier $classifier */
+        $classifier = count($this->classifierOptions) === 0 ? $ref->newInstance() : $ref->newInstanceArgs($this->classifierOptions);
 
-        if (is_subclass_of($classifier, WeightedClassifier::class)) {
+        if ($classifier instanceof WeightedClassifier) {
             $classifier->setSampleWeights($this->weights);
             $classifier->train($this->samples, $this->targets);
         } else {

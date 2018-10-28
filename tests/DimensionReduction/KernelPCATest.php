@@ -40,7 +40,7 @@ class KernelPCATest extends TestCase
         // during the calculation of eigenValues, we have to compare
         // absolute value of the values
         array_map(function ($val1, $val2) use ($epsilon): void {
-            $this->assertEquals(abs($val1), abs($val2), '', $epsilon);
+            self::assertEquals(abs($val1), abs($val2), '', $epsilon);
         }, $transformed, $reducedData);
 
         // Fitted KernelPCA object can also transform an arbitrary sample of the
@@ -48,7 +48,7 @@ class KernelPCATest extends TestCase
         $newData = [1.25, 2.25];
         $newTransformed = [0.18956227539216];
         $newTransformed2 = $kpca->transform($newData);
-        $this->assertEquals(abs($newTransformed[0]), abs($newTransformed2[0]), '', $epsilon);
+        self::assertEquals(abs($newTransformed[0]), abs($newTransformed2[0]), '', $epsilon);
     }
 
     public function testKernelPCAThrowWhenKernelInvalid(): void

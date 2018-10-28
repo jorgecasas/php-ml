@@ -22,8 +22,8 @@ class CsvDatasetTest extends TestCase
 
         $dataset = new CsvDataset($filePath, 2, true);
 
-        $this->assertCount(10, $dataset->getSamples());
-        $this->assertCount(10, $dataset->getTargets());
+        self::assertCount(10, $dataset->getSamples());
+        self::assertCount(10, $dataset->getTargets());
     }
 
     public function testSampleCsvDatasetWithoutHeaderRow(): void
@@ -32,8 +32,8 @@ class CsvDatasetTest extends TestCase
 
         $dataset = new CsvDataset($filePath, 2, false);
 
-        $this->assertCount(11, $dataset->getSamples());
-        $this->assertCount(11, $dataset->getTargets());
+        self::assertCount(11, $dataset->getSamples());
+        self::assertCount(11, $dataset->getTargets());
     }
 
     public function testLongCsvDataset(): void
@@ -42,7 +42,7 @@ class CsvDatasetTest extends TestCase
 
         $dataset = new CsvDataset($filePath, 1000, false);
 
-        $this->assertCount(1000, $dataset->getSamples()[0]);
-        $this->assertEquals('label', $dataset->getTargets()[0]);
+        self::assertCount(1000, $dataset->getSamples()[0]);
+        self::assertEquals('label', $dataset->getTargets()[0]);
     }
 }

@@ -142,9 +142,9 @@ class ClassificationReport
 
     private function computeMicroAverage(): void
     {
-        $truePositive = array_sum($this->truePositive);
-        $falsePositive = array_sum($this->falsePositive);
-        $falseNegative = array_sum($this->falseNegative);
+        $truePositive = (int) array_sum($this->truePositive);
+        $falsePositive = (int) array_sum($this->falsePositive);
+        $falseNegative = (int) array_sum($this->falseNegative);
 
         $precision = $this->computePrecision($truePositive, $falsePositive);
         $recall = $this->computeRecall($truePositive, $falseNegative);
@@ -227,6 +227,6 @@ class ClassificationReport
         $labels = array_values(array_unique(array_merge($actualLabels, $predictedLabels)));
         sort($labels);
 
-        return array_combine($labels, array_fill(0, count($labels), 0));
+        return (array) array_combine($labels, array_fill(0, count($labels), 0));
     }
 }

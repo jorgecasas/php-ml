@@ -3,25 +3,25 @@
 declare(strict_types=1);
 
 /**
- *	Class to obtain eigenvalues and eigenvectors of a real matrix.
+ * Class to obtain eigenvalues and eigenvectors of a real matrix.
  *
- *	If A is symmetric, then A = V*D*V' where the eigenvalue matrix D
- *	is diagonal and the eigenvector matrix V is orthogonal (i.e.
- *	A = V.times(D.times(V.transpose())) and V.times(V.transpose())
- *	equals the identity matrix).
+ * If A is symmetric, then A = V*D*V' where the eigenvalue matrix D
+ * is diagonal and the eigenvector matrix V is orthogonal (i.e.
+ * A = V.times(D.times(V.transpose())) and V.times(V.transpose())
+ * equals the identity matrix).
  *
- *	If A is not symmetric, then the eigenvalue matrix D is block diagonal
- *	with the real eigenvalues in 1-by-1 blocks and any complex eigenvalues,
- *	lambda + i*mu, in 2-by-2 blocks, [lambda, mu; -mu, lambda].  The
- *	columns of V represent the eigenvectors in the sense that A*V = V*D,
- *	i.e. A.times(V) equals V.times(D).  The matrix V may be badly
- *	conditioned, or even singular, so the validity of the equation
- *	A = V*D*inverse(V) depends upon V.cond().
+ * If A is not symmetric, then the eigenvalue matrix D is block diagonal
+ * with the real eigenvalues in 1-by-1 blocks and any complex eigenvalues,
+ * lambda + i*mu, in 2-by-2 blocks, [lambda, mu; -mu, lambda].  The
+ * columns of V represent the eigenvectors in the sense that A*V = V*D,
+ * i.e. A.times(V) equals V.times(D).  The matrix V may be badly
+ * conditioned, or even singular, so the validity of the equation
+ * A = V*D*inverse(V) depends upon V.cond().
  *
- *	@author Paul Meagher
- *	@license PHP v3.0
+ * @author Paul Meagher
+ * @license PHP v3.0
  *
- *	@version 1.1
+ * @version 1.1
  *
  *  Slightly changed to adapt the original code to PHP-ML library
  *  @date 2017/04/11
@@ -36,83 +36,79 @@ use Phpml\Math\Matrix;
 class EigenvalueDecomposition
 {
     /**
-     *	Row and column dimension (square matrix).
+     * Row and column dimension (square matrix).
      *
-     *	@var int
+     * @var int
      */
     private $n;
 
     /**
-     *	Internal symmetry flag.
+     * Arrays for internal storage of eigenvalues.
      *
-     *	@var bool
-     */
-    private $symmetric;
-
-    /**
-     *	Arrays for internal storage of eigenvalues.
-     *
-     *	@var array
+     * @var array
      */
     private $d = [];
 
+    /**
+     * @var array
+     */
     private $e = [];
 
     /**
-     *	Array for internal storage of eigenvectors.
+     * Array for internal storage of eigenvectors.
      *
-     *	@var array
+     * @var array
      */
     private $V = [];
 
     /**
-     *	Array for internal storage of nonsymmetric Hessenberg form.
+     * Array for internal storage of nonsymmetric Hessenberg form.
      *
-     *	@var array
+     * @var array
      */
     private $H = [];
 
     /**
-     *	Working storage for nonsymmetric algorithm.
+     * Working storage for nonsymmetric algorithm.
      *
-     *	@var array
+     * @var array
      */
     private $ort = [];
 
     /**
-     *	Used for complex scalar division.
+     * Used for complex scalar division.
      *
-     *	@var float
+     * @var float
      */
     private $cdivr;
 
+    /**
+     * @var float
+     */
     private $cdivi;
 
-    private $A;
-
     /**
-     *	Constructor: Check for symmetry, then construct the eigenvalue decomposition
+     * Constructor: Check for symmetry, then construct the eigenvalue decomposition
      */
-    public function __construct(array $Arg)
+    public function __construct(array $arg)
     {
-        $this->A = $Arg;
-        $this->n = count($Arg[0]);
-        $this->symmetric = true;
+        $this->n = count($arg[0]);
+        $symmetric = true;
 
-        for ($j = 0; ($j < $this->n) & $this->symmetric; ++$j) {
-            for ($i = 0; ($i < $this->n) & $this->symmetric; ++$i) {
-                $this->symmetric = ($this->A[$i][$j] == $this->A[$j][$i]);
+        for ($j = 0; ($j < $this->n) & $symmetric; ++$j) {
+            for ($i = 0; ($i < $this->n) & $symmetric; ++$i) {
+                $symmetric = $arg[$i][$j] == $arg[$j][$i];
             }
         }
 
-        if ($this->symmetric) {
-            $this->V = $this->A;
+        if ($symmetric) {
+            $this->V = $arg;
             // Tridiagonalize.
             $this->tred2();
             // Diagonalize.
             $this->tql2();
         } else {
-            $this->H = $this->A;
+            $this->H = $arg;
             $this->ort = [];
             // Reduce to Hessenberg form.
             $this->orthes();
@@ -148,7 +144,7 @@ class EigenvalueDecomposition
     }
 
     /**
-     *	Return the real parts of the eigenvalues<br>
+     * Return the real parts of the eigenvalues<br>
      *  d = real(diag(D));
      */
     public function getRealEigenvalues(): array
@@ -157,7 +153,7 @@ class EigenvalueDecomposition
     }
 
     /**
-     *	Return the imaginary parts of the eigenvalues <br>
+     * Return the imaginary parts of the eigenvalues <br>
      *  d = imag(diag(D))
      */
     public function getImagEigenvalues(): array
@@ -166,7 +162,7 @@ class EigenvalueDecomposition
     }
 
     /**
-     *	Return the block diagonal eigenvalue matrix
+     * Return the block diagonal eigenvalue matrix
      */
     public function getDiagonalEigenvalues(): array
     {
@@ -187,7 +183,7 @@ class EigenvalueDecomposition
     }
 
     /**
-     *	Symmetric Householder reduction to tridiagonal form.
+     * Symmetric Householder reduction to tridiagonal form.
      */
     private function tred2(): void
     {
@@ -308,12 +304,12 @@ class EigenvalueDecomposition
     }
 
     /**
-     *	Symmetric tridiagonal QL algorithm.
+     * Symmetric tridiagonal QL algorithm.
      *
-     *	This is derived from the Algol procedures tql2, by
-     *	Bowdler, Martin, Reinsch, and Wilkinson, Handbook for
-     *	Auto. Comp., Vol.ii-Linear Algebra, and the corresponding
-     *	Fortran subroutine in EISPACK.
+     * This is derived from the Algol procedures tql2, by
+     * Bowdler, Martin, Reinsch, and Wilkinson, Handbook for
+     * Auto. Comp., Vol.ii-Linear Algebra, and the corresponding
+     * Fortran subroutine in EISPACK.
      */
     private function tql2(): void
     {
@@ -341,10 +337,7 @@ class EigenvalueDecomposition
             // If m == l, $this->d[l] is an eigenvalue,
             // otherwise, iterate.
             if ($m > $l) {
-                $iter = 0;
                 do {
-                    // Could check iteration count here.
-                    ++$iter;
                     // Compute implicit shift
                     $g = $this->d[$l];
                     $p = ($this->d[$l + 1] - $g) / (2.0 * $this->e[$l]);
@@ -423,12 +416,12 @@ class EigenvalueDecomposition
     }
 
     /**
-     *	Nonsymmetric reduction to Hessenberg form.
+     * Nonsymmetric reduction to Hessenberg form.
      *
-     *	This is derived from the Algol procedures orthes and ortran,
-     *	by Martin and Wilkinson, Handbook for Auto. Comp.,
-     *	Vol.ii-Linear Algebra, and the corresponding
-     *	Fortran subroutines in EISPACK.
+     * This is derived from the Algol procedures orthes and ortran,
+     * by Martin and Wilkinson, Handbook for Auto. Comp.,
+     * Vol.ii-Linear Algebra, and the corresponding
+     * Fortran subroutines in EISPACK.
      */
     private function orthes(): void
     {
@@ -541,12 +534,12 @@ class EigenvalueDecomposition
     }
 
     /**
-     *	Nonsymmetric reduction from Hessenberg to real Schur form.
+     * Nonsymmetric reduction from Hessenberg to real Schur form.
      *
-     *	Code is derived from the Algol procedure hqr2,
-     *	by Martin and Wilkinson, Handbook for Auto. Comp.,
-     *	Vol.ii-Linear Algebra, and the corresponding
-     *	Fortran subroutine in EISPACK.
+     * Code is derived from the Algol procedure hqr2,
+     * by Martin and Wilkinson, Handbook for Auto. Comp.,
+     * Vol.ii-Linear Algebra, and the corresponding
+     * Fortran subroutine in EISPACK.
      */
     private function hqr2(): void
     {
@@ -911,7 +904,7 @@ class EigenvalueDecomposition
                             $y = $this->H[$i + 1][$i];
                             $vr = ($this->d[$i] - $p) * ($this->d[$i] - $p) + $this->e[$i] * $this->e[$i] - $q * $q;
                             $vi = ($this->d[$i] - $p) * 2.0 * $q;
-                            if ($vr == 0.0 & $vi == 0.0) {
+                            if ($vr == 0.0 && $vi == 0.0) {
                                 $vr = $eps * $norm * (abs($w) + abs($q) + abs($x) + abs($y) + abs($z));
                             }
 
@@ -943,7 +936,7 @@ class EigenvalueDecomposition
 
         // Vectors of isolated roots
         for ($i = 0; $i < $nn; ++$i) {
-            if ($i < $low | $i > $high) {
+            if ($i < $low || $i > $high) {
                 for ($j = $i; $j < $nn; ++$j) {
                     $this->V[$i][$j] = $this->H[$i][$j];
                 }

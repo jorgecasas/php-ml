@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Phpml\DimensionReduction;
 
 use Closure;
-use Exception;
 use Phpml\Exception\InvalidArgumentException;
 use Phpml\Exception\InvalidOperationException;
 use Phpml\Math\Distance\Euclidean;
@@ -59,8 +58,7 @@ class KernelPCA extends PCA
      */
     public function __construct(int $kernel = self::KERNEL_RBF, ?float $totalVariance = null, ?int $numFeatures = null, ?float $gamma = null)
     {
-        $availableKernels = [self::KERNEL_RBF, self::KERNEL_SIGMOID, self::KERNEL_LAPLACIAN, self::KERNEL_LINEAR];
-        if (!in_array($kernel, $availableKernels, true)) {
+        if (!in_array($kernel, [self::KERNEL_RBF, self::KERNEL_SIGMOID, self::KERNEL_LAPLACIAN, self::KERNEL_LINEAR], true)) {
             throw new InvalidArgumentException('KernelPCA can be initialized with the following kernels only: Linear, RBF, Sigmoid and Laplacian');
         }
 
@@ -190,7 +188,7 @@ class KernelPCA extends PCA
                 return function ($x, $y) {
                     $res = Matrix::dot($x, $y)[0] + 1.0;
 
-                    return tanh($this->gamma * $res);
+                    return tanh((float) $this->gamma * $res);
                 };
 
             case self::KERNEL_LAPLACIAN:
@@ -203,7 +201,7 @@ class KernelPCA extends PCA
 
             default:
                 // Not reached
-                throw new Exception(sprintf('KernelPCA initialized with invalid kernel: %d', $this->kernel));
+                throw new InvalidArgumentException(sprintf('KernelPCA initialized with invalid kernel: %d', $this->kernel));
         }
     }
 

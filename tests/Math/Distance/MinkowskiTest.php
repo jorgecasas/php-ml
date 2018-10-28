@@ -36,7 +36,7 @@ class MinkowskiTest extends TestCase
         $expectedDistance = 2;
         $actualDistance = $this->distanceMetric->distance($a, $b);
 
-        $this->assertEquals($expectedDistance, $actualDistance);
+        self::assertEquals($expectedDistance, $actualDistance);
     }
 
     public function testCalculateDistanceForTwoDimensions(): void
@@ -47,7 +47,7 @@ class MinkowskiTest extends TestCase
         $expectedDistance = 2.080;
         $actualDistance = $this->distanceMetric->distance($a, $b);
 
-        $this->assertEquals($expectedDistance, $actualDistance, '', $delta = 0.001);
+        self::assertEquals($expectedDistance, $actualDistance, '', $delta = 0.001);
     }
 
     public function testCalculateDistanceForThreeDimensions(): void
@@ -58,7 +58,7 @@ class MinkowskiTest extends TestCase
         $expectedDistance = 5.819;
         $actualDistance = $this->distanceMetric->distance($a, $b);
 
-        $this->assertEquals($expectedDistance, $actualDistance, '', $delta = 0.001);
+        self::assertEquals($expectedDistance, $actualDistance, '', $delta = 0.001);
     }
 
     public function testCalculateDistanceForThreeDimensionsWithDifferentLambda(): void
@@ -71,6 +71,6 @@ class MinkowskiTest extends TestCase
         $expectedDistance = 5.300;
         $actualDistance = $distanceMetric->distance($a, $b);
 
-        $this->assertEquals($expectedDistance, $actualDistance, '', $delta = 0.001);
+        self::assertEquals($expectedDistance, $actualDistance, '', $delta = 0.001);
     }
 }

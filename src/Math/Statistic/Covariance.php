@@ -15,11 +15,11 @@ class Covariance
      */
     public static function fromXYArrays(array $x, array $y, bool $sample = true, ?float $meanX = null, ?float $meanY = null): float
     {
-        if (empty($x) || empty($y)) {
+        $n = count($x);
+        if ($n === 0 || count($y) === 0) {
             throw new InvalidArgumentException('The array has zero elements');
         }
 
-        $n = count($x);
         if ($sample && $n === 1) {
             throw new InvalidArgumentException('The array must have at least 2 elements');
         }
@@ -53,7 +53,7 @@ class Covariance
      */
     public static function fromDataset(array $data, int $i, int $k, bool $sample = true, ?float $meanX = null, ?float $meanY = null): float
     {
-        if (empty($data)) {
+        if (count($data) === 0) {
             throw new InvalidArgumentException('The array has zero elements');
         }
 
@@ -87,7 +87,7 @@ class Covariance
             // with a slight cost of CPU utilization.
             $sum = 0.0;
             foreach ($data as $row) {
-                $val = [];
+                $val = [0, 0];
                 foreach ($row as $index => $col) {
                     if ($index == $i) {
                         $val[0] = $col - $meanX;

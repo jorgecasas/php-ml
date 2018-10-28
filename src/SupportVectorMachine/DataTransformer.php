@@ -26,7 +26,7 @@ class DataTransformer
 
     public static function testSet(array $samples): string
     {
-        if (empty($samples)) {
+        if (count($samples) === 0) {
             throw new InvalidArgumentException('The array has zero elements');
         }
 
@@ -62,7 +62,7 @@ class DataTransformer
         $predictions = explode(PHP_EOL, trim($rawPredictions));
 
         $header = array_shift($predictions);
-        $headerColumns = explode(' ', $header);
+        $headerColumns = explode(' ', (string) $header);
         array_shift($headerColumns);
 
         $columnLabels = [];

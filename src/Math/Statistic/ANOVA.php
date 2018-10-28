@@ -31,7 +31,7 @@ final class ANOVA
         $samplesPerClass = array_map(function (array $class): int {
             return count($class);
         }, $samples);
-        $allSamples = array_sum($samplesPerClass);
+        $allSamples = (int) array_sum($samplesPerClass);
         $ssAllSamples = self::sumOfSquaresPerFeature($samples);
         $sumSamples = self::sumOfFeaturesPerClass($samples);
         $squareSumSamples = self::sumOfSquares($sumSamples);

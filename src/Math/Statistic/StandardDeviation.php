@@ -13,11 +13,10 @@ class StandardDeviation
      */
     public static function population(array $numbers, bool $sample = true): float
     {
-        if (empty($numbers)) {
+        $n = count($numbers);
+        if ($n === 0) {
             throw new InvalidArgumentException('The array has zero elements');
         }
-
-        $n = count($numbers);
 
         if ($sample && $n === 1) {
             throw new InvalidArgumentException('The array must have at least 2 elements');
@@ -33,7 +32,7 @@ class StandardDeviation
             --$n;
         }
 
-        return sqrt((float) ($carry / $n));
+        return sqrt($carry / $n);
     }
 
     /**
@@ -44,7 +43,7 @@ class StandardDeviation
      */
     public static function sumOfSquares(array $numbers): float
     {
-        if (empty($numbers)) {
+        if (count($numbers) === 0) {
             throw new InvalidArgumentException('The array has zero elements');
         }
 

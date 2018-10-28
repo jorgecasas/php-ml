@@ -165,7 +165,7 @@ class SupportVectorMachine
             );
         }
 
-        $this->model = file_get_contents($modelFileName);
+        $this->model = (string) file_get_contents($modelFileName);
 
         unlink($modelFileName);
     }
@@ -241,7 +241,7 @@ class SupportVectorMachine
 
         unlink($testSetFileName);
         unlink($modelFileName);
-        $predictions = file_get_contents($outputFileName);
+        $predictions = (string) file_get_contents($outputFileName);
 
         unlink($outputFileName);
 

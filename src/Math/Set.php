@@ -131,7 +131,7 @@ class Set implements IteratorAggregate
      */
     public function containsAll(array $elements): bool
     {
-        return !array_diff($elements, $this->elements);
+        return count(array_diff($elements, $this->elements)) === 0;
     }
 
     /**
@@ -149,7 +149,7 @@ class Set implements IteratorAggregate
 
     public function isEmpty(): bool
     {
-        return $this->cardinality() == 0;
+        return $this->cardinality() === 0;
     }
 
     public function cardinality(): int

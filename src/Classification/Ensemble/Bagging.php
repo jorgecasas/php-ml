@@ -52,16 +52,6 @@ class Bagging implements Classifier
     protected $subsetRatio = 0.7;
 
     /**
-     * @var array
-     */
-    private $targets = [];
-
-    /**
-     * @var array
-     */
-    private $samples = [];
-
-    /**
      * Creates an ensemble classifier with given number of base classifiers
      * Default number of base classifiers is 50.
      * The more number of base classifiers, the better performance but at the cost of procesing time
@@ -146,11 +136,8 @@ class Bagging implements Classifier
         $classifiers = [];
         for ($i = 0; $i < $this->numClassifier; ++$i) {
             $ref = new ReflectionClass($this->classifier);
-            if (!empty($this->classifierOptions)) {
-                $obj = $ref->newInstanceArgs($this->classifierOptions);
-            } else {
-                $obj = $ref->newInstance();
-            }
+            /** @var Classifier $obj */
+            $obj = count($this->classifierOptions) === 0 ? $ref->newInstance() : $ref->newInstanceArgs($this->classifierOptions);
 
             $classifiers[] = $this->initSingleClassifier($obj);
         }

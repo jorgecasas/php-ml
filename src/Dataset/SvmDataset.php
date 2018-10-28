@@ -23,8 +23,8 @@ class SvmDataset extends ArrayDataset
         $samples = [];
         $targets = [];
         $maxIndex = 0;
-        while (($line = fgets($handle)) !== false) {
-            [$sample, $target, $maxIndex] = self::processLine($line, $maxIndex);
+        while (false !== $line = fgets($handle)) {
+            [$sample, $target, $maxIndex] = self::processLine((string) $line, $maxIndex);
             $samples[] = $sample;
             $targets[] = $target;
         }
@@ -38,6 +38,9 @@ class SvmDataset extends ArrayDataset
         return [$samples, $targets];
     }
 
+    /**
+     * @return resource
+     */
     private static function openFile(string $filePath)
     {
         if (!file_exists($filePath)) {

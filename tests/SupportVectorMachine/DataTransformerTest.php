@@ -22,7 +22,7 @@ class DataTransformerTest extends TestCase
             '1 1:4.000000 2:5.000000 '.PHP_EOL
         ;
 
-        $this->assertEquals($trainingSet, DataTransformer::trainingSet($samples, $labels));
+        self::assertEquals($trainingSet, DataTransformer::trainingSet($samples, $labels));
     }
 
     public function testTransformSamplesToTestSet(): void
@@ -36,7 +36,7 @@ class DataTransformerTest extends TestCase
             '0 1:4.000000 2:5.000000 '.PHP_EOL
         ;
 
-        $this->assertEquals($testSet, DataTransformer::testSet($samples));
+        self::assertEquals($testSet, DataTransformer::testSet($samples));
     }
 
     public function testPredictions(): void
@@ -46,7 +46,7 @@ class DataTransformerTest extends TestCase
 
         $predictions = ['a', 'b', 'a', 'a'];
 
-        $this->assertEquals($predictions, DataTransformer::predictions($rawPredictions, $labels));
+        self::assertEquals($predictions, DataTransformer::predictions($rawPredictions, $labels));
     }
 
     public function testProbabilities(): void
@@ -77,7 +77,7 @@ class DataTransformerTest extends TestCase
             ],
         ];
 
-        $this->assertEquals($probabilities, DataTransformer::probabilities($rawPredictions, $labels));
+        self::assertEquals($probabilities, DataTransformer::probabilities($rawPredictions, $labels));
     }
 
     public function testThrowExceptionWhenTestSetIsEmpty(): void

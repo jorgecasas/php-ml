@@ -13,6 +13,6 @@ class BiasTest extends TestCase
     {
         $bias = new Bias();
 
-        $this->assertEquals(1.0, $bias->getOutput());
+        self::assertEquals(1.0, $bias->getOutput());
     }
 }

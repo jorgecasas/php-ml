@@ -119,13 +119,13 @@ class DecisionStump extends WeightedClassifier
 
         // Check the size of the weights given.
         // If none given, then assign 1 as a weight to each sample
-        if (!empty($this->weights)) {
+        if (count($this->weights) === 0) {
+            $this->weights = array_fill(0, count($samples), 1);
+        } else {
             $numWeights = count($this->weights);
-            if ($numWeights != count($samples)) {
+            if ($numWeights !== count($samples)) {
                 throw new InvalidArgumentException('Number of sample weights does not match with number of samples');
             }
-        } else {
-            $this->weights = array_fill(0, count($samples), 1);
         }
 
         // Determine type of each column as either "continuous" or "nominal"
@@ -134,7 +134,7 @@ class DecisionStump extends WeightedClassifier
         // Try to find the best split in the columns of the dataset
         // by calculating error rate for each split point in each column
         $columns = range(0, count($samples[0]) - 1);
-        if ($this->givenColumnIndex != self::AUTO_SELECT) {
+        if ($this->givenColumnIndex !== self::AUTO_SELECT) {
             $columns = [$this->givenColumnIndex];
         }
 
@@ -184,7 +184,7 @@ class DecisionStump extends WeightedClassifier
             // the average value for the cut point
             $threshold = array_sum($values) / (float) count($values);
             [$errorRate, $prob] = $this->calculateErrorRate($targets, $threshold, $operator, $values);
-            if ($split === [] || $errorRate < $split['trainingErrorRate']) {
+            if (!isset($split['trainingErrorRate']) || $errorRate < $split['trainingErrorRate']) {
                 $split = [
                     'value' => $threshold,
                     'operator' => $operator,
@@ -224,8 +224,7 @@ class DecisionStump extends WeightedClassifier
         foreach (['=', '!='] as $operator) {
             foreach ($distinctVals as $val) {
                 [$errorRate, $prob] = $this->calculateErrorRate($targets, $val, $operator, $values);
-
-                if ($split === [] || $split['trainingErrorRate'] < $errorRate) {
+                if (!isset($split['trainingErrorRate']) || $split['trainingErrorRate'] < $errorRate) {
                     $split = [
                         'value' => $val,
                         'operator' => $operator,

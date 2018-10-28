@@ -17,7 +17,7 @@ class KMeansTest extends TestCase
         $kmeans = new KMeans(2);
         $clusters = $kmeans->cluster($samples);
 
-        $this->assertCount(2, $clusters);
+        self::assertCount(2, $clusters);
 
         foreach ($samples as $index => $sample) {
             if (in_array($sample, $clusters[0], true) || in_array($sample, $clusters[1], true)) {
@@ -25,7 +25,7 @@ class KMeansTest extends TestCase
             }
         }
 
-        $this->assertCount(0, $samples);
+        self::assertCount(0, $samples);
     }
 
     public function testKMeansSamplesLabeledClustering(): void
@@ -42,16 +42,16 @@ class KMeansTest extends TestCase
         $kmeans = new KMeans(2);
         $clusters = $kmeans->cluster($samples);
 
-        $this->assertCount(2, $clusters);
+        self::assertCount(2, $clusters);
 
         foreach ($samples as $index => $sample) {
             if (in_array($sample, $clusters[0], true) || in_array($sample, $clusters[1], true)) {
-                $this->assertArrayHasKey($index, $clusters[0] + $clusters[1]);
+                self::assertArrayHasKey($index, $clusters[0] + $clusters[1]);
                 unset($samples[$index]);
             }
         }
 
-        $this->assertCount(0, $samples);
+        self::assertCount(0, $samples);
     }
 
     public function testKMeansInitializationMethods(): void
@@ -71,11 +71,11 @@ class KMeansTest extends TestCase
 
         $kmeans = new KMeans(4, KMeans::INIT_KMEANS_PLUS_PLUS);
         $clusters = $kmeans->cluster($samples);
-        $this->assertCount(4, $clusters);
+        self::assertCount(4, $clusters);
 
         $kmeans = new KMeans(4, KMeans::INIT_RANDOM);
         $clusters = $kmeans->cluster($samples);
-        $this->assertCount(4, $clusters);
+        self::assertCount(4, $clusters);
     }
 
     public function testThrowExceptionOnInvalidClusterNumber(): void

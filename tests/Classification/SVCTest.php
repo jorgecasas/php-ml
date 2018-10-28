@@ -19,15 +19,15 @@ class SVCTest extends TestCase
         $classifier = new SVC(Kernel::LINEAR, $cost = 1000);
         $classifier->train($samples, $labels);
 
-        $this->assertEquals('b', $classifier->predict([3, 2]));
-        $this->assertEquals('b', $classifier->predict([5, 1]));
-        $this->assertEquals('b', $classifier->predict([4, 3]));
-        $this->assertEquals('b', $classifier->predict([4, -5]));
+        self::assertEquals('b', $classifier->predict([3, 2]));
+        self::assertEquals('b', $classifier->predict([5, 1]));
+        self::assertEquals('b', $classifier->predict([4, 3]));
+        self::assertEquals('b', $classifier->predict([4, -5]));
 
-        $this->assertEquals('a', $classifier->predict([2, 3]));
-        $this->assertEquals('a', $classifier->predict([1, 2]));
-        $this->assertEquals('a', $classifier->predict([1, 5]));
-        $this->assertEquals('a', $classifier->predict([3, 10]));
+        self::assertEquals('a', $classifier->predict([2, 3]));
+        self::assertEquals('a', $classifier->predict([1, 2]));
+        self::assertEquals('a', $classifier->predict([1, 5]));
+        self::assertEquals('a', $classifier->predict([3, 10]));
     }
 
     public function testPredictArrayOfSamplesWithLinearKernel(): void
@@ -42,7 +42,7 @@ class SVCTest extends TestCase
         $classifier->train($trainSamples, $trainLabels);
         $predictions = $classifier->predict($testSamples);
 
-        $this->assertEquals($testLabels, $predictions);
+        self::assertEquals($testLabels, $predictions);
     }
 
     public function testSaveAndRestore(): void
@@ -57,14 +57,14 @@ class SVCTest extends TestCase
         $classifier->train($trainSamples, $trainLabels);
         $predicted = $classifier->predict($testSamples);
 
-        $filepath = tempnam(sys_get_temp_dir(), uniqid('svc-test', true));
+        $filepath = (string) tempnam(sys_get_temp_dir(), uniqid('svc-test', true));
         $modelManager = new ModelManager();
         $modelManager->saveToFile($classifier, $filepath);
 
         $restoredClassifier = $modelManager->restoreFromFile($filepath);
-        $this->assertEquals($classifier, $restoredClassifier);
-        $this->assertEquals($predicted, $restoredClassifier->predict($testSamples));
-        $this->assertEquals($predicted, $testLabels);
+        self::assertEquals($classifier, $restoredClassifier);
+        self::assertEquals($predicted, $restoredClassifier->predict($testSamples));
+        self::assertEquals($predicted, $testLabels);
     }
 
     public function testWithNonDotDecimalLocale(): void
@@ -81,8 +81,8 @@ class SVCTest extends TestCase
         $classifier = new SVC(Kernel::LINEAR, $cost = 1000);
         $classifier->train($trainSamples, $trainLabels);
 
-        $this->assertEquals($classifier->predict($testSamples), $testLabels);
+        self::assertEquals($classifier->predict($testSamples), $testLabels);
 
-        setlocale(LC_NUMERIC, $currentLocale);
+        setlocale(LC_NUMERIC, (string) $currentLocale);
     }
 }

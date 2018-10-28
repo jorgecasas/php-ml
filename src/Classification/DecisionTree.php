@@ -249,7 +249,7 @@ class DecisionTree implements Classifier
         foreach ($records as $recordNo) {
             // Check if the previous record is the same with the current one
             $record = $this->samples[$recordNo];
-            if ($prevRecord && $prevRecord != $record) {
+            if ($prevRecord !== null && $prevRecord != $record) {
                 $allSame = false;
             }
 
@@ -275,13 +275,13 @@ class DecisionTree implements Classifier
         if ($allSame || $depth >= $this->maxDepth || count($remainingTargets) === 1) {
             $split->isTerminal = true;
             arsort($remainingTargets);
-            $split->classValue = key($remainingTargets);
+            $split->classValue = (string) key($remainingTargets);
         } else {
-            if (!empty($leftRecords)) {
+            if (isset($leftRecords[0])) {
                 $split->leftLeaf = $this->getSplitLeaf($leftRecords, $depth + 1);
             }
 
-            if (!empty($rightRecords)) {
+            if (isset($rightRecords[0])) {
                 $split->rightLeaf = $this->getSplitLeaf($rightRecords, $depth + 1);
             }
         }
@@ -292,8 +292,10 @@ class DecisionTree implements Classifier
     protected function getBestSplit(array $records): DecisionTreeLeaf
     {
         $targets = array_intersect_key($this->targets, array_flip($records));
-        $samples = array_intersect_key($this->samples, array_flip($records));
-        $samples = array_combine($records, $this->preprocess($samples));
+        $samples = (array) array_combine(
+            $records,
+            $this->preprocess(array_intersect_key($this->samples, array_flip($records)))
+        );
         $bestGiniVal = 1;
         $bestSplit = null;
         $features = $this->getSelectedFeatures();
@@ -306,6 +308,10 @@ class DecisionTree implements Classifier
             $counts = array_count_values($colValues);
             arsort($counts);
             $baseValue = key($counts);
+            if ($baseValue === null) {
+                continue;
+            }
+
             $gini = $this->getGiniIndex($baseValue, $colValues, $targets);
             if ($bestSplit === null || $bestGiniVal > $gini) {
                 $split = new DecisionTreeLeaf();
@@ -349,11 +355,11 @@ class DecisionTree implements Classifier
     protected function getSelectedFeatures(): array
     {
         $allFeatures = range(0, $this->featureCount - 1);
-        if ($this->numUsableFeatures === 0 && empty($this->selectedFeatures)) {
+        if ($this->numUsableFeatures === 0 && count($this->selectedFeatures) === 0) {
             return $allFeatures;
         }
 
-        if (!empty($this->selectedFeatures)) {
+        if (count($this->selectedFeatures) > 0) {
             return $this->selectedFeatures;
         }
 
@@ -406,7 +412,7 @@ class DecisionTree implements Classifier
         //	  all values in that column (Lower than or equal to %20 of all values)
         $numericValues = array_filter($columnValues, 'is_numeric');
         $floatValues = array_filter($columnValues, 'is_float');
-        if (!empty($floatValues)) {
+        if (count($floatValues) > 0) {
             return false;
         }
 
@@ -463,7 +469,7 @@ class DecisionTree implements Classifier
         $node = $this->tree;
         do {
             if ($node->isTerminal) {
-                break;
+                return $node->classValue;
             }
 
             if ($node->evaluate($sample)) {
@@ -473,6 +479,6 @@ class DecisionTree implements Classifier
             }
         } while ($node);
 
-        return $node !== null ? $node->classValue : $this->labels[0];
+        return $this->labels[0];
     }
 }

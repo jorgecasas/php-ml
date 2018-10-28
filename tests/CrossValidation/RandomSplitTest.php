@@ -32,13 +32,13 @@ class RandomSplitTest extends TestCase
 
         $randomSplit = new RandomSplit($dataset, 0.5);
 
-        $this->assertCount(2, $randomSplit->getTestSamples());
-        $this->assertCount(2, $randomSplit->getTrainSamples());
+        self::assertCount(2, $randomSplit->getTestSamples());
+        self::assertCount(2, $randomSplit->getTrainSamples());
 
         $randomSplit2 = new RandomSplit($dataset, 0.25);
 
-        $this->assertCount(1, $randomSplit2->getTestSamples());
-        $this->assertCount(3, $randomSplit2->getTrainSamples());
+        self::assertCount(1, $randomSplit2->getTestSamples());
+        self::assertCount(3, $randomSplit2->getTrainSamples());
     }
 
     public function testDatasetRandomSplitWithSameSeed(): void
@@ -53,10 +53,10 @@ class RandomSplitTest extends TestCase
         $randomSplit1 = new RandomSplit($dataset, 0.5, $seed);
         $randomSplit2 = new RandomSplit($dataset, 0.5, $seed);
 
-        $this->assertEquals($randomSplit1->getTestLabels(), $randomSplit2->getTestLabels());
-        $this->assertEquals($randomSplit1->getTestSamples(), $randomSplit2->getTestSamples());
-        $this->assertEquals($randomSplit1->getTrainLabels(), $randomSplit2->getTrainLabels());
-        $this->assertEquals($randomSplit1->getTrainSamples(), $randomSplit2->getTrainSamples());
+        self::assertEquals($randomSplit1->getTestLabels(), $randomSplit2->getTestLabels());
+        self::assertEquals($randomSplit1->getTestSamples(), $randomSplit2->getTestSamples());
+        self::assertEquals($randomSplit1->getTrainLabels(), $randomSplit2->getTrainLabels());
+        self::assertEquals($randomSplit1->getTrainSamples(), $randomSplit2->getTrainSamples());
     }
 
     public function testDatasetRandomSplitWithDifferentSeed(): void
@@ -69,10 +69,10 @@ class RandomSplitTest extends TestCase
         $randomSplit1 = new RandomSplit($dataset, 0.5, 4321);
         $randomSplit2 = new RandomSplit($dataset, 0.5, 1234);
 
-        $this->assertNotEquals($randomSplit1->getTestLabels(), $randomSplit2->getTestLabels());
-        $this->assertNotEquals($randomSplit1->getTestSamples(), $randomSplit2->getTestSamples());
-        $this->assertNotEquals($randomSplit1->getTrainLabels(), $randomSplit2->getTrainLabels());
-        $this->assertNotEquals($randomSplit1->getTrainSamples(), $randomSplit2->getTrainSamples());
+        self::assertNotEquals($randomSplit1->getTestLabels(), $randomSplit2->getTestLabels());
+        self::assertNotEquals($randomSplit1->getTestSamples(), $randomSplit2->getTestSamples());
+        self::assertNotEquals($randomSplit1->getTrainLabels(), $randomSplit2->getTrainLabels());
+        self::assertNotEquals($randomSplit1->getTrainSamples(), $randomSplit2->getTrainSamples());
     }
 
     public function testRandomSplitCorrectSampleAndLabelPosition(): void
@@ -84,9 +84,9 @@ class RandomSplitTest extends TestCase
 
         $randomSplit = new RandomSplit($dataset, 0.5);
 
-        $this->assertEquals($randomSplit->getTestSamples()[0][0], $randomSplit->getTestLabels()[0]);
-        $this->assertEquals($randomSplit->getTestSamples()[1][0], $randomSplit->getTestLabels()[1]);
-        $this->assertEquals($randomSplit->getTrainSamples()[0][0], $randomSplit->getTrainLabels()[0]);
-        $this->assertEquals($randomSplit->getTrainSamples()[1][0], $randomSplit->getTrainLabels()[1]);
+        self::assertEquals($randomSplit->getTestSamples()[0][0], $randomSplit->getTestLabels()[0]);
+        self::assertEquals($randomSplit->getTestSamples()[1][0], $randomSplit->getTestLabels()[1]);
+        self::assertEquals($randomSplit->getTrainSamples()[0][0], $randomSplit->getTrainLabels()[0]);
+        self::assertEquals($randomSplit->getTrainSamples()[1][0], $randomSplit->getTrainLabels()[1]);
     }
 }

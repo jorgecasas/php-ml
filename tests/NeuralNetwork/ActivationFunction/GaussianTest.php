@@ -11,12 +11,14 @@ class GaussianTest extends TestCase
 {
     /**
      * @dataProvider gaussianProvider
+     *
+     * @param float|int $value
      */
-    public function testGaussianActivationFunction($expected, $value): void
+    public function testGaussianActivationFunction(float $expected, $value): void
     {
         $gaussian = new Gaussian();
 
-        $this->assertEquals($expected, $gaussian->compute($value), '', 0.001);
+        self::assertEquals($expected, $gaussian->compute($value), '', 0.001);
     }
 
     public function gaussianProvider(): array
@@ -32,12 +34,14 @@ class GaussianTest extends TestCase
 
     /**
      * @dataProvider gaussianDerivativeProvider
+     *
+     * @param float|int $value
      */
-    public function testGaussianDerivative($expected, $value): void
+    public function testGaussianDerivative(float $expected, $value): void
     {
         $gaussian = new Gaussian();
         $activatedValue = $gaussian->compute($value);
-        $this->assertEquals($expected, $gaussian->differentiate($value, $activatedValue), '', 0.001);
+        self::assertEquals($expected, $gaussian->differentiate($value, $activatedValue), '', 0.001);
     }
 
     public function gaussianDerivativeProvider(): array

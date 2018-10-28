@@ -6,5 +6,5 @@ namespace Phpml;
 
 interface IncrementalEstimator
 {
-    public function partialTrain(array $samples, array $targets, array $labels = []);
+    public function partialTrain(array $samples, array $targets, array $labels = []): void;
 }

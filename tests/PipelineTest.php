@@ -28,8 +28,8 @@ class PipelineTest extends TestCase
 
         $pipeline = new Pipeline($transformers, $estimator);
 
-        $this->assertEquals($transformers, $pipeline->getTransformers());
-        $this->assertEquals($estimator, $pipeline->getEstimator());
+        self::assertEquals($transformers, $pipeline->getTransformers());
+        self::assertEquals($estimator, $pipeline->getEstimator());
     }
 
     public function testPipelineEstimatorSetter(): void
@@ -39,7 +39,7 @@ class PipelineTest extends TestCase
         $estimator = new SVR();
         $pipeline->setEstimator($estimator);
 
-        $this->assertEquals($estimator, $pipeline->getEstimator());
+        self::assertEquals($estimator, $pipeline->getEstimator());
     }
 
     public function testPipelineWorkflow(): void
@@ -67,7 +67,7 @@ class PipelineTest extends TestCase
 
         $predicted = $pipeline->predict([[0, 0, 0]]);
 
-        $this->assertEquals(4, $predicted[0]);
+        self::assertEquals(4, $predicted[0]);
     }
 
     public function testPipelineTransformers(): void
@@ -104,7 +104,7 @@ class PipelineTest extends TestCase
 
         $predicted = $pipeline->predict(['Hello Max', 'Goodbye Mark']);
 
-        $this->assertEquals($expected, $predicted);
+        self::assertEquals($expected, $predicted);
     }
 
     public function testPipelineTransformersWithTargets(): void
@@ -145,13 +145,13 @@ class PipelineTest extends TestCase
         $testSamples = ['Hello Max', 'Goodbye Mark'];
         $predicted = $pipeline->predict($testSamples);
 
-        $filepath = tempnam(sys_get_temp_dir(), uniqid('pipeline-test', true));
+        $filepath = (string) tempnam(sys_get_temp_dir(), uniqid('pipeline-test', true));
         $modelManager = new ModelManager();
         $modelManager->saveToFile($pipeline, $filepath);
 
         $restoredClassifier = $modelManager->restoreFromFile($filepath);
-        $this->assertEquals($pipeline, $restoredClassifier);
-        $this->assertEquals($predicted, $restoredClassifier->predict($testSamples));
+        self::assertEquals($pipeline, $restoredClassifier);
+        self::assertEquals($predicted, $restoredClassifier->predict($testSamples));
         unlink($filepath);
     }
 }
