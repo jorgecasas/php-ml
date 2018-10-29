@@ -31,7 +31,7 @@ class Cluster extends Point implements IteratorAggregate
     {
         $points = [];
         foreach ($this->points as $point) {
-            if (count($point->label) === 0) {
+            if ($point->label === null) {
                 $points[] = $point->toArray();
             } else {
                 $points[$point->label] = $point->toArray();
