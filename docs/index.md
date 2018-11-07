@@ -93,6 +93,7 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
     * [CSV](machine-learning/datasets/csv-dataset.md)
     * [Files](machine-learning/datasets/files-dataset.md)
     * [SVM](machine-learning/datasets/svm-dataset.md)
+    * [MNIST](machine-learning/datasets/mnist-dataset.md)
     * Ready to use:
         * [Iris](machine-learning/datasets/demo/iris.md)
         * [Wine](machine-learning/datasets/demo/wine.md)

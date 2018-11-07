@@ -6,7 +6,7 @@ includes:
 parameters:
     ignoreErrors:
         - '#Property Phpml\\Clustering\\KMeans\\Cluster\:\:\$points \(iterable\<Phpml\\Clustering\\KMeans\\Point\>\&SplObjectStorage\) does not accept SplObjectStorage#'
-        - '#Phpml\\Dataset\\FilesDataset::__construct\(\) does not call parent constructor from Phpml\\Dataset\\ArrayDataset#'
+        - '#Phpml\\Dataset\\(.*)Dataset::__construct\(\) does not call parent constructor from Phpml\\Dataset\\ArrayDataset#'
 
         # wide range cases
         - '#Parameter \#1 \$coordinates of class Phpml\\Clustering\\KMeans\\Point constructor expects array, array<int>\|Phpml\\Clustering\\KMeans\\Point given#'
