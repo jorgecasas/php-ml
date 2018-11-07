@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpml\Classification;
 
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\Helper\Predictable;
 use Phpml\Helper\Trainable;
 use Phpml\Math\Statistic\Mean;
@@ -137,6 +138,10 @@ class NaiveBayes implements Classifier
      */
     private function sampleProbability(array $sample, int $feature, string $label): float
     {
+        if (!isset($sample[$feature])) {
+            throw new InvalidArgumentException('Missing feature. All samples must have equal number of features');
+        }
+
         $value = $sample[$feature];
         if ($this->dataType[$label][$feature] == self::NOMINAL) {
             if (!isset($this->discreteProb[$label][$feature][$value]) ||

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Phpml\Tests\Classification;
 
 use Phpml\Classification\NaiveBayes;
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\ModelManager;
 use PHPUnit\Framework\TestCase;
 
@@ -124,5 +125,20 @@ class NaiveBayesTest extends TestCase
         $restoredClassifier = $modelManager->restoreFromFile($filepath);
         self::assertEquals($classifier, $restoredClassifier);
         self::assertEquals($predicted, $restoredClassifier->predict($testSamples));
+    }
+
+    public function testInconsistentFeaturesInSamples(): void
+    {
+        $trainSamples = [[5, 1, 1], [1, 5, 1], [1, 1, 5]];
+        $trainLabels = ['1996', '1997', '1998'];
+
+        $testSamples = [[3, 1, 1], [5, 1], [4, 3, 8]];
+
+        $classifier = new NaiveBayes();
+        $classifier->train($trainSamples, $trainLabels);
+
+        $this->expectException(InvalidArgumentException::class);
+
+        $classifier->predict($testSamples);
     }
 }
