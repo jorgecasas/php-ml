@@ -6,7 +6,6 @@
         beStrictAboutTestsThatDoNotTestAnything="true"
         beStrictAboutOutputDuringTests="true"
         beStrictAboutChangesToGlobalState="true"
-        enforceTimeLimit="true"
 >
     <testsuite name="PHP-ML Test Suite">
         <directory>tests</directory>
