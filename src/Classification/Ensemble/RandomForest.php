@@ -86,7 +86,7 @@ class RandomForest extends Bagging
         // Traverse each tree and sum importance of the columns
         $sum = [];
         foreach ($this->classifiers as $tree) {
-            /* @var $tree DecisionTree */
+            /** @var DecisionTree $tree */
             $importances = $tree->getFeatureImportances();
 
             foreach ($importances as $column => $importance) {

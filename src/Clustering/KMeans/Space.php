@@ -116,7 +116,7 @@ class Space extends SplObjectStorage
     }
 
     /**
-     * @return array|Cluster[]
+     * @return Cluster[]
      */
     public function cluster(int $clustersNumber, int $initMethod = KMeans::INIT_RANDOM): array
     {
@@ -129,7 +129,7 @@ class Space extends SplObjectStorage
     }
 
     /**
-     * @return array|Cluster[]
+     * @return Cluster[]
      */
     protected function initializeClusters(int $clustersNumber, int $initMethod): array
     {

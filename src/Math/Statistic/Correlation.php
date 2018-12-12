@@ -9,8 +9,8 @@ use Phpml\Exception\InvalidArgumentException;
 class Correlation
 {
     /**
-     * @param array|int[]|float[] $x
-     * @param array|int[]|float[] $y
+     * @param int[]|float[] $x
+     * @param int[]|float[] $y
      *
      * @throws InvalidArgumentException
      */

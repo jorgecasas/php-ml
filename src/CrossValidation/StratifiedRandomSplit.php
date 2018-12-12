@@ -19,7 +19,7 @@ class StratifiedRandomSplit extends RandomSplit
     }
 
     /**
-     * @return Dataset[]|array
+     * @return Dataset[]
      */
     private function splitByTarget(Dataset $dataset): array
     {

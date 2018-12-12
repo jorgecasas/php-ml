@@ -18,7 +18,7 @@ class FuzzyCMeans implements Clusterer
     private $clustersNumber;
 
     /**
-     * @var array|Cluster[]
+     * @var Cluster[]
      */
     private $clusters = [];
 
@@ -28,7 +28,7 @@ class FuzzyCMeans implements Clusterer
     private $space;
 
     /**
-     * @var array|float[][]
+     * @var float[][]
      */
     private $membership = [];
 

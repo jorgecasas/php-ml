@@ -7,7 +7,7 @@ namespace Phpml;
 class Pipeline implements Estimator
 {
     /**
-     * @var array|Transformer[]
+     * @var Transformer[]
      */
     private $transformers = [];
 
@@ -17,7 +17,7 @@ class Pipeline implements Estimator
     private $estimator;
 
     /**
-     * @param array|Transformer[] $transformers
+     * @param Transformer[] $transformers
      */
     public function __construct(array $transformers, Estimator $estimator)
     {
@@ -39,7 +39,7 @@ class Pipeline implements Estimator
     }
 
     /**
-     * @return array|Transformer[]
+     * @return Transformer[]
      */
     public function getTransformers(): array
     {

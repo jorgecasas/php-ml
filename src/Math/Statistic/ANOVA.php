@@ -17,9 +17,9 @@ final class ANOVA
      * the same population mean. The test is applied to samples from two or
      * more groups, possibly with differing sizes.
      *
-     * @param array|array[] $samples - each row is class samples
+     * @param array[] $samples - each row is class samples
      *
-     * @return array|float[]
+     * @return float[]
      */
     public static function oneWayF(array $samples): array
     {

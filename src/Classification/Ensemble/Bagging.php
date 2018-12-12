@@ -157,7 +157,7 @@ class Bagging implements Classifier
     {
         $predictions = [];
         foreach ($this->classifiers as $classifier) {
-            /* @var $classifier Classifier */
+            /** @var Classifier $classifier */
             $predictions[] = $classifier->predict($sample);
         }
 
