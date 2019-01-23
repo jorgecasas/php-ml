@@ -24,6 +24,6 @@ To predict sample label use `predict` method. You can provide one sample or arra
 $classifier->predict([3, 1, 1]);
 // return 'a'
 
-$classifier->predict([[3, 1, 1], [1, 4, 1]);
+$classifier->predict([[3, 1, 1], [1, 4, 1]]);
 // return ['a', 'b']
 ```
