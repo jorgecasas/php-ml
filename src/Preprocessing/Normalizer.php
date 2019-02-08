@@ -106,7 +106,7 @@ class Normalizer implements Preprocessor
             $norm2 += $feature * $feature;
         }
 
-        $norm2 = sqrt((float) $norm2);
+        $norm2 **= .5;
 
         if ($norm2 == 0) {
             $sample = array_fill(0, count($sample), 1);

@@ -13,7 +13,7 @@ class Gaussian implements ActivationFunction
      */
     public function compute($value): float
     {
-        return exp(-pow($value, 2));
+        return exp(- $value ** 2);
     }
 
     /**

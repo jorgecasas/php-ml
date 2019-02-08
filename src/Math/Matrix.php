@@ -271,7 +271,7 @@ class Matrix
             }
         }
 
-        return sqrt($squareSum);
+        return $squareSum ** .5;
     }
 
     /**

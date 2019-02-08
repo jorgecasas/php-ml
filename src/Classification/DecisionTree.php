@@ -137,7 +137,7 @@ class DecisionTree implements Classifier
             $sum = array_sum(array_column($countMatrix, $i));
             if ($sum > 0) {
                 foreach ($this->labels as $label) {
-                    $part += pow($countMatrix[$label][$i] / (float) $sum, 2);
+                    $part += ($countMatrix[$label][$i] / (float) $sum) ** 2;
                 }
             }
 

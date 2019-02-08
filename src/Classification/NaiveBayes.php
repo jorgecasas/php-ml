@@ -162,7 +162,7 @@ class NaiveBayes implements Classifier
         // scikit-learn did.
         // (See : https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/naive_bayes.py)
         $pdf = -0.5 * log(2.0 * M_PI * $std * $std);
-        $pdf -= 0.5 * pow($value - $mean, 2) / ($std * $std);
+        $pdf -= 0.5 * (($value - $mean) ** 2) / ($std * $std);
 
         return $pdf;
     }

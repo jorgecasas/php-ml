@@ -131,7 +131,7 @@ class RandomForest extends Bagging
         if (is_float($this->featureSubsetRatio)) {
             $featureCount = (int) ($this->featureSubsetRatio * $this->featureCount);
         } elseif ($this->featureSubsetRatio === 'sqrt') {
-            $featureCount = (int) sqrt($this->featureCount) + 1;
+            $featureCount = (int) ($this->featureCount ** .5) + 1;
         } else {
             $featureCount = (int) log($this->featureCount, 2) + 1;
         }

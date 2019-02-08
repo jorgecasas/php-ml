@@ -49,7 +49,7 @@ class Point implements ArrayAccess, \Countable
             $distance += $difference * $difference;
         }
 
-        return $precise ? sqrt((float) $distance) : $distance;
+        return $precise ? $distance ** .5 : $distance;
     }
 
     /**

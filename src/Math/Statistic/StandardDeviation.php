@@ -32,7 +32,7 @@ class StandardDeviation
             --$n;
         }
 
-        return sqrt($carry / $n);
+        return ($carry / $n) ** .5;
     }
 
     /**

@@ -32,10 +32,10 @@ class Correlation
             $a = $x[$i] - $meanX;
             $b = $y[$i] - $meanY;
             $axb += ($a * $b);
-            $a2 += pow($a, 2);
-            $b2 += pow($b, 2);
+            $a2 += $a ** 2;
+            $b2 += $b ** 2;
         }
 
-        return $axb / sqrt((float) ($a2 * $b2));
+        return $axb / ($a2 * $b2) ** .5;
     }
 }

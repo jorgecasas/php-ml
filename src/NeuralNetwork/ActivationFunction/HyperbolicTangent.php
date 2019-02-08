@@ -32,6 +32,6 @@ class HyperbolicTangent implements ActivationFunction
      */
     public function differentiate($value, $computedvalue): float
     {
-        return 1 - pow($computedvalue, 2);
+        return 1 - $computedvalue ** 2;
     }
 }
