@@ -102,6 +102,9 @@ Public datasets are available in a separate repository [php-ai/php-ml-datasets](
     * [Imputation missing values](http://php-ml.readthedocs.io/en/latest/machine-learning/preprocessing/imputation-missing-values/)
 * Feature Extraction
     * [Token Count Vectorizer](http://php-ml.readthedocs.io/en/latest/machine-learning/feature-extraction/token-count-vectorizer/)
+        * NGramTokenizer
+        * WhitespaceTokenizer
+        * WordTokenizer
     * [Tf-idf Transformer](http://php-ml.readthedocs.io/en/latest/machine-learning/feature-extraction/tf-idf-transformer/)
 * Dimensionality Reduction
     * PCA (Principal Component Analysis)
