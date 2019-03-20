@@ -157,7 +157,7 @@ class TokenCountVectorizer implements Transformer
         $indexes = [];
         foreach ($this->frequencies as $token => $frequency) {
             if (($frequency / $samplesCount) < $this->minDF) {
-                $indexes[] = $this->getTokenIndex($token);
+                $indexes[] = $this->getTokenIndex((string) $token);
             }
         }
 

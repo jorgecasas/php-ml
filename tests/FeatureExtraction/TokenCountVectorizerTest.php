@@ -84,7 +84,7 @@ class TokenCountVectorizerTest extends TestCase
     {
         // word at least in half samples
         $samples = [
-            'Lorem ipsum dolor sit amet',
+            'Lorem ipsum dolor sit amet 1550',
             'Lorem ipsum sit amet',
             'ipsum sit amet',
             'ipsum sit amet',
@@ -96,6 +96,7 @@ class TokenCountVectorizerTest extends TestCase
             2 => 'dolor',
             3 => 'sit',
             4 => 'amet',
+            5 => 1550,
         ];
 
         $tokensCounts = [
@@ -105,6 +106,7 @@ class TokenCountVectorizerTest extends TestCase
                 2 => 0,
                 3 => 1,
                 4 => 1,
+                5 => 0,
             ],
             [
                 0 => 1,
@@ -112,6 +114,7 @@ class TokenCountVectorizerTest extends TestCase
                 2 => 0,
                 3 => 1,
                 4 => 1,
+                5 => 0,
             ],
             [
                 0 => 0,
@@ -119,6 +122,7 @@ class TokenCountVectorizerTest extends TestCase
                 2 => 0,
                 3 => 1,
                 4 => 1,
+                5 => 0,
             ],
             [
                 0 => 0,
@@ -126,6 +130,7 @@ class TokenCountVectorizerTest extends TestCase
                 2 => 0,
                 3 => 1,
                 4 => 1,
+                5 => 0,
             ],
         ];
 

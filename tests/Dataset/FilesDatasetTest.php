@@ -29,13 +29,13 @@ class FilesDatasetTest extends TestCase
         self::assertEquals($targets, array_values(array_unique($dataset->getTargets())));
 
         $firstSample = file_get_contents($rootPath.'/business/001.txt');
-        self::assertEquals($firstSample, $dataset->getSamples()[0][0]);
+        self::assertEquals($firstSample, $dataset->getSamples()[0]);
 
         $firstTarget = 'business';
         self::assertEquals($firstTarget, $dataset->getTargets()[0]);
 
         $lastSample = file_get_contents($rootPath.'/tech/010.txt');
-        self::assertEquals($lastSample, $dataset->getSamples()[49][0]);
+        self::assertEquals($lastSample, $dataset->getSamples()[49]);
 
         $lastTarget = 'tech';
         self::assertEquals($lastTarget, $dataset->getTargets()[49]);

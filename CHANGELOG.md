@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.0] - 2019-03-20
+### Added
+- [Tokenization] Added NGramTokenizer (#350)
+- editorconfig file (#355)
+### Fixed
+- [Dataset] FilesDataset read samples without additional array (#363)
+- [Tokenization] fixed error with numeric token values (#363)
+### Changed
+- [Math] improved performance with pow and sqrt replacement (#350) 
+- [Math] reduce duplicated code in distance metrics (#348)
+- update phpunit to 7.5.1 (#335)
+- code style fixes (#334)
+
 ## [0.7.0] - 2018-11-07
 ### Added
 - [Clustering] added KMeans associative clustering (#262)

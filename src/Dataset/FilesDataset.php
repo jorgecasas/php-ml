@@ -29,7 +29,7 @@ class FilesDataset extends ArrayDataset
         $target = basename($dir);
 
         foreach (array_filter(glob($dir.DIRECTORY_SEPARATOR.'*'), 'is_file') as $file) {
-            $this->samples[] = [file_get_contents($file)];
+            $this->samples[] = file_get_contents($file);
             $this->targets[] = $target;
         }
     }
