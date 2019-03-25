@@ -22,7 +22,7 @@ class StochasticGDTest extends TestCase
 
         $callback = function ($theta, $sample, $target) {
             $y = $theta[0] + $theta[1] * $sample[0];
-            $cost = ($y - $target) ** 2 / 2;
+            $cost = (($y - $target) ** 2) / 2;
             $grad = $y - $target;
 
             return [$cost, $grad];
@@ -49,7 +49,7 @@ class StochasticGDTest extends TestCase
 
         $callback = function ($theta, $sample, $target) {
             $y = $theta[0] + $theta[1] * $sample[0] + $theta[2] * $sample[1];
-            $cost = ($y - $target) ** 2 / 2;
+            $cost = (($y - $target) ** 2) / 2;
             $grad = $y - $target;
 
             return [$cost, $grad];

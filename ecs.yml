@@ -30,14 +30,14 @@ services:
     Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer: ~
 
 parameters:
-    exclude_checkers:
-        # from strict.neon
-        - 'PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer'
-        - 'PhpCsFixer\Fixer\Strict\StrictComparisonFixer'
-        # personal prefference
-        - 'PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer'
-
     skip:
+        # from strict.neon
+        PhpCsFixer\Fixer\PhpUnit\PhpUnitStrictFixer: ~
+        PhpCsFixer\Fixer\Strict\StrictComparisonFixer: ~
+
+        # personal prefference
+        PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer: ~
+
         PhpCsFixer\Fixer\Alias\RandomApiMigrationFixer:
             # random_int() breaks code
             - 'src/CrossValidation/RandomSplit.php'

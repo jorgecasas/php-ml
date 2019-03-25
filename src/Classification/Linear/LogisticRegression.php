@@ -226,7 +226,7 @@ class LogisticRegression extends Adaline
 
                     $y = $y < 0 ? 0 : 1;
 
-                    $error = ($y - $hX) ** 2;
+                    $error = (($y - $hX) ** 2);
                     $gradient = -($y - $hX) * $hX * (1 - $hX);
 
                     return [$error, $gradient, $penalty];
