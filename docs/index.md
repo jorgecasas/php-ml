@@ -85,6 +85,7 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
 * Preprocessing
     * [Normalization](machine-learning/preprocessing/normalization.md)
     * [Imputation missing values](machine-learning/preprocessing/imputation-missing-values.md)
+    * LabelEncoder
 * Feature Extraction
     * [Token Count Vectorizer](machine-learning/feature-extraction/token-count-vectorizer.md)
     * [Tf-idf Transformer](machine-learning/feature-extraction/tf-idf-transformer.md)
