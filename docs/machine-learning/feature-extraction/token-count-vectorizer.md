@@ -71,3 +71,20 @@ $tokenizer->tokenize('Quick Fox');
 
 // returns ['Q', 'u', 'i', 'c', 'k', 'Qu', 'ui', 'ic', 'ck', 'F', 'o', 'x', 'Fo', 'ox']
 ```
+
+**NGramWordTokenizer**
+
+The NGramWordTokenizer tokenizer accepts the following parameters:
+
+`$minGram` - minimum length of characters in a gram. Defaults to 1.
+`$maxGram` - maximum length of characters in a gram. Defaults to 2.
+
+```php
+use Phpml\Tokenization\NGramWordTokenizer;
+
+$tokenizer = new NGramWordTokenizer(1, 2);
+
+$tokenizer->tokenize('very quick fox');
+
+// returns ['very', 'quick', 'fox', 'very quick', 'quick fox']
+```
