@@ -15,15 +15,15 @@ class StandardDeviationTest extends TestCase
         //https://pl.wikipedia.org/wiki/Odchylenie_standardowe
         $delta = 0.001;
         $population = [5, 6, 8, 9];
-        self::assertEquals(1.825, StandardDeviation::population($population), '', $delta);
+        self::assertEqualsWithDelta(1.825, StandardDeviation::population($population), $delta);
 
         //http://www.stat.wmich.edu/s216/book/node126.html
         $delta = 0.5;
         $population = [7100, 15500, 4400, 4400, 5900, 4600, 8800, 2000, 2750, 2550,  960, 1025];
-        self::assertEquals(4079, StandardDeviation::population($population), '', $delta);
+        self::assertEqualsWithDelta(4079, StandardDeviation::population($population), $delta);
 
         $population = [9300,  10565,  15000,  15000,  17764,  57000,  65940,  73676,  77006,  93739, 146088, 153260];
-        self::assertEquals(50989, StandardDeviation::population($population), '', $delta);
+        self::assertEqualsWithDelta(50989, StandardDeviation::population($population), $delta);
     }
 
     public function testThrowExceptionOnEmptyArrayIfNotSample(): void
@@ -43,7 +43,7 @@ class StandardDeviationTest extends TestCase
      */
     public function testSumOfSquares(array $numbers, float $sum): void
     {
-        self::assertEquals($sum, StandardDeviation::sumOfSquares($numbers), '', 0.0001);
+        self::assertEqualsWithDelta($sum, StandardDeviation::sumOfSquares($numbers), 0.0001);
     }
 
     public function dataProviderForSumOfSquaresDeviations(): array

@@ -171,12 +171,12 @@ class LogisticRegressionTest extends TestCase
 
         $zero = $method->invoke($predictor, [0.1, 0.1], 0);
         $one = $method->invoke($predictor, [0.1, 0.1], 1);
-        self::assertEquals(1, $zero + $one, '', 1e-6);
+        self::assertEqualsWithDelta(1, $zero + $one, 1e-6);
         self::assertTrue($zero > $one);
 
         $zero = $method->invoke($predictor, [0.9, 0.9], 0);
         $one = $method->invoke($predictor, [0.9, 0.9], 1);
-        self::assertEquals(1, $zero + $one, '', 1e-6);
+        self::assertEqualsWithDelta(1, $zero + $one, 1e-6);
         self::assertTrue($zero < $one);
     }
 
@@ -213,9 +213,9 @@ class LogisticRegressionTest extends TestCase
         $two = $method->invoke($predictor, [3.0, 9.5], 2);
         $not_two = $method->invoke($predictor, [3.0, 9.5], 'not_2');
 
-        self::assertEquals(1, $zero + $not_zero, '', 1e-6);
-        self::assertEquals(1, $one + $not_one, '', 1e-6);
-        self::assertEquals(1, $two + $not_two, '', 1e-6);
+        self::assertEqualsWithDelta(1, $zero + $not_zero, 1e-6);
+        self::assertEqualsWithDelta(1, $one + $not_one, 1e-6);
+        self::assertEqualsWithDelta(1, $two + $not_two, 1e-6);
         self::assertTrue($zero < $two);
         self::assertTrue($one < $two);
     }

@@ -45,11 +45,11 @@ class ClassificationReportTest extends TestCase
             'f1score' => 0.49,  // (2/3 + 0 + 4/5) / 3 = 22/45
         ];
 
-        self::assertEquals($precision, $report->getPrecision(), '', 0.01);
-        self::assertEquals($recall, $report->getRecall(), '', 0.01);
-        self::assertEquals($f1score, $report->getF1score(), '', 0.01);
-        self::assertEquals($support, $report->getSupport(), '', 0.01);
-        self::assertEquals($average, $report->getAverage(), '', 0.01);
+        self::assertEqualsWithDelta($precision, $report->getPrecision(), 0.01);
+        self::assertEqualsWithDelta($recall, $report->getRecall(), 0.01);
+        self::assertEqualsWithDelta($f1score, $report->getF1score(), 0.01);
+        self::assertEqualsWithDelta($support, $report->getSupport(), 0.01);
+        self::assertEqualsWithDelta($average, $report->getAverage(), 0.01);
     }
 
     public function testClassificationReportGenerateWithNumericLabels(): void
@@ -85,11 +85,11 @@ class ClassificationReportTest extends TestCase
             'f1score' => 0.49,
         ];
 
-        self::assertEquals($precision, $report->getPrecision(), '', 0.01);
-        self::assertEquals($recall, $report->getRecall(), '', 0.01);
-        self::assertEquals($f1score, $report->getF1score(), '', 0.01);
-        self::assertEquals($support, $report->getSupport(), '', 0.01);
-        self::assertEquals($average, $report->getAverage(), '', 0.01);
+        self::assertEqualsWithDelta($precision, $report->getPrecision(), 0.01);
+        self::assertEqualsWithDelta($recall, $report->getRecall(), 0.01);
+        self::assertEqualsWithDelta($f1score, $report->getF1score(), 0.01);
+        self::assertEqualsWithDelta($support, $report->getSupport(), 0.01);
+        self::assertEqualsWithDelta($average, $report->getAverage(), 0.01);
     }
 
     public function testClassificationReportAverageOutOfRange(): void
@@ -114,7 +114,7 @@ class ClassificationReportTest extends TestCase
             'f1score' => 0.6,   // Harmonic mean of precision and recall
         ];
 
-        self::assertEquals($average, $report->getAverage(), '', 0.01);
+        self::assertEqualsWithDelta($average, $report->getAverage(), 0.01);
     }
 
     public function testClassificationReportMacroAverage(): void
@@ -130,7 +130,7 @@ class ClassificationReportTest extends TestCase
             'f1score' => 0.49,  // (2/3 + 0 + 4/5) / 3 = 22/45
         ];
 
-        self::assertEquals($average, $report->getAverage(), '', 0.01);
+        self::assertEqualsWithDelta($average, $report->getAverage(), 0.01);
     }
 
     public function testClassificationReportWeightedAverage(): void
@@ -146,7 +146,7 @@ class ClassificationReportTest extends TestCase
             'f1score' => 0.61,  // (2/3 * 1 + 0 * 1 + 4/5 * 3) / 5 = 46/75
         ];
 
-        self::assertEquals($average, $report->getAverage(), '', 0.01);
+        self::assertEqualsWithDelta($average, $report->getAverage(), 0.01);
     }
 
     public function testPreventDivideByZeroWhenTruePositiveAndFalsePositiveSumEqualsZero(): void
@@ -156,10 +156,10 @@ class ClassificationReportTest extends TestCase
 
         $report = new ClassificationReport($labels, $predicted);
 
-        self::assertEquals([
+        self::assertEqualsWithDelta([
             1 => 0.0,
             2 => 0.5,
-        ], $report->getPrecision(), '', 0.01);
+        ], $report->getPrecision(), 0.01);
     }
 
     public function testPreventDivideByZeroWhenTruePositiveAndFalseNegativeSumEqualsZero(): void
@@ -169,11 +169,11 @@ class ClassificationReportTest extends TestCase
 
         $report = new ClassificationReport($labels, $predicted);
 
-        self::assertEquals([
+        self::assertEqualsWithDelta([
             1 => 0.0,
             2 => 1,
             3 => 0,
-        ], $report->getPrecision(), '', 0.01);
+        ], $report->getPrecision(), 0.01);
     }
 
     public function testPreventDividedByZeroWhenPredictedLabelsAllNotMatch(): void
@@ -183,11 +183,11 @@ class ClassificationReportTest extends TestCase
 
         $report = new ClassificationReport($labels, $predicted);
 
-        self::assertEquals([
+        self::assertEqualsWithDelta([
             'precision' => 0,
             'recall' => 0,
             'f1score' => 0,
-        ], $report->getAverage(), '', 0.01);
+        ], $report->getAverage(), 0.01);
     }
 
     public function testPreventDividedByZeroWhenLabelsAreEmpty(): void
@@ -197,10 +197,10 @@ class ClassificationReportTest extends TestCase
 
         $report = new ClassificationReport($labels, $predicted);
 
-        self::assertEquals([
+        self::assertEqualsWithDelta([
             'precision' => 0,
             'recall' => 0,
             'f1score' => 0,
-        ], $report->getAverage(), '', 0.01);
+        ], $report->getAverage(), 0.01);
     }
 }

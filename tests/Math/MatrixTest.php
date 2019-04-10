@@ -60,7 +60,7 @@ class MatrixTest extends TestCase
             [1 / 4, 4, 1, 0, 2, 3 / 7],
             [1, 8, 7, 5, 4, 4 / 5],
         ]);
-        self::assertEquals(1116.5035, $matrix->getDeterminant(), '', $delta = 0.0001);
+        self::assertEqualsWithDelta(1116.5035, $matrix->getDeterminant(), $delta = 0.0001);
     }
 
     public function testMatrixTranspose(): void
@@ -157,7 +157,7 @@ class MatrixTest extends TestCase
             [-1 / 2, 1 / 2, -1 / 2],
         ];
 
-        self::assertEquals($inverseMatrix, $matrix->inverse()->toArray(), '', $delta = 0.0001);
+        self::assertEqualsWithDelta($inverseMatrix, $matrix->inverse()->toArray(), $delta = 0.0001);
     }
 
     public function testCrossOutMatrix(): void
@@ -256,7 +256,7 @@ class MatrixTest extends TestCase
      */
     public function testFrobeniusNorm(array $matrix, float $norm): void
     {
-        self::assertEquals($norm, (new Matrix($matrix))->frobeniusNorm(), '', 0.0001);
+        self::assertEqualsWithDelta($norm, (new Matrix($matrix))->frobeniusNorm(), 0.0001);
     }
 
     public function dataProviderForFrobeniusNorm(): array

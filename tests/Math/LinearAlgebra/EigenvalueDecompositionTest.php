@@ -21,11 +21,11 @@ class EigenvalueDecompositionTest extends TestCase
 
         $decomp = new EigenvalueDecomposition($matrix);
 
-        self::assertEquals([0.0490833989, 1.28402771], $decomp->getRealEigenvalues(), '', 0.001);
-        self::assertEquals([
+        self::assertEqualsWithDelta([0.0490833989, 1.28402771], $decomp->getRealEigenvalues(), 0.001);
+        self::assertEqualsWithDelta([
             [-0.735178656, 0.677873399],
             [-0.677873399, -0.735178656],
-        ], $decomp->getEigenvectors(), '', 0.001);
+        ], $decomp->getEigenvectors(), 0.001);
     }
 
     public function testMatrixWithAllZeroRow(): void
@@ -39,12 +39,12 @@ class EigenvalueDecompositionTest extends TestCase
 
         $decomp = new EigenvalueDecomposition($matrix);
 
-        self::assertEquals([0.0, 6.0, 10.0], $decomp->getRealEigenvalues(), '', 0.0001);
-        self::assertEquals([
+        self::assertEqualsWithDelta([0.0, 6.0, 10.0], $decomp->getRealEigenvalues(), 0.0001);
+        self::assertEqualsWithDelta([
             [0, 0, 1],
             [0, 1, 0],
             [1, 0, 0],
-        ], $decomp->getEigenvectors(), '', 0.0001);
+        ], $decomp->getEigenvectors(), 0.0001);
     }
 
     public function testMatrixThatCauseErrorWithStrictComparision(): void
@@ -58,12 +58,12 @@ class EigenvalueDecompositionTest extends TestCase
 
         $decomp = new EigenvalueDecomposition($matrix);
 
-        self::assertEquals([-5.2620873481, 1.0, 10.2620873481], $decomp->getRealEigenvalues(), '', 0.000001);
-        self::assertEquals([
+        self::assertEqualsWithDelta([-5.2620873481, 1.0, 10.2620873481], $decomp->getRealEigenvalues(), 0.000001);
+        self::assertEqualsWithDelta([
             [-0.3042688, -0.709960552, 0.63511928],
             [-0.9191450, 0.393919298, 0.0],
             [0.25018574, 0.5837667, 0.7724140],
-        ], $decomp->getEigenvectors(), '', 0.0001);
+        ], $decomp->getEigenvectors(), 0.0001);
     }
 
     public function testRandomSymmetricMatrixEigenPairs(): void
@@ -98,7 +98,7 @@ class EigenvalueDecompositionTest extends TestCase
             $leftSide = $m1->multiply($m2)->toArray();
             $rightSide = $m2->multiplyByScalar($lambda)->toArray();
 
-            self::assertEquals($leftSide, $rightSide, '', $epsilon);
+            self::assertEqualsWithDelta($leftSide, $rightSide, $epsilon);
         }
     }
 }

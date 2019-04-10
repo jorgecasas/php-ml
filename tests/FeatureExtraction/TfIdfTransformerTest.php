@@ -54,6 +54,6 @@ class TfIdfTransformerTest extends TestCase
         $transformer = new TfIdfTransformer($samples);
         $transformer->transform($samples);
 
-        self::assertEquals($tfIdfSamples, $samples, '', 0.001);
+        self::assertEqualsWithDelta($tfIdfSamples, $samples, 0.001);
     }
 }

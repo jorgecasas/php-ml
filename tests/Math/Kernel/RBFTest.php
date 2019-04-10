@@ -15,13 +15,13 @@ class RBFTest extends TestCase
         $rbf = new RBF($gamma = 0.001);
 
         self::assertEquals(1, $rbf->compute([1, 2], [1, 2]));
-        self::assertEquals(0.97336, $rbf->compute([1, 2, 3], [4, 5, 6]), '', $delta = 0.0001);
-        self::assertEquals(0.00011, $rbf->compute([4, 5], [1, 100]), '', $delta = 0.0001);
+        self::assertEqualsWithDelta(0.97336, $rbf->compute([1, 2, 3], [4, 5, 6]), $delta = 0.0001);
+        self::assertEqualsWithDelta(0.00011, $rbf->compute([4, 5], [1, 100]), $delta = 0.0001);
 
         $rbf = new RBF($gamma = 0.2);
 
         self::assertEquals(1, $rbf->compute([1, 2], [1, 2]));
-        self::assertEquals(0.00451, $rbf->compute([1, 2, 3], [4, 5, 6]), '', $delta = 0.0001);
+        self::assertEqualsWithDelta(0.00451, $rbf->compute([1, 2, 3], [4, 5, 6]), $delta = 0.0001);
         self::assertEquals(0, $rbf->compute([4, 5], [1, 100]));
     }
 

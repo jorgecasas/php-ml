@@ -8,8 +8,8 @@ use Phpml\NeuralNetwork\ActivationFunction;
 use Phpml\NeuralNetwork\Layer;
 use Phpml\NeuralNetwork\Network\LayeredNetwork;
 use Phpml\NeuralNetwork\Node\Input;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 class LayeredNetworkTest extends TestCase
 {
@@ -56,7 +56,7 @@ class LayeredNetworkTest extends TestCase
     }
 
     /**
-     * @return LayeredNetwork|PHPUnit_Framework_MockObject_MockObject
+     * @return LayeredNetwork|MockObject
      */
     private function getLayeredNetworkMock()
     {
@@ -64,7 +64,7 @@ class LayeredNetworkTest extends TestCase
     }
 
     /**
-     * @return ActivationFunction|PHPUnit_Framework_MockObject_MockObject
+     * @return ActivationFunction|MockObject
      */
     private function getActivationFunctionMock()
     {

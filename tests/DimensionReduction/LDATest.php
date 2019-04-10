@@ -51,7 +51,7 @@ class LDATest extends TestCase
             // absolute value of the values
             $row1 = array_map('abs', $row1);
             $row2 = array_map('abs', $row2);
-            self::assertEquals($row1, $row2, '', $epsilon);
+            self::assertEqualsWithDelta($row1, $row2, $epsilon);
         };
         array_map($check, $control, $transformed2);
 

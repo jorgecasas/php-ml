@@ -38,18 +38,18 @@ class CovarianceTest extends TestCase
 
         // Calculate only one covariance value: Cov(x, y)
         $cov1 = Covariance::fromDataset($matrix, 0, 0);
-        self::assertEquals($cov1, $knownCovariance[0][0], '', $epsilon);
+        self::assertEqualsWithDelta($cov1, $knownCovariance[0][0], $epsilon);
         $cov1 = Covariance::fromXYArrays($x, $x);
-        self::assertEquals($cov1, $knownCovariance[0][0], '', $epsilon);
+        self::assertEqualsWithDelta($cov1, $knownCovariance[0][0], $epsilon);
 
         $cov2 = Covariance::fromDataset($matrix, 0, 1);
-        self::assertEquals($cov2, $knownCovariance[0][1], '', $epsilon);
+        self::assertEqualsWithDelta($cov2, $knownCovariance[0][1], $epsilon);
         $cov2 = Covariance::fromXYArrays($x, $y);
-        self::assertEquals($cov2, $knownCovariance[0][1], '', $epsilon);
+        self::assertEqualsWithDelta($cov2, $knownCovariance[0][1], $epsilon);
 
         // Second: calculation cov matrix with automatic means for each column
         $covariance = Covariance::covarianceMatrix($matrix);
-        self::assertEquals($knownCovariance, $covariance, '', $epsilon);
+        self::assertEqualsWithDelta($knownCovariance, $covariance, $epsilon);
 
         // Thirdly, CovMatrix: Means are precalculated and given to the method
         $x = array_column($matrix, 0);
@@ -58,7 +58,7 @@ class CovarianceTest extends TestCase
         $meanY = Mean::arithmetic($y);
 
         $covariance = Covariance::covarianceMatrix($matrix, [$meanX, $meanY]);
-        self::assertEquals($knownCovariance, $covariance, '', $epsilon);
+        self::assertEqualsWithDelta($knownCovariance, $covariance, $epsilon);
     }
 
     public function testThrowExceptionOnEmptyX(): void

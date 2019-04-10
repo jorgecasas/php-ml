@@ -21,7 +21,7 @@ class LeastSquaresTest extends TestCase
         $regression = new LeastSquares();
         $regression->train($samples, $targets);
 
-        self::assertEquals(4.06, $regression->predict([64]), '', $delta);
+        self::assertEqualsWithDelta(4.06, $regression->predict([64]), $delta);
 
         //http://www.stat.wmich.edu/s216/book/node127.html
         $samples = [[9300], [10565], [15000], [15000], [17764], [57000], [65940], [73676], [77006], [93739], [146088], [153260]];
@@ -30,11 +30,11 @@ class LeastSquaresTest extends TestCase
         $regression = new LeastSquares();
         $regression->train($samples, $targets);
 
-        self::assertEquals(7659.35, $regression->predict([9300]), '', $delta);
-        self::assertEquals(5213.81, $regression->predict([57000]), '', $delta);
-        self::assertEquals(4188.13, $regression->predict([77006]), '', $delta);
-        self::assertEquals(7659.35, $regression->predict([9300]), '', $delta);
-        self::assertEquals(278.66, $regression->predict([153260]), '', $delta);
+        self::assertEqualsWithDelta(7659.35, $regression->predict([9300]), $delta);
+        self::assertEqualsWithDelta(5213.81, $regression->predict([57000]), $delta);
+        self::assertEqualsWithDelta(4188.13, $regression->predict([77006]), $delta);
+        self::assertEqualsWithDelta(7659.35, $regression->predict([9300]), $delta);
+        self::assertEqualsWithDelta(278.66, $regression->predict([153260]), $delta);
     }
 
     public function testPredictSingleFeatureSamplesWithMatrixTargets(): void
@@ -48,7 +48,7 @@ class LeastSquaresTest extends TestCase
         $regression = new LeastSquares();
         $regression->train($samples, $targets);
 
-        self::assertEquals(4.06, $regression->predict([64]), '', $delta);
+        self::assertEqualsWithDelta(4.06, $regression->predict([64]), $delta);
     }
 
     public function testPredictMultiFeaturesSamples(): void
@@ -62,10 +62,10 @@ class LeastSquaresTest extends TestCase
         $regression = new LeastSquares();
         $regression->train($samples, $targets);
 
-        self::assertEquals(-800614.957, $regression->getIntercept(), '', $delta);
-        self::assertEquals([-0.0327, 404.14], $regression->getCoefficients(), '', $delta);
-        self::assertEquals(4094.82, $regression->predict([60000, 1996]), '', $delta);
-        self::assertEquals(5711.40, $regression->predict([60000, 2000]), '', $delta);
+        self::assertEqualsWithDelta(-800614.957, $regression->getIntercept(), $delta);
+        self::assertEqualsWithDelta([-0.0327, 404.14], $regression->getCoefficients(), $delta);
+        self::assertEqualsWithDelta(4094.82, $regression->predict([60000, 1996]), $delta);
+        self::assertEqualsWithDelta(5711.40, $regression->predict([60000, 2000]), $delta);
     }
 
     public function testSaveAndRestore(): void

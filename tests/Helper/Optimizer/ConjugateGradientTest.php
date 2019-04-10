@@ -33,7 +33,7 @@ class ConjugateGradientTest extends TestCase
 
         $theta = $optimizer->runOptimization($samples, $targets, $callback);
 
-        self::assertEquals([-1, 2], $theta, '', 0.1);
+        self::assertEqualsWithDelta([-1, 2], $theta, 0.1);
     }
 
     public function testRunOptimizationWithCustomInitialTheta(): void
@@ -61,7 +61,7 @@ class ConjugateGradientTest extends TestCase
 
         $theta = $optimizer->runOptimization($samples, $targets, $callback);
 
-        self::assertEquals([-1.087708, 2.212034], $theta, '', 0.000001);
+        self::assertEqualsWithDelta([-1.087708, 2.212034], $theta, 0.000001);
     }
 
     public function testRunOptimization2Dim(): void
@@ -89,7 +89,7 @@ class ConjugateGradientTest extends TestCase
 
         $theta = $optimizer->runOptimization($samples, $targets, $callback);
 
-        self::assertEquals([-1, 2, -3], $theta, '', 0.1);
+        self::assertEqualsWithDelta([-1, 2, -3], $theta, 0.1);
     }
 
     public function testThrowExceptionOnInvalidTheta(): void

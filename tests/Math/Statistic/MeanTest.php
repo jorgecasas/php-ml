@@ -19,9 +19,9 @@ class MeanTest extends TestCase
     public function testArithmeticMean(): void
     {
         $delta = 0.01;
-        self::assertEquals(3.5, Mean::arithmetic([2, 5]), '', $delta);
-        self::assertEquals(41.16, Mean::arithmetic([43, 21, 25, 42, 57, 59]), '', $delta);
-        self::assertEquals(1.7, Mean::arithmetic([0.5, 0.5, 1.5, 2.5, 3.5]), '', $delta);
+        self::assertEqualsWithDelta(3.5, Mean::arithmetic([2, 5]), $delta);
+        self::assertEqualsWithDelta(41.16, Mean::arithmetic([43, 21, 25, 42, 57, 59]), $delta);
+        self::assertEqualsWithDelta(1.7, Mean::arithmetic([0.5, 0.5, 1.5, 2.5, 3.5]), $delta);
     }
 
     public function testMedianThrowExceptionOnEmptyArray(): void

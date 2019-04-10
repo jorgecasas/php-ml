@@ -115,7 +115,7 @@ class PipelineTest extends TestCase
         $pipeline = new Pipeline([$selector = new SelectKBest(2)], new SVC());
         $pipeline->train($samples, $targets);
 
-        self::assertEquals([1.47058823, 4.0, 3.0], $selector->scores(), '', 0.00000001);
+        self::assertEqualsWithDelta([1.47058823, 4.0, 3.0], $selector->scores(), 0.00000001);
         self::assertEquals(['b'], $pipeline->predict([[1, 3, 5]]));
     }
 

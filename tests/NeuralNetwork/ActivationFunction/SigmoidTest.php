@@ -18,7 +18,7 @@ class SigmoidTest extends TestCase
     {
         $sigmoid = new Sigmoid($beta);
 
-        self::assertEquals($expected, $sigmoid->compute($value), '', 0.001);
+        self::assertEqualsWithDelta($expected, $sigmoid->compute($value), 0.001);
     }
 
     public function sigmoidProvider(): array
@@ -42,7 +42,7 @@ class SigmoidTest extends TestCase
     {
         $sigmoid = new Sigmoid($beta);
         $activatedValue = $sigmoid->compute($value);
-        self::assertEquals($expected, $sigmoid->differentiate($value, $activatedValue), '', 0.001);
+        self::assertEqualsWithDelta($expected, $sigmoid->differentiate($value, $activatedValue), 0.001);
     }
 
     public function sigmoidDerivativeProvider(): array

@@ -18,7 +18,7 @@ class GaussianTest extends TestCase
     {
         $gaussian = new Gaussian();
 
-        self::assertEquals($expected, $gaussian->compute($value), '', 0.001);
+        self::assertEqualsWithDelta($expected, $gaussian->compute($value), 0.001);
     }
 
     public function gaussianProvider(): array
@@ -41,7 +41,7 @@ class GaussianTest extends TestCase
     {
         $gaussian = new Gaussian();
         $activatedValue = $gaussian->compute($value);
-        self::assertEquals($expected, $gaussian->differentiate($value, $activatedValue), '', 0.001);
+        self::assertEqualsWithDelta($expected, $gaussian->differentiate($value, $activatedValue), 0.001);
     }
 
     public function gaussianDerivativeProvider(): array

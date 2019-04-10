@@ -51,6 +51,6 @@ class AccuracyTest extends TestCase
 
         $expected = PHP_VERSION_ID >= 70100 ? 1 : 0.959;
 
-        self::assertEquals($expected, $accuracy, '', 0.01);
+        self::assertEqualsWithDelta($expected, $accuracy, 0.01);
     }
 }

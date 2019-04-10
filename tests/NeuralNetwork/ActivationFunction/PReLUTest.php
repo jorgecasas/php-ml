@@ -18,7 +18,7 @@ class PReLUTest extends TestCase
     {
         $prelu = new PReLU($beta);
 
-        self::assertEquals($expected, $prelu->compute($value), '', 0.001);
+        self::assertEqualsWithDelta($expected, $prelu->compute($value), 0.001);
     }
 
     public function preluProvider(): array

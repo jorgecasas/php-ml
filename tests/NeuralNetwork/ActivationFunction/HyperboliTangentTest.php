@@ -18,7 +18,7 @@ class HyperboliTangentTest extends TestCase
     {
         $tanh = new HyperbolicTangent($beta);
 
-        self::assertEquals($expected, $tanh->compute($value), '', 0.001);
+        self::assertEqualsWithDelta($expected, $tanh->compute($value), 0.001);
     }
 
     public function tanhProvider(): array
@@ -42,7 +42,7 @@ class HyperboliTangentTest extends TestCase
     {
         $tanh = new HyperbolicTangent($beta);
         $activatedValue = $tanh->compute($value);
-        self::assertEquals($expected, $tanh->differentiate($value, $activatedValue), '', 0.001);
+        self::assertEqualsWithDelta($expected, $tanh->differentiate($value, $activatedValue), 0.001);
     }
 
     public function tanhDerivativeProvider(): array

@@ -33,7 +33,7 @@ class NormalizerTest extends TestCase
         $normalizer = new Normalizer();
         $normalizer->transform($samples);
 
-        self::assertEquals($normalized, $samples, '', $delta = 0.01);
+        self::assertEqualsWithDelta($normalized, $samples, $delta = 0.01);
     }
 
     public function testNormalizeSamplesWithL1Norm(): void
@@ -53,7 +53,7 @@ class NormalizerTest extends TestCase
         $normalizer = new Normalizer(Normalizer::NORM_L1);
         $normalizer->transform($samples);
 
-        self::assertEquals($normalized, $samples, '', $delta = 0.01);
+        self::assertEqualsWithDelta($normalized, $samples, $delta = 0.01);
     }
 
     public function testFitNotChangeNormalizerBehavior(): void
@@ -73,11 +73,11 @@ class NormalizerTest extends TestCase
         $normalizer = new Normalizer();
         $normalizer->transform($samples);
 
-        self::assertEquals($normalized, $samples, '', $delta = 0.01);
+        self::assertEqualsWithDelta($normalized, $samples, $delta = 0.01);
 
         $normalizer->fit($samples);
 
-        self::assertEquals($normalized, $samples, '', $delta = 0.01);
+        self::assertEqualsWithDelta($normalized, $samples, $delta = 0.01);
     }
 
     public function testL1NormWithZeroSumCondition(): void
@@ -97,7 +97,7 @@ class NormalizerTest extends TestCase
         $normalizer = new Normalizer(Normalizer::NORM_L1);
         $normalizer->transform($samples);
 
-        self::assertEquals($normalized, $samples, '', $delta = 0.01);
+        self::assertEqualsWithDelta($normalized, $samples, $delta = 0.01);
     }
 
     public function testStandardNorm(): void

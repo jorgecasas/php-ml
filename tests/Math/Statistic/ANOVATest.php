@@ -19,7 +19,7 @@ final class ANOVATest extends TestCase
 
         $f = [1.47058824, 4.0, 3.0];
 
-        self::assertEquals($f, ANOVA::oneWayF($samples), '', 0.00000001);
+        self::assertEqualsWithDelta($f, ANOVA::oneWayF($samples), 0.00000001);
     }
 
     public function testOneWayFWithDifferingSizes(): void
@@ -29,7 +29,7 @@ final class ANOVATest extends TestCase
             [[1, 3, 3], [1, 3, 4]],
         ];
 
-        self::assertEquals([0.6, 2.4, 1.24615385], ANOVA::oneWayF($samples), '', 0.00000001);
+        self::assertEqualsWithDelta([0.6, 2.4, 1.24615385], ANOVA::oneWayF($samples), 0.00000001);
     }
 
     public function testThrowExceptionOnTooSmallSamples(): void

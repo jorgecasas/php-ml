@@ -59,8 +59,8 @@ SV
         );
         $svm->train($samples, $labels);
 
-        self::assertContains(PHP_EOL.'probA ', $svm->getModel());
-        self::assertContains(PHP_EOL.'probB ', $svm->getModel());
+        self::assertStringContainsString(PHP_EOL.'probA ', $svm->getModel());
+        self::assertStringContainsString(PHP_EOL.'probB ', $svm->getModel());
     }
 
     public function testPredictSampleWithLinearKernel(): void

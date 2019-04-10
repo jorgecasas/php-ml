@@ -15,10 +15,9 @@ final class ANOVAFValueTest extends TestCase
         $dataset = new IrisDataset();
         $function = new ANOVAFValue();
 
-        self::assertEquals(
+        self::assertEqualsWithDelta(
             [119.2645, 47.3644, 1179.0343, 959.3244],
             $function->score($dataset->getSamples(), $dataset->getTargets()),
-            '',
             0.0001
         );
     }

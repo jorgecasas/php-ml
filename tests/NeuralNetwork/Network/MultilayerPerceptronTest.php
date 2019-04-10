@@ -9,8 +9,8 @@ use Phpml\NeuralNetwork\ActivationFunction;
 use Phpml\NeuralNetwork\Layer;
 use Phpml\NeuralNetwork\Network\MultilayerPerceptron;
 use Phpml\NeuralNetwork\Node\Neuron;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 class MultilayerPerceptronTest extends TestCase
 {
@@ -106,7 +106,7 @@ class MultilayerPerceptronTest extends TestCase
     }
 
     /**
-     * @return ActivationFunction|PHPUnit_Framework_MockObject_MockObject
+     * @return ActivationFunction|MockObject
      */
     private function getActivationFunctionMock()
     {

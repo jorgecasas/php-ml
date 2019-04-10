@@ -32,7 +32,7 @@ class ImputerTest extends TestCase
         $imputer = new Imputer(null, new MeanStrategy(), Imputer::AXIS_COLUMN, $data);
         $imputer->transform($data);
 
-        self::assertEquals($imputeData, $data, '', $delta = 0.01);
+        self::assertEqualsWithDelta($imputeData, $data, $delta = 0.01);
     }
 
     public function testComplementsMissingValuesWithMeanStrategyOnRowAxis(): void
@@ -54,7 +54,7 @@ class ImputerTest extends TestCase
         $imputer = new Imputer(null, new MeanStrategy(), Imputer::AXIS_ROW, $data);
         $imputer->transform($data);
 
-        self::assertEquals($imputeData, $data, '', $delta = 0.01);
+        self::assertEqualsWithDelta($imputeData, $data, $delta = 0.01);
     }
 
     public function testComplementsMissingValuesWithMediaStrategyOnColumnAxis(): void
@@ -76,7 +76,7 @@ class ImputerTest extends TestCase
         $imputer = new Imputer(null, new MedianStrategy(), Imputer::AXIS_COLUMN, $data);
         $imputer->transform($data);
 
-        self::assertEquals($imputeData, $data, '', $delta = 0.01);
+        self::assertEqualsWithDelta($imputeData, $data, $delta = 0.01);
     }
 
     public function testComplementsMissingValuesWithMediaStrategyOnRowAxis(): void
@@ -98,7 +98,7 @@ class ImputerTest extends TestCase
         $imputer = new Imputer(null, new MedianStrategy(), Imputer::AXIS_ROW, $data);
         $imputer->transform($data);
 
-        self::assertEquals($imputeData, $data, '', $delta = 0.01);
+        self::assertEqualsWithDelta($imputeData, $data, $delta = 0.01);
     }
 
     public function testComplementsMissingValuesWithMostFrequentStrategyOnColumnAxis(): void
@@ -172,7 +172,7 @@ class ImputerTest extends TestCase
         $imputer = new Imputer(null, new MeanStrategy(), Imputer::AXIS_COLUMN, $trainData);
         $imputer->transform($data);
 
-        self::assertEquals($imputeData, $data, '', $delta = 0.01);
+        self::assertEqualsWithDelta($imputeData, $data, $delta = 0.01);
     }
 
     public function testThrowExceptionWhenTryingToTransformWithoutTrainSamples(): void
