@@ -55,14 +55,12 @@ class MultilayerPerceptronTest extends TestCase
             [5, [3], [0, 1], 1000, null, 0.42]
         );
 
-        self::assertEquals(0.42, self::readAttribute($mlp, 'learningRate'));
-        $backprop = self::readAttribute($mlp, 'backpropagation');
-        self::assertEquals(0.42, self::readAttribute($backprop, 'learningRate'));
+        self::assertEquals(0.42, $mlp->getLearningRate());
+        self::assertEquals(0.42, $mlp->getBackpropagation()->getLearningRate());
 
         $mlp->setLearningRate(0.24);
-        self::assertEquals(0.24, self::readAttribute($mlp, 'learningRate'));
-        $backprop = self::readAttribute($mlp, 'backpropagation');
-        self::assertEquals(0.24, self::readAttribute($backprop, 'learningRate'));
+        self::assertEquals(0.24, $mlp->getLearningRate());
+        self::assertEquals(0.24, $mlp->getBackpropagation()->getLearningRate());
     }
 
     public function testLearningRateSetterWithCustomActivationFunctions(): void
@@ -75,14 +73,12 @@ class MultilayerPerceptronTest extends TestCase
             [5, [[3, $activation_function], [5, $activation_function]], [0, 1], 1000, null, 0.42]
         );
 
-        self::assertEquals(0.42, self::readAttribute($mlp, 'learningRate'));
-        $backprop = self::readAttribute($mlp, 'backpropagation');
-        self::assertEquals(0.42, self::readAttribute($backprop, 'learningRate'));
+        self::assertEquals(0.42, $mlp->getLearningRate());
+        self::assertEquals(0.42, $mlp->getBackpropagation()->getLearningRate());
 
         $mlp->setLearningRate(0.24);
-        self::assertEquals(0.24, self::readAttribute($mlp, 'learningRate'));
-        $backprop = self::readAttribute($mlp, 'backpropagation');
-        self::assertEquals(0.24, self::readAttribute($backprop, 'learningRate'));
+        self::assertEquals(0.24, $mlp->getLearningRate());
+        self::assertEquals(0.24, $mlp->getBackpropagation()->getLearningRate());
     }
 
     public function testLearningRateSetterWithLayerObject(): void
@@ -95,14 +91,12 @@ class MultilayerPerceptronTest extends TestCase
             [5, [new Layer(3, Neuron::class, $activation_function), new Layer(5, Neuron::class, $activation_function)], [0, 1], 1000, null, 0.42]
         );
 
-        self::assertEquals(0.42, self::readAttribute($mlp, 'learningRate'));
-        $backprop = self::readAttribute($mlp, 'backpropagation');
-        self::assertEquals(0.42, self::readAttribute($backprop, 'learningRate'));
+        self::assertEquals(0.42, $mlp->getLearningRate());
+        self::assertEquals(0.42, $mlp->getBackpropagation()->getLearningRate());
 
         $mlp->setLearningRate(0.24);
-        self::assertEquals(0.24, self::readAttribute($mlp, 'learningRate'));
-        $backprop = self::readAttribute($mlp, 'backpropagation');
-        self::assertEquals(0.24, self::readAttribute($backprop, 'learningRate'));
+        self::assertEquals(0.24, $mlp->getLearningRate());
+        self::assertEquals(0.24, $mlp->getBackpropagation()->getLearningRate());
     }
 
     /**

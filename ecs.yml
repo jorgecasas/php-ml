@@ -18,7 +18,8 @@ services:
     PhpCsFixer\Fixer\Operator\BinaryOperatorSpacesFixer:
         align_double_arrow: false
         align_equals: false
-
+    PhpCsFixer\Fixer\PhpUnit\PhpUnitTestCaseStaticMethodCallsFixer:
+        call_type: 'self'
     # phpdoc
     PhpCsFixer\Fixer\Phpdoc\PhpdocSeparationFixer: ~
     PhpCsFixer\Fixer\Phpdoc\PhpdocAlignFixer: ~
