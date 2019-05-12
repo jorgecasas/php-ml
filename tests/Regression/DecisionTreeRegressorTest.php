@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpml\Tests\Regression;
 
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\Exception\InvalidOperationException;
 use Phpml\ModelManager;
 use Phpml\Regression\DecisionTreeRegressor;
@@ -43,6 +44,20 @@ class DecisionTreeRegressorTest extends TestCase
         $this->expectException(InvalidOperationException::class);
 
         $regression->predict([[1]]);
+    }
+
+    public function testMaxFeaturesLowerThanOne(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        new DecisionTreeRegressor(5, 3, 0.0, 0);
+    }
+
+    public function testToleranceSmallerThanZero(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        new DecisionTreeRegressor(5, 3, 0.0, 20, -1);
     }
 
     public function testSaveAndRestore(): void

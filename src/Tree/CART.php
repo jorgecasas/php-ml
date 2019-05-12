@@ -91,7 +91,7 @@ abstract class CART
 
             $depth++;
 
-            if ($left === [] || $right === []) {
+            if ($left[1] === [] || $right[1] === []) {
                 $node = $this->terminate(array_merge($left[1], $right[1]));
 
                 $current->attachLeft($node);

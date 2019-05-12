@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Phpml\Regression;
 
+use Phpml\Exception\InvalidArgumentException;
 use Phpml\Exception\InvalidOperationException;
 use Phpml\Math\Statistic\Mean;
 use Phpml\Math\Statistic\Variance;
@@ -28,6 +29,27 @@ final class DecisionTreeRegressor extends CART implements Regression
      * @var array
      */
     protected $columns = [];
+
+    public function __construct(
+        int $maxDepth = PHP_INT_MAX,
+        int $maxLeafSize = 3,
+        float $minPurityIncrease = 0.,
+        ?int $maxFeatures = null,
+        float $tolerance = 1e-4
+    ) {
+        if ($maxFeatures !== null && $maxFeatures < 1) {
+            throw new InvalidArgumentException('Max features must be greater than 0');
+        }
+
+        if ($tolerance < 0.) {
+            throw new InvalidArgumentException('Tolerance must be equal or greater than 0');
+        }
+
+        $this->maxFeatures = $maxFeatures;
+        $this->tolerance = $tolerance;
+
+        parent::__construct($maxDepth, $maxLeafSize, $minPurityIncrease);
+    }
 
     public function train(array $samples, array $targets): void
     {

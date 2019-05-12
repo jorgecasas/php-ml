@@ -79,6 +79,7 @@ Public datasets are available in a separate repository [php-ai/php-ml-datasets](
 * Regression
     * [Least Squares](http://php-ml.readthedocs.io/en/latest/machine-learning/regression/least-squares/)
     * [SVR](http://php-ml.readthedocs.io/en/latest/machine-learning/regression/svr/)
+    * DecisionTreeRegressor
 * Clustering
     * [k-Means](http://php-ml.readthedocs.io/en/latest/machine-learning/clustering/k-means/)
     * [DBSCAN](http://php-ml.readthedocs.io/en/latest/machine-learning/clustering/dbscan/)
@@ -87,6 +88,7 @@ Public datasets are available in a separate repository [php-ai/php-ml-datasets](
     * [Accuracy](http://php-ml.readthedocs.io/en/latest/machine-learning/metric/accuracy/)
     * [Confusion Matrix](http://php-ml.readthedocs.io/en/latest/machine-learning/metric/confusion-matrix/)
     * [Classification Report](http://php-ml.readthedocs.io/en/latest/machine-learning/metric/classification-report/)
+    * Regression
 * Workflow
     * [Pipeline](http://php-ml.readthedocs.io/en/latest/machine-learning/workflow/pipeline)
 * Neural Network
