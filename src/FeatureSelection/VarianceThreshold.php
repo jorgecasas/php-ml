@@ -48,7 +48,7 @@ final class VarianceThreshold implements Transformer
         }
     }
 
-    public function transform(array &$samples): void
+    public function transform(array &$samples, ?array &$targets = null): void
     {
         foreach ($samples as &$sample) {
             $sample = array_values(array_intersect_key($sample, $this->keepColumns));

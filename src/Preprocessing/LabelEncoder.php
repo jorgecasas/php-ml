@@ -22,7 +22,7 @@ final class LabelEncoder implements Preprocessor
         }
     }
 
-    public function transform(array &$samples): void
+    public function transform(array &$samples, ?array &$targets = null): void
     {
         foreach ($samples as &$sample) {
             $sample = $this->classes[(string) $sample];
