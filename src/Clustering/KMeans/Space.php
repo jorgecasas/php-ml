@@ -167,6 +167,10 @@ class Space extends SplObjectStorage
             foreach ($cluster as $point) {
                 $closest = $point->getClosest($clusters);
 
+                if ($closest === null) {
+                    continue;
+                }
+
                 if ($closest !== $cluster) {
                     $attach[$closest] ?? $attach[$closest] = new SplObjectStorage();
                     $detach[$cluster] ?? $detach[$cluster] = new SplObjectStorage();
