@@ -11,9 +11,9 @@ use Phpml\FeatureSelection\SelectKBest;
 use Phpml\ModelManager;
 use Phpml\Pipeline;
 use Phpml\Preprocessing\Imputer;
+use Phpml\Preprocessing\Imputer\Strategy\MeanStrategy;
 use Phpml\Preprocessing\Imputer\Strategy\MostFrequentStrategy;
 use Phpml\Preprocessing\Normalizer;
-use Phpml\Regression\SVR;
 use Phpml\Tokenization\WordTokenizer;
 use PHPUnit\Framework\TestCase;
 
@@ -29,16 +29,6 @@ class PipelineTest extends TestCase
         $pipeline = new Pipeline($transformers, $estimator);
 
         self::assertEquals($transformers, $pipeline->getTransformers());
-        self::assertEquals($estimator, $pipeline->getEstimator());
-    }
-
-    public function testPipelineEstimatorSetter(): void
-    {
-        $pipeline = new Pipeline([new TfIdfTransformer()], new SVC());
-
-        $estimator = new SVR();
-        $pipeline->setEstimator($estimator);
-
         self::assertEquals($estimator, $pipeline->getEstimator());
     }
 
@@ -117,6 +107,29 @@ class PipelineTest extends TestCase
 
         self::assertEqualsWithDelta([1.47058823, 4.0, 3.0], $selector->scores(), 0.00000001);
         self::assertEquals(['b'], $pipeline->predict([[1, 3, 5]]));
+    }
+
+    public function testPipelineAsTransformer(): void
+    {
+        $pipeline = new Pipeline([
+            new Imputer(null, new MeanStrategy()),
+        ]);
+
+        $trainSamples = [
+            [10, 20, 30],
+            [20, 30, 40],
+            [30, 40, 50],
+        ];
+
+        $pipeline->fit($trainSamples);
+
+        $testSamples = [
+            [null, null, null],
+        ];
+
+        $pipeline->transform($testSamples);
+
+        self::assertEquals([[20.0, 30.0, 40.0]], $testSamples);
     }
 
     public function testSaveAndRestore(): void

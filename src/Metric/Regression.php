@@ -28,7 +28,7 @@ final class Regression
 
         $errors = [];
         foreach ($targets as $index => $target) {
-            $errors[] = (log(1 + $target) - log(1 + $predictions[$index])) ** 2;
+            $errors[] = log((1 + $target) / (1 + $predictions[$index])) ** 2;
         }
 
         return Mean::arithmetic($errors);
