@@ -4,9 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.9.0] - Unreleased
 ### Added
 - [Preprocessing] Implement LabelEncoder
+- [Preprocessing] Implement ColumnFilter
+- [Preprocessing] Implement LambdaTransformer
+- [Preprocessing] Implement NumberConverter
+- [Preprocessing] Implement OneHotEncoder
+- [Workflow] Implement FeatureUnion
+- [Metric] Add Regression metrics: meanSquaredError, meanSquaredLogarithmicError, meanAbsoluteError, medianAbsoluteError, r2Score, maxError
+- [Regression] Implement DecisionTreeRegressor 
 
 ## [0.8.0] - 2019-03-20
 ### Added

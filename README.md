@@ -107,6 +107,7 @@ Public datasets are available in a separate repository [php-ai/php-ml-datasets](
     * LambdaTransformer
     * NumberConverter
     * ColumnFilter
+    * OneHotEncoder
 * Feature Extraction
     * [Token Count Vectorizer](http://php-ml.readthedocs.io/en/latest/machine-learning/feature-extraction/token-count-vectorizer/)
         * NGramTokenizer
