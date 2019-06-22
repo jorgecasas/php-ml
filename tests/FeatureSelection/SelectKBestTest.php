@@ -61,6 +61,48 @@ final class SelectKBestTest extends TestCase
         );
     }
 
+    public function testSelectKBestIssue386(): void
+    {
+        $samples = [
+            [
+                0.0006729998475705993,
+                0.0,
+                0.999999773507577,
+                0.0,
+                0.0,
+                6.66666515671718E-7,
+                3.33333257835859E-6,
+                6.66666515671718E-6,
+            ],
+            [
+                0.0006729998475849566,
+                0.0,
+                0.9999997735289103,
+                0.0,
+                0.0,
+                6.666665156859402E-7,
+                3.3333325784297012E-6,
+                1.3333330313718804E-6,
+            ],
+        ];
+
+        $targets = [15.5844, 4.45284];
+
+        $selector = new SelectKBest(2);
+        $selector->fit($samples, $targets);
+
+        self::assertEquals([
+            -2.117582368135751E-22,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0097419586828951E-28,
+            0.0,
+            1.4222215779620095E-11,
+        ], $selector->scores());
+    }
+
     public function testThrowExceptionOnEmptyTargets(): void
     {
         $this->expectException(InvalidArgumentException::class);

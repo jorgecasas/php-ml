@@ -45,6 +45,10 @@ final class ANOVA
             return $s / $dfbn;
         }, $ssbn);
         $msw = array_map(function ($s) use ($dfwn) {
+            if ($dfwn === 0) {
+                return 1;
+            }
+
             return $s / $dfwn;
         }, $sswn);
 
