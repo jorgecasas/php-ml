@@ -56,7 +56,7 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
 
 ## Features
 
-* Association rule Lerning
+* Association rule Learning
     * [Apriori](machine-learning/association/apriori.md)
 * Classification
     * [SVC](machine-learning/classification/svc.md)
