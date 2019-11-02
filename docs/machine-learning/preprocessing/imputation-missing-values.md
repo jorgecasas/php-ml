@@ -49,7 +49,7 @@ $data = [
 
 ```
 
-You can also use `$samples` constructer parameter instead of `fit` method:
+You can also use the `$samples` constructor parameter instead of the `fit` method:
 
 ```
 use Phpml\Preprocessing\Imputer;

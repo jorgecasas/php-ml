@@ -2,7 +2,7 @@
 
 Helper class that loads data from SVM-Light format file. It extends the `ArrayDataset`.
 
-### Constructors Parameters
+### Constructor Parameters
 
 * $filepath - (string) path to the file
 

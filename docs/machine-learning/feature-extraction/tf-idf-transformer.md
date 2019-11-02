@@ -19,7 +19,7 @@ $transformer = new TfIdfTransformer($samples);
 
 ### Transformation
 
-To transform a collection of text samples use `transform` method. Example:
+To transform a collection of text samples, use the `transform` method. Example:
 
 ```
 use Phpml\FeatureExtraction\TfIdfTransformer;
@@ -28,7 +28,7 @@ $samples = [
     [0 => 1, 1 => 1, 2 => 2, 3 => 1, 4 => 0, 5 => 0],
     [0 => 1, 1 => 1, 2 => 0, 3 => 0, 4 => 2, 5 => 3],
 ];
-        
+
 $transformer = new TfIdfTransformer($samples);
 $transformer->transform($samples);
 
@@ -38,5 +38,5 @@ $samples = [
    [0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0.602, 5 => 0.903],
 ];
 */
-        
+
 ```

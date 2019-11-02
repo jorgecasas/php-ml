@@ -39,8 +39,7 @@ $mlp = new MLPClassifier(4, [$layer1, $layer2], ['a', 'b', 'c']);
 
 ## Train
 
-To train a MLP simply provide train samples and labels (as array). Example:
-
+To train a MLP, simply provide train samples and labels (as array). Example:
 
 ```
 $mlp->train(
@@ -71,7 +70,7 @@ $mlp->setLearningRate(0.1);
 
 ## Predict
 
-To predict sample label use predict method. You can provide one sample or array of samples:
+To predict sample label use the `predict` method. You can provide one sample or array of samples:
 
 ```
 $mlp->predict([[1, 1, 1, 1], [0, 0, 0, 0]]);

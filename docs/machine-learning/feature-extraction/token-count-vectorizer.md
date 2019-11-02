@@ -16,7 +16,7 @@ $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer());
 
 ### Transformation
 
-To transform a collection of text samples use `transform` method. Example:
+To transform a collection of text samples, use the `transform` method. Example:
 
 ```
 $samples = [
@@ -42,7 +42,7 @@ $vectorizer->transform($samples);
 
 ### Vocabulary
 
-You can extract vocabulary using `getVocabulary()` method. Example:
+You can extract vocabulary using the `getVocabulary()` method. Example:
 
 ```
 $vectorizer->getVocabulary();

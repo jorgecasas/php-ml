@@ -2,7 +2,7 @@
 
 Helper class that loads dataset from files. Use folder names as targets. It extends the `ArrayDataset`.
 
-### Constructors Parameters
+### Constructor Parameters
 
 * $rootPath - (string) path to root folder that contains files dataset
 
@@ -42,7 +42,7 @@ data
         ...
 ```
 
-Load files data with `FilesDataset`: 
+Load files data with `FilesDataset`:
 
 ```
 use Phpml\Dataset\FilesDataset;

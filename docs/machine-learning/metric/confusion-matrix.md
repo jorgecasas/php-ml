@@ -1,6 +1,6 @@
 # Confusion Matrix
 
-Class for compute confusion matrix to evaluate the accuracy of a classification.
+Class for computing confusion matrix to evaluate the accuracy of a classification.
 
 ### Example (all targets)
 

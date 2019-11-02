@@ -7,7 +7,7 @@ Selected statistical methods.
 Correlation coefficients are used in statistics to measure how strong a relationship is between two variables. There are several types of correlation coefficient.
 
 ### Pearson correlation
- 
+
 Pearson’s correlation or Pearson correlation is a correlation coefficient commonly used in linear regression.
 
 Example:

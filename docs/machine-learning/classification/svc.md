@@ -21,7 +21,7 @@ $classifier = new SVC(Kernel::RBF, $cost = 1000, $degree = 3, $gamma = 6);
 
 ### Train
 
-To train a classifier simply provide train samples and labels (as `array`). Example:
+To train a classifier, simply provide train samples and labels (as `array`). Example:
 
 ```
 use Phpml\Classification\SVC;
@@ -38,7 +38,7 @@ You can train the classifier using multiple data sets, predictions will be based
 
 ### Predict
 
-To predict sample label use `predict` method. You can provide one sample or array of samples:
+To predict sample label use the `predict` method. You can provide one sample or array of samples:
 
 ```
 $classifier->predict([3, 2]);
@@ -74,7 +74,7 @@ $classifier = new SVC(
 $classifier->train($samples, $labels);
 ```
 
-Then use `predictProbability` method instead of `predict`:
+Then use the `predictProbability` method instead of `predict`:
 
 ```
 $classifier->predictProbability([3, 2]);

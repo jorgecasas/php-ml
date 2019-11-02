@@ -1,7 +1,7 @@
 # Variance Threshold
 
-`VarianceThreshold` is a simple baseline approach to feature selection. 
-It removes all features whose variance doesn’t meet some threshold. 
+`VarianceThreshold` is a simple baseline approach to feature selection.
+It removes all features whose variance doesn’t meet some threshold.
 By default, it removes all zero-variance features, i.e. features that have the same value in all samples.
 
 ## Constructor Parameters
@@ -16,10 +16,10 @@ $transformer = new VarianceThreshold(0.15);
 
 ## Example of use
 
-As an example, suppose that we have a dataset with boolean features and 
+As an example, suppose that we have a dataset with boolean features and
 we want to remove all features that are either one or zero (on or off)
-in more than 80% of the samples. 
-Boolean features are Bernoulli random variables, and the variance of such 
+in more than 80% of the samples.
+Boolean features are Bernoulli random variables, and the variance of such
 variables is given by
 ```
 Var[X] = p(1 - p)

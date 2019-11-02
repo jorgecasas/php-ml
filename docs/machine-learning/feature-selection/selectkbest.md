@@ -5,7 +5,7 @@
 ## Constructor Parameters
 
 * $k (int) - number of top features to select, rest will be removed (default: 10)
-* $scoringFunction (ScoringFunction) - function that take samples and targets and return array with scores (default: ANOVAFValue)
+* $scoringFunction (ScoringFunction) - function that takes samples and targets and returns an array with scores (default: ANOVAFValue)
 
 ```php
 use Phpml\FeatureSelection\SelectKBest;
@@ -27,13 +27,13 @@ $selector->fit($samples = $dataset->getSamples(), $dataset->getTargets());
 $selector->transform($samples);
 
 /*
-$samples[0] = [1.4, 0.2]; 
+$samples[0] = [1.4, 0.2];
 */
 ```
 
 ## Scores
 
-You can get a array with the calculated score for each feature. 
+You can get an array with the calculated score for each feature.
 A higher value means that a given feature is better suited for learning.
 Of course, the rating depends on the scoring function used.
 
@@ -56,7 +56,7 @@ $selector->scores();
   float(1179.0343277002)
   [3]=>
   float(959.32440572573)
-} 
+}
 */
 ```
 
@@ -70,11 +70,11 @@ For classification:
    The test is applied to samples from two or more groups, possibly with differing sizes.
 
 For regression:
- - **UnivariateLinearRegression**  
+ - **UnivariateLinearRegression**
    Quick linear model for testing the effect of a single regressor, sequentially for many regressors.
    This is done in 2 steps:
      - 1. The cross correlation between each regressor and the target is computed, that is, ((X[:, i] - mean(X[:, i])) * (y - mean_y)) / (std(X[:, i]) *std(y)).
-     - 2. It is converted to an F score 
+     - 2. It is converted to an F score
 
 ## Pipeline
 

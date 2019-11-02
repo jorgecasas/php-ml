@@ -21,7 +21,7 @@ $regression = new SVR(Kernel::LINEAR, $degree = 3, $epsilon=10.0);
 
 ### Train
 
-To train a model simply provide train samples and targets values (as `array`). Example:
+To train a model, simply provide train samples and targets values (as `array`). Example:
 
 ```
 use Phpml\Regression\SVR;
@@ -38,7 +38,7 @@ You can train the model using multiple data sets, predictions will be based on a
 
 ### Predict
 
-To predict sample target value use `predict` method. You can provide one sample or array of samples:
+To predict sample target value, use the `predict` method. You can provide one sample or array of samples:
 
 ```
 $regression->predict([64])

@@ -1,22 +1,22 @@
 # Stratified Random Split
 
-Analogously to `RandomSpilt` class samples are split to two groups: train group and test group.
+Analogously to `RandomSpilt` class, samples are split to two groups: train group and test group.
 Distribution of samples takes into account their targets and trying to divide them equally.
-You can adjust number of samples in each group.
+You can adjust the number of samples in each group.
 
 ### Constructor Parameters
 
 * $dataset - object that implements `Dataset` interface
 * $testSize - a fraction of test split (float, from 0 to 1, default: 0.3)
 * $seed - seed for random generator (e.g. for tests)
- 
+
 ```
 $split = new StratifiedRandomSplit($dataset, 0.2);
 ```
 
 ### Samples and labels groups
 
-To get samples or labels from test and train group you can use getters:
+To get samples or labels from test and train group, you can use getters:
 
 ```
 $dataset = new StratifiedRandomSplit($dataset, 0.3, 1234);
@@ -41,4 +41,4 @@ $dataset = new ArrayDataset(
 $split = new StratifiedRandomSplit($dataset, 0.5);
 ```
 
-Split will have equals amount of each target. Two of the target `a` and two of `b`.
+Split will have equal amounts of each target. Two of the target `a` and two of `b`.

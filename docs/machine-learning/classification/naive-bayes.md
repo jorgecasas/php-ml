@@ -4,7 +4,7 @@ Classifier based on applying Bayes' theorem with strong (naive) independence ass
 
 ### Train
 
-To train a classifier simply provide train samples and labels (as `array`). Example:
+To train a classifier, simply provide train samples and labels (as `array`). Example:
 
 ```
 $samples = [[5, 1, 1], [1, 5, 1], [1, 1, 5]];
@@ -18,7 +18,7 @@ You can train the classifier using multiple data sets, predictions will be based
 
 ### Predict
 
-To predict sample label use `predict` method. You can provide one sample or array of samples:
+To predict sample label use the `predict` method. You can provide one sample or array of samples:
 
 ```
 $classifier->predict([3, 1, 1]);

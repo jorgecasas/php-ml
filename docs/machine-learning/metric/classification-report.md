@@ -1,6 +1,6 @@
 # Classification Report
 
-Class for calculate main classifier metrics: precision, recall, F1 score and support.
+Class for calculating main classifier metrics: precision, recall, F1 score and support.
 
 ### Report
 

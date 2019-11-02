@@ -15,7 +15,7 @@ $associator = new Apriori($support = 0.5, $confidence = 0.5);
 
 ### Train
 
-To train a associator simply provide train samples and labels (as `array`). Example:
+To train an associator, simply provide train samples and labels (as `array`). Example:
 
 ```
 $samples = [['alpha', 'beta', 'epsilon'], ['alpha', 'beta', 'theta'], ['alpha', 'beta', 'epsilon'], ['alpha', 'beta', 'theta']];
@@ -31,7 +31,7 @@ You can train the associator using multiple data sets, predictions will be based
 
 ### Predict
 
-To predict sample label use `predict` method. You can provide one sample or array of samples:
+To predict sample label use the `predict` method. You can provide one sample or array of samples:
 
 ```
 $associator->predict(['alpha','theta']);
@@ -43,7 +43,7 @@ $associator->predict([['alpha','epsilon'],['beta','theta']]);
 
 ### Associating
 
-Get generated association rules simply use `rules` method.
+To get generated association rules, simply use the `rules` method.
 
 ```
 $associator->getRules();
@@ -52,7 +52,7 @@ $associator->getRules();
 
 ### Frequent item sets
 
-Generating k-length frequent item sets simply use `apriori` method.
+To generate k-length frequent item sets, simply use the `apriori` method.
 
 ```
 $associator->apriori();

@@ -5,13 +5,12 @@ In machine learning, it is common to run a sequence of algorithms to process and
     * Split each document’s text into tokens.
     * Convert each document’s words into a numerical feature vector ([Token Count Vectorizer](machine-learning/feature-extraction/token-count-vectorizer/)).
     * Learn a prediction model using the feature vectors and labels.
-    
-PHP-ML represents such a workflow as a Pipeline, which consists sequence of transformers and a estimator.
 
+PHP-ML represents such a workflow as a Pipeline, which consists of a sequence of transformers and an estimator.
 
 ### Constructor Parameters
 
-* $transformers (array|Transformer[]) - sequence of objects that implements Transformer interface
+* $transformers (array|Transformer[]) - sequence of objects that implements the Transformer interface
 * $estimator (Estimator) - estimator that can train and predict
 
 ```
@@ -29,7 +28,8 @@ $pipeline = new Pipeline($transformers, $estimator);
 
 ### Example
 
-First our pipeline replace missing value, then normalize samples and finally train SVC estimator. Thus prepared pipeline repeats each transformation step for predicted sample.
+First, our pipeline replaces the missing value, then normalizes samples and finally trains the SVC estimator.
+Thus prepared pipeline repeats each transformation step for predicted sample.
 
 ```
 use Phpml\Classification\SVC;

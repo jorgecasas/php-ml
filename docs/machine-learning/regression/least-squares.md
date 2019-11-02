@@ -1,10 +1,10 @@
 # LeastSquares Linear Regression
 
-Linear model that use least squares method to approximate solution. 
+Linear model that uses least squares method to approximate solution.
 
 ### Train
 
-To train a model simply provide train samples and targets values (as `array`). Example:
+To train a model, simply provide train samples and targets values (as `array`). Example:
 
 ```
 $samples = [[60], [61], [62], [63], [65]];
@@ -18,7 +18,7 @@ You can train the model using multiple data sets, predictions will be based on a
 
 ### Predict
 
-To predict sample target value use `predict` method with sample to check (as `array`). Example:
+To predict sample target value, use the `predict` method with sample to check (as `array`). Example:
 
 ```
 $regression->predict([64]);
@@ -27,8 +27,8 @@ $regression->predict([64]);
 
 ### Multiple Linear Regression
 
-The term multiple attached to linear regression means that there are two or more sample parameters used to predict target. 
-For example you can use: mileage and production year to predict price of a car.  
+The term multiple attached to linear regression means that there are two or more sample parameters used to predict target.
+For example you can use: mileage and production year to predict the price of a car.
 
 ```
 $samples = [[73676, 1996], [77006, 1998], [10565, 2000], [146088, 1995], [15000, 2001], [65940, 2000], [9300, 2000], [93739, 1996], [153260, 1994], [17764, 2002], [57000, 1998], [15000, 2000]];
@@ -42,7 +42,7 @@ $regression->predict([60000, 1996])
 
 ### Intercept and Coefficients
 
-After you train your model you can get the intercept and coefficients array.
+After you train your model, you can get the intercept and coefficients array.
 
 ```
 $regression->getIntercept();
