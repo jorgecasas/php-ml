@@ -41,11 +41,9 @@ class SynapseTest extends TestCase
     }
 
     /**
-     * @param int|float $output
-     *
      * @return Neuron|MockObject
      */
-    private function getNodeMock($output = 1)
+    private function getNodeMock(float $output = 1.)
     {
         $node = $this->getMockBuilder(Neuron::class)->getMock();
         $node->method('getOutput')->willReturn($output);

@@ -1,8 +1,8 @@
 imports:
-    - { resource: 'vendor/symplify/easy-coding-standard/config/psr2.yml' }
-    - { resource: 'vendor/symplify/easy-coding-standard/config/php71.yml' }
-    - { resource: 'vendor/symplify/easy-coding-standard/config/clean-code.yml' }
-    - { resource: 'vendor/symplify/easy-coding-standard/config/common.yml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/set/psr2.yaml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/set/php71.yaml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/set/clean-code.yaml' }
+    - { resource: 'vendor/symplify/easy-coding-standard/config/set/common.yaml' }
 
 services:
     # spacing

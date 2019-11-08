@@ -32,8 +32,8 @@ class ModelManager
             throw new FileException(sprintf('File "%s" cannot be opened.', basename($filepath)));
         }
 
-        $object = unserialize((string) file_get_contents($filepath), [Estimator::class]);
-        if ($object === false) {
+        $object = unserialize((string) file_get_contents($filepath));
+        if ($object === false || !$object instanceof Estimator) {
             throw new SerializeException(sprintf('"%s" cannot be unserialized.', basename($filepath)));
         }
 

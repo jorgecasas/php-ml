@@ -61,6 +61,10 @@ class RandomForestTest extends BaggingTest
 
     protected function getAvailableBaseClassifiers(): array
     {
-        return [DecisionTree::class => ['depth' => 5]];
+        return [
+            DecisionTree::class => [
+                'depth' => 5,
+            ],
+        ];
     }
 }

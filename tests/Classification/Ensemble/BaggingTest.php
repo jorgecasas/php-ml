@@ -121,7 +121,9 @@ class BaggingTest extends TestCase
     protected function getAvailableBaseClassifiers(): array
     {
         return [
-            DecisionTree::class => ['depth' => 5],
+            DecisionTree::class => [
+                'depth' => 5,
+            ],
             NaiveBayes::class => [],
         ];
     }

@@ -56,7 +56,7 @@ class NeuronTest extends TestCase
     /**
      * @return Synapse|MockObject
      */
-    private function getSynapseMock(int $output = 2)
+    private function getSynapseMock(float $output = 2.)
     {
         $synapse = $this->getMockBuilder(Synapse::class)->disableOriginalConstructor()->getMock();
         $synapse->method('getOutput')->willReturn($output);

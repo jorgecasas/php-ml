@@ -23,13 +23,12 @@
         "php": "^7.2"
     },
     "require-dev": {
-        "phpbench/phpbench": "^0.14.0",
+        "phpbench/phpbench": "^0.16.0",
         "phpstan/phpstan-phpunit": "^0.11",
         "phpstan/phpstan-shim": "^0.11",
         "phpstan/phpstan-strict-rules": "^0.11",
         "phpunit/phpunit": "^8.0",
-        "symplify/coding-standard": "^5.1",
-        "symplify/easy-coding-standard": "^5.1"
+        "symplify/easy-coding-standard": "^6.0"
     },
     "config": {
         "preferred-install": "dist",
