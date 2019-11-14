@@ -44,7 +44,7 @@ To find out how to use PHP-ML follow [Documentation](http://php-ml.readthedocs.o
 
 ## Installation
 
-Currently this library is in the process of developing, but You can install it with Composer:
+This library is still in beta. However, it can be installed with Composer:
 
 ```
 composer require php-ai/php-ml
