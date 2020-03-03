@@ -126,7 +126,7 @@ class Matrix
     public function transpose(): self
     {
         if ($this->rows === 1) {
-            $matrix = array_map(function ($el) {
+            $matrix = array_map(static function ($el): array {
                 return [$el];
             }, $this->matrix[0]);
         } else {

@@ -42,7 +42,7 @@ class PCATest extends TestCase
         // during the calculation of eigenValues, we have to compare
         // absolute value of the values
         array_map(function ($val1, $val2) use ($epsilon): void {
-            self::assertEqualsWithDelta(abs($val1), abs($val2), $epsilon);
+            self::assertEqualsWithDelta(abs($val1[0]), abs($val2[0]), $epsilon);
         }, $transformed, $reducedData);
 
         // Test fitted PCA object to transform an arbitrary sample of the
@@ -52,7 +52,7 @@ class PCATest extends TestCase
             $newRow2 = $pca->transform($row);
 
             array_map(function ($val1, $val2) use ($epsilon): void {
-                self::assertEqualsWithDelta(abs($val1), abs($val2), $epsilon);
+                self::assertEqualsWithDelta(abs($val1[0][0]), abs($val2[0]), $epsilon);
             }, $newRow, $newRow2);
         }
     }

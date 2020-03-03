@@ -40,7 +40,7 @@ class KernelPCATest extends TestCase
         // during the calculation of eigenValues, we have to compare
         // absolute value of the values
         array_map(function ($val1, $val2) use ($epsilon): void {
-            self::assertEqualsWithDelta(abs($val1), abs($val2), $epsilon);
+            self::assertEqualsWithDelta(abs($val1[0]), abs($val2[0]), $epsilon);
         }, $transformed, $reducedData);
 
         // Fitted KernelPCA object can also transform an arbitrary sample of the

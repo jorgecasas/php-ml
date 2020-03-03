@@ -61,11 +61,11 @@ class Pipeline implements Estimator, Transformer
      */
     public function predict(array $samples)
     {
+        $this->transform($samples);
+
         if ($this->estimator === null) {
             throw new InvalidOperationException('Pipeline without estimator can\'t use predict method');
         }
-
-        $this->transform($samples);
 
         return $this->estimator->predict($samples);
     }

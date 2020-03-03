@@ -121,7 +121,7 @@ final class DecisionTreeRegressor extends CART implements Regression
 
     protected function splitImpurity(array $groups): float
     {
-        $samplesCount = (int) array_sum(array_map(static function (array $group) {
+        $samplesCount = (int) array_sum(array_map(static function (array $group): int {
             return count($group[0]);
         }, $groups));
 

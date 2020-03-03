@@ -20,7 +20,7 @@ class GDTest extends TestCase
             $targets[] = -1 + 2 * $x;
         }
 
-        $callback = function ($theta, $sample, $target) {
+        $callback = static function ($theta, $sample, $target): array {
             $y = $theta[0] + $theta[1] * $sample[0];
             $cost = (($y - $target) ** 2) / 2;
             $grad = $y - $target;
@@ -47,7 +47,7 @@ class GDTest extends TestCase
             $targets[] = -1 + 2 * $x0 - 3 * $x1;
         }
 
-        $callback = function ($theta, $sample, $target) {
+        $callback = static function ($theta, $sample, $target): array {
             $y = $theta[0] + $theta[1] * $sample[0] + $theta[2] * $sample[1];
             $cost = (($y - $target) ** 2) / 2;
             $grad = $y - $target;

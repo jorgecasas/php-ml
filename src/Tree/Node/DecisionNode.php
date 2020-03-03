@@ -50,7 +50,7 @@ class DecisionNode extends BinaryNode implements PurityNode
         $this->value = $value;
         $this->groups = $groups;
         $this->impurity = $impurity;
-        $this->samplesCount = (int) array_sum(array_map(function (array $group) {
+        $this->samplesCount = (int) array_sum(array_map(static function (array $group): int {
             return count($group[0]);
         }, $groups));
     }

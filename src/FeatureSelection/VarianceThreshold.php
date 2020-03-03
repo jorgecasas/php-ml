@@ -37,7 +37,7 @@ final class VarianceThreshold implements Transformer
 
     public function fit(array $samples, ?array $targets = null): void
     {
-        $this->variances = array_map(function (array $column) {
+        $this->variances = array_map(static function (array $column): float {
             return Variance::population($column);
         }, Matrix::transposeArray($samples));
 

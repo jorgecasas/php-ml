@@ -139,7 +139,7 @@ class FuzzyCMeans implements Clusterer
                 $total += $val;
             }
 
-            $this->membership[] = array_map(function ($val) use ($total) {
+            $this->membership[] = array_map(static function ($val) use ($total): float {
                 return $val / $total;
             }, $row);
         }

@@ -126,7 +126,7 @@ class NormalizerTest extends TestCase
         foreach ($samples as $sample) {
             $errors = array_filter(
                 $sample,
-                function ($element) {
+                function ($element): bool {
                     return $element < -3 || $element > 3;
                 }
             );
