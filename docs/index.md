@@ -108,18 +108,5 @@ Example scripts are available in a separate repository [php-ai/php-ml-examples](
     * [Statistic](math/statistic.md)
 
 
-## Contribute
-
-- Guide: [CONTRIBUTING.md](https://github.com/php-ai/php-ml/blob/master/CONTRIBUTING.md)
-- Issue Tracker: [github.com/php-ai/php-ml/issues](https://github.com/php-ai/php-ml/issues)
-- Source Code: [github.com/php-ai/php-ml](https://github.com/php-ai/php-ml)
-
-You can find more about contributing in [CONTRIBUTING.md](../CONTRIBUTING.md).
-
-## License
-
-PHP-ML is released under the MIT Licence. See the bundled LICENSE file for details.
-
-## Author
-
+## 
 Arkadiusz Kondas (@ArkadiuszKondas)
