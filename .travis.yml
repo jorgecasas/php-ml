@@ -1,5 +1,38 @@
 language: php
-php:
-  - '7.0'
-before_script: composer install
-script: bin/phpunit
+
+matrix:
+  fast_finish: true
+
+  include:
+    - os: linux
+      php: '7.2'
+      env: PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml" DISABLE_XDEBUG="true" STATIC_ANALYSIS="true"
+
+    - os: linux
+      php: '7.3'
+
+    - os: linux
+      php: '7.4'
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+before_install:
+  - if [[ $DISABLE_XDEBUG == "true" ]]; then phpenv config-rm xdebug.ini; fi
+
+install:
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install --no-interaction --ignore-platform-reqs
+
+script:
+  - vendor/bin/phpunit $PHPUNIT_FLAGS
+  - if [[ $STATIC_ANALYSIS != "" ]]; then composer check-cs; fi
+  - if [[ $STATIC_ANALYSIS != "" ]]; then composer phpstan; fi
+
+after_success:
+  - |
+    if [[ $PHPUNIT_FLAGS != "" ]]; then
+      wget https://github.com/php-coveralls/php-coveralls/releases/download/v2.0.0/php-coveralls.phar
+      php php-coveralls.phar --verbose;
+    fi
