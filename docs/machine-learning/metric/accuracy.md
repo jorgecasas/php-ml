@@ -1,10 +1,10 @@
 # Accuracy
 
-Class for calculate classifier accuracy.
+Class for calculating classifier accuracy.
 
 ### Score
 
-To calculate classifier accuracy score use `score` static method. Parameters:
+To calculate classifier accuracy score, use the `score` static method. Parameters:
 
 * $actualLabels - (array) true sample labels
 * $predictedLabels - (array) predicted labels (e.x. from test group)

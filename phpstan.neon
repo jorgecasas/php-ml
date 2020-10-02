@@ -1,0 +1,21 @@
+includes:
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+
+parameters:
+    checkGenericClassInNonGenericObjectType: false
+    checkMissingIterableValueType: false
+
+    ignoreErrors:
+        - '#Property Phpml\\Clustering\\KMeans\\Cluster\:\:\$points \(iterable\<Phpml\\Clustering\\KMeans\\Point\>\&SplObjectStorage\) does not accept SplObjectStorage#'
+        - '#Phpml\\Dataset\\(.*)Dataset::__construct\(\) does not call parent constructor from Phpml\\Dataset\\ArrayDataset#'
+        - '#Variable property access on .+#'
+        - '#Variable method call on .+#'
+        - message: '#ReflectionClass#'
+          paths:
+            - src/Classification/Ensemble/AdaBoost.php
+            - src/Classification/Ensemble/Bagging.php
+        # probably known value
+        - '#Method Phpml\\Classification\\DecisionTree::getBestSplit\(\) should return Phpml\\Classification\\DecisionTree\\DecisionTreeLeaf but returns Phpml\\Classification\\DecisionTree\\DecisionTreeLeaf\|null#'
+        - '#Call to an undefined method Phpml\\Helper\\Optimizer\\Optimizer::getCostValues\(\)#'

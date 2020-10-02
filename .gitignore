@@ -1,3 +1,5 @@
 /vendor/
-humbuglog.*
-/bin/phpunit
+/build
+/tests/Performance/Data/*.csv
+.php_cs.cache
+.phpunit.result.cache

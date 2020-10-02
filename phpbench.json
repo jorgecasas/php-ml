@@ -1,0 +1,17 @@
+{
+  "bootstrap": "tests/Performance/bootstrap.php",
+  "path": "tests/Performance",
+  "reports": {
+    "time": {
+      "extends": "aggregate",
+      "title": "The Consumation of Time",
+      "cols": [ "subject", "mode", "mean", "rstdev", "diff"]
+    },
+    "memory": {
+      "extends": "aggregate",
+      "title": "The Memory Usage",
+      "cols": [ "subject", "mem_real", "mem_final", "mem_peak", "diff"],
+      "diff_col": "mem_peak"
+    }
+  }
+}

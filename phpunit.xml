@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
         colors="true"
         beStrictAboutTestsThatDoNotTestAnything="true"
         beStrictAboutOutputDuringTests="true"
-        beStrictAboutTestSize="true"
         beStrictAboutChangesToGlobalState="true"
 >
-    <testsuites>
-        <testsuite name="PHP-ML Test Suite">
-            <directory>tests/*</directory>
-        </testsuite>
-    </testsuites>​
+    <testsuite name="PHP-ML Test Suite">
+        <directory>tests</directory>
+    </testsuite>
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
+
+    <php>
+        <ini name="error_reporting" value="E_ALL" />
+    </php>
 
 </phpunit>
