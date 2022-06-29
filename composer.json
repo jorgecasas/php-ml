@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": "^7.2"
+        "php": ">=7.2"
     },
     "require-dev": {
         "phpbench/phpbench": "^0.16.0",
